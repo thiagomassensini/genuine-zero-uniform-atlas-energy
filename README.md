@@ -1,0 +1,176 @@
+# Genuine Zero Uniform Atlas Energy
+
+Lean 4 formalization of one positional carry geometry, one native/Genuine zero,
+and one optimal energy budget over the complete tower of finite prime atlases.
+
+The construction starts before any zero is considered. At real phase time
+`t`, the native positional wave is
+
+$$
+u_t(n)
+=
+n^{-1/2}
+\bigl(\cos(-t\log n),\sin(-t\log n)\bigr).
+$$
+
+Lean proves its quadratic energy directly:
+
+$$
+\lVert u_t(n)\rVert^2=n^{-1}.
+$$
+
+More generally, for every positional base `b > 1`, positive depth `k`, and
+arbitrary real rotation angle, Lean checks the exact rigidity theorem
+
+$$
+\text{quadratic shell energy}=b^{-k}
+\quad\Longleftrightarrow\quad
+\sigma=\frac12.
+$$
+
+Thus the amplitude `n^(-1/2)` is the square-root realization of inverse carry
+mass. The real coordinate pair and its complex notation represent the same
+quantity; complex packaging preserves every finite camera computation.
+
+## One computation and one zero
+
+For every finite cutoff, Lean proves that packaging the real native resultant
+produces literally the Genuine finite Dirichlet chart:
+
+$$
+\operatorname{pack}
+\bigl(\operatorname{NativeChart}_{3,M}(t)\bigr)
+=
+\operatorname{GenuineChart}_{3,M}\left(\frac12+it\right).
+$$
+
+Passing through the already-proved common limit gives
+
+$$
+\boxed{
+\operatorname{NativeBoundaryCloses}_3(t)
+\iff
+\operatorname{Genuine}\left(\frac12+it\right)=0.
+}
+$$
+
+This is the same vanishing computation written in real-pair and
+complex-coordinate notation.
+
+## One uniform atlas-energy budget
+
+For a cutoff `M` and finite prime atlas `S`, define the native seeded TFVD
+radial-defect energy
+
+$$
+E_{M,S}(t)
+=
+\sum_{p\in S}
+\frac{\mathcal O_{p,M}(\frac12+it)^2}{p-1}.
+$$
+
+The observable contains the transverse factor
+
+$$
+p^{\delta}-p^{-\delta},
+\qquad
+\delta=\operatorname{Re}\left(\frac12+it\right)-\frac12=0.
+$$
+
+Consequently Lean proves, at every time and before assuming a zero,
+
+$$
+\boxed{
+\forall M,\ \forall S,
+\qquad E_{M,S}(t)=0.
+}
+$$
+
+A real number `C` is a uniform budget when it bounds every positive cutoff and
+every finite atlas. Lean then proves
+
+$$
+C\text{ is a uniform budget}
+\iff
+C\ge0,
+$$
+
+and
+
+$$
+C\text{ is the optimal budget}
+\iff
+C=0.
+$$
+
+Hence the optimal budget exists uniquely. A common native/Genuine zero
+inherits that structural budget; the zero does not create it or select the
+quadratic amplitude.
+
+The zero value here belongs to the **radial-defect ledger**. The underlying
+native wave has energy `n⁻¹`; it is the deviation from that native quadratic
+geometry that vanishes.
+
+## Consolidation theorem
+
+The public capstone is
+`zeroIdentity_with_uniqueUniformAtlasEnergyBudget`. For every real time, it
+packages both results:
+
+$$
+\left(
+\operatorname{NativeZero}(t)
+\iff
+\operatorname{Genuine}\left(\frac12+it\right)=0
+\right)
+\quad\land\quad
+\exists!C,\ C\text{ is the optimal full-atlas budget}.
+$$
+
+No functional equation, famous-function symmetry, primality hypothesis on the
+positional base, or alternative number system selects `1/2`. Its provenance is
+the quadratic carry amplitude itself.
+
+See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
+map](docs/THEOREM_MAP.md), [the conceptual audit](docs/CONCEPTUAL_AUDIT.md),
+and [the exact source lock](docs/SOURCE_PROVENANCE.md).
+
+## Reproducible dependency lock
+
+The project pins:
+
+- Lean `v4.32.0`;
+- Mathlib `v4.32.0`, resolved to the exact commit in `lake-manifest.json`;
+- [`thiagomassensini/primos`](https://github.com/thiagomassensini/primos)
+  (`CPFormal`) at commit
+  [`0c64a8366ded96a3242cbe0888c55144442c570b`](https://github.com/thiagomassensini/primos/commit/0c64a8366ded96a3242cbe0888c55144442c570b).
+
+## Build and audit
+
+```bash
+lake exe cache get
+lake build --wfail GenuineZeroUniformAtlasEnergy
+lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
+./scripts/audit.sh
+```
+
+The audit rejects local `sorry`, `admit`, `axiom`, and `unsafe` declarations,
+cross-checks every theorem and claim, validates GitHub Markdown and publication
+metadata, and accepts only `propext`, `Classical.choice`, and `Quot.sound` in
+the kernel dependency reports.
+
+## Repository layout
+
+- `NativeGeometry.lean`: native parameter, quadratic energy, finite-chart
+  identity, and exact zero identity;
+- `Budget.lean`: full cutoff-atlas energy and unique optimal budget;
+- `Capstone.lean`: common-zero corollaries and consolidation theorem;
+- `Audit.lean`: ordered kernel dependency reports;
+- `audit/`: theorem registry and claim ledger;
+- `docs/`: mathematical scope, theorem map, provenance, and conceptual audit.
+
+## License and citation
+
+The local consolidation is released under Apache-2.0. Citation and planned
+Zenodo metadata are provided in [`CITATION.cff`](CITATION.cff) and
+[`.zenodo.json`](.zenodo.json).

@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite the versioned software release."
+title: "Genuine Zero Uniform Atlas Energy"
+type: software
+authors:
+  - family-names: Massensini
+    given-names: Thiago
+license: Apache-2.0
+version: 0.2.0
+date-released: 2026-08-12
+abstract: >-
+  A Lean 4 formalization of the exact identity between the native real-camera
+  and Genuine zero, together with the unique optimal seeded TFVD radial-defect
+  energy budget over every positive cutoff and finite prime atlas.
+keywords:
+  - Lean 4
+  - formalized mathematics
+  - Genuine continuation
+  - carry geometry
+  - TFVD
+  - Green identity
+  - Bessel energy
+  - uniform atlas
+  - critical half-abscissa
+  - reproducible proof audit

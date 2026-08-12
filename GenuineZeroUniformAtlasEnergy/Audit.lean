@@ -1,0 +1,26 @@
+import GenuineZeroUniformAtlasEnergy
+
+/-!
+# Ordered kernel dependency audit
+
+One `#print axioms` command is recorded for every public theorem introduced by
+this repository.  CI checks this order against the theorem registry.
+-/
+
+#print axioms GenuineZeroUniformAtlasEnergy.quadraticCarryShell_energy_eq_mass_iff
+#print axioms GenuineZeroUniformAtlasEnergy.nativeParameter_re
+#print axioms GenuineZeroUniformAtlasEnergy.nativeParameter_im
+#print axioms GenuineZeroUniformAtlasEnergy.nativeParameter_mem_genuineCriticalStrip
+#print axioms GenuineZeroUniformAtlasEnergy.nativeAmplitude_energy_eq_inverseCarryMass
+#print axioms GenuineZeroUniformAtlasEnergy.packagedNativeFiniteChart_eq_genuineFiniteChart
+#print axioms GenuineZeroUniformAtlasEnergy.nativeZero_iff_genuineZero
+#print axioms GenuineZeroUniformAtlasEnergy.nativeAtlasEnergy_eq_zero
+#print axioms GenuineZeroUniformAtlasEnergy.uniformAtlasEnergyBudget_nonneg
+#print axioms GenuineZeroUniformAtlasEnergy.isUniformAtlasEnergyBudget_iff_nonneg
+#print axioms GenuineZeroUniformAtlasEnergy.zero_isOptimalAtlasEnergyBudget
+#print axioms GenuineZeroUniformAtlasEnergy.optimalAtlasEnergyBudget_unique
+#print axioms GenuineZeroUniformAtlasEnergy.isOptimalAtlasEnergyBudget_iff_eq_zero
+#print axioms GenuineZeroUniformAtlasEnergy.existsUnique_optimalAtlasEnergyBudget
+#print axioms GenuineZeroUniformAtlasEnergy.genuineZero_hasUniqueUniformAtlasEnergyBudget
+#print axioms GenuineZeroUniformAtlasEnergy.nativeZero_hasUniqueUniformAtlasEnergyBudget
+#print axioms GenuineZeroUniformAtlasEnergy.zeroIdentity_with_uniqueUniformAtlasEnergyBudget

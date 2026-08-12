@@ -1,0 +1,56 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
+  "release": "0.2.0",
+  "registry_count": 17,
+  "count": 4,
+  "status_counts": {
+    "KERNEL_CHECKED": 4
+  },
+  "claims": [
+    {
+      "id": "GZUAE-GEO-001",
+      "claim": "The native parameter has radial coordinate one-half and arbitrary real phase time, lies in the Genuine strip, and its quadratic amplitude energy is exactly inverse carry mass",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-001",
+        "GZUAE-002",
+        "GZUAE-003",
+        "GZUAE-004",
+        "GZUAE-005"
+      ]
+    },
+    {
+      "id": "GZUAE-ZER-001",
+      "claim": "The packaged native real camera and Genuine finite chart are literally equal at every cutoff, and their limit vanishing predicates are exactly equivalent",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-006",
+        "GZUAE-007"
+      ]
+    },
+    {
+      "id": "GZUAE-BUD-001",
+      "claim": "Every native seeded TFVD radial-defect energy vanishes over every cutoff and finite prime atlas; uniform budgets are exactly the nonnegative reals and the unique optimal budget is zero",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-008",
+        "GZUAE-009",
+        "GZUAE-010",
+        "GZUAE-011",
+        "GZUAE-012",
+        "GZUAE-013",
+        "GZUAE-014"
+      ]
+    },
+    {
+      "id": "GZUAE-CAP-001",
+      "claim": "The common native and Genuine zero inherits the same already-existing unique optimal budget, and one capstone records zero identity and budget uniqueness together",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-015",
+        "GZUAE-016",
+        "GZUAE-017"
+      ]
+    }
+  ]
+}

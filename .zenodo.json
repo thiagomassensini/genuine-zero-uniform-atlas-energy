@@ -1,0 +1,35 @@
+{
+  "title": "Genuine Zero Uniform Atlas Energy",
+  "description": "Lean 4 formalization of the exact identity between the native real-camera and Genuine zero, together with the unique optimal seeded TFVD radial-defect energy budget over all positive cutoffs and finite prime atlases.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "version": "0.2.0",
+  "publication_date": "2026-08-12",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Massensini, Thiago"
+    }
+  ],
+  "keywords": [
+    "Lean 4",
+    "formalized mathematics",
+    "Genuine continuation",
+    "carry geometry",
+    "TFVD",
+    "Green identity",
+    "Bessel energy",
+    "uniform atlas",
+    "critical half-abscissa",
+    "reproducible proof audit"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/thiagomassensini/primos/tree/0c64a8366ded96a3242cbe0888c55144442c570b",
+      "relation": "isDerivedFrom",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ]
+}

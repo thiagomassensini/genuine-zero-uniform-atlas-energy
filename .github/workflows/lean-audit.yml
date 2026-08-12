@@ -1,0 +1,66 @@
+name: Lean theorem audit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AUDITED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+concurrency:
+  group: genuine-zero-atlas-energy-${{ github.event_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  audit:
+    name: Exact-checkout Lean theorem audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out the exact audited commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ env.AUDITED_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Reject a synthetic or dirty checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$AUDITED_SHA"
+          test -z "$(git status --porcelain --untracked-files=all)"
+
+      - name: Run static source and publication audit
+        run: bash scripts/static_audit.sh
+
+      - name: Set up pinned Lean and Mathlib cache
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          build: false
+          test: false
+          lint: false
+          use-github-cache: true
+          use-mathlib-cache: true
+
+      - name: Build public library with warnings as errors
+        run: lake build --wfail GenuineZeroUniformAtlasEnergy
+
+      - name: Build ordered kernel dependency audit
+        run: lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
+
+      - name: Check foundational dependency allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean GenuineZeroUniformAtlasEnergy/Audit.lean 2>&1 \
+            | tee /tmp/genuine-zero-uniform-atlas-energy-axioms.txt
+          python3 scripts/check_axiom_output.py \
+            /tmp/genuine-zero-uniform-atlas-energy-axioms.txt

@@ -1,0 +1,10 @@
+Genuine Zero Uniform Atlas Energy
+
+This repository contains an original Lean wrapper and consolidation layer by
+Thiago Massensini around interfaces from CPFormal, pinned at revision
+0c64a8366ded96a3242cbe0888c55144442c570b:
+
+  https://github.com/thiagomassensini/primos
+
+CPFormal is fetched as a separate Lake dependency and is not vendored into the
+repository. Its own terms remain applicable to that upstream source.

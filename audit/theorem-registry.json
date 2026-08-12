@@ -1,0 +1,92 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
+  "release": "0.2.0",
+  "count": 17,
+  "theorems": [
+    {
+      "id": "GZUAE-001",
+      "name": "quadraticCarryShell_energy_eq_mass_iff",
+      "qualified": "GenuineZeroUniformAtlasEnergy.quadraticCarryShell_energy_eq_mass_iff"
+    },
+    {
+      "id": "GZUAE-002",
+      "name": "nativeParameter_re",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeParameter_re"
+    },
+    {
+      "id": "GZUAE-003",
+      "name": "nativeParameter_im",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeParameter_im"
+    },
+    {
+      "id": "GZUAE-004",
+      "name": "nativeParameter_mem_genuineCriticalStrip",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeParameter_mem_genuineCriticalStrip"
+    },
+    {
+      "id": "GZUAE-005",
+      "name": "nativeAmplitude_energy_eq_inverseCarryMass",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeAmplitude_energy_eq_inverseCarryMass"
+    },
+    {
+      "id": "GZUAE-006",
+      "name": "packagedNativeFiniteChart_eq_genuineFiniteChart",
+      "qualified": "GenuineZeroUniformAtlasEnergy.packagedNativeFiniteChart_eq_genuineFiniteChart"
+    },
+    {
+      "id": "GZUAE-007",
+      "name": "nativeZero_iff_genuineZero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeZero_iff_genuineZero"
+    },
+    {
+      "id": "GZUAE-008",
+      "name": "nativeAtlasEnergy_eq_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeAtlasEnergy_eq_zero"
+    },
+    {
+      "id": "GZUAE-009",
+      "name": "uniformAtlasEnergyBudget_nonneg",
+      "qualified": "GenuineZeroUniformAtlasEnergy.uniformAtlasEnergyBudget_nonneg"
+    },
+    {
+      "id": "GZUAE-010",
+      "name": "isUniformAtlasEnergyBudget_iff_nonneg",
+      "qualified": "GenuineZeroUniformAtlasEnergy.isUniformAtlasEnergyBudget_iff_nonneg"
+    },
+    {
+      "id": "GZUAE-011",
+      "name": "zero_isOptimalAtlasEnergyBudget",
+      "qualified": "GenuineZeroUniformAtlasEnergy.zero_isOptimalAtlasEnergyBudget"
+    },
+    {
+      "id": "GZUAE-012",
+      "name": "optimalAtlasEnergyBudget_unique",
+      "qualified": "GenuineZeroUniformAtlasEnergy.optimalAtlasEnergyBudget_unique"
+    },
+    {
+      "id": "GZUAE-013",
+      "name": "isOptimalAtlasEnergyBudget_iff_eq_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.isOptimalAtlasEnergyBudget_iff_eq_zero"
+    },
+    {
+      "id": "GZUAE-014",
+      "name": "existsUnique_optimalAtlasEnergyBudget",
+      "qualified": "GenuineZeroUniformAtlasEnergy.existsUnique_optimalAtlasEnergyBudget"
+    },
+    {
+      "id": "GZUAE-015",
+      "name": "genuineZero_hasUniqueUniformAtlasEnergyBudget",
+      "qualified": "GenuineZeroUniformAtlasEnergy.genuineZero_hasUniqueUniformAtlasEnergyBudget"
+    },
+    {
+      "id": "GZUAE-016",
+      "name": "nativeZero_hasUniqueUniformAtlasEnergyBudget",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeZero_hasUniqueUniformAtlasEnergyBudget"
+    },
+    {
+      "id": "GZUAE-017",
+      "name": "zeroIdentity_with_uniqueUniformAtlasEnergyBudget",
+      "qualified": "GenuineZeroUniformAtlasEnergy.zeroIdentity_with_uniqueUniformAtlasEnergyBudget"
+    }
+  ]
+}
