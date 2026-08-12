@@ -38,19 +38,19 @@ For every finite cutoff, Lean proves that packaging the real native resultant
 produces literally the Genuine finite Dirichlet chart:
 
 ```math
-\operatorname{pack}
-\bigl(\operatorname{NativeChart}_{3,M}(t)\bigr)
+\mathrm{pack}
+\bigl(\mathrm{NativeChart}_{3,M}(t)\bigr)
 =
-\operatorname{GenuineChart}_{3,M}\left(\frac12+it\right).
+\mathrm{GenuineChart}_{3,M}\left(\frac12+it\right).
 ```
 
 Passing through the already-proved common limit gives
 
 ```math
 \boxed{
-\operatorname{NativeBoundaryCloses}_3(t)
+\mathrm{NativeBoundaryCloses}_3(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0.
+\mathrm{Genuine}\left(\frac12+it\right)=0.
 }
 ```
 
@@ -74,7 +74,7 @@ The observable contains the transverse factor
 ```math
 p^{\delta}-p^{-\delta},
 \qquad
-\delta=\operatorname{Re}\left(\frac12+it\right)-\frac12=0.
+\delta=\mathrm{Re}\left(\frac12+it\right)-\frac12=0.
 ```
 
 Consequently Lean proves, at every time and before assuming a zero,
@@ -128,7 +128,7 @@ Lean proves the exact factorization
 \boxed{
 \mathcal C_{p,M}(s)
 =
-D_p\!\left(\operatorname{Re}(s)-\frac12\right)
+D_p\!\left(\mathrm{Re}(s)-\frac12\right)
 P_M(s),
 }
 ```
@@ -140,11 +140,11 @@ for an odd prime camera and an admissible tilt center,
 \boxed{
 \mathcal C_{p,M}(s)=0
 \iff
-\operatorname{Re}(s)=\frac12
+\mathrm{Re}(s)=\frac12
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0
 \iff
-\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
+\mathrm{BranchDefect}_{p}(\mathrm{Re}\,s)=0.
 }
 ```
 
@@ -157,7 +157,7 @@ proves
 ```math
 \mathcal F_{p,M}(s)\longrightarrow0
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0.
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0.
 ```
 
 On the native parameter `s = 1/2 + i t`, the quadratic carry geometry has
@@ -174,9 +174,9 @@ packages both results:
 
 ```math
 \left(
-\operatorname{NativeZero}(t)
+\mathrm{NativeZero}(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0
+\mathrm{Genuine}\left(\frac12+it\right)=0
 \right)
 \quad\land\quad
 \exists!C,\ C\text{ is the optimal full-atlas budget}.

@@ -12,6 +12,7 @@ SKIPPED_PARTS = {".git", ".lake"}
 FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
 BAD_HEADING = re.compile(r"^#{1,6}[^ #]")
 RAW_LATEX = re.compile(r"\\[A-Za-z]+")
+DISALLOWED_MATH_MACRO = re.compile(r"\\operatorname\b")
 
 
 def fail(path: Path, line_number: int, message: str) -> None:
@@ -56,8 +57,15 @@ for path in markdown_files:
                     math_has_content = False
                     continue
 
-            if open_fence_language == "math" and line.strip():
-                math_has_content = True
+            if open_fence_language == "math":
+                if DISALLOWED_MATH_MACRO.search(line):
+                    fail(
+                        path,
+                        line_number,
+                        "GitHub rejects \\operatorname; use \\mathrm instead",
+                    )
+                if line.strip():
+                    math_has_content = True
             continue
 
         if fence is not None:

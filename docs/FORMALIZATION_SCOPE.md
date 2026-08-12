@@ -35,9 +35,9 @@ camera. At camera `3` this is the exact finite Genuine Dirichlet chart.
 The limit predicates therefore satisfy
 
 ```math
-\operatorname{NativeBoundaryCloses}_3(t)
+\mathrm{NativeBoundaryCloses}_3(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0.
+\mathrm{Genuine}\left(\frac12+it\right)=0.
 ```
 
 The repository uses this biconditional as the zero theorem. It introduces no
@@ -59,7 +59,7 @@ The observable factors through the radial difference at
 ```math
 \delta
 =
-\operatorname{Re}\left(\frac12+it\right)-\frac12
+\mathrm{Re}\left(\frac12+it\right)-\frac12
 =0.
 ```
 
@@ -85,7 +85,7 @@ and proves, rather than assumes, that it is the radial bulk:
 ```math
 \mathcal C_{p,M}(s)
 =
-D_p\!\left(\operatorname{Re}(s)-\frac12\right)P_M(s).
+D_p\!\left(\mathrm{Re}(s)-\frac12\right)P_M(s).
 ```
 
 For positive cutoff and `s` in the open strip, the reflected pairing
@@ -95,11 +95,11 @@ admissible-center hypotheses, this gives the exact zero-locus crosswalk
 ```math
 \mathcal C_{p,M}(s)=0
 \iff
-\operatorname{Re}(s)=\frac12
+\mathrm{Re}(s)=\frac12
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0
 \iff
-\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
+\mathrm{BranchDefect}_{p}(\mathrm{Re}\,s)=0.
 ```
 
 Thus subtracting the boundary cannot conceal radial imbalance. At a common
