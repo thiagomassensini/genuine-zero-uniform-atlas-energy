@@ -8,12 +8,12 @@ coordinate packaging. Their limit zero predicates are therefore equivalent.
 
 The native quadratic amplitude is fixed before the camera is evaluated:
 
-$$
+```math
 \left\lVert n^{-1/2}
 \bigl(\cos(-t\log n),\sin(-t\log n)\bigr)
 \right\rVert^2
 =n^{-1}.
-$$
+```
 
 No theorem in this repository obtains `1/2` from a zero or inserts an
 additional condition into the definition of zero.

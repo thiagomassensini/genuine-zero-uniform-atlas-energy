@@ -4,17 +4,17 @@
 
 The library begins with the native positional wave
 
-$$
+```math
 u_t(n)=n^{-1/2}
 \bigl(\cos(-t\log n),\sin(-t\log n)\bigr).
-$$
+```
 
 It has one real phase coordinate `t`. Its squared Euclidean norm is the inverse
 carry mass:
 
-$$
+```math
 \lVert u_t(n)\rVert^2=n^{-1}.
-$$
+```
 
 The exponent is therefore not selected by a zero, spectral symmetry, or
 additional domain predicate. It is already the quadratic amplitude of the
@@ -24,9 +24,9 @@ positional mass.
 
 The map
 
-$$
+```math
 (x,y)\longmapsto x+iy
-$$
+```
 
 is used only to store two real coordinates. The upstream crosswalk proves that
 it preserves the native samples and commutes with every finite saturated
@@ -34,11 +34,11 @@ camera. At camera `3` this is the exact finite Genuine Dirichlet chart.
 
 The limit predicates therefore satisfy
 
-$$
-\operatorname{NativeBoundaryCloses}_3(t)
+```math
+\mathrm{NativeBoundaryCloses}_3(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0.
-$$
+\mathrm{Genuine}\left(\frac12+it\right)=0.
+```
 
 The repository uses this biconditional as the zero theorem. It introduces no
 second zero predicate.
@@ -47,21 +47,21 @@ second zero predicate.
 
 For every natural cutoff `M` and finite set of prime cameras `S`, the energy is
 
-$$
+```math
 E_{M,S}(t)
 =
 \sum_{p\in S}
 \frac{\mathcal O_{p,M}(\frac12+it)^2}{p-1}.
-$$
+```
 
 The observable factors through the radial difference at
 
-$$
+```math
 \delta
 =
-\operatorname{Re}\left(\frac12+it\right)-\frac12
+\mathrm{Re}\left(\frac12+it\right)-\frac12
 =0.
-$$
+```
 
 Hence `E_{M,S}(t) = 0` pointwise. This gives one bound simultaneously over
 every positive cutoff and every finite prime atlas.
@@ -76,31 +76,31 @@ is the unique optimum.
 The coupled signed boundary and total coupled Green flux are already defined
 upstream. This repository defines their finite difference
 
-$$
+```math
 \mathcal C_{p,M}(s)=\mathcal F_{p,M}(s)-\mathcal B_M(s)
-$$
+```
 
 and proves, rather than assumes, that it is the radial bulk:
 
-$$
+```math
 \mathcal C_{p,M}(s)
 =
-D_p\!\left(\operatorname{Re}(s)-\frac12\right)P_M(s).
-$$
+D_p\!\left(\mathrm{Re}(s)-\frac12\right)P_M(s).
+```
 
 For positive cutoff and `s` in the open strip, the reflected pairing
 `P_M(s)` is strictly positive. Under the upstream odd-prime camera and
 admissible-center hypotheses, this gives the exact zero-locus crosswalk
 
-$$
+```math
 \mathcal C_{p,M}(s)=0
 \iff
-\operatorname{Re}(s)=\frac12
+\mathrm{Re}(s)=\frac12
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0
 \iff
-\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
-$$
+\mathrm{BranchDefect}_{p}(\mathrm{Re}\,s)=0.
+```
 
 Thus subtracting the boundary cannot conceal radial imbalance. At a common
 native/Genuine zero the boundary tends to zero, so closure of the total flux
@@ -111,7 +111,7 @@ balance is already forced by the quadratic carry amplitude.
 
 The dependency order is:
 
-$$
+```math
 \text{inverse carry mass}
 \Longrightarrow
 \text{quadratic native amplitude}
@@ -121,7 +121,7 @@ $$
 \text{finite real/Genuine chart identity}
 \Longrightarrow
 \text{one zero identity}.
-$$
+```
 
 Independently, the native parameter annihilates the transverse radial defect,
 which supplies the unique atlas budget. The Green decomposition then exposes

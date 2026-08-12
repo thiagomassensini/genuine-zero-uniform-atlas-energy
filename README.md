@@ -6,27 +6,27 @@ and one optimal energy budget over the complete tower of finite prime atlases.
 The construction starts before any zero is considered. At real phase time
 `t`, the native positional wave is
 
-$$
+```math
 u_t(n)
 =
 n^{-1/2}
 \bigl(\cos(-t\log n),\sin(-t\log n)\bigr).
-$$
+```
 
 Lean proves its quadratic energy directly:
 
-$$
+```math
 \lVert u_t(n)\rVert^2=n^{-1}.
-$$
+```
 
 More generally, for every positional base `b > 1`, positive depth `k`, and
 arbitrary real rotation angle, Lean checks the exact rigidity theorem
 
-$$
+```math
 \text{quadratic shell energy}=b^{-k}
 \quad\Longleftrightarrow\quad
 \sigma=\frac12.
-$$
+```
 
 Thus the amplitude `n^(-1/2)` is the square-root realization of inverse carry
 mass. The real coordinate pair and its complex notation represent the same
@@ -37,22 +37,22 @@ quantity; complex packaging preserves every finite camera computation.
 For every finite cutoff, Lean proves that packaging the real native resultant
 produces literally the Genuine finite Dirichlet chart:
 
-$$
-\operatorname{pack}
-\bigl(\operatorname{NativeChart}_{3,M}(t)\bigr)
+```math
+\mathrm{pack}
+\bigl(\mathrm{NativeChart}_{3,M}(t)\bigr)
 =
-\operatorname{GenuineChart}_{3,M}\left(\frac12+it\right).
-$$
+\mathrm{GenuineChart}_{3,M}\left(\frac12+it\right).
+```
 
 Passing through the already-proved common limit gives
 
-$$
+```math
 \boxed{
-\operatorname{NativeBoundaryCloses}_3(t)
+\mathrm{NativeBoundaryCloses}_3(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0.
+\mathrm{Genuine}\left(\frac12+it\right)=0.
 }
-$$
+```
 
 This is the same vanishing computation written in real-pair and
 complex-coordinate notation.
@@ -62,46 +62,46 @@ complex-coordinate notation.
 For a cutoff `M` and finite prime atlas `S`, define the native seeded TFVD
 radial-defect energy
 
-$$
+```math
 E_{M,S}(t)
 =
 \sum_{p\in S}
 \frac{\mathcal O_{p,M}(\frac12+it)^2}{p-1}.
-$$
+```
 
 The observable contains the transverse factor
 
-$$
+```math
 p^{\delta}-p^{-\delta},
 \qquad
-\delta=\operatorname{Re}\left(\frac12+it\right)-\frac12=0.
-$$
+\delta=\mathrm{Re}\left(\frac12+it\right)-\frac12=0.
+```
 
 Consequently Lean proves, at every time and before assuming a zero,
 
-$$
+```math
 \boxed{
 \forall M,\ \forall S,
 \qquad E_{M,S}(t)=0.
 }
-$$
+```
 
 A real number `C` is a uniform budget when it bounds every positive cutoff and
 every finite atlas. Lean then proves
 
-$$
+```math
 C\text{ is a uniform budget}
 \iff
 C\ge0,
-$$
+```
 
 and
 
-$$
+```math
 C\text{ is the optimal budget}
 \iff
 C=0.
-$$
+```
 
 Hence the optimal budget exists uniquely. A common native/Genuine zero
 inherits that structural budget; the zero does not create it or select the
@@ -116,37 +116,37 @@ geometry that vanishes.
 Let the finite tilted center be the difference between the independently
 defined total coupled Green flux and its coupled signed boundary:
 
-$$
+```math
 \mathcal C_{p,M}(s)
 =
 \mathcal F_{p,M}(s)-\mathcal B_M(s).
-$$
+```
 
 Lean proves the exact factorization
 
-$$
+```math
 \boxed{
 \mathcal C_{p,M}(s)
 =
-D_p\!\left(\operatorname{Re}(s)-\frac12\right)
+D_p\!\left(\mathrm{Re}(s)-\frac12\right)
 P_M(s),
 }
-$$
+```
 
 where `P_M(s) > 0` for every positive cutoff in the Genuine strip. Therefore,
 for an odd prime camera and an admissible tilt center,
 
-$$
+```math
 \boxed{
 \mathcal C_{p,M}(s)=0
 \iff
-\operatorname{Re}(s)=\frac12
+\mathrm{Re}(s)=\frac12
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0
 \iff
-\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
+\mathrm{BranchDefect}_{p}(\mathrm{Re}\,s)=0.
 }
-$$
+```
 
 In particular, a nonzero carry tilt produces a nonzero surviving center at
 every nonempty cutoff; the positive pairing rules out hidden cancellation.
@@ -154,11 +154,11 @@ every nonempty cutoff; the positive pairing rules out hidden cancellation.
 At the common native/Genuine zero, the boundary already telescopes. Lean then
 proves
 
-$$
+```math
 \mathcal F_{p,M}(s)\longrightarrow0
 \iff
-\operatorname{Tilt}_{p}(\operatorname{Re}s)=0.
-$$
+\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0.
+```
 
 On the native parameter `s = 1/2 + i t`, the quadratic carry geometry has
 already annihilated that tilt and its quadratic branch defect. Consequently
@@ -172,15 +172,15 @@ The public capstone is
 `zeroIdentity_with_uniqueUniformAtlasEnergyBudget`. For every real time, it
 packages both results:
 
-$$
+```math
 \left(
-\operatorname{NativeZero}(t)
+\mathrm{NativeZero}(t)
 \iff
-\operatorname{Genuine}\left(\frac12+it\right)=0
+\mathrm{Genuine}\left(\frac12+it\right)=0
 \right)
 \quad\land\quad
 \exists!C,\ C\text{ is the optimal full-atlas budget}.
-$$
+```
 
 No functional equation, famous-function symmetry, primality hypothesis on the
 positional base, or alternative number system selects `1/2`. Its provenance is

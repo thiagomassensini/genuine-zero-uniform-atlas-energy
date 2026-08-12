@@ -28,19 +28,7 @@ python3 -m json.tool audit/theorem-registry.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
 python3 scripts/check_registry.py
 
-mapfile -d '' markdown_files < <(
-  find . \
-    -path './.git' -prune -o \
-    -path './.lake' -prune -o \
-    -type f -name '*.md' -print0
-)
-if grep -nE '^\\\[|^\\\]$|\\\(|\\\)' "${markdown_files[@]}"; then
-  echo "static audit failed: non-GitHub Markdown math delimiters found" >&2
-  exit 1
-fi
-display_delimiters="$({ grep -h '^\$\$$' "${markdown_files[@]}" || true; } | wc -l)"
-test "$display_delimiters" -gt 0
-test "$(( display_delimiters % 2 ))" -eq 0
+python3 scripts/check_github_markdown.py
 
 bash -n scripts/audit.sh scripts/static_audit.sh
 
