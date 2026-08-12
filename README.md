@@ -111,6 +111,61 @@ The zero value here belongs to the **radial-defect ledger**. The underlying
 native wave has energy `n⁻¹`; it is the deviation from that native quadratic
 geometry that vanishes.
 
+## The tilted center left after boundary telescoping
+
+Let the finite tilted center be the difference between the independently
+defined total coupled Green flux and its coupled signed boundary:
+
+$$
+\mathcal C_{p,M}(s)
+=
+\mathcal F_{p,M}(s)-\mathcal B_M(s).
+$$
+
+Lean proves the exact factorization
+
+$$
+\boxed{
+\mathcal C_{p,M}(s)
+=
+D_p\!\left(\operatorname{Re}(s)-\frac12\right)
+P_M(s),
+}
+$$
+
+where `P_M(s) > 0` for every positive cutoff in the Genuine strip. Therefore,
+for an odd prime camera and an admissible tilt center,
+
+$$
+\boxed{
+\mathcal C_{p,M}(s)=0
+\iff
+\operatorname{Re}(s)=\frac12
+\iff
+\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\iff
+\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
+}
+$$
+
+In particular, a nonzero carry tilt produces a nonzero surviving center at
+every nonempty cutoff; the positive pairing rules out hidden cancellation.
+
+At the common native/Genuine zero, the boundary already telescopes. Lean then
+proves
+
+$$
+\mathcal F_{p,M}(s)\longrightarrow0
+\iff
+\operatorname{Tilt}_{p}(\operatorname{Re}s)=0.
+$$
+
+On the native parameter `s = 1/2 + i t`, the quadratic carry geometry has
+already annihilated that tilt and its quadratic branch defect. Consequently
+the boundary tends to zero, the center vanishes at every cutoff, and the total
+flux tends to zero. This adds no new kind of zero: it identifies the center
+that detects departure from the same native/Genuine zero geometry.
+
 ## Consolidation theorem
 
 The public capstone is
@@ -164,6 +219,8 @@ the kernel dependency reports.
 - `NativeGeometry.lean`: native parameter, quadratic energy, finite-chart
   identity, and exact zero identity;
 - `Budget.lean`: full cutoff-atlas energy and unique optimal budget;
+- `TiltedCenter.lean`: exact boundary-center factorization, tilt detection,
+  and common-zero telescoping;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry and claim ledger;

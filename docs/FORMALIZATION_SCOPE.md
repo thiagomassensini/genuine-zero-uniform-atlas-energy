@@ -71,6 +71,42 @@ every other uniform budget. The empty atlas proves every budget is
 nonnegative; exact pointwise vanishing proves zero is a budget. Therefore zero
 is the unique optimum.
 
+## Boundary telescoping and the surviving center
+
+The coupled signed boundary and total coupled Green flux are already defined
+upstream. This repository defines their finite difference
+
+$$
+\mathcal C_{p,M}(s)=\mathcal F_{p,M}(s)-\mathcal B_M(s)
+$$
+
+and proves, rather than assumes, that it is the radial bulk:
+
+$$
+\mathcal C_{p,M}(s)
+=
+D_p\!\left(\operatorname{Re}(s)-\frac12\right)P_M(s).
+$$
+
+For positive cutoff and `s` in the open strip, the reflected pairing
+`P_M(s)` is strictly positive. Under the upstream odd-prime camera and
+admissible-center hypotheses, this gives the exact zero-locus crosswalk
+
+$$
+\mathcal C_{p,M}(s)=0
+\iff
+\operatorname{Re}(s)=\frac12
+\iff
+\operatorname{Tilt}_{p}(\operatorname{Re}s)=0
+\iff
+\operatorname{BranchDefect}_{p}(\operatorname{Re}s)=0.
+$$
+
+Thus subtracting the boundary cannot conceal radial imbalance. At a common
+native/Genuine zero the boundary tends to zero, so closure of the total flux
+is equivalent to balance of this same tilt. At the native parameter that
+balance is already forced by the quadratic carry amplitude.
+
 ## Logical order
 
 The dependency order is:
@@ -88,8 +124,10 @@ $$
 $$
 
 Independently, the native parameter annihilates the transverse radial defect,
-which supplies the unique atlas budget. Thus the budget is structural and the
-zero hypothesis is used only to state the requested corollary.
+which supplies the unique atlas budget. The Green decomposition then exposes
+that same defect as the center left after boundary subtraction. The zero
+hypothesis is used only to telescope the boundary; it does not choose the
+native exponent or create the tilt balance.
 
 ## Exact boundary of the result
 
@@ -97,3 +135,8 @@ The atlas quantifier ranges over all finite prime-camera sets and all positive
 cutoffs. The theorem controls the full tower of finite approximations. It does
 not introduce a completed infinite-atlas vector because no such object is
 needed for this uniform-budget statement.
+
+The center detector uses the hypotheses of the imported Green/tilt interface:
+an odd prime camera, positive cutoff, an admissible tilt center, and a
+parameter in the open strip. Primality is a camera hypothesis here; it is not
+a hypothesis of the foundational all-base quadratic rigidity theorem.

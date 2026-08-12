@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeGeometry.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/Budget.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/TiltedCenter.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/Capstone.lean",
 ]
 PREFIX = "GenuineZeroUniformAtlasEnergy."

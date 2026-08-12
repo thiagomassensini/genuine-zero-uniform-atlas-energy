@@ -34,6 +34,19 @@ evaluated at the native parameter.
 The native theorem is the specialization of that diagnostic formula to the
 quadratic positional amplitude.
 
+## What remains after the boundary telescopes
+
+The finite center is formed from the independently defined total coupled Green
+flux and signed boundary. Its exact factorization shows that the only surviving
+radial factor is the carry displacement from the quadratic shell. Strict
+positivity of the remaining pairing prevents accidental cancellation.
+
+Consequently the center, carry tilt, and quadratic branch defect have exactly
+the same zero locus under the stated Green-camera hypotheses. At the common
+native/Genuine zero, telescoping removes the boundary; it does not manufacture
+the balance. The native amplitude has already fixed the radial coordinate at
+`1/2`.
+
 ## Closed mathematical content
 
 The following are kernel-checked here:
@@ -42,9 +55,12 @@ The following are kernel-checked here:
 - finite native and Genuine charts coincide after coordinate packaging;
 - native and Genuine zeros coincide;
 - every native radial-defect atlas energy vanishes;
-- the full tower has one unique optimal budget.
+- the full tower has one unique optimal budget;
+- the center left after boundary subtraction detects exactly the carry tilt
+  and quadratic branch defect;
+- at the common zero, the boundary telescopes and the native total flux closes.
 
-No additional mathematical gate is declared by this repository.
+No additional zero class or mathematical gate is declared by this repository.
 
 ## Optional future work
 

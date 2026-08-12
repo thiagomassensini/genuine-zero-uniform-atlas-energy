@@ -29,8 +29,21 @@ radial factorization dependency:
 - `finiteSeededTfvdBesselEnergy`;
 - `finiteCanonicalSeededTfvdGreenRadialClosureObservable_eq_radialDifference_mul_pairing`.
 
+The tilted-center theorem uses the completed interfaces exported through
+`CpGenuineCarryTiltFrontier`, with the relevant declarations originating in
+`CpBracketGreenBoundary`, `CpBracketGreenFlux`, `CpFiniteGreenPositivity`, and
+`CpTiltRigidity`:
+
+- `finiteBracketCoupledCpGreenFlux_eq_radialDifference_mul_pairing`;
+- `finiteBracketCoupledSignedBoundary_tendsto_zero_of_genuine_zero`;
+- `finiteReflectedGradientPairing_re_pos`;
+- `cpTiltAtSigma_eq_zero_iff_half`;
+- `branchDefect_eq_zero_iff_cpTiltAtSigma_eq_zero_of_admissible_center`;
+- `coupledFlux_tendsto_zero_iff_criticalDisplacement_eq_zero`.
+
 The local proof specializes these exact interfaces to the native parameter
-`1/2 + i t` and introduces no competing zero definition.
+`1/2 + i t`, subtracts the already-defined boundary from the already-defined
+total flux, and introduces no competing zero definition.
 
 ## Why no source trees are copied
 
