@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: Massensini
     given-names: Thiago
-license: Apache-2.0
+license: MIT
 version: 0.3.0
 date-released: 2026-08-12
 abstract: >-

@@ -228,6 +228,6 @@ the kernel dependency reports.
 
 ## License and citation
 
-The local consolidation is released under Apache-2.0. Citation and planned
+The local consolidation is released under the MIT License. Citation and planned
 Zenodo metadata are provided in [`CITATION.cff`](CITATION.cff) and
 [`.zenodo.json`](.zenodo.json).

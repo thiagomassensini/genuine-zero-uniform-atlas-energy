@@ -3,7 +3,7 @@
   "description": "Lean 4 formalization of the exact identity between the native real-camera and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget, and the exact norm--tilt--center mechanism left after boundary telescoping.",
   "upload_type": "software",
   "access_right": "open",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "version": "0.3.0",
   "publication_date": "2026-08-12",
   "language": "eng",
