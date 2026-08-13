@@ -6,12 +6,14 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.3.0
-date-released: 2026-08-12
+version: 0.4.0
+date-released: 2026-08-13
 abstract: >-
   A Lean 4 formalization of the exact identity between the native real-camera
   and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget,
-  and the exact norm--tilt--center mechanism left after boundary telescoping.
+  the exact norm--tilt--center mechanism left after boundary telescoping, and
+  the separation of the vanishing Genuine channel from the off-equilibrium
+  Green diagnostic channel.
 keywords:
   - Lean 4
   - formalized mathematics

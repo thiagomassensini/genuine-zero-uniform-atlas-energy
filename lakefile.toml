@@ -1,5 +1,5 @@
 name = "GenuineZeroUniformAtlasEnergy"
-version = "0.3.0"
+version = "0.4.0"
 defaultTargets = ["GenuineZeroUniformAtlasEnergy"]
 
 [[lean_lib]]
@@ -8,4 +8,4 @@ name = "GenuineZeroUniformAtlasEnergy"
 [[require]]
 name = "CPFormal"
 git = "https://github.com/thiagomassensini/primos.git"
-rev = "0c64a8366ded96a3242cbe0888c55144442c570b"
+rev = "v0.62.0"

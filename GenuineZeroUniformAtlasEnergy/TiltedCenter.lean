@@ -130,7 +130,7 @@ theorem nativeGenuineZero_telescopes_boundary_and_balances_tiltedCenter
     (p : ℕ) (hp : Nat.Prime p) (hpodd : Odd p)
     (center : ℝ) (hcenter : (halfRange p : ℝ) < center)
     (time : ℝ)
-    (hzero : NativeCarryRealOperatorBoundaryClosesAt
+    (hzero : IsNativeCarryRealOperatorZero
       3 ((1 : ℝ) / 2) time) :
     Tendsto
         (fun M : ℕ ↦
@@ -170,6 +170,45 @@ theorem nativeGenuineZero_telescopes_boundary_and_balances_tiltedCenter
     (totalFlux_closes_iff_carryTilt_balanced_at_commonZero
       p hp hpodd center hcenter hs hgenuine).2 htilt
   exact ⟨hboundary, hcenterZero, htilt, hbranch, hflux⟩
+
+/-- An off-equilibrium Genuine zero remains a Genuine zero.  Its coupled
+boundary still telescopes, while the positive Green pairing exposes a nonzero
+tilted center at every nonempty cutoff.  Consequently the total coupled Green
+flux cannot close.  This theorem is conditional on the presented zero and
+does not assert that such a point exists. -/
+theorem genuineZero_offEquilibrium_telescopes_boundary_and_exposes_tiltedCenter
+    (p : ℕ) (hp : Nat.Prime p)
+    {s : ℂ} (hs : s ∈ genuineCriticalStrip)
+    (hzero : genuineContinuation s = 0)
+    (hoff : s.re ≠ (1 : ℝ) / 2) :
+    Tendsto
+        (fun M : ℕ ↦ finiteBracketCoupledSignedBoundary M s)
+        atTop (nhds 0) ∧
+      (∀ M : ℕ, 0 < M → finiteTiltedCenter p M s ≠ 0) ∧
+      ¬ Tendsto
+        (fun M : ℕ ↦ finiteBracketCoupledCpGreenFlux p M s)
+        atTop (nhds 0) := by
+  have hboundary :=
+    finiteBracketCoupledSignedBoundary_tendsto_zero_of_genuine_zero
+      hs hzero
+  have hcenter :
+      ∀ M : ℕ, 0 < M → finiteTiltedCenter p M s ≠ 0 := by
+    intro M hM
+    exact
+      (finiteTiltedCenter_eq_zero_iff_re_eq_half p M hp hM hs).not.mpr
+        hoff
+  have hflux :
+      ¬ Tendsto
+        (fun M : ℕ ↦ finiteBracketCoupledCpGreenFlux p M s)
+        atTop (nhds 0) := by
+    intro hcloses
+    have hdelta : criticalDisplacement s.re = 0 :=
+      (coupledFlux_tendsto_zero_iff_criticalDisplacement_eq_zero
+        p hp hs hzero).1 hcloses
+    apply hoff
+    unfold criticalDisplacement at hdelta
+    linarith
+  exact ⟨hboundary, hcenter, hflux⟩
 
 end
 

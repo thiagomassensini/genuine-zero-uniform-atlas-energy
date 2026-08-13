@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
-  "release": "0.3.0",
-  "count": 24,
+  "release": "0.4.0",
+  "count": 25,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -110,16 +110,21 @@
     },
     {
       "id": "GZUAE-022",
+      "name": "genuineZero_offEquilibrium_telescopes_boundary_and_exposes_tiltedCenter",
+      "qualified": "GenuineZeroUniformAtlasEnergy.genuineZero_offEquilibrium_telescopes_boundary_and_exposes_tiltedCenter"
+    },
+    {
+      "id": "GZUAE-023",
       "name": "genuineZero_hasUniqueUniformAtlasEnergyBudget",
       "qualified": "GenuineZeroUniformAtlasEnergy.genuineZero_hasUniqueUniformAtlasEnergyBudget"
     },
     {
-      "id": "GZUAE-023",
+      "id": "GZUAE-024",
       "name": "nativeZero_hasUniqueUniformAtlasEnergyBudget",
       "qualified": "GenuineZeroUniformAtlasEnergy.nativeZero_hasUniqueUniformAtlasEnergyBudget"
     },
     {
-      "id": "GZUAE-024",
+      "id": "GZUAE-025",
       "name": "zeroIdentity_with_uniqueUniformAtlasEnergyBudget",
       "qualified": "GenuineZeroUniformAtlasEnergy.zeroIdentity_with_uniqueUniformAtlasEnergyBudget"
     }
