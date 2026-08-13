@@ -107,6 +107,12 @@ native/Genuine zero the boundary tends to zero, so closure of the total flux
 is equivalent to balance of this same tilt. At the native parameter that
 balance is already forced by the quadratic carry amplitude.
 
+Conversely, if a Genuine zero in the strip is presented away from equilibrium,
+the same boundary still tends to zero, every positive-cutoff center is nonzero,
+and the total coupled Green flux cannot tend to zero. This is a separation of
+channels, not a second zero definition and not an existence theorem for an
+off-equilibrium zero.
+
 ## Logical order
 
 The dependency order is:

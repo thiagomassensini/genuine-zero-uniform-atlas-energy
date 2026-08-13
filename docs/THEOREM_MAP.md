@@ -35,6 +35,7 @@
 | `finiteTiltedCenter_ne_zero_of_carryTilt_ne_zero` | A nonzero tilt is detected by a nonzero center at every nonempty cutoff. |
 | `totalFlux_closes_iff_carryTilt_balanced_at_commonZero` | Once the common-zero boundary telescopes, total flux closure is equivalent to tilt balance. |
 | `nativeGenuineZero_telescopes_boundary_and_balances_tiltedCenter` | At the native/Genuine zero, boundary, center, tilt, quadratic defect, and total coupled flux close together. |
+| `genuineZero_offEquilibrium_telescopes_boundary_and_exposes_tiltedCenter` | At a presented Genuine zero away from equilibrium, the boundary still telescopes, every positive-cutoff center is nonzero, and total coupled Green flux cannot close. |
 
 ## Common-zero capstone
 

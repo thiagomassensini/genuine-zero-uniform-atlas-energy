@@ -24,7 +24,7 @@ theorem genuineZero_hasUniqueUniformAtlasEnergyBudget
 same unique structural budget. -/
 theorem nativeZero_hasUniqueUniformAtlasEnergyBudget
     (time : ℝ)
-    (_hzero : NativeCarryRealOperatorBoundaryClosesAt
+    (_hzero : IsNativeCarryRealOperatorZero
       3 ((1 : ℝ) / 2) time) :
     ∃! C : ℝ, IsOptimalAtlasEnergyBudget time C :=
   existsUnique_optimalAtlasEnergyBudget time
@@ -33,7 +33,7 @@ theorem nativeZero_hasUniqueUniformAtlasEnergyBudget
 the same zero, and their common positional geometry has exactly one optimal
 budget over every positive cutoff and finite prime atlas. -/
 theorem zeroIdentity_with_uniqueUniformAtlasEnergyBudget (time : ℝ) :
-    (NativeCarryRealOperatorBoundaryClosesAt
+    (IsNativeCarryRealOperatorZero
         3 ((1 : ℝ) / 2) time ↔
       genuineContinuation (nativeParameter time) = 0) ∧
     ∃! C : ℝ, IsOptimalAtlasEnergyBudget time C :=

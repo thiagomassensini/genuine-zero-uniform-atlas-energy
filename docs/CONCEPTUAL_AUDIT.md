@@ -47,6 +47,12 @@ native/Genuine zero, telescoping removes the boundary; it does not manufacture
 the balance. The native amplitude has already fixed the radial coordinate at
 `1/2`.
 
+The complementary theorem keeps the zero semantics literal. If a Genuine
+zero in the strip is presented away from `1/2`, its boundary still telescopes,
+but its center is nonzero at every positive cutoff and its total Green flux
+cannot close. The Green channel detects the tilt without changing the fact
+that the Genuine channel vanishes.
+
 ## Closed mathematical content
 
 The following are kernel-checked here:
@@ -59,6 +65,8 @@ The following are kernel-checked here:
 - the center left after boundary subtraction detects exactly the carry tilt
   and quadratic branch defect;
 - at the common zero, the boundary telescopes and the native total flux closes.
+- at a presented off-equilibrium Genuine zero, the boundary telescopes while
+  the surviving center and nonclosing total flux expose the displacement.
 
 No additional zero class or mathematical gate is declared by this repository.
 

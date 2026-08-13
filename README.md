@@ -160,6 +160,22 @@ proves
 \mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0.
 ```
 
+The zero predicate is not changed when the radial coordinate is varied. Lean
+also records the complementary off-equilibrium statement. If a Genuine zero
+in the strip is presented with `Re(s) ≠ 1/2`, then
+
+```math
+\mathcal B_M(s)\longrightarrow0,
+\qquad
+\mathcal C_{p,M}(s)\ne0\quad(M>0),
+\qquad
+\mathcal F_{p,M}(s)\not\longrightarrow0.
+```
+
+Thus the same zero remains a zero. Boundary telescoping removes the legs, and
+the surviving Green center exposes the nonzero tilt; the diagnostic channel
+does not redefine or revoke the zero.
+
 On the native parameter `s = 1/2 + i t`, the quadratic carry geometry has
 already annihilated that tilt and its quadratic branch defect. Consequently
 the boundary tends to zero, the center vanishes at every cutoff, and the total
@@ -188,7 +204,8 @@ the quadratic carry amplitude itself.
 
 See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
 map](docs/THEOREM_MAP.md), [the conceptual audit](docs/CONCEPTUAL_AUDIT.md),
-and [the exact source lock](docs/SOURCE_PROVENANCE.md).
+[the exact source lock](docs/SOURCE_PROVENANCE.md), and [the v0.4.0 release
+notes](docs/RELEASE_0.4.0.md).
 
 ## Reproducible dependency lock
 
@@ -197,8 +214,8 @@ The project pins:
 - Lean `v4.32.0`;
 - Mathlib `v4.32.0`, resolved to the exact commit in `lake-manifest.json`;
 - [`thiagomassensini/primos`](https://github.com/thiagomassensini/primos)
-  (`CPFormal`) at commit
-  [`0c64a8366ded96a3242cbe0888c55144442c570b`](https://github.com/thiagomassensini/primos/commit/0c64a8366ded96a3242cbe0888c55144442c570b).
+  (`CPFormal`) at tag `v0.62.0`, resolved to commit
+  [`537028681ae6a775c083a1e2fb6e67db24697b82`](https://github.com/thiagomassensini/primos/commit/537028681ae6a775c083a1e2fb6e67db24697b82).
 
 ## Build and audit
 
@@ -220,7 +237,7 @@ the kernel dependency reports.
   identity, and exact zero identity;
 - `Budget.lean`: full cutoff-atlas energy and unique optimal budget;
 - `TiltedCenter.lean`: exact boundary-center factorization, tilt detection,
-  and common-zero telescoping;
+  common-zero telescoping, and off-equilibrium channel separation;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry and claim ledger;

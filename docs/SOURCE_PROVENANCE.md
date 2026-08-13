@@ -6,7 +6,8 @@ The formal proof has one direct theory dependency:
 
 - repository: [`thiagomassensini/primos`](https://github.com/thiagomassensini/primos);
 - Lean package: `CPFormal`;
-- pinned commit: [`0c64a8366ded96a3242cbe0888c55144442c570b`](https://github.com/thiagomassensini/primos/commit/0c64a8366ded96a3242cbe0888c55144442c570b);
+- pinned release: `v0.62.0`;
+- resolved commit: [`537028681ae6a775c083a1e2fb6e67db24697b82`](https://github.com/thiagomassensini/primos/commit/537028681ae6a775c083a1e2fb6e67db24697b82);
 - Lean toolchain: `v4.32.0`;
 - Mathlib input revision: `v4.32.0`;
 - resolved Mathlib commit: `81a5d257c8e410db227a6665ed08f64fea08e997`.
@@ -43,7 +44,9 @@ The tilted-center theorem uses the completed interfaces exported through
 
 The local proof specializes these exact interfaces to the native parameter
 `1/2 + i t`, subtracts the already-defined boundary from the already-defined
-total flux, and introduces no competing zero definition.
+total flux, and introduces no competing zero definition. Its off-equilibrium
+capstone composes the same boundary limit, positive-center characterization,
+and flux-closure equivalence without adding another analytic assumption.
 
 ## Why no source trees are copied
 

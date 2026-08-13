@@ -71,9 +71,12 @@ theorem packagedNativeFiniteChart_eq_genuineFiniteChart
 /-- The native camera and the Genuine continuation have one and the same zero
 at each native time. -/
 theorem nativeZero_iff_genuineZero (time : ℝ) :
-    NativeCarryRealOperatorBoundaryClosesAt
+    IsNativeCarryRealOperatorZero
         3 ((1 : ℝ) / 2) time ↔
       genuineContinuation (nativeParameter time) = 0 := by
+  change NativeCarryRealOperatorBoundaryClosesAt
+      3 ((1 : ℝ) / 2) time ↔
+    genuineContinuation (nativeParameter time) = 0
   simpa [nativeParameter] using
     (nativeCarryRealBoundaryClosure_iff_genuineContinuation_zero
       (nativeParameter_mem_genuineCriticalStrip time))

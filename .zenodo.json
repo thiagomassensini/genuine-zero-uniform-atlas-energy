@@ -1,11 +1,11 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the exact identity between the native real-camera and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget, and the exact norm--tilt--center mechanism left after boundary telescoping.",
+  "description": "Lean 4 formalization of the exact identity between the native real-camera and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget, the norm--tilt--center mechanism left after boundary telescoping, and the separation of a vanishing Genuine channel from its off-equilibrium Green diagnostic channel.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.3.0",
-  "publication_date": "2026-08-12",
+  "version": "0.4.0",
+  "publication_date": "2026-08-13",
   "language": "eng",
   "creators": [
     {
@@ -26,7 +26,7 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/thiagomassensini/primos/tree/0c64a8366ded96a3242cbe0888c55144442c570b",
+      "identifier": "https://github.com/thiagomassensini/primos/tree/v0.62.0",
       "relation": "isDerivedFrom",
       "scheme": "url",
       "resource_type": "software"

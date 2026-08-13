@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
-  "release": "0.3.0",
-  "registry_count": 24,
+  "release": "0.4.0",
+  "registry_count": 25,
   "count": 5,
   "status_counts": {
     "KERNEL_CHECKED": 5
@@ -44,7 +44,7 @@
     },
     {
       "id": "GZUAE-TIL-001",
-      "claim": "After subtracting the independently defined telescoping boundary, the surviving center factors through the radial carry difference and a positive pairing; it vanishes exactly at real coordinate one-half, equivalently at the carry-tilt and quadratic branch-defect zero locus, and at the common native/Genuine zero the boundary, center, tilt, defect, and total flux close together",
+      "claim": "After subtracting the independently defined telescoping boundary, the surviving center factors through the radial carry difference and a positive pairing; it vanishes exactly at real coordinate one-half, while a presented off-equilibrium Genuine zero remains a zero whose boundary telescopes, whose positive-cutoff centers are nonzero, and whose total Green flux does not close",
       "status": "KERNEL_CHECKED",
       "theorem_ids": [
         "GZUAE-015",
@@ -53,7 +53,8 @@
         "GZUAE-018",
         "GZUAE-019",
         "GZUAE-020",
-        "GZUAE-021"
+        "GZUAE-021",
+        "GZUAE-022"
       ]
     },
     {
@@ -61,9 +62,9 @@
       "claim": "The common native and Genuine zero inherits the same already-existing unique optimal budget, and one capstone records zero identity and budget uniqueness together",
       "status": "KERNEL_CHECKED",
       "theorem_ids": [
-        "GZUAE-022",
         "GZUAE-023",
-        "GZUAE-024"
+        "GZUAE-024",
+        "GZUAE-025"
       ]
     }
   ]
