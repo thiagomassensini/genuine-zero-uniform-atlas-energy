@@ -4,30 +4,16 @@ import Mathlib
 # Finite transverse-coercivity certificate
 
 This module formalizes the exact algebra behind the finite-cutoff Hessian
-calculation discussed in the numerical audit.  It deliberately starts from the
-three scalar jet coefficients
+audit.  It begins with the three scalar jet coefficients
 
 * `kappa = ‖∂σ χ‖²`,
 * `a = ⟪χ, ∂σσ χ⟫`,
-* `b = ⟪χ, J ∂σσ χ⟫`,
+* `b = ⟪χ, J ∂σσ χ⟫`.
 
-and does not claim that a particular numerical operator has already supplied
+It does not claim that a particular numerical operator has already supplied
 those identities in Lean.  Once the jet identities are available, the
-Hessian, determinant, Schur complement, optimal time slope, and local
-coercivity threshold are algebraic consequences.
-
-The Hessian is represented by
-
-```math
-2\begin{pmatrix}
-\kappa+a & b\\
-b & \kappa-a
-\end{pmatrix}.
-```
-
-Its discriminant is `κ²-a²-b²`.  The same scalar controls the determinant, the
-positive-definiteness certificate, and the curvature left after minimizing in
-the time direction.
+Hessian, determinant, Schur complement, minimizing-clock slope, and local
+coercivity threshold are exact algebraic consequences.
 -/
 
 namespace GenuineZeroUniformAtlasEnergy
@@ -80,8 +66,7 @@ def IsPositiveDefinite (j : TransverseJet) : Prop :=
 def implicitTimeSlope (j : TransverseJet) : ℝ :=
   -j.hessian01 / j.hessian11
 
-/-- Curvature after minimizing in the time direction, written as a Schur
-complement. -/
+/-- Curvature after minimizing in the time direction. -/
 def schurEnvelopeCurvature (j : TransverseJet) : ℝ :=
   j.hessian00 - j.hessian01 ^ 2 / j.hessian11
 
@@ -89,8 +74,7 @@ def schurEnvelopeCurvature (j : TransverseJet) : ℝ :=
 def localCoercivity (j : TransverseJet) : ℝ :=
   j.discriminant / (j.kappa - j.a)
 
-/-- Half-Hessian after subtracting a proposed coercivity constant `c` in the
-sigma direction. -/
+/-- Half-Hessian after subtracting a proposed sigma coercivity constant. -/
 def shiftedHalfHessianQuadratic
     (j : TransverseJet) (c x y : ℝ) : ℝ :=
   j.halfHessianQuadratic x y - c * x ^ 2
@@ -105,8 +89,7 @@ def shiftedHalfHessianQuadratic
   unfold hessianDet hessian00 hessian01 hessian11 discriminant
   ring
 
-/-- Positivity of the discriminant and of `κ` forces positive temporal
-curvature. -/
+/-- Positive `κ` and positive discriminant force positive temporal curvature. -/
 lemma kappa_sub_a_pos
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant) :
@@ -131,8 +114,7 @@ lemma halfHessianQuadratic_eq_schur
   field_simp [hden]
   ring
 
-/-- Positive discriminant gives strict positivity of the half-Hessian away
-from the origin. -/
+/-- Positive discriminant gives strict positivity away from the origin. -/
 lemma halfHessianQuadratic_pos_of_discriminant_pos
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant)
@@ -144,7 +126,7 @@ lemma halfHessianQuadratic_pos_of_discriminant_pos
   by_cases hx : x = 0
   · have hy : y ≠ 0 := by
       rcases hxy with hx' | hy'
-      · exact (hx hx').elim
+      · exact (hx' hx).elim
       · exact hy'
     subst x
     simpa using mul_pos hdenPos (show 0 < y ^ 2 by positivity)
@@ -158,8 +140,7 @@ lemma halfHessianQuadratic_pos_of_discriminant_pos
       mul_nonneg (le_of_lt hdenPos) (sq_nonneg _)
     linarith
 
-/-- Positive discriminant is a sufficient finite Hessian
-positive-definiteness certificate. -/
+/-- Positive discriminant is a finite positive-definiteness certificate. -/
 lemma isPositiveDefinite_of_discriminant_pos
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant) :
@@ -170,8 +151,7 @@ lemma isPositiveDefinite_of_discriminant_pos
     j.halfHessianQuadratic_pos_of_discriminant_pos hkappa hdisc x y hxy
   linarith
 
-/-- The scalar certificate simultaneously makes trace and determinant positive
-and makes the Hessian positive definite. -/
+/-- One scalar certifies positive trace, determinant, and Hessian. -/
 lemma hessian_certificate
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant) :
@@ -182,15 +162,14 @@ lemma hessian_certificate
   · rw [hessianDet_eq_four_mul_discriminant]
     positivity
 
-/-- The implicit minimizing-clock slope is exactly `-b/(κ-a)`. -/
+/-- The minimizing-clock slope is exactly `-b/(κ-a)`. -/
 lemma implicitTimeSlope_eq
     (j : TransverseJet) (hden : j.kappa - j.a ≠ 0) :
     j.implicitTimeSlope = -j.b / (j.kappa - j.a) := by
   unfold implicitTimeSlope hessian01 hessian11
   field_simp [hden]
-  ring
 
-/-- The Schur complement is exactly twice the local coercivity constant. -/
+/-- The Schur complement is twice the local coercivity coefficient. -/
 lemma schurEnvelopeCurvature_eq_two_mul_localCoercivity
     (j : TransverseJet) (hden : j.kappa - j.a ≠ 0) :
     j.schurEnvelopeCurvature = 2 * j.localCoercivity := by
@@ -199,7 +178,7 @@ lemma schurEnvelopeCurvature_eq_two_mul_localCoercivity
   field_simp [hden]
   ring
 
-/-- Positive discriminant makes the reoptimized envelope curvature positive. -/
+/-- Positive discriminant survives reoptimization of the clock. -/
 lemma schurEnvelopeCurvature_pos
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant) :
@@ -210,8 +189,7 @@ lemma schurEnvelopeCurvature_pos
   unfold localCoercivity
   positivity
 
-/-- Subtracting `c x²` leaves a completed square plus the gap between the
-actual local coercivity and the proposed constant. -/
+/-- Subtracting `c x²` leaves the Schur gap `localCoercivity-c`. -/
 lemma shiftedHalfHessianQuadratic_eq_schur
     (j : TransverseJet) (c x y : ℝ)
     (hden : j.kappa - j.a ≠ 0) :
@@ -223,8 +201,7 @@ lemma shiftedHalfHessianQuadratic_eq_schur
   rw [j.halfHessianQuadratic_eq_schur x y hden]
   ring
 
-/-- Every constant strictly below the local Schur coefficient is a strict
-quadratic coercivity certificate. -/
+/-- Every `c` below the local Schur coefficient is a strict certificate. -/
 lemma shiftedHalfHessianQuadratic_pos_of_lt_localCoercivity
     (j : TransverseJet) (hkappa : 0 < j.kappa)
     (hdisc : 0 < j.discriminant)
@@ -237,7 +214,7 @@ lemma shiftedHalfHessianQuadratic_pos_of_lt_localCoercivity
   by_cases hx : x = 0
   · have hy : y ≠ 0 := by
       rcases hxy with hx' | hy'
-      · exact (hx hx').elim
+      · exact (hx' hx).elim
       · exact hy'
     subst x
     simpa using mul_pos hdenPos (show 0 < y ^ 2 by positivity)
@@ -250,7 +227,7 @@ lemma shiftedHalfHessianQuadratic_pos_of_lt_localCoercivity
       mul_nonneg (le_of_lt hdenPos) (sq_nonneg _)
     linarith
 
-/-- The residual-free jet occurring at an exact critical zero. -/
+/-- The residual-free jet at an exact critical zero. -/
 def exactZero (kappa : ℝ) : TransverseJet :=
   ⟨kappa, 0, 0⟩
 
@@ -275,20 +252,18 @@ def exactZero (kappa : ℝ) : TransverseJet :=
 
 end TransverseJet
 
-/-- The smooth certificate function used by a branch-and-bound proof. -/
+/-- Smooth residual certified by a branch-and-bound proof. -/
 def transverseCertificateResidual
     (energy : ℝ → ℝ → ℝ) (c sigma time : ℝ) : ℝ :=
   energy sigma time - c * (sigma - (1 : ℝ) / 2) ^ 2
 
-/-- A raw energy has coercivity constant `c` when it dominates the squared
-distance from the critical line at every time. -/
+/-- The raw energy dominates squared distance from the critical line. -/
 def IsTransverselyCoercive
     (energy : ℝ → ℝ → ℝ) (c : ℝ) : Prop :=
   ∀ sigma time : ℝ,
     c * (sigma - (1 : ℝ) / 2) ^ 2 ≤ energy sigma time
 
-/-- Certifying nonnegativity of the smooth residual is exactly the same as
-certifying the transverse coercivity inequality. -/
+/-- Residual nonnegativity is exactly the coercivity inequality. -/
 lemma isTransverselyCoercive_iff_certificateResidual_nonneg
     (energy : ℝ → ℝ → ℝ) (c : ℝ) :
     IsTransverselyCoercive energy c ↔
