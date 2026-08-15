@@ -7,7 +7,7 @@ import Mathlib.Analysis.Calculus.Deriv.Mul
 
 The first transverse bridge proves that the finite primitive camera is an
 entire complex characteristic and that the angular tangent is the real
-quarter-turn of the radial tangent.  This module differentiates once more.
+quarter-turn of the radial tangent. This module differentiates once more.
 
 At a point `s = sigma + i time`, write
 
@@ -38,9 +38,9 @@ with
  b=\langle u,Jw\rangle.
 ```
 
-Thus the previously abstract `TransverseJet` is now obtained directly from
-the concrete finite camera derivatives.  No score denominator, zero
-predicate, or numerical fit enters these definitions.
+Thus the previously abstract `TransverseJet` is obtained directly from the
+concrete finite camera derivatives. No score denominator, zero predicate, or
+numerical fit enters these definitions.
 -/
 
 namespace GenuineZeroUniformAtlasEnergy
@@ -58,8 +58,8 @@ entire. -/
 lemma finiteNativeFirstJet_differentiable
     (p M : ℕ) (hp : Nat.Prime p) :
     Differentiable ℂ (finiteNativeFirstJet p M) := by
-  simpa [finiteNativeFirstJet] using
-    (finiteNativeCharacteristic_differentiable p M hp).deriv
+  change Differentiable ℂ (deriv (finiteNativeCharacteristic p M))
+  exact (finiteNativeCharacteristic_differentiable p M hp).deriv
 
 /-- Radial derivative of the first jet. -/
 lemma finiteNativeFirstJetSlice_hasDerivAt_sigma
@@ -199,13 +199,36 @@ lemma hasDerivAt_nativePlaneInner_of_complex
         nativePlaneInner
           (complexToNativePlane (f x))
           (complexToNativePlane g')) x := by
-  have hre := (hasDerivAt_complex_re hf).mul (hasDerivAt_complex_re hg)
-  have him := (hasDerivAt_complex_im hf).mul (hasDerivAt_complex_im hg)
-  convert hre.add him using 1
-  · funext y
+  have hre :
+      HasDerivAt
+        (fun y => (f y).re * (g y).re)
+        (f'.re * (g x).re + (f x).re * g'.re) x :=
+    (hasDerivAt_complex_re hf).mul (hasDerivAt_complex_re hg)
+  have him :
+      HasDerivAt
+        (fun y => (f y).im * (g y).im)
+        (f'.im * (g x).im + (f x).im * g'.im) x :=
+    (hasDerivAt_complex_im hf).mul (hasDerivAt_complex_im hg)
+  have hsum :
+      HasDerivAt
+        (fun y =>
+          (f y).re * (g y).re + (f y).im * (g y).im)
+        ((f'.re * (g x).re + (f x).re * g'.re) +
+          (f'.im * (g x).im + (f x).im * g'.im)) x := by
+    simpa only [Pi.add_apply] using hre.add him
+  have hderiv :
+      nativePlaneInner
+          (complexToNativePlane f')
+          (complexToNativePlane (g x)) +
+        nativePlaneInner
+          (complexToNativePlane (f x))
+          (complexToNativePlane g') =
+      (f'.re * (g x).re + (f x).re * g'.re) +
+        (f'.im * (g x).im + (f x).im * g'.im) := by
     simp [nativePlaneInner, complexToNativePlane]
-  · simp [nativePlaneInner, complexToNativePlane]
     ring
+  rw [hderiv]
+  simpa [nativePlaneInner, complexToNativePlane] using hsum
 
 /-- Derivative of the native squared norm. -/
 lemma hasDerivAt_nativePlaneNormSq_of_complex
@@ -220,10 +243,20 @@ lemma hasDerivAt_nativePlaneNormSq_of_complex
         (complexToNativePlane (f x))
         (complexToNativePlane f')) x := by
   have h := hasDerivAt_nativePlaneInner_of_complex hf hf
-  convert h using 1
-  · rfl
-  · simp [nativePlaneInner, complexToNativePlane]
+  have hderiv :
+      2 * nativePlaneInner
+          (complexToNativePlane (f x))
+          (complexToNativePlane f') =
+        nativePlaneInner
+            (complexToNativePlane f')
+            (complexToNativePlane (f x)) +
+          nativePlaneInner
+            (complexToNativePlane (f x))
+            (complexToNativePlane f') := by
+    simp [nativePlaneInner, complexToNativePlane]
     ring
+  rw [hderiv]
+  exact h
 
 /-- Derivative of twice the native pairing. -/
 lemma hasDerivAt_two_nativePlaneInner_of_complex
@@ -242,12 +275,7 @@ lemma hasDerivAt_two_nativePlaneInner_of_complex
           nativePlaneInner
             (complexToNativePlane (f x))
             (complexToNativePlane g'))) x := by
-  have hinner := hasDerivAt_nativePlaneInner_of_complex hf hg
-  have htwo := (hasDerivAt_const x (2 : ℝ)).mul hinner
-  convert htwo using 1
-  · funext y
-    simp
-  · ring
+  exact (hasDerivAt_nativePlaneInner_of_complex hf hg).const_mul (2 : ℝ)
 
 @[simp] lemma nativePlaneInner_quarterTurn_left_self
     (u : NativeCarryRealPlane) :
@@ -290,7 +318,7 @@ lemma finiteNativeRawEnergy_eq_normSq
     finiteNativeRawEnergy p M sigma time =
       Complex.normSq (finiteNativeSlice p M sigma time) := by
   simp [finiteNativeRawEnergy, finiteNativeValuePlane,
-    nativePlaneInner, complexToNativePlane, Complex.normSq, pow_two]
+    nativePlaneInner, complexToNativePlane, Complex.normSq]
 
 /-- Hence the raw visibility is exactly the Euclidean energy of the primitive
 real camera. -/
@@ -379,7 +407,7 @@ lemma finiteNativeTimeEnergyGradient_hasDerivAt_time
   simpa [finiteNativeTimeEnergyGradient, finiteNativeValuePlane,
     finiteNativeTimeTangent, finiteNativeSigmaTangent,
     finiteNativeSecondSigmaTangent, finiteNativeTransverseJet,
-    TransverseJet.hessian11] using h
+    TransverseJet.hessian11, sub_eq_add_neg] using h
 
 /-- At an exact finite zero the residual coefficients `a` and `b` vanish, so
 the concrete jet is the isotropic exact-zero jet. -/
@@ -391,13 +419,12 @@ lemma finiteNativeTransverseJet_eq_exactZero_of_slice_eq_zero
         (nativePlaneInner
           (finiteNativeSigmaTangent p M sigma time)
           (finiteNativeSigmaTangent p M sigma time)) := by
-  ext <;>
-    simp [finiteNativeTransverseJet, TransverseJet.exactZero,
-      finiteNativeValuePlane, hzero, complexToNativePlane,
-      nativePlaneInner]
+  simp [finiteNativeTransverseJet, TransverseJet.exactZero,
+    finiteNativeValuePlane, hzero, complexToNativePlane,
+    nativePlaneInner]
 
 /-- Concrete finite Hessian bridge: the real primitive camera energy is the raw
-complex norm, and its five first/second derivative statements are exactly the
+complex norm, and its first and second derivative statements are exactly the
 three entries of the supplied `TransverseJet`. -/
 theorem finiteNativeCamera_rawEnergy_hessian_eq_transverseJet
     (p M : ℕ) (hp : Nat.Prime p) (hpodd : Odd p)
@@ -455,7 +482,7 @@ theorem finiteNativeCamera_exactZero_has_isotropic_transverseHessian
   have hslice : finiteNativeSlice p M sigma time = 0 := by
     rw [finiteNativeSlice_eq_packaged_realCamera
       p M hp hpodd sigma time, hzero]
-    simp [nativeCarryRealPlaneComplexPackaging]
+    apply Complex.ext <;> rfl
   have hjet :=
     finiteNativeTransverseJet_eq_exactZero_of_slice_eq_zero
       p M sigma time hslice
