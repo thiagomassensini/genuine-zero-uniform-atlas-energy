@@ -84,7 +84,7 @@ def finiteNativeTimeTangent
 
 /-- The finite complex characteristic is exactly the packaged primitive real
 camera. -/
-theorem finiteNativeSlice_eq_packaged_realCamera
+lemma finiteNativeSlice_eq_packaged_realCamera
     (p M : ℕ) (hp : Nat.Prime p) (hpodd : Odd p)
     (sigma time : ℝ) :
     finiteNativeSlice p M sigma time =
@@ -163,7 +163,7 @@ lemma finiteNativeSlice_hasDerivAt_sigma
       fun x : ℝ => nativeCarryRealPlaneParameter x time)
     (finiteNativeFirstJet p M
       (nativeCarryRealPlaneParameter sigma time)) sigma
-  exact hreal
+  simpa using hreal
 
 /-- Exact angular derivative of the concrete finite characteristic. -/
 lemma finiteNativeSlice_hasDerivAt_time
@@ -188,7 +188,7 @@ lemma finiteNativeSlice_hasDerivAt_time
       nativeCarryRealPlaneParameter sigma)
     (Complex.I * finiteNativeFirstJet p M
       (nativeCarryRealPlaneParameter sigma time)) time
-  exact hreal
+  simpa [mul_comm] using hreal
 
 /-- Multiplication by `i` is exactly the real quarter-turn. -/
 @[simp] lemma complexToNativePlane_I_mul (z : ℂ) :
