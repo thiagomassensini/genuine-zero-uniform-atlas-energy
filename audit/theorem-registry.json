@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
   "release": "0.4.0",
-  "count": 32,
+  "count": 35,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -162,6 +162,21 @@
       "id": "GZUAE-032",
       "name": "transverseCoercivity_excludes_offCritical_zero",
       "qualified": "GenuineZeroUniformAtlasEnergy.transverseCoercivity_excludes_offCritical_zero"
+    },
+    {
+      "id": "GZUAE-033",
+      "name": "finiteNativeCamera_transverse_tangent_geometry",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_transverse_tangent_geometry"
+    },
+    {
+      "id": "GZUAE-034",
+      "name": "finiteNativeCamera_rawEnergy_hessian_eq_transverseJet",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_rawEnergy_hessian_eq_transverseJet"
+    },
+    {
+      "id": "GZUAE-035",
+      "name": "finiteNativeCamera_exactZero_has_isotropic_transverseHessian",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian"
     }
   ]
 }
