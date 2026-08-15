@@ -16,6 +16,8 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/TiltedCenter.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/Capstone.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/TransverseCapstone.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeTransverseBridge.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeTransverseHessian.lean",
 ]
 PREFIX = "GenuineZeroUniformAtlasEnergy."
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
