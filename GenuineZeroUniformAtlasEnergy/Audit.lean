@@ -4,7 +4,7 @@ import GenuineZeroUniformAtlasEnergy
 # Ordered kernel dependency audit
 
 One `#print axioms` command is recorded for every public theorem introduced by
-this repository.  CI checks this order against the theorem registry.
+this repository. CI checks this order against the theorem registry.
 -/
 
 #print axioms GenuineZeroUniformAtlasEnergy.quadraticCarryShell_energy_eq_mass_iff
@@ -39,3 +39,6 @@ this repository.  CI checks this order against the theorem registry.
 #print axioms GenuineZeroUniformAtlasEnergy.exactZero_transverse_geometry
 #print axioms GenuineZeroUniformAtlasEnergy.transverseCertificateResidual_nonneg_iff
 #print axioms GenuineZeroUniformAtlasEnergy.transverseCoercivity_excludes_offCritical_zero
+#print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_transverse_tangent_geometry
+#print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_rawEnergy_hessian_eq_transverseJet
+#print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian
