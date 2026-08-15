@@ -115,7 +115,7 @@ off-equilibrium zero.
 
 ## Abstract transverse Hessian and coercivity
 
-The numerical audit motivates three finite real jet coefficients:
+A finite transverse jet is encoded by three real coefficients:
 
 ```math
 \kappa=\lVert\partial_\sigma\Chi\rVert^2,
@@ -125,8 +125,7 @@ a=\langle\Chi,\partial_{\sigma\sigma}\Chi\rangle,
 b=\langle\Chi,J\partial_{\sigma\sigma}\Chi\rangle.
 ```
 
-The new Lean layer begins from these scalars as an abstract structure and
-formalizes the Hessian
+The abstract Lean layer formalizes the Hessian
 
 ```math
 D^2E
@@ -168,10 +167,83 @@ E(\sigma,t)\ge c\left(\sigma-\frac12\right)^2\text{ everywhere}.
 If `c > 0`, this inequality forces every zero of the certified energy onto
 `sigma = 1/2`.
 
-This layer is intentionally conditional. It does not yet prove that the
-Python finite operator realizes the abstract jet identities, that its energy
-is the Lean function being certified, or that a positive constant is uniform
-in the cutoff. Those are the remaining operator-bridge and limit gates.
+## Concrete finite primitive-camera bridge
+
+The abstract jet is now connected to the finite primitive carry camera itself.
+For an odd prime camera `p` and cutoff `M`, define
+
+```math
+\Chi_{p,M}(s)
+=
+\mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
+```
+
+The function is entire. At `s = sigma + i*time`, Lean proves that it is
+literally the complex packaging of
+`nativeCarryRealPlaneFiniteChartAt p M sigma time`. Therefore the radial and
+angular derivatives satisfy
+
+```math
+\partial_t\Chi_{p,M}
+=
+i\,\partial_\sigma\Chi_{p,M}.
+```
+
+In real coordinates, multiplication by `i` is the fixed quarter-turn
+
+```math
+J(x,y)=(-y,x).
+```
+
+Hence the two tangent directions have equal Euclidean norm and zero pairing.
+No zero hypothesis or score normalization is used.
+
+The concrete raw energy is
+
+```math
+E_{p,M}(\sigma,t)
+=
+\lVert\Chi_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2.
+```
+
+Lean proves that this is exactly the Euclidean energy of the primitive real
+camera, not the scanner score obtained after division by coordinate count or
+coordinate energy. With
+
+```math
+u=\Chi_{p,M},\qquad
+v=\Chi_{p,M}',\qquad
+w=\Chi_{p,M}'',
+```
+
+the concrete jet is
+
+```math
+\kappa=\langle v,v\rangle,
+\qquad
+a=\langle u,w\rangle,
+\qquad
+b=\langle u,Jw\rangle,
+```
+
+and the three Hessian entries are proved to be exactly
+
+```math
+E_{\sigma\sigma}=2(\kappa+a),
+\qquad
+E_{\sigma t}=2b,
+\qquad
+E_{tt}=2(\kappa-a).
+```
+
+At an exact finite primitive-camera zero, `u = 0`, so `a = b = 0`. The
+concrete Hessian is isotropic, the first-order minimizing-clock slope is zero,
+the Schur-envelope curvature is `2*kappa`, and both algebraic eigenvalues are
+`2*kappa`.
+
+This closes the finite componentwise operator-to-jet bridge for every odd
+prime camera, including camera `3`. It does not import floating-point values
+or numerical minima as proof objects.
 
 ## Logical order
 
@@ -195,23 +267,46 @@ that same defect as the center left after boundary subtraction. The zero
 hypothesis is used only to telescope the boundary; it does not choose the
 native exponent or create the tilt balance.
 
-The abstract Hessian layer begins after a finite characteristic jet has been
-identified. It packages the algebra needed to turn such a jet and a global
-coercivity estimate into an off-critical zero exclusion, without pretending
-that the estimate itself has already been proved.
+For the transverse mechanism, the order is:
+
+```math
+\text{finite primitive camera}
+\Longrightarrow
+\text{entire finite characteristic}
+\Longrightarrow
+\partial_t\Chi=i\partial_\sigma\Chi
+\Longrightarrow
+\text{concrete jet }(\kappa,a,b)
+\Longrightarrow
+\text{raw-energy Hessian}.
+```
+
+The abstract coercivity layer then converts a positive discriminant into local
+rigidity, and a separately supplied positive global coercivity estimate into
+off-critical zero exclusion.
 
 ## Exact boundary of the result
 
 The atlas quantifier ranges over all finite prime-camera sets and all positive
 cutoffs. The theorem controls the full tower of finite approximations. It does
 not introduce a completed infinite-atlas vector because no such object is
-needed for this uniform-budget statement.
+needed for the uniform-budget statement.
 
 The center detector uses the hypotheses of the imported Green/tilt interface:
 an odd prime camera, positive cutoff, an admissible tilt center, and a
 parameter in the open strip. Primality is a camera hypothesis here; it is not
 a hypothesis of the foundational all-base quadratic rigidity theorem.
 
-The transverse-coercivity theorems are exact finite real algebra. Their global
-zero-exclusion consequence applies only after a positive coercivity inequality
-has been supplied for the energy under study.
+The transverse camera bridge is exact and finite, but currently componentwise.
+The remaining gates are:
+
+- package a selected finite camera family into one product-space characteristic
+  and sum its raw component energies;
+- supply a machine-checkable compact-domain lower bound for the concrete raw
+  energy, rather than merely numerical floating-point evidence;
+- prove that the lower bound remains positive uniformly in the cutoff;
+- justify the limiting energy and transport the coercivity inequality to that
+  limit.
+
+Thus the operator-to-jet bridge is closed. The global compact coercivity
+certificate and the cutoff-uniform limit are not.
