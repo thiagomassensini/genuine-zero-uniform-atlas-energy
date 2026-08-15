@@ -64,7 +64,7 @@ lemma eigenvalueMinus_mul_eigenvaluePlus (j : TransverseJet) :
       unfold discriminant
       ring
     _ = j.hessianDet := by
-      simpa using (hessianDet_eq_four_mul_discriminant j).symm
+      exact (hessianDet_eq_four_mul_discriminant j).symm
 
 @[simp] lemma characteristicValue_eigenvalueMinus (j : TransverseJet) :
     j.characteristicValue j.eigenvalueMinus = 0 := by
