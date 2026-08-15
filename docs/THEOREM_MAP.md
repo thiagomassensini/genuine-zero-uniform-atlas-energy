@@ -72,9 +72,34 @@ b & \kappa-a
 | `transverseCertificateResidual_nonneg_iff` | Global coercivity is equivalent to nonnegativity of the smooth residual `E-c*(sigma-1/2)^2`. |
 | `transverseCoercivity_excludes_offCritical_zero` | A supplied positive global coercivity constant forces every zero of the certified raw energy onto `sigma = 1/2`. |
 
-The last theorem is conditional on the global coercivity inequality. The
-repository does not yet identify the numerical finite operator with this
-abstract jet, nor does it claim a cutoff-independent lower bound.
+## Concrete finite primitive-camera bridge
+
+For an odd prime camera `p` and cutoff `M`, Lean defines the entire finite
+characteristic
+
+```math
+\Chi_{p,M}(s)=\mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
+```
+
+At `s = sigma + i*time`, this is literally the packaged primitive real-plane
+camera. Its raw visibility is
+
+```math
+E_{p,M}(\sigma,t)=\lVert\Chi_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2,
+```
+
+without the scanner score denominator.
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `finiteNativeCamera_transverse_tangent_geometry` | The finite complex characteristic is exactly the packaged primitive real camera; its time tangent is `i` times, equivalently the real quarter-turn of, its sigma tangent; the two tangents have equal norm and zero real pairing. |
+| `finiteNativeCamera_rawEnergy_hessian_eq_transverseJet` | The concrete raw energy equals the primitive real-camera Euclidean energy, and its first and second radial/angular derivatives are exactly the entries `2*(kappa+a)`, `2*b`, and `2*(kappa-a)` of the concrete jet built from `Chi`, `Chi'`, and `Chi''`. |
+| `finiteNativeCamera_exactZero_has_isotropic_transverseHessian` | At an exact finite primitive-camera zero, the residual coefficients vanish: the Hessian is isotropic, the first-order minimizing-clock slope is zero, the Schur-envelope curvature is `2*kappa`, and both algebraic eigenvalues equal `2*kappa`. |
+
+The concrete bridge is componentwise and finite. It does not yet package the
+whole six-camera stack into one product-space theorem, import a numerical
+branch-and-bound result as a proof object, establish a cutoff-uniform positive
+coercivity constant, or pass that constant to the infinite limit.
 
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).
