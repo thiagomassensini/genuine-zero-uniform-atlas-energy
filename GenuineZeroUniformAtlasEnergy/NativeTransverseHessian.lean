@@ -1,6 +1,7 @@
 import GenuineZeroUniformAtlasEnergy.NativeTransverseBridge
 import Mathlib.Analysis.Complex.CauchyIntegral
 import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.Deriv.Star
 
 /-!
 # Concrete Hessian of the finite native raw energy
@@ -173,17 +174,20 @@ lemma hasDerivAt_complex_re
   change HasDerivAt (Complex.reCLM ∘ f) (Complex.reCLM f') x
   exact Complex.reCLM.hasFDerivAt.comp_hasDerivAt x hf
 
-/-- Extract the imaginary-coordinate derivative of a complex-valued real
-curve. -/
-lemma hasDerivAt_complex_im
-    {f : ℝ → ℂ} {f' : ℂ} {x : ℝ}
-    (hf : HasDerivAt f f' x) :
-    HasDerivAt (fun y => (f y).im) f'.im x := by
-  change HasDerivAt (Complex.imCLM ∘ f) (Complex.imCLM f') x
-  exact Complex.imCLM.hasFDerivAt.comp_hasDerivAt x hf
+/-- The native real pairing is the real part of the conjugate product. -/
+@[simp] lemma nativePlaneInner_complexToNativePlane
+    (z w : ℂ) :
+    nativePlaneInner
+      (complexToNativePlane z)
+      (complexToNativePlane w) =
+        (star z * w).re := by
+  simp [nativePlaneInner, complexToNativePlane]
+  ring
 
 /-- Product rule for the Euclidean pairing of two complex curves, written in
-native real coordinates. -/
+native real coordinates. The proof differentiates one complex conjugate
+product before taking its real part, avoiding any choice of real module
+presentation. -/
 lemma hasDerivAt_nativePlaneInner_of_complex
     {f g : ℝ → ℂ} {f' g' : ℂ} {x : ℝ}
     (hf : HasDerivAt f f' x)
@@ -199,36 +203,13 @@ lemma hasDerivAt_nativePlaneInner_of_complex
         nativePlaneInner
           (complexToNativePlane (f x))
           (complexToNativePlane g')) x := by
-  have hre :
+  have hproduct :
       HasDerivAt
-        (fun y => (f y).re * (g y).re)
-        (f'.re * (g x).re + (f x).re * g'.re) x :=
-    (hasDerivAt_complex_re hf).mul (hasDerivAt_complex_re hg)
-  have him :
-      HasDerivAt
-        (fun y => (f y).im * (g y).im)
-        (f'.im * (g x).im + (f x).im * g'.im) x :=
-    (hasDerivAt_complex_im hf).mul (hasDerivAt_complex_im hg)
-  have hsum :
-      HasDerivAt
-        (fun y =>
-          (f y).re * (g y).re + (f y).im * (g y).im)
-        ((f'.re * (g x).re + (f x).re * g'.re) +
-          (f'.im * (g x).im + (f x).im * g'.im)) x := by
-    simpa only [Pi.add_apply] using hre.add him
-  have hderiv :
-      nativePlaneInner
-          (complexToNativePlane f')
-          (complexToNativePlane (g x)) +
-        nativePlaneInner
-          (complexToNativePlane (f x))
-          (complexToNativePlane g') =
-      (f'.re * (g x).re + (f x).re * g'.re) +
-        (f'.im * (g x).im + (f x).im * g'.im) := by
-    simp [nativePlaneInner, complexToNativePlane]
-    ring
-  rw [hderiv]
-  simpa [nativePlaneInner, complexToNativePlane] using hsum
+        (fun y => star (f y) * g y)
+        (star f' * g x + star (f x) * g') x :=
+    hf.star.mul hg
+  have hreal := hasDerivAt_complex_re hproduct
+  simpa using hreal
 
 /-- Derivative of the native squared norm. -/
 lemma hasDerivAt_nativePlaneNormSq_of_complex
