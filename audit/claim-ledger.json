@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
   "release": "0.4.0",
-  "registry_count": 32,
-  "count": 6,
+  "registry_count": 35,
+  "count": 7,
   "status_counts": {
-    "KERNEL_CHECKED": 6
+    "KERNEL_CHECKED": 7
   },
   "claims": [
     {
@@ -79,6 +79,16 @@
         "GZUAE-030",
         "GZUAE-031",
         "GZUAE-032"
+      ]
+    },
+    {
+      "id": "GZUAE-BRG-001",
+      "claim": "For every odd prime primitive finite camera, the packaged real resultant is the finite entire Dirichlet characteristic; its time tangent is the real quarter-turn of its sigma tangent; its raw unnormalized energy has Hessian entries supplied by the concrete transverse jet built from the first and second complex derivatives; and at an exact finite camera zero the Hessian is isotropic with zero first-order clock slope and a double algebraic eigenvalue. This is a finite componentwise bridge and does not assert a cutoff-uniform coercivity constant or an infinite-limit theorem.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-033",
+        "GZUAE-034",
+        "GZUAE-035"
       ]
     }
   ]
