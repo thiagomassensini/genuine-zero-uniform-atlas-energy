@@ -3,4 +3,5 @@ import GenuineZeroUniformAtlasEnergy.Budget
 import GenuineZeroUniformAtlasEnergy.TiltedCenter
 import GenuineZeroUniformAtlasEnergy.TransverseCoercivity
 import GenuineZeroUniformAtlasEnergy.TransverseSpectrum
+import GenuineZeroUniformAtlasEnergy.TransverseCapstone
 import GenuineZeroUniformAtlasEnergy.Capstone
