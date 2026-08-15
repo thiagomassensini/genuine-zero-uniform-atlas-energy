@@ -3,11 +3,33 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-if rg -n --glob '*.lean' \
-    '(^|[^A-Za-z])(sorry|admit|axiom|unsafe)([^A-Za-z]|$)' \
-    GenuineZeroUniformAtlasEnergy GenuineZeroUniformAtlasEnergy.lean; then
-  echo "static audit failed: local Lean trust escape found" >&2
-  exit 1
+lean_roots=(GenuineZeroUniformAtlasEnergy GenuineZeroUniformAtlasEnergy.lean)
+
+if command -v rg >/dev/null 2>&1; then
+  if rg -n --glob '*.lean' \
+      '(^|[^A-Za-z])(sorry|admit|axiom|unsafe)([^A-Za-z]|$)' \
+      "${lean_roots[@]}"; then
+    echo "static audit failed: local Lean trust escape found" >&2
+    exit 1
+  fi
+
+  import_stream() {
+    rg -o '^import[[:space:]]+GenuineZeroUniformAtlasEnergy(\.[A-Za-z0-9_.]+)?' \
+      --glob '*.lean' "${lean_roots[@]}"
+  }
+else
+  if grep -RInE --include='*.lean' \
+      '(^|[^A-Za-z])(sorry|admit|axiom|unsafe)([^A-Za-z]|$)' \
+      "${lean_roots[@]}"; then
+    echo "static audit failed: local Lean trust escape found" >&2
+    exit 1
+  fi
+
+  import_stream() {
+    grep -RhoE --include='*.lean' \
+      '^import[[:space:]]+GenuineZeroUniformAtlasEnergy(\.[A-Za-z0-9_.]+)?' \
+      "${lean_roots[@]}"
+  }
 fi
 
 while IFS= read -r module; do
@@ -17,8 +39,7 @@ while IFS= read -r module; do
     exit 1
   fi
 done < <(
-  rg -o '^import[[:space:]]+GenuineZeroUniformAtlasEnergy(\.[A-Za-z0-9_.]+)?' \
-    --glob '*.lean' GenuineZeroUniformAtlasEnergy GenuineZeroUniformAtlasEnergy.lean \
+  import_stream \
     | awk '{print $2}' \
     | sort -u
 )
