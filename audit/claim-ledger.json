@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
   "release": "0.4.0",
-  "registry_count": 25,
-  "count": 5,
+  "registry_count": 32,
+  "count": 6,
   "status_counts": {
-    "KERNEL_CHECKED": 5
+    "KERNEL_CHECKED": 6
   },
   "claims": [
     {
@@ -65,6 +65,20 @@
         "GZUAE-023",
         "GZUAE-024",
         "GZUAE-025"
+      ]
+    },
+    {
+      "id": "GZUAE-COE-001",
+      "claim": "For an abstract finite transverse jet, the trace, determinant, algebraic Hessian eigenvalues, Schur-envelope curvature, exact-zero isotropy, and local coercivity certificate follow from the scalar discriminant; separately, any supplied positive global raw-energy coercivity bound forces every certified zero onto sigma equals one-half. This claim does not identify the numerical operator with the abstract jet and does not assert a cutoff-uniform lower bound.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-026",
+        "GZUAE-027",
+        "GZUAE-028",
+        "GZUAE-029",
+        "GZUAE-030",
+        "GZUAE-031",
+        "GZUAE-032"
       ]
     }
   ]
