@@ -113,14 +113,15 @@ lemma nativeParameter_hasDerivAt_sigma
     HasDerivAt
       (fun x : ℝ => nativeCarryRealPlaneParameter x time)
       (1 : ℂ) sigma := by
-  have h :
-      HasDerivAt
-        (fun x : ℝ => (x : ℂ) + (time : ℂ) * Complex.I)
-        (1 : ℂ) sigma := by
-    simpa using Complex.ofRealCLM.hasDerivAt.add_const
-      ((time : ℂ) * Complex.I)
-  convert h using 1 <;>
-    ext <;> simp [nativeCarryRealPlaneParameter]
+  have hfun :
+      (fun x : ℝ => nativeCarryRealPlaneParameter x time) =
+        (fun x : ℝ => (x : ℂ) + (time : ℂ) * Complex.I) := by
+    funext x
+    apply Complex.ext <;>
+      simp [nativeCarryRealPlaneParameter]
+  rw [hfun]
+  simpa using Complex.ofRealCLM.hasDerivAt.add_const
+    ((time : ℂ) * Complex.I)
 
 /-- Varying time changes `sigma+i time` with derivative `i`. -/
 lemma nativeParameter_hasDerivAt_time
@@ -128,15 +129,16 @@ lemma nativeParameter_hasDerivAt_time
     HasDerivAt
       (fun y : ℝ => nativeCarryRealPlaneParameter sigma y)
       Complex.I time := by
-  have h :
-      HasDerivAt
-        (fun y : ℝ => (sigma : ℂ) + (y : ℂ) * Complex.I)
-        Complex.I time := by
-    simpa using
-      (Complex.ofRealCLM.hasDerivAt.mul_const Complex.I).const_add
-        (sigma : ℂ)
-  convert h using 1 <;>
-    ext <;> simp [nativeCarryRealPlaneParameter]
+  have hfun :
+      (fun y : ℝ => nativeCarryRealPlaneParameter sigma y) =
+        (fun y : ℝ => (sigma : ℂ) + (y : ℂ) * Complex.I) := by
+    funext y
+    apply Complex.ext <;>
+      simp [nativeCarryRealPlaneParameter]
+  rw [hfun]
+  simpa using
+    (Complex.ofRealCLM.hasDerivAt.mul_const Complex.I).const_add
+      (sigma : ℂ)
 
 /-- Exact radial derivative of the concrete finite characteristic. -/
 lemma finiteNativeSlice_hasDerivAt_sigma
@@ -156,7 +158,12 @@ lemma finiteNativeSlice_hasDerivAt_sigma
       (nativeCarryRealPlaneParameter sigma time)).hasDerivAt
   have hreal := houter.complexToReal_fderiv.comp_hasDerivAt sigma
     (nativeParameter_hasDerivAt_sigma sigma time)
-  simpa [finiteNativeSlice] using hreal
+  change HasDerivAt
+    (finiteNativeCharacteristic p M ∘
+      fun x : ℝ => nativeCarryRealPlaneParameter x time)
+    (finiteNativeFirstJet p M
+      (nativeCarryRealPlaneParameter sigma time)) sigma
+  exact hreal
 
 /-- Exact angular derivative of the concrete finite characteristic. -/
 lemma finiteNativeSlice_hasDerivAt_time
@@ -176,7 +183,12 @@ lemma finiteNativeSlice_hasDerivAt_time
       (nativeCarryRealPlaneParameter sigma time)).hasDerivAt
   have hreal := houter.complexToReal_fderiv.comp_hasDerivAt time
     (nativeParameter_hasDerivAt_time sigma time)
-  simpa [finiteNativeSlice, mul_comm] using hreal
+  change HasDerivAt
+    (finiteNativeCharacteristic p M ∘
+      nativeCarryRealPlaneParameter sigma)
+    (Complex.I * finiteNativeFirstJet p M
+      (nativeCarryRealPlaneParameter sigma time)) time
+  exact hreal
 
 /-- Multiplication by `i` is exactly the real quarter-turn. -/
 @[simp] lemma complexToNativePlane_I_mul (z : ℂ) :
