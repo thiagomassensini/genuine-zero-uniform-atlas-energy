@@ -45,5 +45,36 @@
 | `nativeZero_hasUniqueUniformAtlasEnergyBudget` | The identical zero written as native closure inherits the same budget. |
 | `zeroIdentity_with_uniqueUniformAtlasEnergyBudget` | One statement records the exact zero identity and unique full-atlas budget. |
 
+## Abstract transverse-coercivity certificate
+
+Let the finite transverse jet be encoded by `kappa`, `a`, and `b`, with
+
+```math
+D=\kappa^2-a^2-b^2.
+```
+
+The formalized Hessian is
+
+```math
+2\begin{pmatrix}
+\kappa+a & b\\
+b & \kappa-a
+\end{pmatrix}.
+```
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `transverseHessian_trace_det_and_positiveDefinite` | If `kappa > 0` and `D > 0`, then the Hessian has trace `4*kappa`, determinant `4*D`, and a strictly positive quadratic form away from the origin. |
+| `transverseHessian_eigenvalue_pair` | The explicit values `2*(kappa ± sqrt(a^2+b^2))` are roots of the characteristic polynomial and recover trace and determinant by sum and product. |
+| `transverseEnvelope_slope_and_curvature` | The minimizing-clock slope is `-b/(kappa-a)` and the Schur-envelope curvature is twice the local coefficient `D/(kappa-a)`, hence positive when the discriminant is positive. |
+| `transverseLocalCoercivity_certificate` | Every constant below the local Schur coefficient leaves a strictly positive shifted quadratic form after the time direction is allowed to move. |
+| `exactZero_transverse_geometry` | At the residual-free exact-zero jet, the Hessian is isotropic, the clock slope is zero, the envelope curvature is `2*kappa`, and both eigenvalues equal `2*kappa`. |
+| `transverseCertificateResidual_nonneg_iff` | Global coercivity is equivalent to nonnegativity of the smooth residual `E-c*(sigma-1/2)^2`. |
+| `transverseCoercivity_excludes_offCritical_zero` | A supplied positive global coercivity constant forces every zero of the certified raw energy onto `sigma = 1/2`. |
+
+The last theorem is conditional on the global coercivity inequality. The
+repository does not yet identify the numerical finite operator with this
+abstract jet, nor does it claim a cutoff-independent lower bound.
+
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).
