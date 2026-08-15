@@ -113,6 +113,66 @@ and the total coupled Green flux cannot tend to zero. This is a separation of
 channels, not a second zero definition and not an existence theorem for an
 off-equilibrium zero.
 
+## Abstract transverse Hessian and coercivity
+
+The numerical audit motivates three finite real jet coefficients:
+
+```math
+\kappa=\lVert\partial_\sigma\Chi\rVert^2,
+\qquad
+a=\langle\Chi,\partial_{\sigma\sigma}\Chi\rangle,
+\qquad
+b=\langle\Chi,J\partial_{\sigma\sigma}\Chi\rangle.
+```
+
+The new Lean layer begins from these scalars as an abstract structure and
+formalizes the Hessian
+
+```math
+D^2E
+=
+2\begin{pmatrix}
+\kappa+a & b\\
+b & \kappa-a
+\end{pmatrix}.
+```
+
+With
+
+```math
+D=\kappa^2-a^2-b^2,
+```
+
+Lean proves the exact trace and determinant identities, the algebraic
+eigenvalue pair, the completed-square positive-definiteness criterion, the
+implicit minimizing-clock slope, the Schur-envelope curvature, and the local
+coercivity threshold. At an exact residual-free zero, the correction vanishes
+and the Hessian becomes `2*kappa` times the identity.
+
+For an arbitrary raw energy `E`, Lean also defines
+
+```math
+F_c(\sigma,t)
+=
+E(\sigma,t)-c\left(\sigma-\frac12\right)^2
+```
+
+and proves
+
+```math
+F_c\ge0\text{ everywhere}
+\iff
+E(\sigma,t)\ge c\left(\sigma-\frac12\right)^2\text{ everywhere}.
+```
+
+If `c > 0`, this inequality forces every zero of the certified energy onto
+`sigma = 1/2`.
+
+This layer is intentionally conditional. It does not yet prove that the
+Python finite operator realizes the abstract jet identities, that its energy
+is the Lean function being certified, or that a positive constant is uniform
+in the cutoff. Those are the remaining operator-bridge and limit gates.
+
 ## Logical order
 
 The dependency order is:
@@ -135,6 +195,11 @@ that same defect as the center left after boundary subtraction. The zero
 hypothesis is used only to telescope the boundary; it does not choose the
 native exponent or create the tilt balance.
 
+The abstract Hessian layer begins after a finite characteristic jet has been
+identified. It packages the algebra needed to turn such a jet and a global
+coercivity estimate into an off-critical zero exclusion, without pretending
+that the estimate itself has already been proved.
+
 ## Exact boundary of the result
 
 The atlas quantifier ranges over all finite prime-camera sets and all positive
@@ -146,3 +211,7 @@ The center detector uses the hypotheses of the imported Green/tilt interface:
 an odd prime camera, positive cutoff, an admissible tilt center, and a
 parameter in the open strip. Primality is a camera hypothesis here; it is not
 a hypothesis of the foundational all-base quadratic rigidity theorem.
+
+The transverse-coercivity theorems are exact finite real algebra. Their global
+zero-exclusion consequence applies only after a positive coercivity inequality
+has been supplied for the energy under study.
