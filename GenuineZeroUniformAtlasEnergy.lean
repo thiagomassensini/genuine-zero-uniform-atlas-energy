@@ -1,4 +1,5 @@
 import GenuineZeroUniformAtlasEnergy.NativeGeometry
 import GenuineZeroUniformAtlasEnergy.Budget
 import GenuineZeroUniformAtlasEnergy.TiltedCenter
+import GenuineZeroUniformAtlasEnergy.TransverseCoercivity
 import GenuineZeroUniformAtlasEnergy.Capstone
