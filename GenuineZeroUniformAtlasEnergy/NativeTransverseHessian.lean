@@ -182,7 +182,6 @@ lemma hasDerivAt_complex_re
       (complexToNativePlane w) =
         (star z * w).re := by
   simp [nativePlaneInner, complexToNativePlane]
-  ring
 
 /-- Product rule for the Euclidean pairing of two complex curves, written in
 native real coordinates. The proof differentiates one complex conjugate
