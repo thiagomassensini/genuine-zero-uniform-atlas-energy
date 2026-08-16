@@ -252,7 +252,9 @@ lemma summable_nativeExplicitRadiusLeadingPower_critical
   have hpower := summable_criticalFiveHalves_shifted M
   exact hpower.of_norm_bounded (fun k => by
     rw [Complex.norm_natCast_cpow_of_pos (by omega)]
-    simp [criticalLineParameter_re, Nat.cast_add])
+    simp only [Complex.sub_re, Complex.neg_re, criticalLineParameter_re,
+      Complex.ofNat_re, Nat.cast_add]
+    convert le_rfl using 1 <;> norm_num)
 
 /-- On the critical line, the complete named tail remainder is exactly the
 sum of the scalar leading-series defect and the accumulated local Taylor
