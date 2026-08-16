@@ -101,5 +101,34 @@ whole six-camera stack into one product-space theorem, import a numerical
 branch-and-bound result as a proof object, establish a cutoff-uniform positive
 coercivity constant, or pass that constant to the infinite limit.
 
+## Exact resonant cutoff tail and critical decay
+
+At a real spectral resonance, the infinite chart vanishes. The finite chart is
+therefore exactly the negative of the unresolved bracket tail:
+
+```math
+\Chi_{p,M}\left(\frac12+i t\right)
+=
+-\sum_{k\ge M}\operatorname{Bracket}_{p,k}
+ \left(\frac12+i t\right).
+```
+
+The centered-second-difference majorant and the integral test give
+
+```math
+\sum_{k\ge0}(k+M+1)^{-5/2}
+\le
+\frac23 M^{-3/2}.
+```
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `finiteNativeCamera_resonant_cutoffTail_and_rate` | For every positive cutoff of an odd prime primitive camera and every real spectral resonance, the finite characteristic equals the negative unresolved tail; its norm is at most `(2/3) * C_{p,t} * M^(-3/2)`, and its raw quadratic energy is at most the square of that bound. |
+
+This theorem is an explicit upper decay estimate. It does not yet identify the
+sharp leading coefficient, formalize the logarithmic cutoff phase, aggregate
+the empirical camera family `2,3,4,5,6,7`, or provide a transverse coercivity
+lower bound.
+
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).
