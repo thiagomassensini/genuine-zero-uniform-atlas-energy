@@ -21,8 +21,14 @@ if len(sys.argv) != 2:
     fail("usage: check_axiom_output.py AXIOM_OUTPUT")
 
 output = Path(sys.argv[1]).read_text()
-registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
-expected = [entry["qualified"] for entry in registry["theorems"]]
+base_registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
+extension = json.loads(
+    (ROOT / "audit/theorem-registry-0.7.0.json").read_text()
+)
+expected = [
+    entry["qualified"]
+    for entry in base_registry["theorems"] + extension["theorems"]
+]
 
 pattern = re.compile(
     r"'([^']+)' (does not depend on any axioms|depends on axioms: \[(.*?)\])",
@@ -31,7 +37,7 @@ pattern = re.compile(
 matches = list(pattern.finditer(output))
 names = [match.group(1) for match in matches]
 if names != expected:
-    fail("output declarations differ from the ordered theorem registry")
+    fail("output declarations differ from the ordered combined theorem registry")
 
 for match in matches:
     raw = match.group(3)
