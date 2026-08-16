@@ -15,15 +15,16 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-ECG-001` | `KERNEL_CHECKED` | Exact C2--C7 labels, periods, retained radii, C4/C6 antipodal channels, second moments, and collective rational geometry weight. |
 | `GZUAE-EOP-001` | `KERNEL_CHECKED` | Absolute summability, exact prefix--tail identities, complete stack/energy packaging, and displayed fixed-time resonant upper bounds for the six empirical cameras. |
 | `GZUAE-ASY-001` | `KERNEL_CHECKED` | Third derivative and explicit local `(k+1)^(-7/2)` Taylor remainder after the quadratic bracket model is removed. |
-| `GZUAE-ASY-002` | `KERNEL_CHECKED` | Exact leading-model splits, logarithmic phase, empirical-tail identification, and collective coefficient geometry; no global tail-remainder bound or scaled-tail convergence is claimed. |
+| `GZUAE-ASY-002` | `KERNEL_CHECKED` | Exact leading-model splits, logarithmic phase, empirical-tail identification, and collective coefficient geometry; the quantitative global remainder is recorded separately. |
 | `GZUAE-PHA-001` | `KERNEL_CHECKED` | Phase-uniform symbolic algebraic floor and conditional transfer to a supplied coefficient sequence, including four only under `4 < phaseFloor` and a supplied `C/M` error. |
 | `GZUAE-LIM-001` | `KERNEL_CHECKED` | A supplied eventual cutoff-uniform global coercivity inequality passes to a supplied pointwise energy limit. |
 | `GZUAE-PRJ-001` | `KERNEL_CHECKED` | The finite-residue model is the negative of the tail model with the same exact collective norm; C4/C2 factor separation gives non-collinearity from the complex-derivative model direction and strictly positive projected `rho` and algebraic phase floor under criticality and a nonzero Genuine derivative. |
 | `GZUAE-EVN-001` | `KERNEL_CHECKED` | Explicit C4/C6 antipodal continuation, one faithful factor table for C2--C7, and a six-camera resonant tail/energy capstone with displayed fixed-time upper bound from one presented Genuine resonance. |
 | `GZUAE-REG-001` | `KERNEL_CHECKED` | Regional residual/coercivity equivalence, regional zero exclusion, restriction of global bounds, and conditional regional limit passage. |
-| `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder after cutoff `M` is explicitly `O(M^(-5/2))`, hence `O(1/M)` after critical `M^(3/2)` scaling. The complex Euler defect and complete named tail remainder remain open. |
+| `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder after cutoff `M` is explicitly `O(M^(-5/2))`, hence `O(1/M)` after critical `M^(3/2)` scaling. |
+| `GZUAE-ASY-004` | `KERNEL_CHECKED` | The complete named critical tail remainder is bounded by an explicit `K(b,h,t) M^(-5/2)`, and the scaled cutoff tail differs from its exact leading coefficient by at most `K(b,h,t)/M`. |
 
-The current post-`0.6.0` development surface records 18 claims covering 133
+The current post-`0.6.0` development surface records 19 claims covering 135
 ordered theorem reports. No
 claim introduces an auxiliary zero class, obtains the quadratic amplitude from
 a zero hypothesis, imports numerical minima as proof objects, proves a named

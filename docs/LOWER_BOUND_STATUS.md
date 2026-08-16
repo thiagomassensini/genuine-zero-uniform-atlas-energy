@@ -15,12 +15,14 @@ Lean proves the following facts for the faithful empirical stack C2--C7:
   zero;
 - for each fixed critical time, displayed time-dependent `M^(-3/2)` amplitude
   and `M^(-3)` collective-energy upper bounds;
-- the exact phase `M^(-3/2) exp(-it log M)` of the proposed tail monomial and
+- the exact phase `M^(-3/2) exp(-it log M)` of the leading tail monomial and
   the rational collective model geometry coefficient
   `132244271/1778112000`;
-- the accumulated local cubic Taylor remainder is bounded explicitly by
-  `O(M^(-5/2))`, hence by `O(1/M)` after the natural critical rescaling;
-- the coordinate identity between the proposed tail model `+A_tail` and finite
+- the complete named scalar tail remainder, combining the leading-series
+  defect with the accumulated local Taylor remainder, is bounded by an
+  explicit `K M^(-5/2)`; after critical rescaling the cutoff tail differs from
+  its exact leading coefficient by at most `K/M`;
+- the coordinate identity between the tail coefficient `+A_tail` and finite
   resonant-residue model `A_res = -A_tail`, together with their common squared
   norm;
 - non-collinearity of the finite-residue model vector and limiting
@@ -65,9 +67,9 @@ The remaining analytic bridge must provide:
 
 1. a proof object locating a Genuine zero in an exact interval;
 2. a certified nonzero derivative and quantitative derivative lower bound;
-3. a bound for the remaining complex Euler defect, then the complete global
-   tail remainder and uniform cutoff expansions for the characteristic and
-   the derivatives used by the reoptimized clock;
+3. uniform cutoff expansions for the characteristic derivatives used by the
+   reoptimized clock (the scalar characteristic tail remainder itself now has
+   an explicit `K M^(-5/2)` bound and scaled `K/M` form);
 4. an explicit `C/M` bridge from the concrete reoptimized coefficient to the
    algebraic phase model;
 5. a certified compact-complement argument covering transitions between zero

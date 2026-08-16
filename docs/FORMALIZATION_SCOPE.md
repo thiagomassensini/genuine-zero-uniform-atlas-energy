@@ -287,9 +287,11 @@ The primitive-camera theorem is an upper bound. The new explicit-radius layer
 also isolates the proposed leading block and tail coefficients. Lean proves an
 explicit cubic-radius local Taylor remainder of order `(k+1)^(-7/2)`, the exact
 phase `M^(-3/2) exp(-it log M)` of the proposed tail monomial, and the exact
-collective six-camera squared model coefficient. It does not yet bound the
-named global tail remainder or prove scaled-tail convergence, so the
-coefficient is not presented as a completed sharp tail asymptotic.
+collective six-camera squared model coefficient. The post-`0.6.0` development
+also bounds the complete named global tail remainder by an explicit
+`K(b,h,t) M^(-5/2)` and proves the corresponding scaled `K(b,h,t)/M` error.
+This completes the fixed-time scalar tail asymptotic, but not its derivative,
+Hessian, or finite-reoptimization expansions.
 
 ## Faithful empirical stack C2--C7
 
@@ -440,12 +442,10 @@ a hypothesis of the foundational all-base quadratic rigidity theorem.
 
 The empirical product-space packaging and the even-camera semantic gap are now
 closed. The proposed monomial's logarithmic phase and the local Taylor
-remainder are kernel-checked, but the named global cutoff-tail remainder still
-lacks a proved bound or scaled-tail convergence theorem. The
-remaining concrete gates are:
+remainder are kernel-checked, as are the complete scalar cutoff-tail remainder
+bound and scaled `K/M` form. The remaining concrete gates are:
 
-- finish the global tail remainder and the corresponding derivative and
-  Hessian expansions;
+- prove the corresponding derivative and Hessian cutoff expansions;
 - certify a Genuine zero, its simplicity, and a quantitative derivative lower
   bound with exact enclosures;
 - use those enclosures to prove `c_floor > 4` and the concrete `C/M`

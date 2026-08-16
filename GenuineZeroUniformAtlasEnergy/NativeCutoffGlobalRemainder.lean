@@ -649,7 +649,7 @@ lemma norm_nativeExplicitRadiusBlockCoefficient_critical
   rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hmoment]
 
 /-- Complete explicit `O(M^(-5/2))` bound for the named global remainder. -/
-lemma norm_nativeExplicitRadiusTailRemainder_critical_le
+theorem norm_nativeExplicitRadiusTailRemainder_critical_le
     (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
     (hM : 1 ≤ M) (time : ℝ) :
     ‖nativeExplicitRadiusTailRemainder b h M
@@ -802,7 +802,7 @@ private lemma
 
 /-- The scaled critical cutoff tail differs from its exact leading
 coefficient by at most the explicit error `K/M`. -/
-lemma norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le
+theorem norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le
     (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
     (hM : 1 ≤ M) (time : ℝ) :
     ‖(M : ℂ) ^ (criticalLineParameter time + 1) *

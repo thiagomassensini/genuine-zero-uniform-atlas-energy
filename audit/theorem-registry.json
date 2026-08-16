@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
   "release": "0.6.0",
-  "count": 133,
+  "count": 135,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -667,6 +667,16 @@
       "id": "GZUAE-133",
       "name": "norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le",
       "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le"
+    },
+    {
+      "id": "GZUAE-134",
+      "name": "norm_nativeExplicitRadiusTailRemainder_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusTailRemainder_critical_le"
+    },
+    {
+      "id": "GZUAE-135",
+      "name": "norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le"
     }
   ]
 }

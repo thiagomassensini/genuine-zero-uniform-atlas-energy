@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
   "release": "0.6.0",
-  "registry_count": 133,
-  "count": 18,
+  "registry_count": 135,
+  "count": 19,
   "status_counts": {
-    "KERNEL_CHECKED": 18
+    "KERNEL_CHECKED": 19
   },
   "claims": [
     {
@@ -161,7 +161,7 @@
     },
     {
       "id": "GZUAE-ASY-002",
-      "claim": "The explicit-radius block and cutoff tail have exact named leading-model decompositions; the local coefficient cancels its s+1 primitive factor; the critical cutoff monomial has exact amplitude M^(-3/2) and logarithmic phase; the empirical tails use the faithful period/radius geometry; and the squared six-camera coefficient model has rational weight 132244271/1778112000. The global tail remainder is defined exactly by subtraction but no bound or scaled-tail convergence for it is claimed.",
+      "claim": "The explicit-radius block and cutoff tail have exact named leading-model decompositions; the local coefficient cancels its s+1 primitive factor; the critical cutoff monomial has exact amplitude M^(-3/2) and logarithmic phase; the empirical tails use the faithful period/radius geometry; and the squared six-camera coefficient model has rational weight 132244271/1778112000. This claim supplies the exact leading geometry; the quantitative global remainder is covered separately by GZUAE-ASY-004.",
       "status": "KERNEL_CHECKED",
       "theorem_ids": [
         "GZUAE-076",
@@ -260,10 +260,19 @@
     },
     {
       "id": "GZUAE-ASY-003",
-      "claim": "On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate complex leading-series Euler defect and the complete named tail remainder are not bounded by this claim.",
+      "claim": "On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate scalar defect and complete remainder are covered by GZUAE-ASY-004.",
       "status": "KERNEL_CHECKED",
       "theorem_ids": [
         "GZUAE-133"
+      ]
+    },
+    {
+      "id": "GZUAE-ASY-004",
+      "claim": "On the critical line, the scalar sum-versus-primitive defect and the accumulated local Taylor remainder combine into a complete explicit K(b,h,t) M^(-5/2) bound for the named cutoff-tail remainder. Consequently the cutoff tail scaled by M^(s+1) differs from its exact leading coefficient by at most K(b,h,t)/M. The constant is independent of M; no derivative or finite reoptimization expansion is asserted.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-134",
+        "GZUAE-135"
       ]
     }
   ]

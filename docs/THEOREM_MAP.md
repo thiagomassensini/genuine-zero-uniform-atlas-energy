@@ -164,11 +164,13 @@ and the componentwise finite tail/rate theorem.
 | `norm_empiricalNativeTailCoefficient_critical` | Each candidate tail-model coefficient has the exact second-moment and period norm. |
 | `empiricalNativeTailCoefficientNormSq_eq` | The squared six-camera model coefficient has exact rational geometry weight `132244271/1778112000`. |
 | `norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le` | The local cubic Taylor errors accumulated after cutoff `M` are bounded explicitly by a constant times `M^(-5/2)`. |
+| `norm_nativeExplicitRadiusTailRemainder_critical_le` | The scalar leading-series defect and accumulated Taylor errors give a complete explicit `K(b,h,t) M^(-5/2)` bound for the named global remainder. |
+| `norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le` | After multiplication by `M^(s+1)`, the critical cutoff tail differs from its exact leading coefficient by at most `K(b,h,t)/M`. |
 
-There is still no theorem bounding the complete
-`nativeExplicitRadiusTailRemainder` or proving scaled-tail convergence. The
-accumulated Taylor part is now controlled, while the complex leading-series
-Euler defect and therefore the global sharp asymptotic remain open.
+The complete scalar cutoff-tail asymptotic is therefore quantitative on the
+critical line. This does not yet provide uniform derivative/Hessian
+expansions, identify the finite reoptimized clock coefficient, or close the
+compact-complement argument.
 
 ## Full-even continuation and one six-camera resonance
 

@@ -1,6 +1,6 @@
 # Theorem Registry
 
-The current post-`0.6.0` development surface contains 133 local public
+The current post-`0.6.0` development surface contains 135 local public
 theorems. Their canonical order and qualified Lean names are stored in
 [`theorem-registry.json`](theorem-registry.json).
 
@@ -25,8 +25,9 @@ raw-energy decay bounds. The release adds 96 audited declarations covering the
 faithful six-camera geometry and operator, local Taylor remainder, leading
 phase model, symbolic projected floor, full-even continuation, and conditional
 global and regional limit passage.
-`NativeCutoffGlobalRemainder.lean` adds the explicit `M^(-5/2)` bound for the
-accumulated local Taylor remainder while leaving the separate Euler defect
-outside the claim.
+`NativeCutoffGlobalRemainder.lean` adds the explicit `M^(-5/2)` bounds for the
+accumulated local Taylor remainder and for the complete named tail remainder,
+together with the scaled cutoff-tail error bound `K/M`.
 
-CI fails if any surface diverges.
+CI checks the declaration count and order, the matching `Audit.lean` reports,
+and complete claim-ledger coverage.
