@@ -191,12 +191,10 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
           ((k : ℝ) + (M : ℝ) + 1) ^ (-(7 / 2 : ℝ)) :=
     tsum_of_norm_bounded hmajorantHasSum hpointwise
   have hC : 0 ≤ C := by
+    have hmoment : 0 ≤ nativeRadiusThirdMoment h :=
+      nativeRadiusThirdMoment_nonneg h
     dsimp [C]
-    exact mul_nonneg
-      (mul_nonneg
-        (mul_nonneg (by positivity) (Real.rpow_nonneg (by positivity) _))
-        (nativeRadiusThirdMoment_nonneg h))
-      (by positivity)
+    positivity
   calc
     ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M
         (criticalLineParameter time)‖ =
