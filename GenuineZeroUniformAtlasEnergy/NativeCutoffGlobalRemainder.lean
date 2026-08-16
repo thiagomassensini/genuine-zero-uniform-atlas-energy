@@ -20,7 +20,7 @@ M^{-5/2}.
 After multiplying a resonant finite residue by the natural critical scale
 `M^(3/2)`, this contribution is therefore `O(1/M)`.  The separate scalar
 sum-versus-primitive defect of the leading complex p-series is not hidden in
-this theorem and remains the next term required for the complete named tail
+this lemma and remains the next term required for the complete named tail
 remainder.
 -/
 
@@ -143,8 +143,10 @@ lemma summable_nativeExplicitRadiusBracketRemainder_critical
         ring)
 
 /-- The local cubic Taylor errors sum to an explicit global
-`O(M^(-5/2))` remainder on the critical line. -/
-theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
+`O(M^(-5/2))` remainder on the critical line.  This is intentionally a
+supporting lemma: the public capstone should also include the separate scalar
+sum-versus-primitive defect. -/
+lemma norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
     (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
     (hM : 1 ≤ M) (time : ℝ) :
     ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M
