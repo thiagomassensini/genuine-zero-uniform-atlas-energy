@@ -45,5 +45,61 @@
 | `nativeZero_hasUniqueUniformAtlasEnergyBudget` | The identical zero written as native closure inherits the same budget. |
 | `zeroIdentity_with_uniqueUniformAtlasEnergyBudget` | One statement records the exact zero identity and unique full-atlas budget. |
 
+## Abstract transverse-coercivity certificate
+
+Let the finite transverse jet be encoded by `kappa`, `a`, and `b`, with
+
+```math
+D=\kappa^2-a^2-b^2.
+```
+
+The formalized Hessian is
+
+```math
+2\begin{pmatrix}
+\kappa+a & b\\
+b & \kappa-a
+\end{pmatrix}.
+```
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `transverseHessian_trace_det_and_positiveDefinite` | If `kappa > 0` and `D > 0`, then the Hessian has trace `4*kappa`, determinant `4*D`, and a strictly positive quadratic form away from the origin. |
+| `transverseHessian_eigenvalue_pair` | The explicit values `2*(kappa ± sqrt(a^2+b^2))` are roots of the characteristic polynomial and recover trace and determinant by sum and product. |
+| `transverseEnvelope_slope_and_curvature` | The minimizing-clock slope is `-b/(kappa-a)` and the Schur-envelope curvature is twice the local coefficient `D/(kappa-a)`, hence positive when the discriminant is positive. |
+| `transverseLocalCoercivity_certificate` | Every constant below the local Schur coefficient leaves a strictly positive shifted quadratic form after the time direction is allowed to move. |
+| `exactZero_transverse_geometry` | At the residual-free exact-zero jet, the Hessian is isotropic, the clock slope is zero, the envelope curvature is `2*kappa`, and both eigenvalues equal `2*kappa`. |
+| `transverseCertificateResidual_nonneg_iff` | Global coercivity is equivalent to nonnegativity of the smooth residual `E-c*(sigma-1/2)^2`. |
+| `transverseCoercivity_excludes_offCritical_zero` | A supplied positive global coercivity constant forces every zero of the certified raw energy onto `sigma = 1/2`. |
+
+## Concrete finite primitive-camera bridge
+
+For an odd prime camera `p` and cutoff `M`, Lean defines the entire finite
+characteristic
+
+```math
+\Chi_{p,M}(s)=\mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
+```
+
+At `s = sigma + i*time`, this is literally the packaged primitive real-plane
+camera. Its raw visibility is
+
+```math
+E_{p,M}(\sigma,t)=\lVert\Chi_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2,
+```
+
+without the scanner score denominator.
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `finiteNativeCamera_transverse_tangent_geometry` | The finite complex characteristic is exactly the packaged primitive real camera; its time tangent is `i` times, equivalently the real quarter-turn of, its sigma tangent; the two tangents have equal norm and zero real pairing. |
+| `finiteNativeCamera_rawEnergy_hessian_eq_transverseJet` | The concrete raw energy equals the primitive real-camera Euclidean energy, and its first and second radial/angular derivatives are exactly the entries `2*(kappa+a)`, `2*b`, and `2*(kappa-a)` of the concrete jet built from `Chi`, `Chi'`, and `Chi''`. |
+| `finiteNativeCamera_exactZero_has_isotropic_transverseHessian` | At an exact finite primitive-camera zero, the residual coefficients vanish: the Hessian is isotropic, the first-order minimizing-clock slope is zero, the Schur-envelope curvature is `2*kappa`, and both algebraic eigenvalues equal `2*kappa`. |
+
+The concrete bridge is componentwise and finite. It does not yet package the
+whole six-camera stack into one product-space theorem, import a numerical
+branch-and-bound result as a proof object, establish a cutoff-uniform positive
+coercivity constant, or pass that constant to the infinite limit.
+
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).

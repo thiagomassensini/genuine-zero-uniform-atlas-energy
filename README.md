@@ -182,6 +182,70 @@ the boundary tends to zero, the center vanishes at every cutoff, and the total
 flux tends to zero. This adds no new kind of zero: it identifies the center
 that detects departure from the same native/Genuine zero geometry.
 
+## Concrete transverse camera geometry
+
+For every odd prime camera `p` and finite cutoff `M`, Lean defines the entire
+characteristic
+
+```math
+\Chi_{p,M}(s)
+=
+\mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
+```
+
+At `s = sigma + i*time`, this is literally the complex packaging of the
+primitive real camera. Its two real tangent directions obey
+
+```math
+\partial_t\Chi_{p,M}
+=
+i\,\partial_\sigma\Chi_{p,M}.
+```
+
+Multiplication by `i` is the real quarter-turn `J(x,y)=(-y,x)`. Therefore the
+radial and angular tangents have equal Euclidean norm and zero pairing.
+
+The associated raw visibility is
+
+```math
+E_{p,M}(\sigma,t)
+=
+\lVert\Chi_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2.
+```
+
+It is exactly the primitive camera's Euclidean resultant energy. No division
+by cutoff, coordinate count, state norm, or bracket-coordinate energy is used.
+Writing
+
+```math
+\kappa=\lVert\Chi'\rVert^2,
+\qquad
+a=\langle\Chi,\Chi''\rangle,
+\qquad
+b=\langle\Chi,J\Chi''\rangle,
+```
+
+Lean proves
+
+```math
+D^2E_{p,M}
+=
+2\begin{pmatrix}
+\kappa+a & b\\
+b & \kappa-a
+\end{pmatrix}.
+```
+
+The same jet has trace `4*kappa`, determinant
+`4*(kappa^2-a^2-b^2)`, explicit algebraic eigenvalues, and a Schur-envelope
+coercivity coefficient. At an exact finite primitive-camera zero, `a=b=0`:
+the Hessian is isotropic, the first-order minimizing-clock slope is zero, and
+both algebraic eigenvalues equal `2*kappa`.
+
+This closes the finite componentwise operator-to-jet bridge. The repository
+does not yet claim a machine-checked compact-domain lower bound, positivity
+uniform in the cutoff, or passage of that bound to the infinite limit.
+
 ## Consolidation theorem
 
 The public capstone is
@@ -238,6 +302,13 @@ the kernel dependency reports.
 - `Budget.lean`: full cutoff-atlas energy and unique optimal budget;
 - `TiltedCenter.lean`: exact boundary-center factorization, tilt detection,
   common-zero telescoping, and off-equilibrium channel separation;
+- `TransverseCoercivity.lean`, `TransverseSpectrum.lean`, and
+  `TransverseCapstone.lean`: abstract Hessian, spectrum, Schur-envelope, and
+  global supplied-coercivity interface;
+- `NativeTransverseBridge.lean`: concrete finite characteristic and exact
+  radial/angular tangent geometry;
+- `NativeTransverseHessian.lean`: concrete raw-energy Hessian and exact-zero
+  isotropy;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry and claim ledger;

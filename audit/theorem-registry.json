@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
-  "release": "0.4.0",
-  "count": 25,
+  "release": "0.5.0",
+  "count": 35,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -127,6 +127,56 @@
       "id": "GZUAE-025",
       "name": "zeroIdentity_with_uniqueUniformAtlasEnergyBudget",
       "qualified": "GenuineZeroUniformAtlasEnergy.zeroIdentity_with_uniqueUniformAtlasEnergyBudget"
+    },
+    {
+      "id": "GZUAE-026",
+      "name": "transverseHessian_trace_det_and_positiveDefinite",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseHessian_trace_det_and_positiveDefinite"
+    },
+    {
+      "id": "GZUAE-027",
+      "name": "transverseHessian_eigenvalue_pair",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseHessian_eigenvalue_pair"
+    },
+    {
+      "id": "GZUAE-028",
+      "name": "transverseEnvelope_slope_and_curvature",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseEnvelope_slope_and_curvature"
+    },
+    {
+      "id": "GZUAE-029",
+      "name": "transverseLocalCoercivity_certificate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseLocalCoercivity_certificate"
+    },
+    {
+      "id": "GZUAE-030",
+      "name": "exactZero_transverse_geometry",
+      "qualified": "GenuineZeroUniformAtlasEnergy.exactZero_transverse_geometry"
+    },
+    {
+      "id": "GZUAE-031",
+      "name": "transverseCertificateResidual_nonneg_iff",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseCertificateResidual_nonneg_iff"
+    },
+    {
+      "id": "GZUAE-032",
+      "name": "transverseCoercivity_excludes_offCritical_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseCoercivity_excludes_offCritical_zero"
+    },
+    {
+      "id": "GZUAE-033",
+      "name": "finiteNativeCamera_transverse_tangent_geometry",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_transverse_tangent_geometry"
+    },
+    {
+      "id": "GZUAE-034",
+      "name": "finiteNativeCamera_rawEnergy_hessian_eq_transverseJet",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_rawEnergy_hessian_eq_transverseJet"
+    },
+    {
+      "id": "GZUAE-035",
+      "name": "finiteNativeCamera_exactZero_has_isotropic_transverseHessian",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian"
     }
   ]
 }
