@@ -6,14 +6,15 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.4.0
-date-released: 2026-08-13
+version: 0.5.0
+date-released: 2026-08-16
 abstract: >-
   A Lean 4 formalization of the exact identity between the native real-camera
   and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget,
   the exact norm--tilt--center mechanism left after boundary telescoping, and
-  the separation of the vanishing Genuine channel from the off-equilibrium
-  Green diagnostic channel.
+  the finite transverse operator bridge deriving the raw-energy Hessian,
+  Schur-envelope curvature, and exact-zero isotropy from the concrete primitive
+  camera characteristic.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -21,7 +22,9 @@ keywords:
   - carry geometry
   - TFVD
   - Green identity
-  - Bessel energy
+  - transverse coercivity
+  - Hessian
+  - primitive camera operator
   - uniform atlas
   - critical half-abscissa
   - reproducible proof audit
