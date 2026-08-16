@@ -1,11 +1,11 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the exact identity between the native real-camera and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget, the norm--tilt--center mechanism left after boundary telescoping, and the separation of a vanishing Genuine channel from its off-equilibrium Green diagnostic channel.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, the unique optimal seeded TFVD radial-defect energy budget, the norm--tilt--center mechanism after boundary telescoping, and the finite transverse operator bridge deriving the raw-energy Hessian, Schur-envelope curvature, and exact-zero isotropy from the concrete primitive camera characteristic.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.4.0",
-  "publication_date": "2026-08-13",
+  "version": "0.5.0",
+  "publication_date": "2026-08-16",
   "language": "eng",
   "creators": [
     {
@@ -19,7 +19,9 @@
     "carry geometry",
     "TFVD",
     "Green identity",
-    "Bessel energy",
+    "transverse coercivity",
+    "Hessian",
+    "primitive camera operator",
     "uniform atlas",
     "critical half-abscissa",
     "reproducible proof audit"
