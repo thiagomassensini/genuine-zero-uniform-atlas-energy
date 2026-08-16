@@ -210,18 +210,24 @@ lemma abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
   unfold empiricalScaledCollectiveCutoffTailEnergy
     empiricalNativeTailCoefficientNormSq
     empiricalCollectiveCriticalScaledEnergyErrorBound
-  calc
-    |(∑ camera : EmpiricalCamera,
+  have hsum :
+      (∑ camera : EmpiricalCamera,
+        (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
+          ‖empiricalNativeTailCoefficient camera
+            (criticalLineParameter time)‖ ^ 2)) =
+      (∑ camera : EmpiricalCamera,
         ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2) -
       ∑ camera : EmpiricalCamera,
         ‖empiricalNativeTailCoefficient camera
-          (criticalLineParameter time)‖ ^ 2| =
-      |∑ camera : EmpiricalCamera,
+          (criticalLineParameter time)‖ ^ 2 := by
+    exact Finset.sum_sub_distrib
+  rw [← hsum]
+  calc
+    |∑ camera : EmpiricalCamera,
         (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
           ‖empiricalNativeTailCoefficient camera
-            (criticalLineParameter time)‖ ^ 2)| := by
-      rw [Finset.sum_sub_distrib]
-    _ ≤ ∑ camera : EmpiricalCamera,
+            (criticalLineParameter time)‖ ^ 2)| ≤
+      ∑ camera : EmpiricalCamera,
         |‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
           ‖empiricalNativeTailCoefficient camera
             (criticalLineParameter time)‖ ^ 2| := by
