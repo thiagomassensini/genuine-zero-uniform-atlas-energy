@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
   "release": "0.5.0",
-  "registry_count": 35,
-  "count": 7,
+  "registry_count": 36,
+  "count": 8,
   "status_counts": {
-    "KERNEL_CHECKED": 7
+    "KERNEL_CHECKED": 8
   },
   "claims": [
     {
@@ -89,6 +89,14 @@
         "GZUAE-033",
         "GZUAE-034",
         "GZUAE-035"
+      ]
+    },
+    {
+      "id": "GZUAE-TAIL-001",
+      "claim": "At every positive cutoff of an odd prime primitive camera and every real spectral resonance, the finite characteristic equals the negative unresolved bracket tail. The tail amplitude is bounded explicitly by two-thirds times the camera majorant times M to the minus three-halves, and the raw quadratic energy by the square of that bound. This is an upper decay estimate, not the sharp leading coefficient, a collective all-camera theorem, or a cutoff-uniform transverse lower bound.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-036"
       ]
     }
   ]
