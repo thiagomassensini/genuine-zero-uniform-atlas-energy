@@ -4,12 +4,13 @@ import Mathlib.Analysis.SumIntegralComparisons
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.IntegrationByParts
 
 /-!
-# Global accumulation of the critical local cutoff remainder
+# Global critical cutoff-tail remainder
 
 `NativeCutoffAsymptotic` proves that one explicit-radius block differs from
 its quadratic leading term by `O((k+1)^(-7/2))` on the critical line.  This
 module performs the missing infinite summation of that already-audited local
-remainder.
+remainder and controls the scalar sum-versus-primitive defect of the leading
+complex power series.
 
 For every positive cutoff `M`, the accumulated Taylor part is bounded by an
 explicit multiple of
@@ -18,11 +19,9 @@ explicit multiple of
 M^{-5/2}.
 ```
 
-After multiplying a resonant finite residue by the natural critical scale
-`M^(3/2)`, this contribution is therefore `O(1/M)`.  The separate scalar
-sum-versus-primitive defect of the leading complex p-series is not hidden in
-this theorem and remains the next term required for the complete named tail
-remainder.
+Combining both contributions gives an explicit `O(M^(-5/2))` bound for the
+complete named cutoff-tail remainder.  After multiplication by the natural
+critical scale `M^(3/2)`, the error is therefore `O(1/M)`.
 -/
 
 open scoped BigOperators Function
@@ -612,6 +611,111 @@ lemma nativeExplicitRadiusTailRemainder_critical_eq
   rw [hsplit, hleadingTsum,
     ← nativeExplicitRadiusBlockCoefficient_div b h hs1]
   ring
+
+/-- `M`-independent constant in the sharp critical cutoff-tail remainder. -/
+def nativeExplicitRadiusCriticalTailRemainderConstant
+    (b h : ℕ) (time : ℝ) : ℝ :=
+  (2 / 5 : ℝ) *
+    ‖criticalLineParameter time * (criticalLineParameter time + 1) *
+      (criticalLineParameter time + 2)‖ *
+    (nativeRadiusSecondMoment h *
+        (b : ℝ) ^ (-(5 / 2 : ℝ)) +
+      2 * nativeRadiusThirdMoment h *
+        ((b - h : ℕ) : ℝ) ^ (-(7 / 2 : ℝ)))
+
+/-- Exact critical norm of the coefficient of the leading block series. -/
+lemma norm_nativeExplicitRadiusBlockCoefficient_critical
+    (b h : ℕ) (hb : 1 ≤ b) (time : ℝ) :
+    ‖nativeExplicitRadiusBlockCoefficient b h
+        (criticalLineParameter time)‖ =
+      ‖criticalLineParameter time *
+          (criticalLineParameter time + 1)‖ *
+        nativeRadiusSecondMoment h *
+          (b : ℝ) ^ (-(5 / 2 : ℝ)) := by
+  have hbNat : 0 < b := lt_of_lt_of_le Nat.zero_lt_one hb
+  have hbReal : 0 < (b : ℝ) := by exact_mod_cast hbNat
+  have hbCast : (b : ℂ) = ((b : ℝ) : ℂ) := by norm_cast
+  have hexponent :
+      (-criticalLineParameter time - 2).re = -(5 / 2 : ℝ) := by
+    simp only [Complex.sub_re, Complex.neg_re, criticalLineParameter_re]
+    norm_num
+  have hmoment : 0 ≤ nativeRadiusSecondMoment h := by
+    unfold nativeRadiusSecondMoment
+    positivity
+  unfold nativeExplicitRadiusBlockCoefficient
+  rw [norm_mul, norm_mul, hbCast,
+    Complex.norm_cpow_eq_rpow_re_of_pos hbReal]
+  rw [hexponent]
+  rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hmoment]
+
+/-- Complete explicit `O(M^(-5/2))` bound for the named global remainder. -/
+lemma norm_nativeExplicitRadiusTailRemainder_critical_le
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
+    (hM : 1 ≤ M) (time : ℝ) :
+    ‖nativeExplicitRadiusTailRemainder b h M
+        (criticalLineParameter time)‖ ≤
+      nativeExplicitRadiusCriticalTailRemainderConstant b h time *
+        (M : ℝ) ^ (-(5 / 2 : ℝ)) := by
+  let s : ℂ := criticalLineParameter time
+  let q : ℝ := (M : ℝ) ^ (-(5 / 2 : ℝ))
+  have hsplit :
+      nativeExplicitRadiusTailRemainder b h M s =
+        nativeExplicitRadiusBlockCoefficient b h s *
+            nativeExplicitRadiusScalarTailDefect M s +
+          nativeExplicitRadiusAccumulatedBracketRemainder b h M s := by
+    simpa [s] using
+      (nativeExplicitRadiusTailRemainder_critical_eq
+        (b := b) (h := h) (M := M) hb hh time)
+  have hscalar :
+      ‖nativeExplicitRadiusScalarTailDefect M s‖ ≤
+        (2 / 5 : ℝ) * ‖s + 2‖ * q := by
+    simpa [s, q] using
+      (norm_nativeExplicitRadiusScalarTailDefect_critical_le
+        (M := M) hM time)
+  have hacc :
+      ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ ≤
+        (4 / 5 : ℝ) *
+          ‖s * (s + 1) * (s + 2)‖ *
+          ((b - h : ℕ) : ℝ) ^ (-(7 / 2 : ℝ)) *
+          nativeRadiusThirdMoment h * q := by
+    simpa [nativeExplicitRadiusAccumulatedBracketRemainderBound, s, q] using
+      (norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
+        b h M hb hh hM time)
+  have hblock :
+      ‖nativeExplicitRadiusBlockCoefficient b h s‖ =
+        ‖s * (s + 1)‖ * nativeRadiusSecondMoment h *
+          (b : ℝ) ^ (-(5 / 2 : ℝ)) := by
+    simpa [s] using
+      norm_nativeExplicitRadiusBlockCoefficient_critical b h hb time
+  rw [hsplit]
+  calc
+    ‖nativeExplicitRadiusBlockCoefficient b h s *
+          nativeExplicitRadiusScalarTailDefect M s +
+        nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ ≤
+      ‖nativeExplicitRadiusBlockCoefficient b h s‖ *
+          ‖nativeExplicitRadiusScalarTailDefect M s‖ +
+        ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ := by
+      simpa only [norm_mul] using
+        norm_add_le
+          (nativeExplicitRadiusBlockCoefficient b h s *
+            nativeExplicitRadiusScalarTailDefect M s)
+          (nativeExplicitRadiusAccumulatedBracketRemainder b h M s)
+    _ ≤ ‖nativeExplicitRadiusBlockCoefficient b h s‖ *
+          ((2 / 5 : ℝ) * ‖s + 2‖ * q) +
+        (4 / 5 : ℝ) * ‖s * (s + 1) * (s + 2)‖ *
+          ((b - h : ℕ) : ℝ) ^ (-(7 / 2 : ℝ)) *
+          nativeRadiusThirdMoment h * q := by
+      exact add_le_add
+        (mul_le_mul_of_nonneg_left hscalar
+          (norm_nonneg (nativeExplicitRadiusBlockCoefficient b h s)))
+        hacc
+    _ = nativeExplicitRadiusCriticalTailRemainderConstant b h time *
+          (M : ℝ) ^ (-(5 / 2 : ℝ)) := by
+      rw [hblock]
+      unfold nativeExplicitRadiusCriticalTailRemainderConstant
+      dsimp [s, q]
+      simp only [norm_mul]
+      ring
 
 end
 
