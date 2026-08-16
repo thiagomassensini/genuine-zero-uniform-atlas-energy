@@ -216,6 +216,101 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
       dsimp [C]
       ring
 
+/-- Scalar sum-versus-primitive defect of the critical leading block model. -/
+def nativeExplicitRadiusScalarTailDefect
+    (M : ℕ) (s : ℂ) : ℂ :=
+  (∑' k : ℕ, (((k + M + 1 : ℕ) : ℂ) ^ (-s - 2))) -
+    (M : ℂ) ^ (-s - 1) / (s + 1)
+
+lemma summable_criticalFiveHalves_shifted (M : ℕ) :
+    Summable (fun k : ℕ =>
+      ((k : ℝ) + (M : ℝ) + 1) ^ (-(5 / 2 : ℝ))) := by
+  have hraw : Summable (fun n : ℕ =>
+      (n : ℝ) ^ (-(5 / 2 : ℝ))) :=
+    Real.summable_nat_rpow.mpr (by norm_num)
+  have hbase : Summable (fun k : ℕ =>
+      ((k : ℝ) + 1) ^ (-(5 / 2 : ℝ))) := by
+    have hshift := hraw.comp_injective
+      (show Function.Injective (fun n : ℕ => n + 1) by
+        intro a b hab
+        exact Nat.add_right_cancel hab)
+    simpa [Function.comp_def, Nat.cast_add] using hshift
+  refine Summable.of_nonneg_of_le
+    (fun k => Real.rpow_nonneg (by positivity) _) ?_ hbase
+  intro k
+  have hleft : 0 < (k : ℝ) + 1 := by positivity
+  have hMnonneg : 0 ≤ (M : ℝ) := by positivity
+  have hle : (k : ℝ) + 1 ≤ (k : ℝ) + (M : ℝ) + 1 := by
+    linarith
+  exact Real.rpow_le_rpow_of_nonpos hleft hle (by norm_num)
+
+lemma summable_nativeExplicitRadiusLeadingPower_critical
+    (M : ℕ) (time : ℝ) :
+    Summable (fun k : ℕ =>
+      (((k + M + 1 : ℕ) : ℂ) ^
+        (-criticalLineParameter time - 2))) := by
+  have hpower := summable_criticalFiveHalves_shifted M
+  exact hpower.of_norm_bounded (fun k => by
+    rw [Complex.norm_natCast_cpow_of_pos (by omega)]
+    simp [criticalLineParameter_re, Nat.cast_add])
+
+/-- On the critical line, the complete named tail remainder is exactly the
+sum of the scalar leading-series defect and the accumulated local Taylor
+remainder. -/
+lemma nativeExplicitRadiusTailRemainder_critical_eq
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1) (time : ℝ) :
+    nativeExplicitRadiusTailRemainder b h M
+        (criticalLineParameter time) =
+      nativeExplicitRadiusBlockCoefficient b h
+          (criticalLineParameter time) *
+        nativeExplicitRadiusScalarTailDefect M
+          (criticalLineParameter time) +
+      nativeExplicitRadiusAccumulatedBracketRemainder b h M
+        (criticalLineParameter time) := by
+  let s : ℂ := criticalLineParameter time
+  have hs1 : s + 1 ≠ 0 := by
+    intro hzero
+    have hre := congrArg Complex.re hzero
+    norm_num [s, criticalLineParameter_re] at hre
+  have hscalar : Summable (fun k : ℕ =>
+      (((k + M + 1 : ℕ) : ℂ) ^ (-s - 2))) := by
+    simpa [s] using
+      summable_nativeExplicitRadiusLeadingPower_critical M time
+  have hleading : Summable (fun k : ℕ =>
+      nativeExplicitRadiusBracketLeading b h (k + M) s) := by
+    simpa [nativeExplicitRadiusBracketLeading, Nat.add_assoc] using
+      hscalar.mul_left (nativeExplicitRadiusBlockCoefficient b h s)
+  have hlocal : Summable (fun k : ℕ =>
+      nativeExplicitRadiusBracketRemainder b h (k + M) s) := by
+    simpa [s] using
+      summable_nativeExplicitRadiusBracketRemainder_critical
+        b h M hb hh time
+  have hsplit :
+      (∑' k : ℕ, nativeExplicitRadiusBracket b h (k + M) s) =
+        (∑' k : ℕ, nativeExplicitRadiusBracketLeading b h (k + M) s) +
+          ∑' k : ℕ,
+            nativeExplicitRadiusBracketRemainder b h (k + M) s := by
+    rw [← hleading.tsum_add hlocal]
+    exact tsum_congr (fun k =>
+      nativeExplicitRadiusBracket_eq_leading_add_remainder
+        b h (k + M) s)
+  have hleadingTsum :
+      (∑' k : ℕ, nativeExplicitRadiusBracketLeading b h (k + M) s) =
+        nativeExplicitRadiusBlockCoefficient b h s *
+          ∑' k : ℕ, (((k + M + 1 : ℕ) : ℂ) ^ (-s - 2)) := by
+    simp only [nativeExplicitRadiusBracketLeading, Nat.add_assoc]
+    rw [tsum_mul_left]
+  unfold nativeExplicitRadiusTailRemainder nativeExplicitRadiusCutoffTail
+    nativeExplicitRadiusScalarTailDefect
+    nativeExplicitRadiusAccumulatedBracketRemainder
+  change
+    (∑' k : ℕ, nativeExplicitRadiusBracket b h (k + M) s) -
+        nativeExplicitRadiusTailCoefficient b h s *
+          (M : ℂ) ^ (-s - 1) = _
+  rw [hsplit, hleadingTsum,
+    ← nativeExplicitRadiusBlockCoefficient_div b h hs1]
+  ring
+
 end
 
 end GenuineZeroUniformAtlasEnergy
