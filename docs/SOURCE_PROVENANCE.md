@@ -48,6 +48,50 @@ total flux, and introduces no competing zero definition. Its off-equilibrium
 capstone composes the same boundary limit, positive-center characterization,
 and flux-closure equivalence without adding another analytic assumption.
 
+The empirical-camera continuation and cutoff work additionally use these
+kernel-checked CPFormal interfaces:
+
+- `realCpPairBracket` and `realCpSaturatedBracket`;
+- `bracketedDirichletChart_eq_naturalCameraFactor_mul_genuineContinuation`;
+- `alignedC2BracketedDirichletChart_eq_factor_mul_genuineContinuation`;
+- `pairedAltChannel_eq_genuineContinuation`;
+- `naturalEvenCameraFactor` and `naturalOddCameraFactor`;
+- the centered-second-difference derivative estimates and shifted
+  `p`-series summability lemmas.
+
+## Locked empirical source
+
+The exact six-camera geometry was audited against:
+
+- repository: [`thiagomassensini/finite-native-carry-operator`](https://github.com/thiagomassensini/finite-native-carry-operator);
+- commit: [`00e9d6beb17226545abf5ddf90bbfede6c7146b0`](https://github.com/thiagomassensini/finite-native-carry-operator/commit/00e9d6beb17226545abf5ddf90bbfede6c7146b0);
+- file: `laboratory/native_carry_primitive_real_operator_all_bases.py`;
+- file SHA-256:
+  `c68d4bb274f36eb4dc5572afe64394787876f64bc8f2e50573654f2ab712ecee`.
+
+That source uses labels `2,3,4,5,6,7`, periods `4,3,4,5,6,7`, and second
+radius moments `1,1,5,5,14,14`. In particular, the empirical cameras labelled
+four and six retain the antipodal radii two and three. CPFormal's natural even
+camera uses `halfRange b = (b-1)/2` and intentionally omits those middle
+channels. The local formalization therefore defines the full-even channels
+explicitly instead of identifying two different operators.
+
+## Numerical evidence boundary
+
+The separate 56-job float64 campaign is recorded in
+[`audit/empirical-evidence.json`](../audit/empirical-evidence.json). Its
+[locked result bundle](../audit/coercivity_56_guard1024_results.tar.gz) is
+included in the repository and has SHA-256
+`6aabb89cb3e460ae3142a6e82341d3597b9afe3d632151d76c6de186824053ae`.
+The exact eight-file runtime import closure and the aggregation utility are
+included under
+[`audit/empirical-campaign`](../audit/empirical-campaign/README.md), with
+Python, NumPy, SciPy, and every source hash locked in the manifest. The record
+is provenance and motivation, not a Lean proof object. Static audit requires
+the status `NUMERICAL_FLOAT64_EVIDENCE_NOT_KERNEL_CHECKED`, checks the source
+import closure, camera tables, exact campaign grid, and every archived JSON
+status, then hashes the included bundle byte for byte.
+
 ## Why no source trees are copied
 
 Lake checks out the exact upstream commit and its exact Mathlib dependency.

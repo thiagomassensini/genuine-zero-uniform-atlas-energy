@@ -1,7 +1,8 @@
 # Genuine Zero Uniform Atlas Energy
 
 Lean 4 formalization of one positional carry geometry, one native/Genuine zero,
-and one optimal energy budget over the complete tower of finite prime atlases.
+one optimal energy budget, and the faithful empirical six-camera cutoff
+operator with a structural projected coercivity floor.
 
 The construction starts before any zero is considered. At real phase time
 `t`, the native positional wave is
@@ -242,9 +243,100 @@ coercivity coefficient. At an exact finite primitive-camera zero, `a=b=0`:
 the Hessian is isotropic, the first-order minimizing-clock slope is zero, and
 both algebraic eigenvalues equal `2*kappa`.
 
-This closes the finite componentwise operator-to-jet bridge. The repository
-does not yet claim a machine-checked compact-domain lower bound, positivity
-uniform in the cutoff, or passage of that bound to the infinite limit.
+This closes the finite componentwise operator-to-jet bridge.
+
+## Faithful six-camera cutoff operator
+
+The empirical family is indexed by labels `2,3,4,5,6,7`, with periods
+`4,3,4,5,6,7` and second radius moments `1,1,5,5,14,14`. The cameras labelled
+four and six retain their antipodal radii two and three. Lean models those
+channels directly; it does not replace them by the natural even-camera
+geometry that omits the middle channel.
+
+For each camera Lean defines its seed, finite prefix, infinite characteristic,
+unresolved tail, and raw quadratic energy. At a common critical-line Genuine
+zero, the complete finite stack is exactly the negative tail stack and
+
+```math
+E_M
+=
+\sum_{b=2}^{7}\lVert\mathrm{Tail}_{b,M}\rVert^2.
+```
+
+For each fixed time, every component has a displayed time-dependent
+`M^(-3/2)` amplitude majorant and the collective energy has the corresponding
+`M^(-3)` upper bound. The restored full-even continuation proves that the
+C4/C6 characteristics use their faithful factors times the same
+`genuineContinuation`, so the common-zero hypothesis is not an independent
+numerical assumption.
+
+## Proposed tail model and projected floor
+
+For period `b` and retained radius `h`, the local Taylor calculation proposes
+the tail-model coefficient
+
+```math
+A^{mathrm{tail}}_{b,h}(s)=sS_2(h)b^{-s-2}.
+```
+
+Lean proves an explicit local remainder of order `(k+1)^(-7/2)` and the exact
+phase of the candidate cutoff monomial
+
+```math
+M^{-s-1}=M^{-3/2}\exp(-it\log M),
+```
+
+The finite resonant residue uses the opposite model vector
+`A_res = -A_tail`. Lean proves this coordinatewise and proves that its
+collective squared norm is
+
+```math
+\lVert A^{\mathrm{res}}(t)\rVert^2
+=
+\left\lVert\frac12+it\right\rVert^2
+\frac{132244271}{1778112000}.
+```
+
+The global remainder after summing this local model is still an explicit
+named object, but this release does not yet prove its `O(M^(-5/2))` bound.
+Accordingly the coefficient is documented as a leading model, not as a
+completed sharp cutoff-tail asymptotic.
+
+In the complex Euclidean six-camera space, the proposed finite-residue vector
+and limiting complex-derivative model direction are provably non-collinear
+when `Re(s)=1/2` and the Genuine derivative is nonzero. This release does not
+identify that model direction with the real time derivative of the empirical
+stack. Strict Cauchy--Schwarz gives
+
+```math
+\rho
+=
+\lVert A^{\mathrm{res}}\rVert^2
+-
+\frac{|\langle A^{\mathrm{res}},V\rangle|^2}{\lVert V\rVert^2}
+>0,
+```
+
+and the algebraic phase-projection model has the phase-independent symbolic
+floor
+
+```math
+c_{\mathrm{floor}}
+=
+\frac{\kappa\rho}{\lVert A^{\mathrm{res}}\rVert^2}>0.
+```
+
+Lean additionally proves two conditional closure steps: if a supplied
+coefficient sequence approximates this algebraic model with uniform `C/M`
+error and `c_floor > 4`, then that sequence is eventually at least four; and
+an eventual cutoff-uniform coercivity inequality passes to a supplied
+pointwise energy limit, globally or on a fixed region. No theorem identifies
+that supplied sequence with the concrete reoptimized finite operator. The
+numerical hypotheses are not silently imported from the float64 campaign.
+The complete 56-job result bundle and its exact nine-file source/aggregation
+closure are included under `audit/`; their SHA-256 values, import closure,
+archive grid, result counts, and explicitly non-kernel status are enforced by
+the static audit.
 
 ## Consolidation theorem
 
@@ -267,9 +359,10 @@ positional base, or alternative number system selects `1/2`. Its provenance is
 the quadratic carry amplitude itself.
 
 See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
-map](docs/THEOREM_MAP.md), [the conceptual audit](docs/CONCEPTUAL_AUDIT.md),
-[the exact source lock](docs/SOURCE_PROVENANCE.md), and [the v0.4.0 release
-notes](docs/RELEASE_0.4.0.md).
+map](docs/THEOREM_MAP.md), [the lower-bound status](docs/LOWER_BOUND_STATUS.md),
+[the conceptual audit](docs/CONCEPTUAL_AUDIT.md), [the exact source
+lock](docs/SOURCE_PROVENANCE.md), and [the v0.6.0 release
+notes](docs/RELEASE_0.6.0.md).
 
 ## Reproducible dependency lock
 
@@ -292,8 +385,9 @@ lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
 
 The audit rejects local `sorry`, `admit`, `axiom`, and `unsafe` declarations,
 cross-checks every theorem and claim, validates GitHub Markdown and publication
-metadata, and accepts only `propext`, `Classical.choice`, and `Quot.sound` in
-the kernel dependency reports.
+metadata, locks the separately labelled float64 evidence record, and accepts
+only `propext`, `Classical.choice`, and `Quot.sound` in the kernel dependency
+reports.
 
 ## Repository layout
 
@@ -309,9 +403,22 @@ the kernel dependency reports.
   radial/angular tangent geometry;
 - `NativeTransverseHessian.lean`: concrete raw-energy Hessian and exact-zero
   isotropy;
+- `NativeCutoffTail.lean`: exact primitive-camera resonant tail and explicit
+  critical decay;
+- `EmpiricalCameraGeometry.lean` and `EmpiricalCameraOperator.lean`: faithful
+  C2--C7 radii, exact stack/tail identities, and collective critical decay;
+- `EmpiricalFullEvenContinuation.lean`: explicit restoration of the C4/C6
+  antipodal channels and their common Genuine continuation;
+- `NativeCutoffAsymptotic.lean`: local Taylor remainder, leading model,
+  logarithmic phase, and exact collective geometry;
+- `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
+  strict projected positivity under simplicity, and the conditional
+  coefficient-four implication;
+- `UniformCoercivityOn.lean`: region-restricted implication and limit-passage
+  interfaces, applicable in particular to a compact region;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
-- `audit/`: theorem registry and claim ledger;
+- `audit/`: theorem registry, claim ledger, and locked empirical provenance;
 - `docs/`: mathematical scope, theorem map, provenance, and conceptual audit.
 
 ## License and citation

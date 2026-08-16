@@ -47,10 +47,12 @@ done < <(
 python3 -m json.tool .zenodo.json >/dev/null
 python3 -m json.tool audit/theorem-registry.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
+python3 -m json.tool audit/empirical-evidence.json >/dev/null
+python3 scripts/check_empirical_evidence.py
 python3 scripts/check_registry.py
 
 python3 scripts/check_github_markdown.py
 
 bash -n scripts/audit.sh scripts/static_audit.sh
 
-echo "static audit passed: sources, registry, claims, metadata, and Markdown"
+echo "static audit passed: sources, registry, claims, evidence, metadata, and Markdown"

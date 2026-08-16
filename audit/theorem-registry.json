@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
-  "release": "0.5.0",
-  "count": 35,
+  "release": "0.6.0",
+  "count": 132,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -177,6 +177,491 @@
       "id": "GZUAE-035",
       "name": "finiteNativeCamera_exactZero_has_isotropic_transverseHessian",
       "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian"
+    },
+    {
+      "id": "GZUAE-036",
+      "name": "finiteNativeCamera_resonant_cutoffTail_and_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_resonant_cutoffTail_and_rate"
+    },
+    {
+      "id": "GZUAE-037",
+      "name": "label_injective",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.label_injective"
+    },
+    {
+      "id": "GZUAE-038",
+      "name": "label_mem_Icc",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.label_mem_Icc"
+    },
+    {
+      "id": "GZUAE-039",
+      "name": "image_label_univ_eq_Icc",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.image_label_univ_eq_Icc"
+    },
+    {
+      "id": "GZUAE-040",
+      "name": "card_univ",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.card_univ"
+    },
+    {
+      "id": "GZUAE-041",
+      "name": "period_table",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.period_table"
+    },
+    {
+      "id": "GZUAE-042",
+      "name": "radii_table",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.radii_table"
+    },
+    {
+      "id": "GZUAE-043",
+      "name": "mem_radii_iff",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.mem_radii_iff"
+    },
+    {
+      "id": "GZUAE-044",
+      "name": "radii_eq_Icc",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.radii_eq_Icc"
+    },
+    {
+      "id": "GZUAE-045",
+      "name": "radius_geometry",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.radius_geometry"
+    },
+    {
+      "id": "GZUAE-046",
+      "name": "radius_lt_period",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.radius_lt_period"
+    },
+    {
+      "id": "GZUAE-047",
+      "name": "hasAntipodalRadius_iff",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.hasAntipodalRadius_iff"
+    },
+    {
+      "id": "GZUAE-048",
+      "name": "c4_antipodal_radius",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.c4_antipodal_radius"
+    },
+    {
+      "id": "GZUAE-049",
+      "name": "c6_antipodal_radius",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.c6_antipodal_radius"
+    },
+    {
+      "id": "GZUAE-050",
+      "name": "secondRadiusMoment_c2",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c2"
+    },
+    {
+      "id": "GZUAE-051",
+      "name": "secondRadiusMoment_c3",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c3"
+    },
+    {
+      "id": "GZUAE-052",
+      "name": "secondRadiusMoment_c4",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c4"
+    },
+    {
+      "id": "GZUAE-053",
+      "name": "secondRadiusMoment_c5",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c5"
+    },
+    {
+      "id": "GZUAE-054",
+      "name": "secondRadiusMoment_c6",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c6"
+    },
+    {
+      "id": "GZUAE-055",
+      "name": "secondRadiusMoment_c7",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_c7"
+    },
+    {
+      "id": "GZUAE-056",
+      "name": "secondRadiusMoment_table",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.secondRadiusMoment_table"
+    },
+    {
+      "id": "GZUAE-057",
+      "name": "sum_secondRadiusMoment",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.sum_secondRadiusMoment"
+    },
+    {
+      "id": "GZUAE-058",
+      "name": "sum_leadingTailGeometryWeight",
+      "qualified": "GenuineZeroUniformAtlasEnergy.EmpiricalCamera.sum_leadingTailGeometryWeight"
+    },
+    {
+      "id": "GZUAE-059",
+      "name": "summable_norm_empiricalCameraBlock",
+      "qualified": "GenuineZeroUniformAtlasEnergy.summable_norm_empiricalCameraBlock"
+    },
+    {
+      "id": "GZUAE-060",
+      "name": "summable_empiricalCameraBlock",
+      "qualified": "GenuineZeroUniformAtlasEnergy.summable_empiricalCameraBlock"
+    },
+    {
+      "id": "GZUAE-061",
+      "name": "empiricalCameraCharacteristic_eq_finite_add_cutoffTail",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_eq_finite_add_cutoffTail"
+    },
+    {
+      "id": "GZUAE-062",
+      "name": "finiteEmpiricalCameraCharacteristic_eq_neg_cutoffTail_of_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteEmpiricalCameraCharacteristic_eq_neg_cutoffTail_of_zero"
+    },
+    {
+      "id": "GZUAE-063",
+      "name": "finiteEmpiricalCameraStack_eq_neg_cutoffTailStack_of_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteEmpiricalCameraStack_eq_neg_cutoffTailStack_of_zero"
+    },
+    {
+      "id": "GZUAE-064",
+      "name": "finiteEmpiricalCollectiveRawEnergy_eq_cutoffTailEnergy_of_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteEmpiricalCollectiveRawEnergy_eq_cutoffTailEnergy_of_zero"
+    },
+    {
+      "id": "GZUAE-065",
+      "name": "empiricalSixCamera_exact_cutoffTail_and_energy",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCamera_exact_cutoffTail_and_energy"
+    },
+    {
+      "id": "GZUAE-066",
+      "name": "norm_empiricalCameraCutoffTail_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_empiricalCameraCutoffTail_critical_le"
+    },
+    {
+      "id": "GZUAE-067",
+      "name": "finiteEmpiricalCamera_critical_cutoffTail_and_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteEmpiricalCamera_critical_cutoffTail_and_rate"
+    },
+    {
+      "id": "GZUAE-068",
+      "name": "empiricalSixCamera_critical_cutoffTail_and_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCamera_critical_cutoffTail_and_rate"
+    },
+    {
+      "id": "GZUAE-069",
+      "name": "hasDerivAt_realDirichletPowerDeriv2",
+      "qualified": "GenuineZeroUniformAtlasEnergy.hasDerivAt_realDirichletPowerDeriv2"
+    },
+    {
+      "id": "GZUAE-070",
+      "name": "norm_realDirichletPowerDeriv3",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_realDirichletPowerDeriv3"
+    },
+    {
+      "id": "GZUAE-071",
+      "name": "norm_centeredSecondDifference_sub_secondDerivative_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_centeredSecondDifference_sub_secondDerivative_le"
+    },
+    {
+      "id": "GZUAE-072",
+      "name": "norm_realCpPairBracket_sub_secondDerivative_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_realCpPairBracket_sub_secondDerivative_critical_le"
+    },
+    {
+      "id": "GZUAE-073",
+      "name": "nativeExplicitRadiusBracketLeading_eq_sum_secondDerivative",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeExplicitRadiusBracketLeading_eq_sum_secondDerivative"
+    },
+    {
+      "id": "GZUAE-074",
+      "name": "norm_nativeExplicitRadiusBracketRemainder_critical_le_sum",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusBracketRemainder_critical_le_sum"
+    },
+    {
+      "id": "GZUAE-075",
+      "name": "norm_nativeExplicitRadiusBracketRemainder_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusBracketRemainder_critical_le"
+    },
+    {
+      "id": "GZUAE-076",
+      "name": "nativeExplicitRadiusBracket_eq_leading_add_remainder",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeExplicitRadiusBracket_eq_leading_add_remainder"
+    },
+    {
+      "id": "GZUAE-077",
+      "name": "nativeExplicitRadiusCutoffTail_eq_leading_add_remainder",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeExplicitRadiusCutoffTail_eq_leading_add_remainder"
+    },
+    {
+      "id": "GZUAE-078",
+      "name": "nativeExplicitRadiusBlockCoefficient_div",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeExplicitRadiusBlockCoefficient_div"
+    },
+    {
+      "id": "GZUAE-079",
+      "name": "norm_nativeExplicitRadiusTailCoefficient_critical",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusTailCoefficient_critical"
+    },
+    {
+      "id": "GZUAE-080",
+      "name": "criticalCutoffPower_eq_amplitude_mul_logPhase",
+      "qualified": "GenuineZeroUniformAtlasEnergy.criticalCutoffPower_eq_amplitude_mul_logPhase"
+    },
+    {
+      "id": "GZUAE-081",
+      "name": "empiricalCameraCutoffTail_eq_nativeExplicitRadiusCutoffTail",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCutoffTail_eq_nativeExplicitRadiusCutoffTail"
+    },
+    {
+      "id": "GZUAE-082",
+      "name": "empiricalCameraCutoffTailStack_eq_nativeExplicitRadiusCutoffTail",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCutoffTailStack_eq_nativeExplicitRadiusCutoffTail"
+    },
+    {
+      "id": "GZUAE-083",
+      "name": "nativeRadiusSecondMoment_empirical",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeRadiusSecondMoment_empirical"
+    },
+    {
+      "id": "GZUAE-084",
+      "name": "empiricalCamera_period_pos",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCamera_period_pos"
+    },
+    {
+      "id": "GZUAE-085",
+      "name": "sq_rpow_neg_five_halves",
+      "qualified": "GenuineZeroUniformAtlasEnergy.sq_rpow_neg_five_halves"
+    },
+    {
+      "id": "GZUAE-086",
+      "name": "norm_empiricalNativeTailCoefficient_critical",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_empiricalNativeTailCoefficient_critical"
+    },
+    {
+      "id": "GZUAE-087",
+      "name": "norm_empiricalNativeTailCoefficient_critical_sq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_empiricalNativeTailCoefficient_critical_sq"
+    },
+    {
+      "id": "GZUAE-088",
+      "name": "empiricalNativeLeadingGeometryWeight_eq_ratCast",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalNativeLeadingGeometryWeight_eq_ratCast"
+    },
+    {
+      "id": "GZUAE-089",
+      "name": "empiricalNativeTailCoefficientNormSq_eq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalNativeTailCoefficientNormSq_eq"
+    },
+    {
+      "id": "GZUAE-090",
+      "name": "phaseCoercivity_uniform_lower_bound",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.phaseCoercivity_uniform_lower_bound"
+    },
+    {
+      "id": "GZUAE-091",
+      "name": "microscopicCoercivity_lower_bound_of_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.microscopicCoercivity_lower_bound_of_error"
+    },
+    {
+      "id": "GZUAE-092",
+      "name": "eventually_microscopicCoercivity_lower_bound_of_inv_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_lower_bound_of_inv_error"
+    },
+    {
+      "id": "GZUAE-093",
+      "name": "eventually_microscopicCoercivity_ge_four_of_inv_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_ge_four_of_inv_error"
+    },
+    {
+      "id": "GZUAE-094",
+      "name": "transverseCoercivity_passes_to_pointwise_limit",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseCoercivity_passes_to_pointwise_limit"
+    },
+    {
+      "id": "GZUAE-095",
+      "name": "transverseCoercivity_passes_to_pointwise_limit_eventually",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseCoercivity_passes_to_pointwise_limit_eventually"
+    },
+    {
+      "id": "GZUAE-096",
+      "name": "empiricalFullEvenCameraFactor_four_sub_five_alignedC2",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalFullEvenCameraFactor_four_sub_five_alignedC2"
+    },
+    {
+      "id": "GZUAE-097",
+      "name": "empiricalFullEvenCameraFactor_four_sub_five_alignedC2_ne_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalFullEvenCameraFactor_four_sub_five_alignedC2_ne_zero"
+    },
+    {
+      "id": "GZUAE-098",
+      "name": "empiricalLeadingCutoffVector_apply",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalLeadingCutoffVector_apply"
+    },
+    {
+      "id": "GZUAE-099",
+      "name": "empiricalLeadingCutoffVector_apply_eq_neg_tailCoefficient",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalLeadingCutoffVector_apply_eq_neg_tailCoefficient"
+    },
+    {
+      "id": "GZUAE-100",
+      "name": "empiricalClockTangentVector_apply",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalClockTangentVector_apply"
+    },
+    {
+      "id": "GZUAE-101",
+      "name": "empiricalLeadingCutoffVector_c4_eq_five_c2",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalLeadingCutoffVector_c4_eq_five_c2"
+    },
+    {
+      "id": "GZUAE-102",
+      "name": "empiricalClockTangentVector_c4_ne_five_c2",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalClockTangentVector_c4_ne_five_c2"
+    },
+    {
+      "id": "GZUAE-103",
+      "name": "empiricalLeadingCutoffVector_not_collinear_clockTangent",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalLeadingCutoffVector_not_collinear_clockTangent"
+    },
+    {
+      "id": "GZUAE-104",
+      "name": "empiricalStackPhaseProjection_sq_le_alphaSq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackPhaseProjection_sq_le_alphaSq"
+    },
+    {
+      "id": "GZUAE-105",
+      "name": "empiricalStackAmplitudeSq_critical_eq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackAmplitudeSq_critical_eq"
+    },
+    {
+      "id": "GZUAE-106",
+      "name": "empiricalLeadingCutoffVector_ne_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalLeadingCutoffVector_ne_zero"
+    },
+    {
+      "id": "GZUAE-107",
+      "name": "empiricalClockTangentVector_ne_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalClockTangentVector_ne_zero"
+    },
+    {
+      "id": "GZUAE-108",
+      "name": "empiricalStack_strict_cauchy_schwarz",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStack_strict_cauchy_schwarz"
+    },
+    {
+      "id": "GZUAE-109",
+      "name": "empiricalStackKappa_pos",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackKappa_pos"
+    },
+    {
+      "id": "GZUAE-110",
+      "name": "empiricalStackAmplitudeSq_pos",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackAmplitudeSq_pos"
+    },
+    {
+      "id": "GZUAE-111",
+      "name": "empiricalStackRho_pos",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackRho_pos"
+    },
+    {
+      "id": "GZUAE-112",
+      "name": "empiricalStackPhaseProjectionData_isAdmissible",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackPhaseProjectionData_isAdmissible"
+    },
+    {
+      "id": "GZUAE-113",
+      "name": "empiricalStackPhaseFloor_pos",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStackPhaseFloor_pos"
+    },
+    {
+      "id": "GZUAE-114",
+      "name": "empiricalStack_phaseCoercivity_uniform_lower_bound",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStack_phaseCoercivity_uniform_lower_bound"
+    },
+    {
+      "id": "GZUAE-115",
+      "name": "empiricalStack_projectionRho_pos_of_critical_simple_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalStack_projectionRho_pos_of_critical_simple_zero"
+    },
+    {
+      "id": "GZUAE-116",
+      "name": "finiteAntipodalEvenCameraChannel_eq_pairedAlt_prefix",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteAntipodalEvenCameraChannel_eq_pairedAlt_prefix"
+    },
+    {
+      "id": "GZUAE-117",
+      "name": "antipodalEvenCameraChannel_eq_pairedAltChannel_of_summable",
+      "qualified": "GenuineZeroUniformAtlasEnergy.antipodalEvenCameraChannel_eq_pairedAltChannel_of_summable"
+    },
+    {
+      "id": "GZUAE-118",
+      "name": "antipodalEvenCameraChannel_two_eq_pairedAltChannel",
+      "qualified": "GenuineZeroUniformAtlasEnergy.antipodalEvenCameraChannel_two_eq_pairedAltChannel"
+    },
+    {
+      "id": "GZUAE-119",
+      "name": "antipodalEvenCameraChannel_three_eq_pairedAltChannel",
+      "qualified": "GenuineZeroUniformAtlasEnergy.antipodalEvenCameraChannel_three_eq_pairedAltChannel"
+    },
+    {
+      "id": "GZUAE-120",
+      "name": "empiricalCameraCharacteristic_c4_eq_natural_add_antipodal",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_c4_eq_natural_add_antipodal"
+    },
+    {
+      "id": "GZUAE-121",
+      "name": "empiricalCameraCharacteristic_c6_eq_natural_add_antipodal",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_c6_eq_natural_add_antipodal"
+    },
+    {
+      "id": "GZUAE-122",
+      "name": "empiricalCameraCharacteristic_c4_eq_fullEvenCameraFactor_mul_genuineContinuation",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_c4_eq_fullEvenCameraFactor_mul_genuineContinuation"
+    },
+    {
+      "id": "GZUAE-123",
+      "name": "empiricalCameraCharacteristic_c6_eq_fullEvenCameraFactor_mul_genuineContinuation",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_c6_eq_fullEvenCameraFactor_mul_genuineContinuation"
+    },
+    {
+      "id": "GZUAE-124",
+      "name": "empiricalCameraCharacteristic_eq_limitingFactor_mul_genuineContinuation",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_eq_limitingFactor_mul_genuineContinuation"
+    },
+    {
+      "id": "GZUAE-125",
+      "name": "empiricalCameraCharacteristic_zero_of_genuineContinuation_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalCameraCharacteristic_zero_of_genuineContinuation_zero"
+    },
+    {
+      "id": "GZUAE-126",
+      "name": "empiricalSixCamera_zero_of_genuineContinuation_zero",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCamera_zero_of_genuineContinuation_zero"
+    },
+    {
+      "id": "GZUAE-127",
+      "name": "empiricalSixCamera_zero_of_realSpectralResonance",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCamera_zero_of_realSpectralResonance"
+    },
+    {
+      "id": "GZUAE-128",
+      "name": "empiricalSixCamera_resonant_cutoffTail_and_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCamera_resonant_cutoffTail_and_rate"
+    },
+    {
+      "id": "GZUAE-129",
+      "name": "isTransverselyCoerciveOn_iff_certificateResidual_nonneg",
+      "qualified": "GenuineZeroUniformAtlasEnergy.isTransverselyCoerciveOn_iff_certificateResidual_nonneg"
+    },
+    {
+      "id": "GZUAE-130",
+      "name": "zero_in_region_forces_re_eq_half_of_transverse_coercivityOn",
+      "qualified": "GenuineZeroUniformAtlasEnergy.zero_in_region_forces_re_eq_half_of_transverse_coercivityOn"
+    },
+    {
+      "id": "GZUAE-131",
+      "name": "transverseCoercivityOn_passes_to_pointwise_limit_eventually",
+      "qualified": "GenuineZeroUniformAtlasEnergy.transverseCoercivityOn_passes_to_pointwise_limit_eventually"
+    },
+    {
+      "id": "GZUAE-132",
+      "name": "isTransverselyCoerciveOn",
+      "qualified": "GenuineZeroUniformAtlasEnergy.IsTransverselyCoercive.isTransverselyCoerciveOn"
     }
   ]
 }

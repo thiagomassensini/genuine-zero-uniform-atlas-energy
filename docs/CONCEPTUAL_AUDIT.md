@@ -67,12 +67,38 @@ The following are kernel-checked here:
 - at the common zero, the boundary telescopes and the native total flux closes.
 - at a presented off-equilibrium Genuine zero, the boundary telescopes while
   the surviving center and nonclosing total flux expose the displacement.
+- the empirical C2--C7 operator retains exactly the radii used by the source
+  computation, including the C4/C6 antipodal channels;
+- every empirical finite characteristic splits exactly from its summable
+  infinite characteristic by an unresolved tail, and the complete critical
+  stack has displayed fixed-time amplitude and collective-energy upper
+  bounds;
+- the full-even cameras have their own restored antipodal factors and are not
+  silently identified with the middle-omitting natural even cameras;
+- the proposed cutoff-tail monomial has an exact logarithmic phase, an explicit
+  local Taylor remainder, and an exact rational collective model coefficient;
+- the tail model `+A_tail` and finite-residue model `-A_tail` are connected
+  coordinatewise and have the same exact collective squared norm;
+- on the critical line with nonzero Genuine derivative, the residue model and
+  complex-derivative model direction are non-collinear, giving a strictly
+  positive symbolic algebraic phase floor; no real-time derivative
+  identification is claimed;
+- any eventual cutoff-uniform coercivity bound passes to a supplied pointwise
+  energy limit, globally or on a fixed region.
 
 No additional zero class or mathematical gate is declared by this repository.
 
-## Optional future work
+## Quantitative frontier
 
-Future work may transport this common zero and budget into other already
-formalized representations. Such work would be interoperability or
-application, not the creation of another zero class or another positional
-geometry.
+The float64 campaign is provenance, not a kernel theorem. In particular, no
+decimal zero coordinate, simplicity statement, derivative norm, projected
+floor above four, or coefficient-four compact certificate is promoted to an
+exact statement.
+
+Closing the numerical lower bound requires exact enclosures for the zero and
+derivative, global and derivative-level tail remainders, a `C/M` bridge from
+the concrete reoptimized coefficient to the algebraic model, and a certified
+compact-complement argument. The formal library already proves what follows
+for a supplied coefficient sequence and supplied convergent energy family,
+including the eventual coefficient-four and limit-passage implications, while
+leaving every missing hypothesis visible.
