@@ -97,9 +97,16 @@ lemma norm_realCpBracketCutoffTail_critical_le
   have hpowerSummable :
       Summable (fun k : ℕ =>
         ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) := by
-    refine Summable.of_nonneg_of_le (fun k => Real.rpow_nonneg (by positivity) _) ?_ hbase
-    intro k
-    exact Real.rpow_le_rpow_of_nonpos (by positivity) (by positivity) (by norm_num)
+    refine Summable.of_nonneg_of_le ?_ ?_ hbase
+    · intro k
+      exact Real.rpow_nonneg (by positivity) _
+    · intro k
+      have hkpos : 0 < (k : ℝ) + 1 := by positivity
+      have hshift :
+          (k : ℝ) + 1 ≤ (k : ℝ) + (M : ℝ) + 1 := by
+        have hMnonneg : 0 ≤ (M : ℝ) := by positivity
+        linarith
+      exact Real.rpow_le_rpow_of_nonpos hkpos hshift (by norm_num)
   have hmajorantHasSum :
       HasSum
         (fun k : ℕ =>
