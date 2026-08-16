@@ -42,3 +42,4 @@ this repository. CI checks this order against the theorem registry.
 #print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_transverse_tangent_geometry
 #print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_rawEnergy_hessian_eq_transverseJet
 #print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian
+#print axioms GenuineZeroUniformAtlasEnergy.finiteNativeCamera_resonant_cutoffTail_and_rate
