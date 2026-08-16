@@ -309,7 +309,7 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
     dsimp [left]
     have hijReal : (i : ℝ) ≤ (j : ℝ) := by
       exact_mod_cast hij
-    exact add_le_add_left hijReal (M : ℝ)
+    exact add_le_add_right hijReal (M : ℝ)
   have hleft_succ (k : ℕ) :
       left (Nat.succ k) = left k + 1 := by
     dsimp [left]
