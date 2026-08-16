@@ -1,0 +1,65 @@
+name: Publish versioned release
+
+on:
+  workflow_run:
+    workflows:
+      - Lean theorem audit
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: genuine-zero-atlas-release-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish audited tag and release
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the audited main commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Read and verify release metadata
+        id: metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(awk -F '"' '/^version = / { print $2 }' lakefile.toml)"
+          test -n "$version"
+          notes="docs/RELEASE_${version}.md"
+          test -f "$notes"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+
+      - name: Create the audited tag and GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.metadata.outputs.tag }}
+          NOTES: ${{ steps.metadata.outputs.notes }}
+          TARGET_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; leaving it unchanged."
+            exit 0
+          fi
+          gh release create "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "$TAG — Concrete transverse operator bridge" \
+            --notes-file "$NOTES"
