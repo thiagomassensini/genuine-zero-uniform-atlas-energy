@@ -254,7 +254,7 @@ it is exactly the negative unresolved tail,
 ```math
 \Chi_{p,M}\left(\frac12+i t\right)
 =
--\sum_{k\ge M}\operatorname{Bracket}_{p,k}
+-\sum_{k\ge M}\mathrm{Bracket}_{p,k}
  \left(\frac12+i t\right).
 ```
 
