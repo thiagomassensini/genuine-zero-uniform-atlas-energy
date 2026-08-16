@@ -21,8 +21,10 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-PRJ-001` | `KERNEL_CHECKED` | The finite-residue model is the negative of the tail model with the same exact collective norm; C4/C2 factor separation gives non-collinearity from the complex-derivative model direction and strictly positive projected `rho` and algebraic phase floor under criticality and a nonzero Genuine derivative. |
 | `GZUAE-EVN-001` | `KERNEL_CHECKED` | Explicit C4/C6 antipodal continuation, one faithful factor table for C2--C7, and a six-camera resonant tail/energy capstone with displayed fixed-time upper bound from one presented Genuine resonance. |
 | `GZUAE-REG-001` | `KERNEL_CHECKED` | Regional residual/coercivity equivalence, regional zero exclusion, restriction of global bounds, and conditional regional limit passage. |
+| `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder after cutoff `M` is explicitly `O(M^(-5/2))`, hence `O(1/M)` after critical `M^(3/2)` scaling. The complex Euler defect and complete named tail remainder remain open. |
 
-Release `0.6.0` records 17 claims covering 132 ordered theorem reports. No
+The current post-`0.6.0` development surface records 18 claims covering 133
+ordered theorem reports. No
 claim introduces an auxiliary zero class, obtains the quadratic amplitude from
 a zero hypothesis, imports numerical minima as proof objects, proves a named
 decimal is a Genuine zero, or asserts an unconditional cutoff-uniform

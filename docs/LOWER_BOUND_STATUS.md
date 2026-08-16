@@ -18,6 +18,8 @@ Lean proves the following facts for the faithful empirical stack C2--C7:
 - the exact phase `M^(-3/2) exp(-it log M)` of the proposed tail monomial and
   the rational collective model geometry coefficient
   `132244271/1778112000`;
+- the accumulated local cubic Taylor remainder is bounded explicitly by
+  `O(M^(-5/2))`, hence by `O(1/M)` after the natural critical rescaling;
 - the coordinate identity between the proposed tail model `+A_tail` and finite
   resonant-residue model `A_res = -A_tail`, together with their common squared
   norm;
@@ -63,8 +65,9 @@ The remaining analytic bridge must provide:
 
 1. a proof object locating a Genuine zero in an exact interval;
 2. a certified nonzero derivative and quantitative derivative lower bound;
-3. a bound for the global tail remainder and uniform cutoff expansions for the
-   characteristic and the derivatives used by the reoptimized clock;
+3. a bound for the remaining complex Euler defect, then the complete global
+   tail remainder and uniform cutoff expansions for the characteristic and
+   the derivatives used by the reoptimized clock;
 4. an explicit `C/M` bridge from the concrete reoptimized coefficient to the
    algebraic phase model;
 5. a certified compact-complement argument covering transitions between zero

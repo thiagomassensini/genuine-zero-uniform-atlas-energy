@@ -26,6 +26,7 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalStackProjection.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalFullEvenContinuation.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/UniformCoercivityOn.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffGlobalRemainder.lean",
 ]
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
 EXPECTED_MATHLIB_REV = "81a5d257c8e410db227a6665ed08f64fea08e997"

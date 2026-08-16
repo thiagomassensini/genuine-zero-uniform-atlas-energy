@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
   "release": "0.6.0",
-  "count": 132,
+  "count": 133,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -662,6 +662,11 @@
       "id": "GZUAE-132",
       "name": "isTransverselyCoerciveOn",
       "qualified": "GenuineZeroUniformAtlasEnergy.IsTransverselyCoercive.isTransverselyCoerciveOn"
+    },
+    {
+      "id": "GZUAE-133",
+      "name": "norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le"
     }
   ]
 }

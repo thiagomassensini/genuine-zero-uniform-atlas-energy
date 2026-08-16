@@ -1,6 +1,6 @@
 # Theorem Registry
 
-Release `0.6.0` contains 132 local public
+The current post-`0.6.0` development surface contains 133 local public
 theorems. Their canonical order and qualified Lean names are stored in
 [`theorem-registry.json`](theorem-registry.json).
 
@@ -11,8 +11,8 @@ The registry is checked against:
   `NativeTransverseHessian.lean`, `NativeCutoffTail.lean`,
   `EmpiricalCameraGeometry.lean`, `EmpiricalCameraOperator.lean`,
   `NativeCutoffAsymptotic.lean`, `AsymptoticCoercivity.lean`,
-  `EmpiricalStackProjection.lean`, `EmpiricalFullEvenContinuation.lean`, and
-  `UniformCoercivityOn.lean`;
+  `EmpiricalStackProjection.lean`, `EmpiricalFullEvenContinuation.lean`,
+  `UniformCoercivityOn.lean`, and `NativeCutoffGlobalRemainder.lean`;
 - the ordered `#print axioms` commands in `Audit.lean`;
 - complete claim-ledger coverage.
 
@@ -25,5 +25,8 @@ raw-energy decay bounds. The release adds 96 audited declarations covering the
 faithful six-camera geometry and operator, local Taylor remainder, leading
 phase model, symbolic projected floor, full-even continuation, and conditional
 global and regional limit passage.
+`NativeCutoffGlobalRemainder.lean` adds the explicit `M^(-5/2)` bound for the
+accumulated local Taylor remainder while leaving the separate Euler defect
+outside the claim.
 
 CI fails if any surface diverges.

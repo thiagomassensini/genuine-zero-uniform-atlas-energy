@@ -163,9 +163,12 @@ and the componentwise finite tail/rate theorem.
 | `empiricalCameraCutoffTailStack_eq_nativeExplicitRadiusCutoffTail` | The explicit-radius tail model uses exactly the empirical stack's periods and retained radii. |
 | `norm_empiricalNativeTailCoefficient_critical` | Each candidate tail-model coefficient has the exact second-moment and period norm. |
 | `empiricalNativeTailCoefficientNormSq_eq` | The squared six-camera model coefficient has exact rational geometry weight `132244271/1778112000`. |
+| `norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le` | The local cubic Taylor errors accumulated after cutoff `M` are bounded explicitly by a constant times `M^(-5/2)`. |
 
-There is no theorem bounding `nativeExplicitRadiusTailRemainder` or proving
-scaled-tail convergence. The global sharp asymptotic remains open.
+There is still no theorem bounding the complete
+`nativeExplicitRadiusTailRemainder` or proving scaled-tail convergence. The
+accumulated Taylor part is now controlled, while the complex leading-series
+Euler defect and therefore the global sharp asymptotic remain open.
 
 ## Full-even continuation and one six-camera resonance
 

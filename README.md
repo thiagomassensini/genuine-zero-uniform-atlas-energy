@@ -411,6 +411,8 @@ reports.
   antipodal channels and their common Genuine continuation;
 - `NativeCutoffAsymptotic.lean`: local Taylor remainder, leading model,
   logarithmic phase, and exact collective geometry;
+- `NativeCutoffGlobalRemainder.lean`: summation of the local Taylor remainder
+  with an explicit critical `M^(-5/2)` bound;
 - `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
   strict projected positivity under simplicity, and the conditional
   coefficient-four implication;

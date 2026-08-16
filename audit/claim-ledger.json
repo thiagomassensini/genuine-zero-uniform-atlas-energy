@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
   "release": "0.6.0",
-  "registry_count": 132,
-  "count": 17,
+  "registry_count": 133,
+  "count": 18,
   "status_counts": {
-    "KERNEL_CHECKED": 17
+    "KERNEL_CHECKED": 18
   },
   "claims": [
     {
@@ -256,6 +256,14 @@
         "GZUAE-130",
         "GZUAE-131",
         "GZUAE-132"
+      ]
+    },
+    {
+      "id": "GZUAE-ASY-003",
+      "claim": "On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate complex leading-series Euler defect and the complete named tail remainder are not bounded by this claim.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-133"
       ]
     }
   ]
