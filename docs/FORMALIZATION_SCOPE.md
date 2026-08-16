@@ -169,8 +169,8 @@ If `c > 0`, this inequality forces every zero of the certified energy onto
 
 ## Concrete finite primitive-camera bridge
 
-The abstract jet is now connected to the finite primitive carry camera itself.
-For an odd prime camera `p` and cutoff `M`, define
+The abstract jet is connected to the finite primitive carry camera itself. For
+an odd prime camera `p` and cutoff `M`, define
 
 ```math
 \Chi_{p,M}(s)
@@ -245,6 +245,48 @@ This closes the finite componentwise operator-to-jet bridge for every odd
 prime camera, including camera `3`. It does not import floating-point values
 or numerical minima as proof objects.
 
+## Exact finite-cutoff tail and critical decay
+
+At a real spectral resonance, the complete infinite chart vanishes. The
+finite primitive-camera residue is therefore not an unexplained approximation:
+it is exactly the negative unresolved tail,
+
+```math
+\Chi_{p,M}\left(\frac12+i t\right)
+=
+-\sum_{k\ge M}\operatorname{Bracket}_{p,k}
+ \left(\frac12+i t\right).
+```
+
+The upstream centered-second-difference estimate gives a critical-line
+majorant proportional to `(k+1)^(-5/2)`. Lean now sums the shifted majorant by
+the improper-integral comparison
+
+```math
+\sum_{k\ge0}(k+M+1)^{-5/2}
+\le
+\int_M^\infty x^{-5/2}\,dx
+=
+\frac23 M^{-3/2}.
+```
+
+Consequently, for the explicit camera majorant `C_{p,t}`,
+
+```math
+\left\lVert\Chi_{p,M}\left(\frac12+i t\right)\right\rVert
+\le
+\frac23 C_{p,t}M^{-3/2},
+```
+
+and the raw energy is at most the square of this expression. This is a general
+analytic estimate for every positive cutoff under the odd-prime primitive
+camera hypotheses. It does not encode the dyadic cutoff table as separate
+facts.
+
+The current theorem is an upper bound. It does not identify the sharp first
+asymptotic coefficient, the logarithmic phase `exp(-it log M)`, the projected
+coercivity oscillation, or a cutoff-uniform lower bound.
+
 ## Logical order
 
 The dependency order is:
@@ -267,7 +309,7 @@ that same defect as the center left after boundary subtraction. The zero
 hypothesis is used only to telescope the boundary; it does not choose the
 native exponent or create the tilt balance.
 
-For the transverse mechanism, the order is:
+For the transverse and cutoff mechanisms, the order is:
 
 ```math
 \text{finite primitive camera}
@@ -278,10 +320,22 @@ For the transverse mechanism, the order is:
 \Longrightarrow
 \text{concrete jet }(\kappa,a,b)
 \Longrightarrow
-\text{raw-energy Hessian}.
+\text{raw-energy Hessian}
 ```
 
-The abstract coercivity layer then converts a positive discriminant into local
+and independently
+
+```math
+\text{resonance of the complete chart}
+\Longrightarrow
+\text{finite residue}=-\text{unresolved tail}
+\Longrightarrow
+\lVert\text{residue}\rVert=O(M^{-3/2})
+\Longrightarrow
+E_M=O(M^{-3}).
+```
+
+The abstract coercivity layer converts a positive discriminant into local
 rigidity, and a separately supplied positive global coercivity estimate into
 off-critical zero exclusion.
 
@@ -297,16 +351,20 @@ an odd prime camera, positive cutoff, an admissible tilt center, and a
 parameter in the open strip. Primality is a camera hypothesis here; it is not
 a hypothesis of the foundational all-base quadratic rigidity theorem.
 
-The transverse camera bridge is exact and finite, but currently componentwise.
-The remaining gates are:
+The transverse camera bridge and cutoff-tail identity are exact and finite,
+but currently componentwise. The remaining gates are:
 
-- package a selected finite camera family into one product-space characteristic
-  and sum its raw component energies;
-- supply a machine-checkable compact-domain lower bound for the concrete raw
-  energy, rather than merely numerical floating-point evidence;
-- prove that the lower bound remains positive uniformly in the cutoff;
+- package the empirical finite family `2,3,4,5,6,7` into one product-space
+  characteristic, including separate handling of the non-prime/even cameras;
+- sharpen the tail upper bound to an explicit asymptotic expansion with a
+  certified remainder and logarithmic phase;
+- transport that expansion through time reoptimization to obtain a uniform
+  positive lower coercivity estimate;
+- certify the complement of the critical tubes and prove positivity uniform in
+  the cutoff;
 - justify the limiting energy and transport the coercivity inequality to that
   limit.
 
-Thus the operator-to-jet bridge is closed. The global compact coercivity
-certificate and the cutoff-uniform limit are not.
+Thus the operator-to-jet bridge and the universal resonant upper-tail rate are
+closed. The sharp collective asymptotic, global compact coercivity certificate,
+and cutoff-uniform limit are not.
