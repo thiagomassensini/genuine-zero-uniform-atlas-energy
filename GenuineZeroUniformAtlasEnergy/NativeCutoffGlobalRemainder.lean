@@ -284,7 +284,7 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
     simp [s, criticalLineParameter_re]
   have hq_re : q.re = -(5 / 2 : ℝ) := by
     dsimp [q]
-    simp only [Complex.sub_re, Complex.neg_re, hs_re]
+    simp only [hs_re]
     norm_num
   have hq_sub_one_re : (q - 1).re = -(7 / 2 : ℝ) := by
     rw [Complex.sub_re, hq_re]
@@ -307,7 +307,9 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
   have hleft_mono : Monotone left := by
     intro i j hij
     dsimp [left]
-    exact add_le_add_left (by exact_mod_cast hij) _
+    have hijReal : (i : ℝ) ≤ (j : ℝ) := by
+      exact_mod_cast hij
+    exact add_le_add_left hijReal (M : ℝ)
   have hleft_succ (k : ℕ) :
       left (Nat.succ k) = left k + 1 := by
     dsimp [left]
@@ -345,10 +347,12 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
         (a := q) hq_lt hMpos
   have hg_integrable :
       IntegrableOn g (Ioi (M : ℝ)) := by
-    simpa [g] using
-      (integrableOn_Ioi_rpow_of_lt
-        (a := -(7 / 2 : ℝ)) (by norm_num) hMpos).const_mul
-          ‖s + 2‖
+    change Integrable
+      (fun x : ℝ => ‖s + 2‖ * x ^ (-(7 / 2 : ℝ)))
+      (volume.restrict (Ioi (M : ℝ)))
+    exact (integrableOn_Ioi_rpow_of_lt
+      (a := -(7 / 2 : ℝ)) (by norm_num) hMpos).const_mul
+        ‖s + 2‖
   have hF_union :
       IntegrableOn F (⋃ k : ℕ, cell k) := by
     rw [hcells_union]
@@ -456,8 +460,8 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
       _ = ‖s + 2‖ * x ^ (-(7 / 2 : ℝ)) := one_mul _
   have hM_le_left (k : ℕ) :
       (M : ℝ) ≤ left k := by
-    have h := hleft_mono (Nat.zero_le k)
-    simpa [left] using h
+    dsimp [left]
+    exact le_add_of_nonneg_right (Nat.cast_nonneg k)
   have hcell_subset (k : ℕ) :
       cell k ⊆ Ioi (M : ℝ) := by
     intro x hx
@@ -505,8 +509,7 @@ lemma norm_nativeExplicitRadiusScalarTailDefect_critical_le
           dsimp [q]
           ring
         have hs1 : -s - 1 = -(s + 1) := by ring
-        rw [hq1, hs1]
-        simp
+        rw [hq1, hs1, neg_div_neg_eq]
   have hseq_apply (k : ℕ) :
       seq k =
         (((k + M + 1 : ℕ) : ℂ) ^
