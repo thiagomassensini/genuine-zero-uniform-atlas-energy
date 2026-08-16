@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Concrete transverse operator bridge" \
+            --title "$TAG — Empirical six-camera cutoff and algebraic projection floor" \
             --notes-file "$NOTES"

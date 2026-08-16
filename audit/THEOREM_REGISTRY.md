@@ -1,6 +1,6 @@
 # Theorem Registry
 
-Release `0.5.0` plus the current cutoff-tail draft contains 36 local public
+Release `0.6.0` contains 132 local public
 theorems. Their canonical order and qualified Lean names are stored in
 [`theorem-registry.json`](theorem-registry.json).
 
@@ -8,7 +8,11 @@ The registry is checked against:
 
 - declarations in `NativeGeometry.lean`, `Budget.lean`, `TiltedCenter.lean`,
   `Capstone.lean`, `TransverseCapstone.lean`, `NativeTransverseBridge.lean`,
-  `NativeTransverseHessian.lean`, and `NativeCutoffTail.lean`;
+  `NativeTransverseHessian.lean`, `NativeCutoffTail.lean`,
+  `EmpiricalCameraGeometry.lean`, `EmpiricalCameraOperator.lean`,
+  `NativeCutoffAsymptotic.lean`, `AsymptoticCoercivity.lean`,
+  `EmpiricalStackProjection.lean`, `EmpiricalFullEvenContinuation.lean`, and
+  `UniformCoercivityOn.lean`;
 - the ordered `#print axioms` commands in `Audit.lean`;
 - complete claim-ledger coverage.
 
@@ -17,6 +21,9 @@ capstones in `TransverseCapstone.lean`. The concrete bridge contributes three
 capstones: finite camera tangent geometry, raw-energy Hessian identification,
 and exact-zero isotropy. `NativeCutoffTail.lean` adds the exact resonant
 cutoff-tail identity together with the explicit critical-line amplitude and
-raw-energy decay bounds.
+raw-energy decay bounds. The release adds 96 audited declarations covering the
+faithful six-camera geometry and operator, local Taylor remainder, leading
+phase model, symbolic projected floor, full-even continuation, and conditional
+global and regional limit passage.
 
 CI fails if any surface diverges.

@@ -1,0 +1,95 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.empirical-evidence/v1",
+  "status": "NUMERICAL_FLOAT64_EVIDENCE_NOT_KERNEL_CHECKED",
+  "operator_source": {
+    "repository": "https://github.com/thiagomassensini/finite-native-carry-operator",
+    "commit": "00e9d6beb17226545abf5ddf90bbfede6c7146b0",
+    "file": "laboratory/native_carry_primitive_real_operator_all_bases.py",
+    "sha256": "c68d4bb274f36eb4dc5572afe64394787876f64bc8f2e50573654f2ab712ecee"
+  },
+  "camera_geometry": {
+    "labels": [2, 3, 4, 5, 6, 7],
+    "periods": [4, 3, 4, 5, 6, 7],
+    "second_radius_moments": [1, 1, 5, 5, 14, 14],
+    "even_antipodal_channels": {
+      "4": 2,
+      "6": 3
+    }
+  },
+  "campaign": {
+    "name": "coercivity_56_guard1024",
+    "bundle": "audit/coercivity_56_guard1024_results.tar.gz",
+    "bundle_sha256": "6aabb89cb3e460ae3142a6e82341d3597b9afe3d632151d76c6de186824053ae",
+    "runtime": {
+      "python": "3.12.12",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    },
+    "source_files": [
+      {
+        "path": "audit/empirical-campaign/native_carry_transverse_coercivity_certificate_lab.py",
+        "sha256": "76f857c5557e19f2f5bbdd97ff4cd0915ee675633dfd8e24b589fe78f3c70d09"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_sigma_deformed_operator_lab.py",
+        "sha256": "896c89486273cd8a42f0b51baba3550e7aac725c9b6fd62fb393501eb8f50d12"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_pythagorean_node_weyl_colligation_lab.py",
+        "sha256": "754c9e8f8fd8e285b7d916d122ef240fd517092c3f21e6fc871694d98ec18f35"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_collective_operator_lab.py",
+        "sha256": "006180ccfd317daebd1fd8003666d758c9f456a951dd096e88f61769fed2743b"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_primitive_real_operator_all_bases_fixed.py",
+        "sha256": "c68d4bb274f36eb4dc5572afe64394787876f64bc8f2e50573654f2ab712ecee"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_conservative_all_bases_atlas_lab.py",
+        "sha256": "895d26701831c179f41a1f3b81512973eb2592fc847fd4bf4935e4d7cb2ef738"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_quadratic_weighted_green_atlas_lab.py",
+        "sha256": "feeb57037b592584c9520d1e3563eb0fc0270a7f033fcb0762e8e4c5a2d1157c"
+      },
+      {
+        "path": "audit/empirical-campaign/native_carry_residual_native_return_identification_lab.py",
+        "sha256": "d2bf9ea9e189e27bb7683df4295a7864641c39262b241122ce24aacc1711eded"
+      },
+      {
+        "path": "audit/empirical-campaign/aggregate_coercivity_56_results.py",
+        "sha256": "de8269d0ebb31a22ae3df7a7781eb28df6b3994f4f65abb6fb778626bfb83aac"
+      }
+    ],
+    "compact": {
+      "sigma": [0.49, 0.51],
+      "time": [10.0, 40.0]
+    },
+    "cutoffs": [8192, 12288, 16384, 24576, 32768, 49152, 65536],
+    "candidate_coefficients": [0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0],
+    "job_count": 56,
+    "status_counts": {
+      "CERTIFIED_NONNEGATIVE_ON_COMPACT": 18,
+      "COUNTEREXAMPLE_FOUND": 2,
+      "RESOURCE_LIMIT_UNRESOLVED": 36
+    },
+    "coefficient_four_certified_cutoffs": [8192, 12288, 16384],
+    "coefficient_four_status_semantics": "These jobs were classified as CERTIFIED_NONNEGATIVE_ON_COMPACT by the campaign under its float64 guard; this is not interval certification or a Lean theorem.",
+    "guard_note": "The campaign uses float64 center jets with an explicit rounding guard and independent long-double witness reevaluation; it is not formal interval arithmetic."
+  },
+  "formal_scope": {
+    "supports": "The numerical campaign motivates the explicit leading-tail model, the local remainder bound, and the target coefficient four.",
+    "does_not_prove": [
+      "a Lean theorem that the recorded decimal is a Genuine zero",
+      "simplicity or a certified lower bound for the Genuine derivative",
+      "a global bound for the named cutoff-tail remainder or scaled-tail convergence",
+      "the numerical inequality phaseFloor > 4",
+      "a concrete C/M bridge from the reoptimized finite operator to the algebraic phase model",
+      "a kernel-checked coefficient-four bound",
+      "a cutoff-uniform positive liminf",
+      "the full compact lower bound in kernel-checked interval arithmetic"
+    ]
+  }
+}

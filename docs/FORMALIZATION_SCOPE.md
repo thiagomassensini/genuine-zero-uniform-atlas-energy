@@ -283,9 +283,82 @@ analytic estimate for every positive cutoff under the odd-prime primitive
 camera hypotheses. It does not encode the dyadic cutoff table as separate
 facts.
 
-The current theorem is an upper bound. It does not identify the sharp first
-asymptotic coefficient, the logarithmic phase `exp(-it log M)`, the projected
-coercivity oscillation, or a cutoff-uniform lower bound.
+The primitive-camera theorem is an upper bound. The new explicit-radius layer
+also isolates the proposed leading block and tail coefficients. Lean proves an
+explicit cubic-radius local Taylor remainder of order `(k+1)^(-7/2)`, the exact
+phase `M^(-3/2) exp(-it log M)` of the proposed tail monomial, and the exact
+collective six-camera squared model coefficient. It does not yet bound the
+named global tail remainder or prove scaled-tail convergence, so the
+coefficient is not presented as a completed sharp tail asymptotic.
+
+## Faithful empirical stack C2--C7
+
+The empirical operator uses labels, periods, and retained radii
+
+```text
+label    2  3  4  5  6  7
+period   4  3  4  5  6  7
+radii    1  1 12 12 123 123
+```
+
+Here `12` means radii one and two, and `123` means radii one, two, and three.
+Thus C4 and C6 include their antipodal middle channels. They are not the same
+objects as the natural even cameras, whose stored half-range omits that
+channel.
+
+Lean defines all six seeds, bracket blocks, finite and infinite
+characteristics, cutoff tails, stack vectors, and collective raw energies
+directly. Every component is absolutely summable on `re(s) > -1`. At a common
+zero, the finite stack is exactly the negative tail stack and the collective
+finite energy is exactly the collective tail energy. For each fixed critical
+time, the six amplitudes have displayed time-dependent `M^(-3/2)` majorants and
+their energy has the corresponding `M^(-3)` upper bound.
+
+The full-even continuation restores the C4/C6 antipodal channel through the
+paired odd--even channel instead of reusing the wrong natural-even factor. On
+the critical strip, each empirical infinite characteristic is its faithful
+factor times the same `genuineContinuation`. Therefore a Genuine zero supplies
+the common-zero hypothesis required by the all-six cutoff theorem.
+
+## Projected phase floor and limit interfaces
+
+The proposed tail coefficient is `+A_tail`; the proposed finite resonant
+residue vector is `A_res = -A_tail`. Lean proves that coordinate identity and
+the common rational squared norm. The finite-residue vector and the limiting
+complex-derivative model direction are then placed in the complex Euclidean
+six-camera space. At `Re(s)=1/2` with a nonzero Genuine derivative, C2 and C4
+force these vectors to be non-collinear: their residue-model coordinates have
+ratio five, whereas their faithful limiting factors provably do not. The
+formalization does not identify this complex-derivative model direction with
+the real time derivative of the empirical stack.
+
+Lean consequently proves strict Cauchy--Schwarz and
+
+```math
+\rho
+=
+\lVert A^{\mathrm{res}}\rVert^2
+-
+\frac{|\langle A^{\mathrm{res}},V\rangle|^2}{\lVert V\rVert^2}
+>0.
+```
+
+The algebraic phase-projection model has the symbolic phase-independent floor
+
+```math
+c_{\mathrm{floor}}
+=
+\frac{\kappa\rho}{\lVert A^{\mathrm{res}}\rVert^2}
+>0.
+```
+
+Two implication theorems keep the quantitative frontier explicit. If a
+supplied coefficient sequence approximates the algebraic model with uniform
+`C/M` error and `c_floor > 4`, that sequence is eventually at least four. No
+theorem identifies it with the concrete reoptimized finite operator. An
+eventual cutoff-uniform energy inequality passes to a supplied pointwise
+limiting energy, either globally or on a fixed region. This repository does
+not prove those quantitative hypotheses for the concrete operator.
 
 ## Logical order
 
@@ -335,6 +408,20 @@ and independently
 E_M=O(M^{-3}).
 ```
 
+For the collective empirical stack the additional order is
+
+```math
+\text{faithful C2--C7 radii}
+\Longrightarrow
+\text{full-even continuation}
+\Longrightarrow
+\text{common Genuine zero}
+\Longrightarrow
+\text{exact six-camera tail identity}
+\Longrightarrow
+\text{leading phase model and positive projected floor}.
+```
+
 The abstract coercivity layer converts a positive discriminant into local
 rigidity, and a separately supplied positive global coercivity estimate into
 off-critical zero exclusion.
@@ -351,20 +438,25 @@ an odd prime camera, positive cutoff, an admissible tilt center, and a
 parameter in the open strip. Primality is a camera hypothesis here; it is not
 a hypothesis of the foundational all-base quadratic rigidity theorem.
 
-The transverse camera bridge and cutoff-tail identity are exact and finite,
-but currently componentwise. The remaining gates are:
+The empirical product-space packaging and the even-camera semantic gap are now
+closed. The proposed monomial's logarithmic phase and the local Taylor
+remainder are kernel-checked, but the named global cutoff-tail remainder still
+lacks a proved bound or scaled-tail convergence theorem. The
+remaining concrete gates are:
 
-- package the empirical finite family `2,3,4,5,6,7` into one product-space
-  characteristic, including separate handling of the non-prime/even cameras;
-- sharpen the tail upper bound to an explicit asymptotic expansion with a
-  certified remainder and logarithmic phase;
-- transport that expansion through time reoptimization to obtain a uniform
-  positive lower coercivity estimate;
-- certify the complement of the critical tubes and prove positivity uniform in
-  the cutoff;
-- justify the limiting energy and transport the coercivity inequality to that
-  limit.
+- finish the global tail remainder and the corresponding derivative and
+  Hessian expansions;
+- certify a Genuine zero, its simplicity, and a quantitative derivative lower
+  bound with exact enclosures;
+- use those enclosures to prove `c_floor > 4` and the concrete `C/M`
+  reoptimization error;
+- certify the complement of the critical tubes and obtain a cutoff-uniform
+  compact lower bound;
+- supply convergence of the concrete collective energy so the already-proved
+  limit interface applies.
 
-Thus the operator-to-jet bridge and the universal resonant upper-tail rate are
-closed. The sharp collective asymptotic, global compact coercivity certificate,
-and cutoff-uniform limit are not.
+Thus the faithful all-camera operator, resonant upper-tail rate, exact phase of
+the proposed monomial, connected residue-model geometry, positive symbolic
+projection floor, and conditional global/region-restricted limit interfaces
+are closed. The unconditional numerical coefficient four and its concrete
+infinite-limit lower bound are not.

@@ -125,10 +125,92 @@ The centered-second-difference majorant and the integral test give
 | --- | --- |
 | `finiteNativeCamera_resonant_cutoffTail_and_rate` | For every positive cutoff of an odd prime primitive camera and every real spectral resonance, the finite characteristic equals the negative unresolved tail; its norm is at most `(2/3) * C_{p,t} * M^(-3/2)`, and its raw quadratic energy is at most the square of that bound. |
 
-This theorem is an explicit upper decay estimate. It does not yet identify the
-sharp leading coefficient, formalize the logarithmic cutoff phase, aggregate
-the empirical camera family `2,3,4,5,6,7`, or provide a transverse coercivity
-lower bound.
+This theorem is an explicit upper decay estimate for one odd-prime primitive
+camera. The following release layers aggregate the empirical family without
+changing that upper-bound interpretation.
+
+## Empirical C2--C7 geometry and operator
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `EmpiricalCamera.period_table` | The operator periods are exactly `4,3,4,5,6,7`. |
+| `EmpiricalCamera.radii_table` | The stored radii include the C4 radius two and C6 radius three antipodal channels. |
+| `EmpiricalCamera.hasAntipodalRadius_iff` | Exactly C4 and C6 have an antipodal radius; aligned C2 does not. |
+| `EmpiricalCamera.secondRadiusMoment_table` | The second moments are exactly `1,1,5,5,14,14`. |
+| `EmpiricalCamera.sum_leadingTailGeometryWeight` | The squared leading geometry weights sum to `132244271/1778112000`. |
+| `summable_norm_empiricalCameraBlock` | Every stored all-camera block series is absolutely summable on `re(s)>-1`. |
+| `empiricalCameraCharacteristic_eq_finite_add_cutoffTail` | Every infinite empirical characteristic is exactly finite prefix plus unresolved tail. |
+| `finiteEmpiricalCameraStack_eq_neg_cutoffTailStack_of_zero` | At a common zero, the complete finite stack is the negative tail stack. |
+| `finiteEmpiricalCollectiveRawEnergy_eq_cutoffTailEnergy_of_zero` | At a common zero, collective finite raw energy is exactly collective tail energy. |
+| `norm_empiricalCameraCutoffTail_critical_le` | At each fixed time, every empirical critical-line tail has the displayed time-dependent `M^(-3/2)` amplitude bound. |
+| `empiricalSixCamera_critical_cutoffTail_and_rate` | A common critical zero at a fixed time gives the exact six-camera tail package and displayed `M^(-3)` collective energy upper bound. |
+
+The registry also records the finite label bijection, uniform radius membership
+and period inequalities, per-camera moment reductions, complex summability,
+and the componentwise finite tail/rate theorem.
+
+## Local remainder and leading cutoff model
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `hasDerivAt_realDirichletPowerDeriv2` | The displayed third Dirichlet-power derivative differentiates the second derivative on the positive axis. |
+| `norm_centeredSecondDifference_sub_secondDerivative_le` | A third-derivative bound controls centered difference minus `r^2 f''` by `2 C r^3`. |
+| `norm_realCpPairBracket_sub_secondDerivative_critical_le` | The generic estimate specializes to one critical native radius pair. |
+| `nativeExplicitRadiusBracketLeading_eq_sum_secondDerivative` | The local leading block is exactly the sum of its quadratic Taylor terms. |
+| `norm_nativeExplicitRadiusBracketRemainder_critical_le` | The local named remainder is explicitly `O((k+1)^(-7/2))`, with period margin and third radius moment exposed. |
+| `nativeExplicitRadiusCutoffTail_eq_leading_add_remainder` | The global tail is exactly its proposed leading-model term plus the named difference remainder. This identity alone does not bound that remainder. |
+| `criticalCutoffPower_eq_amplitude_mul_logPhase` | The critical cutoff monomial is exactly `M^(-3/2) exp(-it log M)`. |
+| `empiricalCameraCutoffTailStack_eq_nativeExplicitRadiusCutoffTail` | The explicit-radius tail model uses exactly the empirical stack's periods and retained radii. |
+| `norm_empiricalNativeTailCoefficient_critical` | Each candidate tail-model coefficient has the exact second-moment and period norm. |
+| `empiricalNativeTailCoefficientNormSq_eq` | The squared six-camera model coefficient has exact rational geometry weight `132244271/1778112000`. |
+
+There is no theorem bounding `nativeExplicitRadiusTailRemainder` or proving
+scaled-tail convergence. The global sharp asymptotic remains open.
+
+## Full-even continuation and one six-camera resonance
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `finiteAntipodalEvenCameraChannel_eq_pairedAlt_prefix` | The finite antipodal channel telescopes to a paired odd--even prefix plus one endpoint. |
+| `antipodalEvenCameraChannel_eq_pairedAltChannel_of_summable` | After the endpoint vanishes, the infinite channel is `2 h^(-s)` times the paired channel. |
+| `empiricalCameraCharacteristic_c4_eq_fullEvenCameraFactor_mul_genuineContinuation` | C4 uses its restored full-even factor times the canonical continuation. |
+| `empiricalCameraCharacteristic_c6_eq_fullEvenCameraFactor_mul_genuineContinuation` | C6 uses its restored full-even factor times the canonical continuation. |
+| `empiricalCameraCharacteristic_eq_limitingFactor_mul_genuineContinuation` | One faithful factor table covers every empirical camera C2--C7. |
+| `empiricalSixCamera_zero_of_realSpectralResonance` | A presented real spectral resonance is a simultaneous zero of all six empirical characteristics. |
+| `empiricalSixCamera_resonant_cutoffTail_and_rate` | One resonance supplies the exact six-camera tail and collective critical energy upper-bound capstone. |
+
+## Symbolic projected lower bound
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `empiricalFullEvenCameraFactor_four_sub_five_alignedC2_ne_zero` | On the critical line, the full C4 factor cannot equal five aligned C2 factors. |
+| `empiricalLeadingCutoffVector_apply_eq_neg_tailCoefficient` | Each proposed finite-residue model coordinate is the negative of the candidate tail-model coefficient. |
+| `empiricalStackAmplitudeSq_critical_eq` | The residue model has the exact collective rational squared norm used by the projection algebra. |
+| `empiricalLeadingCutoffVector_not_collinear_clockTangent` | A nonzero Genuine derivative makes the finite-residue model and limiting complex-derivative model direction non-collinear. No real-time derivative identification is asserted. |
+| `empiricalStack_strict_cauchy_schwarz` | The corresponding Hermitian Cauchy--Schwarz inequality is strict. |
+| `empiricalStackRho_pos` | The transverse Gram remainder is strictly positive. |
+| `empiricalStackPhaseProjectionData_isAdmissible` | The empirical Gram scalars satisfy the phase-projection admissibility identity and positivity hypotheses. |
+| `empiricalStackPhaseFloor_pos` | The symbolic phase-independent floor is strictly positive. |
+| `empiricalStack_phaseCoercivity_uniform_lower_bound` | That floor bounds the projected limiting law for every logarithmic phase. |
+| `empiricalStack_projectionRho_pos_of_critical_simple_zero` | A presented critical simple Genuine zero has positive empirical projection remainder. |
+| `PhaseProjectionData.eventually_microscopicCoercivity_ge_four_of_inv_error` | `phaseFloor > 4` plus a supplied coefficient sequence with uniform `C/M` approximation to the algebraic model implies that the supplied sequence is eventually at least four. |
+
+The last implication neither proves its quantitative premises nor identifies
+the supplied sequence with the concrete reoptimized finite operator.
+
+## Global and regional limit passage
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `transverseCoercivity_passes_to_pointwise_limit` | A cutoff-uniform global coercivity inequality survives supplied pointwise energy convergence. |
+| `transverseCoercivity_passes_to_pointwise_limit_eventually` | Eventual cutoff-uniform global coercivity is sufficient. |
+| `isTransverselyCoerciveOn_iff_certificateResidual_nonneg` | Regional coercivity is equivalent to nonnegative certificate residual on the region. |
+| `zero_in_region_forces_re_eq_half_of_transverse_coercivityOn` | A positive regional certificate excludes off-critical zeros inside the region. |
+| `transverseCoercivityOn_passes_to_pointwise_limit_eventually` | Eventual regional coercivity survives supplied pointwise convergence on that region. |
+| `IsTransverselyCoercive.isTransverselyCoerciveOn` | Every global certificate restricts to every region. |
+
+These are conditional passage theorems; they do not manufacture the finite
+lower bound or the convergence hypothesis.
 
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).

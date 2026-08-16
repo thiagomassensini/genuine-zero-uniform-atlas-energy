@@ -1,10 +1,10 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, the unique optimal seeded TFVD radial-defect energy budget, the norm--tilt--center mechanism after boundary telescoping, and the finite transverse operator bridge deriving the raw-energy Hessian, Schur-envelope curvature, and exact-zero isotropy from the concrete primitive camera characteristic.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, the exact empirical C2--C7 camera geometry including the C4/C6 antipodal channels, collective cutoff-tail identities and fixed-time critical upper bounds, an explicit local remainder and candidate leading-tail monomial with exact logarithmic phase, a strictly positive algebraic projection floor under a nonzero-derivative hypothesis, and conditional passage of supplied uniform transverse coercivity to a supplied limiting energy.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "publication_date": "2026-08-16",
   "language": "eng",
   "creators": [
@@ -22,6 +22,9 @@
     "transverse coercivity",
     "Hessian",
     "primitive camera operator",
+    "six-camera cutoff operator",
+    "cutoff-tail leading model",
+    "phase projection",
     "uniform atlas",
     "critical half-abscissa",
     "reproducible proof audit"
@@ -29,6 +32,12 @@
   "related_identifiers": [
     {
       "identifier": "https://github.com/thiagomassensini/primos/tree/v0.62.0",
+      "relation": "isDerivedFrom",
+      "scheme": "url",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://github.com/thiagomassensini/finite-native-carry-operator/tree/00e9d6beb17226545abf5ddf90bbfede6c7146b0",
       "relation": "isDerivedFrom",
       "scheme": "url",
       "resource_type": "software"

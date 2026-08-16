@@ -19,14 +19,78 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeTransverseBridge.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeTransverseHessian.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffTail.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalCameraGeometry.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalCameraOperator.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffAsymptotic.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/AsymptoticCoercivity.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalStackProjection.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalFullEvenContinuation.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/UniformCoercivityOn.lean",
 ]
-PREFIX = "GenuineZeroUniformAtlasEnergy."
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
 EXPECTED_MATHLIB_REV = "81a5d257c8e410db227a6665ed08f64fea08e997"
 
 
 def fail(message: str) -> None:
     raise SystemExit(f"registry check failed: {message}")
+
+
+def qualified_theorems(path: Path) -> list[str]:
+    """Collect theorem names while respecting Lean namespace nesting.
+
+    The registry includes declarations from nested namespaces such as
+    `EmpiricalCamera` and `PhaseProjectionData`.  Anonymous and named
+    `section` blocks affect scoping but do not contribute name components, so
+    both kinds of scope are tracked explicitly until their matching `end`.
+    """
+
+    scopes: list[tuple[str, str | None]] = []
+    names: list[str] = []
+    theorem_pattern = re.compile(
+        r"^(?:@\[[^\n]*\]\s*)?theorem\s+([A-Za-z0-9_.']+)"
+    )
+    namespace_pattern = re.compile(r"^namespace\s+([A-Za-z0-9_.']+)\s*$")
+    section_pattern = re.compile(
+        r"^(?:noncomputable\s+)?section(?:\s+([A-Za-z0-9_']+))?\s*$"
+    )
+    end_pattern = re.compile(r"^end(?:\s+([A-Za-z0-9_.']+))?\s*$")
+
+    for raw_line in path.read_text().splitlines():
+        line = raw_line.strip()
+        namespace_match = namespace_pattern.match(line)
+        if namespace_match is not None:
+            scopes.append(("namespace", namespace_match.group(1)))
+            continue
+        section_match = section_pattern.match(line)
+        if section_match is not None:
+            scopes.append(("section", section_match.group(1)))
+            continue
+        end_match = end_pattern.match(line)
+        if end_match is not None:
+            if not scopes:
+                fail(f"unmatched end in {path.relative_to(ROOT)}")
+            closing_name = end_match.group(1)
+            scope_kind, scope_name = scopes.pop()
+            if closing_name is not None and closing_name != scope_name:
+                fail(
+                    f"scope mismatch in {path.relative_to(ROOT)}: "
+                    f"end {closing_name} closes {scope_kind} {scope_name}"
+                )
+            continue
+        theorem_match = theorem_pattern.match(line)
+        if theorem_match is None:
+            continue
+        namespace = ".".join(
+            scope_name
+            for scope_kind, scope_name in scopes
+            if scope_kind == "namespace" and scope_name is not None
+        )
+        theorem_name = theorem_match.group(1)
+        names.append(f"{namespace}.{theorem_name}" if namespace else theorem_name)
+
+    if scopes:
+        fail(f"unclosed scope in {path.relative_to(ROOT)}")
+    return names
 
 
 registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
@@ -44,13 +108,7 @@ if len(set(qualified)) != len(qualified):
 
 source_names: list[str] = []
 for module in MODULES:
-    text = module.read_text()
-    names = re.findall(
-        r"^(?:@\[[^\n]*\]\s*)?theorem\s+([A-Za-z0-9_']+)",
-        text,
-        re.MULTILINE,
-    )
-    source_names.extend(PREFIX + name for name in names)
+    source_names.extend(qualified_theorems(module))
 if source_names != qualified:
     fail("registry order or content differs from local theorem declarations")
 
