@@ -28,6 +28,7 @@ open scoped BigOperators
 
 namespace GenuineZeroUniformAtlasEnergy
 
+open CPFormal.Analytic.Cp
 open Set MeasureTheory
 
 noncomputable section
@@ -103,8 +104,9 @@ lemma summable_criticalSevenHalves_shifted (M : ℕ) :
     (fun k => Real.rpow_nonneg (by positivity) _) ?_ hbase
   intro k
   have hleft : 0 < (k : ℝ) + 1 := by positivity
+  have hMnonneg : 0 ≤ (M : ℝ) := by positivity
   have hle : (k : ℝ) + 1 ≤ (k : ℝ) + (M : ℝ) + 1 := by
-    positivity
+    linarith
   exact Real.rpow_le_rpow_of_nonpos hleft hle (by norm_num)
 
 lemma summable_nativeExplicitRadiusBracketRemainder_critical
@@ -194,7 +196,11 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
     have hmoment : 0 ≤ nativeRadiusThirdMoment h :=
       nativeRadiusThirdMoment_nonneg h
     dsimp [C]
-    positivity
+    exact mul_nonneg
+      (mul_nonneg
+        (mul_nonneg (by norm_num) (norm_nonneg _))
+        (Real.rpow_nonneg (by positivity) _))
+      hmoment
   calc
     ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M
         (criticalLineParameter time)‖ =
@@ -206,7 +212,8 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_critical_le
     _ ≤ C * ((2 / 5 : ℝ) * (M : ℝ) ^ (-(5 / 2 : ℝ))) :=
       mul_le_mul_of_nonneg_left (criticalSevenHalves_tsum_le M hM) hC
     _ = nativeExplicitRadiusAccumulatedBracketRemainderBound b h M time := by
-      simp [nativeExplicitRadiusAccumulatedBracketRemainderBound, C]
+      unfold nativeExplicitRadiusAccumulatedBracketRemainderBound
+      dsimp [C]
       ring
 
 end
