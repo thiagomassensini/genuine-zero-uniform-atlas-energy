@@ -1,0 +1,24 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry-extension/v1",
+  "base_release": "0.6.0",
+  "release": "0.7.0",
+  "start": 136,
+  "count": 3,
+  "theorems": [
+    {
+      "id": "GZUAE-136",
+      "name": "empiricalScaledCollectiveCutoffTailEnergy_eq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalScaledCollectiveCutoffTailEnergy_eq"
+    },
+    {
+      "id": "GZUAE-137",
+      "name": "abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le"
+    },
+    {
+      "id": "GZUAE-138",
+      "name": "empiricalSixCameraCriticalRawEnergy_explicit_remainder",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCameraCriticalRawEnergy_explicit_remainder"
+    }
+  ]
+}

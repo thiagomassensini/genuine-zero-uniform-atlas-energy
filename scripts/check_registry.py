@@ -27,6 +27,7 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalFullEvenContinuation.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/UniformCoercivityOn.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffGlobalRemainder.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalCollectiveEnergyAsymptotic.lean",
 ]
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
 EXPECTED_MATHLIB_REV = "81a5d257c8e410db227a6665ed08f64fea08e997"
@@ -94,11 +95,22 @@ def qualified_theorems(path: Path) -> list[str]:
     return names
 
 
-registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
-entries = registry["theorems"]
-if registry["count"] != len(entries):
-    fail("declared theorem count differs from registry length")
+base_registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
+base_entries = base_registry["theorems"]
+if base_registry["count"] != len(base_entries):
+    fail("declared base theorem count differs from registry length")
 
+extension_path = ROOT / "audit/theorem-registry-0.7.0.json"
+extension = json.loads(extension_path.read_text())
+extension_entries = extension["theorems"]
+if extension["count"] != len(extension_entries):
+    fail("declared extension theorem count differs from extension length")
+if extension["base_release"] != base_registry["release"]:
+    fail("registry extension does not name the locked base release")
+if extension["start"] != len(base_entries) + 1:
+    fail("registry extension does not start after the locked base registry")
+
+entries = base_entries + extension_entries
 expected_ids = [f"GZUAE-{index:03d}" for index in range(1, len(entries) + 1)]
 ids = [entry["id"] for entry in entries]
 qualified = [entry["qualified"] for entry in entries]
@@ -151,7 +163,7 @@ version_match = re.search(r'^version\s*=\s*"([^"]+)"', lakefile, re.MULTILINE)
 if version_match is None:
     fail("lakefile version is missing")
 version = version_match.group(1)
-if registry["release"] != version or ledger["release"] != version:
+if extension["release"] != version or ledger["release"] != version:
     fail("audit release versions differ from lakefile.toml")
 
 zenodo = json.loads((ROOT / ".zenodo.json").read_text())

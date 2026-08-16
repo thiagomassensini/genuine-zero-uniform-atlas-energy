@@ -23,10 +23,12 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-REG-001` | `KERNEL_CHECKED` | Regional residual/coercivity equivalence, regional zero exclusion, restriction of global bounds, and conditional regional limit passage. |
 | `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder after cutoff `M` is explicitly `O(M^(-5/2))`, hence `O(1/M)` after critical `M^(3/2)` scaling. |
 | `GZUAE-ASY-004` | `KERNEL_CHECKED` | The complete named critical tail remainder is bounded by an explicit `K(b,h,t) M^(-5/2)`, and the scaled cutoff tail differs from its exact leading coefficient by at most `K(b,h,t)/M`. |
+| `GZUAE-ASY-005` | `KERNEL_CHECKED` | The collective scaled tail energy is exactly `M^3` times the raw tail energy; the raw six-camera energy has leading coefficient `||1/2+it||^2 * 132244271/1778112000` and an explicit `O_t(M^(-4))` remainder, including the finite raw energy at a common six-camera resonance. |
 
-The current post-`0.6.0` development surface records 19 claims covering 135
-ordered theorem reports. No
+Release `0.7.0` records 20 claims covering 138 ordered theorem reports. No
 claim introduces an auxiliary zero class, obtains the quadratic amplitude from
 a zero hypothesis, imports numerical minima as proof objects, proves a named
 decimal is a Genuine zero, or asserts an unconditional cutoff-uniform
-coercivity constant.
+coercivity constant. The fixed-time energy expansion does not yet provide the
+derivative, Hessian, or time-reoptimization expansions needed for the global
+coercivity gate.

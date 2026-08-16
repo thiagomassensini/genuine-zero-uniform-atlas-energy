@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
-  "release": "0.6.0",
-  "registry_count": 135,
-  "count": 19,
+  "release": "0.7.0",
+  "registry_count": 138,
+  "count": 20,
   "status_counts": {
-    "KERNEL_CHECKED": 19
+    "KERNEL_CHECKED": 20
   },
   "claims": [
     {
@@ -273,6 +273,16 @@
       "theorem_ids": [
         "GZUAE-134",
         "GZUAE-135"
+      ]
+    },
+    {
+      "id": "GZUAE-ASY-005",
+      "claim": "For the faithful empirical C2-C7 stack on the critical line, the naturally scaled collective tail energy equals M^3 times the raw tail energy and differs from the exact collective coefficient norm by an explicit sum of camerawise K/M quadratic errors. Consequently the unresolved tail energy, and at a common six-camera resonance the finite raw energy, equals ||1/2+it||^2 times 132244271/1778112000 times M^(-3), with an explicit O_t(M^(-4)) remainder. No derivative, Hessian, time-reoptimization lower bound, or cutoff-uniform coercivity constant is asserted.",
+      "status": "KERNEL_CHECKED",
+      "theorem_ids": [
+        "GZUAE-136",
+        "GZUAE-137",
+        "GZUAE-138"
       ]
     }
   ]
