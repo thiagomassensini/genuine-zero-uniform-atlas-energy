@@ -220,7 +220,7 @@ lemma abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
       ∑ camera : EmpiricalCamera,
         ‖empiricalNativeTailCoefficient camera
           (criticalLineParameter time)‖ ^ 2 := by
-    exact Finset.sum_sub_distrib
+    rw [Finset.sum_sub_distrib]
   rw [← hsum]
   calc
     |∑ camera : EmpiricalCamera,
