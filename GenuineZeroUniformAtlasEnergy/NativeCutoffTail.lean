@@ -89,18 +89,17 @@ lemma norm_realCpBracketCutoffTail_critical_le
   have hs : -1 < s.re := by
     dsimp [s]
     norm_num [criticalLineParameter_re]
+  have hbase :
+      Summable (fun k : ℕ =>
+        ((k : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) := by
+    simpa [s, criticalLineParameter_re] using
+      (summable_nat_add_one_rpow_neg_re_sub_two (s := s) hs)
   have hpowerSummable :
       Summable (fun k : ℕ =>
         ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) := by
-    have hbase :=
-      summable_nat_add_one_rpow_neg_re_sub_two (s := s) hs
-    have hinjective : Function.Injective (fun k : ℕ => k + M) := by
-      intro a b hab
-      exact Nat.add_right_cancel hab
-    have hshift := hbase.comp_injective hinjective
-    change Summable (fun k : ℕ =>
-      ((((k + M : ℕ) : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2))) at hshift
-    simpa only [Nat.cast_add] using hshift
+    refine Summable.of_nonneg_of_le (fun k => Real.rpow_nonneg (by positivity) _) ?_ hbase
+    intro k
+    exact Real.rpow_le_rpow_of_nonpos (by positivity) (by positivity) (by norm_num)
   have hmajorantHasSum :
       HasSum
         (fun k : ℕ =>
