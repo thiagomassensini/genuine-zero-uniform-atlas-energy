@@ -717,6 +717,108 @@ lemma norm_nativeExplicitRadiusTailRemainder_critical_le
       simp only [norm_mul]
       ring
 
+private lemma norm_criticalCutoffScale_mul_le_div
+    (M : ℕ) (hM : 0 < M) (time : ℝ)
+    {z : ℂ} {K : ℝ}
+    (hz : ‖z‖ ≤ K * (M : ℝ) ^ (-(5 / 2 : ℝ))) :
+    ‖(M : ℂ) ^ (criticalLineParameter time + 1) * z‖ ≤
+      K / (M : ℝ) := by
+  have hMReal : 0 < (M : ℝ) := by
+    exact_mod_cast hM
+  have hre :
+      (criticalLineParameter time + 1).re = (3 / 2 : ℝ) := by
+    norm_num [criticalLineParameter_re]
+  have hscale :
+      ‖(M : ℂ) ^ (criticalLineParameter time + 1)‖ =
+        (M : ℝ) ^ (3 / 2 : ℝ) := by
+    have hnorm :=
+      Complex.norm_cpow_eq_rpow_re_of_pos hMReal
+        (criticalLineParameter time + 1)
+    rw [hre] at hnorm
+    simpa using hnorm
+  have hpow :
+      (M : ℝ) ^ (3 / 2 : ℝ) *
+          (M : ℝ) ^ (-(5 / 2 : ℝ)) =
+        (M : ℝ)⁻¹ := by
+    rw [← Real.rpow_add hMReal,
+      ← Real.rpow_neg_one (M : ℝ)]
+    congr 1
+    ring
+  rw [norm_mul, hscale]
+  calc
+    (M : ℝ) ^ (3 / 2 : ℝ) * ‖z‖ ≤
+        (M : ℝ) ^ (3 / 2 : ℝ) *
+          (K * (M : ℝ) ^ (-(5 / 2 : ℝ))) :=
+      mul_le_mul_of_nonneg_left hz
+        (Real.rpow_nonneg hMReal.le _)
+    _ = K *
+        ((M : ℝ) ^ (3 / 2 : ℝ) *
+          (M : ℝ) ^ (-(5 / 2 : ℝ))) := by ring
+    _ = K * (M : ℝ)⁻¹ := by rw [hpow]
+    _ = K / (M : ℝ) := by rw [div_eq_mul_inv]
+
+/-- The naturally scaled complete critical tail remainder is `O(1/M)`. -/
+lemma norm_scaled_nativeExplicitRadiusTailRemainder_critical_le
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
+    (hM : 1 ≤ M) (time : ℝ) :
+    ‖(M : ℂ) ^ (criticalLineParameter time + 1) *
+        nativeExplicitRadiusTailRemainder b h M
+          (criticalLineParameter time)‖ ≤
+      nativeExplicitRadiusCriticalTailRemainderConstant b h time /
+        (M : ℝ) := by
+  exact norm_criticalCutoffScale_mul_le_div M (by omega) time
+    (norm_nativeExplicitRadiusTailRemainder_critical_le
+      b h M hb hh hM time)
+
+private lemma
+    scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_eq_remainder
+    (b h M : ℕ) (s : ℂ) (hM : 0 < M) :
+    (M : ℂ) ^ (s + 1) *
+          nativeExplicitRadiusCutoffTail b h M s -
+        nativeExplicitRadiusTailCoefficient b h s =
+      (M : ℂ) ^ (s + 1) *
+        nativeExplicitRadiusTailRemainder b h M s := by
+  have hMC : (M : ℂ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hM)
+  have hcancel :
+      (M : ℂ) ^ (s + 1) * (M : ℂ) ^ (-s - 1) = 1 := by
+    rw [← Complex.cpow_add _ _ hMC]
+    have hexponent : s + 1 + (-s - 1) = 0 := by ring
+    rw [hexponent, Complex.cpow_zero]
+  unfold nativeExplicitRadiusTailRemainder
+  calc
+    (M : ℂ) ^ (s + 1) *
+          nativeExplicitRadiusCutoffTail b h M s -
+        nativeExplicitRadiusTailCoefficient b h s =
+      (M : ℂ) ^ (s + 1) *
+          nativeExplicitRadiusCutoffTail b h M s -
+        nativeExplicitRadiusTailCoefficient b h s *
+          ((M : ℂ) ^ (s + 1) * (M : ℂ) ^ (-s - 1)) := by
+            rw [hcancel, mul_one]
+    _ = (M : ℂ) ^ (s + 1) *
+        (nativeExplicitRadiusCutoffTail b h M s -
+          nativeExplicitRadiusTailCoefficient b h s *
+            (M : ℂ) ^ (-s - 1)) := by ring
+
+/-- The scaled critical cutoff tail differs from its exact leading
+coefficient by at most the explicit error `K/M`. -/
+lemma norm_scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_critical_le
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
+    (hM : 1 ≤ M) (time : ℝ) :
+    ‖(M : ℂ) ^ (criticalLineParameter time + 1) *
+          nativeExplicitRadiusCutoffTail b h M
+            (criticalLineParameter time) -
+        nativeExplicitRadiusTailCoefficient b h
+          (criticalLineParameter time)‖ ≤
+      nativeExplicitRadiusCriticalTailRemainderConstant b h time /
+        (M : ℝ) := by
+  rw [
+    scaled_nativeExplicitRadiusCutoffTail_sub_coefficient_eq_remainder
+      b h M (criticalLineParameter time) (by omega)
+  ]
+  exact norm_scaled_nativeExplicitRadiusTailRemainder_critical_le
+    b h M hb hh hM time
+
 end
 
 end GenuineZeroUniformAtlasEnergy
