@@ -210,34 +210,70 @@ lemma abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
   unfold empiricalScaledCollectiveCutoffTailEnergy
     empiricalNativeTailCoefficientNormSq
     empiricalCollectiveCriticalScaledEnergyErrorBound
-  have hsum :
-      (∑ camera : EmpiricalCamera,
-        (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
+  have hcomponent : ∀ camera : EmpiricalCamera,
+      |‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
           ‖empiricalNativeTailCoefficient camera
-            (criticalLineParameter time)‖ ^ 2)) =
-      (∑ camera : EmpiricalCamera,
-        ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2) -
-      ∑ camera : EmpiricalCamera,
-        ‖empiricalNativeTailCoefficient camera
-          (criticalLineParameter time)‖ ^ 2 := by
-    rw [Finset.sum_sub_distrib]
-  rw [← hsum]
-  calc
-    |∑ camera : EmpiricalCamera,
-        (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
-          ‖empiricalNativeTailCoefficient camera
-            (criticalLineParameter time)‖ ^ 2)| ≤
-      ∑ camera : EmpiricalCamera,
-        |‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
-          ‖empiricalNativeTailCoefficient camera
-            (criticalLineParameter time)‖ ^ 2| := by
-      simpa [Real.norm_eq_abs] using
-        (norm_sum_le (Finset.univ : Finset EmpiricalCamera)
-          (fun camera =>
-            ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
+            (criticalLineParameter time)‖ ^ 2| ≤
+        2 *
+            ‖empiricalNativeTailCoefficient camera
+              (criticalLineParameter time)‖ *
+            (empiricalNativeCriticalTailRemainderConstant camera time /
+              (M : ℝ)) +
+          (empiricalNativeCriticalTailRemainderConstant camera time /
+            (M : ℝ)) ^ 2 := by
+    intro camera
+    apply abs_sq_norm_sub_sq_norm_le_of_norm_sub_le
+    · exact div_nonneg
+        (empiricalNativeCriticalTailRemainderConstant_nonneg camera time)
+        (by positivity)
+    · exact
+        norm_empiricalScaledCameraCutoffTail_sub_coefficient_critical_le
+          camera M hM time
+  apply abs_le.mpr
+  constructor
+  · calc
+      -(∑ camera : EmpiricalCamera,
+        (2 *
+            ‖empiricalNativeTailCoefficient camera
+              (criticalLineParameter time)‖ *
+            (empiricalNativeCriticalTailRemainderConstant camera time /
+              (M : ℝ)) +
+          (empiricalNativeCriticalTailRemainderConstant camera time /
+            (M : ℝ)) ^ 2)) =
+        ∑ camera : EmpiricalCamera,
+          -(2 *
               ‖empiricalNativeTailCoefficient camera
-                (criticalLineParameter time)‖ ^ 2))
-    _ ≤ ∑ camera : EmpiricalCamera,
+                (criticalLineParameter time)‖ *
+              (empiricalNativeCriticalTailRemainderConstant camera time /
+                (M : ℝ)) +
+            (empiricalNativeCriticalTailRemainderConstant camera time /
+              (M : ℝ)) ^ 2) := by
+        rw [Finset.sum_neg_distrib]
+      _ ≤ ∑ camera : EmpiricalCamera,
+        (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
+          ‖empiricalNativeTailCoefficient camera
+            (criticalLineParameter time)‖ ^ 2) := by
+        apply Finset.sum_le_sum
+        intro camera _hcamera
+        exact (abs_le.mp (hcomponent camera)).1
+      _ = (∑ camera : EmpiricalCamera,
+          ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2) -
+        ∑ camera : EmpiricalCamera,
+          ‖empiricalNativeTailCoefficient camera
+            (criticalLineParameter time)‖ ^ 2 := by
+        rw [Finset.sum_sub_distrib]
+  · calc
+      (∑ camera : EmpiricalCamera,
+          ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2) -
+        ∑ camera : EmpiricalCamera,
+          ‖empiricalNativeTailCoefficient camera
+            (criticalLineParameter time)‖ ^ 2 =
+        ∑ camera : EmpiricalCamera,
+          (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
+            ‖empiricalNativeTailCoefficient camera
+              (criticalLineParameter time)‖ ^ 2) := by
+        rw [Finset.sum_sub_distrib]
+      _ ≤ ∑ camera : EmpiricalCamera,
         (2 *
             ‖empiricalNativeTailCoefficient camera
               (criticalLineParameter time)‖ *
@@ -245,15 +281,9 @@ lemma abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
               (M : ℝ)) +
           (empiricalNativeCriticalTailRemainderConstant camera time /
             (M : ℝ)) ^ 2) := by
-      apply Finset.sum_le_sum
-      intro camera _hcamera
-      apply abs_sq_norm_sub_sq_norm_le_of_norm_sub_le
-      · exact div_nonneg
-          (empiricalNativeCriticalTailRemainderConstant_nonneg camera time)
-          (by positivity)
-      · exact
-          norm_empiricalScaledCameraCutoffTail_sub_coefficient_critical_le
-            camera M hM time
+        apply Finset.sum_le_sum
+        intro camera _hcamera
+        exact (abs_le.mp (hcomponent camera)).2
 
 /-- Explicit raw-energy expansion of the unresolved six-camera tail.  The
 right-hand side is the scaled `O(1/M)` error divided by the exact factor
