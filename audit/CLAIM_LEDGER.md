@@ -11,6 +11,7 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-CAP-001` | `KERNEL_CHECKED` | The common zero inherits the already-existing unique structural budget. |
 | `GZUAE-COE-001` | `KERNEL_CHECKED` | For an abstract finite transverse jet, one discriminant controls Hessian determinant, eigenvalues, reoptimized envelope curvature, and local coercivity. A separately supplied positive global coercivity bound forces certified zeros onto `sigma = 1/2`; cutoff-uniform positivity is not claimed. |
 | `GZUAE-BRG-001` | `KERNEL_CHECKED` | The concrete odd-prime primitive finite camera is an entire Dirichlet characteristic; its time tangent is the real quarter-turn of its sigma tangent; its raw-energy Hessian is the concrete transverse jet; and an exact finite zero has isotropic Hessian, zero first-order clock slope, and a double algebraic eigenvalue. The result is componentwise and finite. |
+| `GZUAE-TAIL-001` | `KERNEL_CHECKED` | At a real spectral resonance, the finite odd-prime primitive-camera characteristic is exactly the negative unresolved bracket tail. Its critical-line amplitude is bounded by `(2/3) C_{p,t} M^(-3/2)` and its raw quadratic energy by the square of that quantity. The bound is not the sharp leading asymptotic coefficient or a transverse coercivity lower bound. |
 
 No claim introduces an auxiliary zero class, obtains the quadratic amplitude
 from a zero hypothesis, imports numerical minima as proof objects, or asserts a
