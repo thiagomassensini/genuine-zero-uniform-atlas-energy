@@ -49,7 +49,7 @@ def finiteNativeCriticalTailBound
 lemma criticalTailPower_tsum_le
     (M : ℕ) (hM : 1 ≤ M) :
     (∑' k : ℕ,
-      (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2)) ≤
+      ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) ≤
       (2 / 3 : ℝ) * (M : ℝ) ^ (-(3 / 2 : ℝ)) := by
   have hMpos : 0 < (M : ℝ) := by
     exact_mod_cast (lt_of_lt_of_le Nat.zero_lt_one hM)
@@ -68,9 +68,9 @@ lemma criticalTailPower_tsum_le
     exact Real.rpow_nonneg (le_of_lt (hMpos.trans (mem_Ioi.mp hx))) _
   calc
     (∑' k : ℕ,
-      (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2)) ≤
+      ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) ≤
         ∫ x in Ioi (M : ℝ), x ^ (-(1 / 2 : ℝ) - 2) := by
-      simpa [f] using
+      simpa [f, Nat.cast_add] using
         hanti.tsum_comp_add_le_integral M hintegrable hnonneg
     _ = -(M : ℝ) ^ (-(1 / 2 : ℝ) - 2 + 1) /
           (-(1 / 2 : ℝ) - 2 + 1) :=
@@ -91,24 +91,26 @@ lemma norm_realCpBracketCutoffTail_critical_le
     norm_num [criticalLineParameter_re]
   have hpowerSummable :
       Summable (fun k : ℕ =>
-        (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2)) := by
+        ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) := by
     have hbase :=
       summable_nat_add_one_rpow_neg_re_sub_two (s := s) hs
     have hinjective : Function.Injective (fun k : ℕ => k + M) := by
       intro a b hab
       exact Nat.add_right_cancel hab
     have hshift := hbase.comp_injective hinjective
-    simpa [Function.comp_apply, s, criticalLineParameter_re] using hshift
+    change Summable (fun k : ℕ =>
+      ((((k + M : ℕ) : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2))) at hshift
+    simpa only [Nat.cast_add] using hshift
   have hmajorantHasSum :
       HasSum
         (fun k : ℕ =>
-          C * (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2))
+          C * ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2))
         (C * ∑' k : ℕ,
-          (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2)) :=
+          ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2)) :=
     hpowerSummable.hasSum.mul_left C
   have hpointwise : ∀ k : ℕ,
       ‖realCpSaturatedBracket p (k + M) s‖ ≤
-        C * (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2) := by
+        C * ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2) := by
     intro k
     simpa [C, s, criticalLineParameter_re] using
       (norm_realCpSaturatedBracket_le
@@ -116,7 +118,7 @@ lemma norm_realCpBracketCutoffTail_critical_le
   have hnorm :
       ‖∑' k : ℕ, realCpSaturatedBracket p (k + M) s‖ ≤
         C * ∑' k : ℕ,
-          (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2) :=
+          ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2) :=
     tsum_of_norm_bounded hmajorantHasSum hpointwise
   have hC : 0 ≤ C := by
     dsimp [C]
@@ -127,7 +129,7 @@ lemma norm_realCpBracketCutoffTail_critical_le
         ‖∑' k : ℕ, realCpSaturatedBracket p (k + M) s‖ := by
       rfl
     _ ≤ C * ∑' k : ℕ,
-        (((k + M + 1 : ℕ) : ℝ)) ^ (-(1 / 2 : ℝ) - 2) := hnorm
+        ((k : ℝ) + (M : ℝ) + 1) ^ (-(1 / 2 : ℝ) - 2) := hnorm
     _ ≤ C * ((2 / 3 : ℝ) * (M : ℝ) ^ (-(3 / 2 : ℝ))) :=
       mul_le_mul_of_nonneg_left (criticalTailPower_tsum_le M hM) hC
     _ = finiteNativeCriticalTailBound p M time := by
