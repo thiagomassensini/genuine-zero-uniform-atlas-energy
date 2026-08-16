@@ -1,6 +1,6 @@
 # Theorem Registry
 
-Release candidate `0.4.0` contains 35 local public theorems. Their canonical
+Release `0.5.0` contains 35 local public theorems. Their canonical
 order and qualified Lean names are stored in
 [`theorem-registry.json`](theorem-registry.json).
 
