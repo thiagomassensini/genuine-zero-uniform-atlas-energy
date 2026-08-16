@@ -1,7 +1,7 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry/v1",
   "release": "0.5.0",
-  "count": 35,
+  "count": 36,
   "theorems": [
     {
       "id": "GZUAE-001",
@@ -177,6 +177,11 @@
       "id": "GZUAE-035",
       "name": "finiteNativeCamera_exactZero_has_isotropic_transverseHessian",
       "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_exactZero_has_isotropic_transverseHessian"
+    },
+    {
+      "id": "GZUAE-036",
+      "name": "finiteNativeCamera_resonant_cutoffTail_and_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.finiteNativeCamera_resonant_cutoffTail_and_rate"
     }
   ]
 }
