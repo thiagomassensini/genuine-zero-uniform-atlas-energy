@@ -78,7 +78,7 @@ def empiricalCollectiveCriticalRawEnergyErrorBound
 
 /-- The retained empirical radius cutoff fits the period margin required by
 the sharp explicit-radius estimate. -/
-theorem empiricalCamera_halfLabel_le_period_sub_one
+lemma empiricalCamera_halfLabel_le_period_sub_one
     (camera : EmpiricalCamera) :
     camera.label / 2 ≤ camera.period - 1 := by
   cases camera <;> norm_num
@@ -93,7 +93,7 @@ lemma empiricalNativeCriticalTailRemainderConstant_nonneg
 
 /-- Camerawise scaled tail convergence with the exact empirical geometry
 substituted into the sharp explicit-radius theorem. -/
-theorem norm_empiricalScaledCameraCutoffTail_sub_coefficient_critical_le
+lemma norm_empiricalScaledCameraCutoffTail_sub_coefficient_critical_le
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
     ‖empiricalScaledCameraCutoffTail camera M time -
         empiricalNativeTailCoefficient camera
@@ -127,14 +127,14 @@ lemma abs_sq_norm_sub_sq_norm_le_of_norm_sub_le
     calc
       ‖x‖ = ‖(x - a) + a‖ := by rw [sub_add_cancel]
       _ ≤ ‖x - a‖ + ‖a‖ := norm_add_le _ _
-      _ ≤ epsilon + ‖a‖ := add_le_add_right h _
+      _ ≤ epsilon + ‖a‖ := add_le_add h (le_refl _)
       _ = ‖a‖ + epsilon := by ring
   have hale : ‖a‖ ≤ ‖x‖ + epsilon := by
     calc
       ‖a‖ = ‖(a - x) + x‖ := by rw [sub_add_cancel]
       _ ≤ ‖a - x‖ + ‖x‖ := norm_add_le _ _
       _ = ‖x - a‖ + ‖x‖ := by rw [norm_sub_rev]
-      _ ≤ epsilon + ‖x‖ := add_le_add_right h _
+      _ ≤ epsilon + ‖x‖ := add_le_add h (le_refl _)
       _ = ‖x‖ + epsilon := by ring
   by_cases hax : ‖a‖ ≤ ‖x‖
   · have hdiff : 0 ≤ ‖x‖ ^ 2 - ‖a‖ ^ 2 := by
@@ -173,7 +173,8 @@ lemma norm_criticalCutoffScale_sq
     Complex.norm_cpow_eq_rpow_re_of_pos hMpos
       (criticalLineParameter time + 1)
   rw [hre] at hnorm
-  rw [hnorm]
+  have hcast : (M : ℂ) = ((M : ℝ) : ℂ) := by norm_cast
+  rw [hcast, hnorm]
   calc
     ((M : ℝ) ^ (3 / 2 : ℝ)) ^ 2 =
         (M : ℝ) ^ ((3 / 2 : ℝ) * (2 : ℝ)) := by
@@ -200,7 +201,7 @@ theorem empiricalScaledCollectiveCutoffTailEnergy_eq
   simp [Complex.sq_norm]
 
 /-- Explicit six-camera estimate for the scaled collective energy. -/
-theorem abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
+lemma abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
     (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
     |empiricalScaledCollectiveCutoffTailEnergy M time -
         empiricalNativeTailCoefficientNormSq time| ≤
@@ -209,13 +210,18 @@ theorem abs_empiricalScaledCollectiveCutoffTailEnergy_sub_coefficientNormSq_le
   unfold empiricalScaledCollectiveCutoffTailEnergy
     empiricalNativeTailCoefficientNormSq
     empiricalCollectiveCriticalScaledEnergyErrorBound
-  rw [← Finset.sum_sub_distrib]
   calc
-    |∑ camera : EmpiricalCamera,
+    |(∑ camera : EmpiricalCamera,
+        ‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2) -
+      ∑ camera : EmpiricalCamera,
+        ‖empiricalNativeTailCoefficient camera
+          (criticalLineParameter time)‖ ^ 2| =
+      |∑ camera : EmpiricalCamera,
         (‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
           ‖empiricalNativeTailCoefficient camera
-            (criticalLineParameter time)‖ ^ 2)| ≤
-      ∑ camera : EmpiricalCamera,
+            (criticalLineParameter time)‖ ^ 2)| := by
+      rw [Finset.sum_sub_distrib]
+    _ ≤ ∑ camera : EmpiricalCamera,
         |‖empiricalScaledCameraCutoffTail camera M time‖ ^ 2 -
           ‖empiricalNativeTailCoefficient camera
             (criticalLineParameter time)‖ ^ 2| := by
@@ -272,7 +278,6 @@ theorem abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le
         empiricalNativeTailCoefficientNormSq time) /
           (M : ℝ) ^ (3 : ℝ) := by
     field_simp [ne_of_gt hdenpos]
-    ring
   rw [hrewrite, abs_div, abs_of_pos hdenpos]
   exact div_le_div_of_nonneg_right hscaled hdenpos.le
 
