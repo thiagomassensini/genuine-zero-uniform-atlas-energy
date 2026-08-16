@@ -1,29 +1,27 @@
 # Theorem Registry
 
-Release `0.6.0` contains 132 local public
-theorems. Their canonical order and qualified Lean names are stored in
-[`theorem-registry.json`](theorem-registry.json).
+Release `0.7.0` contains 138 local public theorems. The locked `0.6.0` base
+surface remains in [`theorem-registry.json`](theorem-registry.json); the three
+new declarations are appended, without renumbering history, in
+[`theorem-registry-0.7.0.json`](theorem-registry-0.7.0.json).
 
-The registry is checked against:
+The combined registry is checked against:
 
 - declarations in `NativeGeometry.lean`, `Budget.lean`, `TiltedCenter.lean`,
   `Capstone.lean`, `TransverseCapstone.lean`, `NativeTransverseBridge.lean`,
   `NativeTransverseHessian.lean`, `NativeCutoffTail.lean`,
   `EmpiricalCameraGeometry.lean`, `EmpiricalCameraOperator.lean`,
   `NativeCutoffAsymptotic.lean`, `AsymptoticCoercivity.lean`,
-  `EmpiricalStackProjection.lean`, `EmpiricalFullEvenContinuation.lean`, and
-  `UniformCoercivityOn.lean`;
+  `EmpiricalStackProjection.lean`, `EmpiricalFullEvenContinuation.lean`,
+  `UniformCoercivityOn.lean`, `NativeCutoffGlobalRemainder.lean`, and
+  `EmpiricalCollectiveEnergyAsymptotic.lean`;
 - the ordered `#print axioms` commands in `Audit.lean`;
 - complete claim-ledger coverage.
 
-The abstract transverse support modules concentrate seven public algebraic
-capstones in `TransverseCapstone.lean`. The concrete bridge contributes three
-capstones: finite camera tangent geometry, raw-energy Hessian identification,
-and exact-zero isotropy. `NativeCutoffTail.lean` adds the exact resonant
-cutoff-tail identity together with the explicit critical-line amplitude and
-raw-energy decay bounds. The release adds 96 audited declarations covering the
-faithful six-camera geometry and operator, local Taylor remainder, leading
-phase model, symbolic projected floor, full-even continuation, and conditional
-global and regional limit passage.
+The `0.7.0` extension records the exact critical scaling of the collective
+tail energy, its explicit `O_t(M^(-4))` raw-energy remainder, and the
+common-resonance finite-energy expansion with rational six-camera leading
+coefficient `132244271/1778112000`.
 
-CI fails if any surface diverges.
+CI checks the combined declaration count and order, the matching `Audit.lean`
+reports, release metadata, and complete claim-ledger coverage.

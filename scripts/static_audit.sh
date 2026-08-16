@@ -46,6 +46,7 @@ done < <(
 
 python3 -m json.tool .zenodo.json >/dev/null
 python3 -m json.tool audit/theorem-registry.json >/dev/null
+python3 -m json.tool audit/theorem-registry-0.7.0.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
 python3 -m json.tool audit/empirical-evidence.json >/dev/null
 python3 scripts/check_empirical_evidence.py

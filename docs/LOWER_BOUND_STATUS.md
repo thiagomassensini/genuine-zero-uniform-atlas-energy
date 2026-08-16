@@ -15,10 +15,29 @@ Lean proves the following facts for the faithful empirical stack C2--C7:
   zero;
 - for each fixed critical time, displayed time-dependent `M^(-3/2)` amplitude
   and `M^(-3)` collective-energy upper bounds;
-- the exact phase `M^(-3/2) exp(-it log M)` of the proposed tail monomial and
+- the exact phase `M^(-3/2) exp(-it log M)` of the leading tail monomial and
   the rational collective model geometry coefficient
   `132244271/1778112000`;
-- the coordinate identity between the proposed tail model `+A_tail` and finite
+- the complete named scalar tail remainder, combining the leading-series
+  defect with the accumulated local Taylor remainder, is bounded by an
+  explicit `K M^(-5/2)`; after critical rescaling the cutoff tail differs from
+  its exact leading coefficient by at most `K/M`;
+- the naturally scaled collective tail energy is exactly `M^3` times the raw
+  tail energy, and the scaled energy differs from the exact coefficient norm
+  by the displayed sum of camerawise terms
+  `2 ||A_b|| K_b/M + K_b^2/M^2`;
+- consequently the collective tail energy has the explicit expansion
+
+  ```math
+  E_M(t)=
+  \left\lVert\frac12+i t\right\rVert^2
+  \frac{132244271}{1778112000}M^{-3}
+  +O_t(M^{-4}),
+  ```
+
+  with a concrete inequality replacing the unnamed `O_t`; at a common
+  six-camera resonance the same expansion holds for the finite raw energy;
+- the coordinate identity between the tail coefficient `+A_tail` and finite
   resonant-residue model `A_res = -A_tail`, together with their common squared
   norm;
 - non-collinearity of the finite-residue model vector and limiting
@@ -63,8 +82,10 @@ The remaining analytic bridge must provide:
 
 1. a proof object locating a Genuine zero in an exact interval;
 2. a certified nonzero derivative and quantitative derivative lower bound;
-3. a bound for the global tail remainder and uniform cutoff expansions for the
-   characteristic and the derivatives used by the reoptimized clock;
+3. uniform cutoff expansions for the characteristic derivatives and Hessian
+   used by the reoptimized clock; the scalar characteristic and fixed-time
+   collective-energy expansions now have explicit `K/M` and `O_t(M^(-4))`
+   forms;
 4. an explicit `C/M` bridge from the concrete reoptimized coefficient to the
    algebraic phase model;
 5. a certified compact-complement argument covering transitions between zero
@@ -72,6 +93,6 @@ The remaining analytic bridge must provide:
 
 Until those objects exist, the honest machine-checked conclusion is a strictly
 positive symbolic model floor when `Re(s)=1/2` and the Genuine derivative is
-nonzero, plus conditional coefficient-sequence and limit theorems. It is not
-the unconditional numerical statement `c >= 4` for the full concrete
-operator.
+nonzero, plus fixed-time tail/energy asymptotics and conditional
+coefficient-sequence and limit theorems. It is not the unconditional numerical
+statement `c >= 4` for the full concrete operator.

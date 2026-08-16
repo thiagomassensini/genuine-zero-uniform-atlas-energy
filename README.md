@@ -270,23 +270,23 @@ C4/C6 characteristics use their faithful factors times the same
 `genuineContinuation`, so the common-zero hypothesis is not an independent
 numerical assumption.
 
-## Proposed tail model and projected floor
+## Sharp scalar tail asymptotic and projected floor model
 
-For period `b` and retained radius `h`, the local Taylor calculation proposes
-the tail-model coefficient
+For period `b` and retained radius `h`, the scalar tail has the exact leading
+coefficient
 
 ```math
 A^{mathrm{tail}}_{b,h}(s)=sS_2(h)b^{-s-2}.
 ```
 
 Lean proves an explicit local remainder of order `(k+1)^(-7/2)` and the exact
-phase of the candidate cutoff monomial
+phase of the leading cutoff monomial
 
 ```math
-M^{-s-1}=M^{-3/2}\exp(-it\log M),
+M^{-s-1}=M^{-3/2}\exp(-it\log M).
 ```
 
-The finite resonant residue uses the opposite model vector
+The corresponding leading vector for the finite resonant residue is opposite:
 `A_res = -A_tail`. Lean proves this coordinatewise and proves that its
 collective squared norm is
 
@@ -297,10 +297,12 @@ collective squared norm is
 \frac{132244271}{1778112000}.
 ```
 
-The global remainder after summing this local model is still an explicit
-named object, but this release does not yet prove its `O(M^(-5/2))` bound.
-Accordingly the coefficient is documented as a leading model, not as a
-completed sharp cutoff-tail asymptotic.
+The post-`0.6.0` development now proves that the complete named global
+remainder is bounded by an explicit `K(b,h,t) M^(-5/2)`. Equivalently, after
+the natural critical scaling, the cutoff tail differs from this exact leading
+coefficient by at most `K(b,h,t)/M`. This completes the fixed-time scalar
+cutoff-tail asymptotic; derivative, Hessian, and finite-reoptimization
+expansions remain separate work.
 
 In the complex Euclidean six-camera space, the proposed finite-residue vector
 and limiting complex-derivative model direction are provably non-collinear
@@ -411,6 +413,8 @@ reports.
   antipodal channels and their common Genuine continuation;
 - `NativeCutoffAsymptotic.lean`: local Taylor remainder, leading model,
   logarithmic phase, and exact collective geometry;
+- `NativeCutoffGlobalRemainder.lean`: summation of the local Taylor remainder
+  with an explicit critical `M^(-5/2)` bound;
 - `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
   strict projected positivity under simplicity, and the conditional
   coefficient-four implication;

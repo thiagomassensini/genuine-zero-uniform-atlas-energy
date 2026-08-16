@@ -96,9 +96,10 @@ floor above four, or coefficient-four compact certificate is promoted to an
 exact statement.
 
 Closing the numerical lower bound requires exact enclosures for the zero and
-derivative, global and derivative-level tail remainders, a `C/M` bridge from
-the concrete reoptimized coefficient to the algebraic model, and a certified
-compact-complement argument. The formal library already proves what follows
-for a supplied coefficient sequence and supplied convergent energy family,
-including the eventual coefficient-four and limit-passage implications, while
-leaving every missing hypothesis visible.
+derivative, derivative-level tail remainders, a `C/M` bridge from the concrete
+reoptimized coefficient to the algebraic model, and a certified
+compact-complement argument. The scalar global tail remainder and its scaled
+`K/M` form are already kernel-checked. For a supplied coefficient sequence and
+supplied convergent energy family, the formal library already proves the
+eventual coefficient-four and limit-passage implications while leaving every
+missing hypothesis visible.
