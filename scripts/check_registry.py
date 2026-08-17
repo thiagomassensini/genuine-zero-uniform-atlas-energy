@@ -28,6 +28,7 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/UniformCoercivityOn.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffGlobalRemainder.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalCollectiveEnergyAsymptotic.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffLogJet.lean",
 ]
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
 EXPECTED_MATHLIB_REV = "81a5d257c8e410db227a6665ed08f64fea08e997"
@@ -41,7 +42,7 @@ def qualified_theorems(path: Path) -> list[str]:
     """Collect theorem names while respecting Lean namespace nesting.
 
     The registry includes declarations from nested namespaces such as
-    `EmpiricalCamera` and `PhaseProjectionData`.  Anonymous and named
+    `EmpiricalCamera` and `PhaseProjectionData`. Anonymous and named
     `section` blocks affect scoping but do not contribute name components, so
     both kinds of scope are tracked explicitly until their matching `end`.
     """
@@ -100,7 +101,7 @@ base_entries = base_registry["theorems"]
 if base_registry["count"] != len(base_entries):
     fail("declared base theorem count differs from registry length")
 
-extension_path = ROOT / "audit/theorem-registry-0.7.0.json"
+extension_path = ROOT / "audit/theorem-registry-0.8.0.json"
 extension = json.loads(extension_path.read_text())
 extension_entries = extension["theorems"]
 if extension["count"] != len(extension_entries):

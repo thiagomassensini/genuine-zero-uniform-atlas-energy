@@ -9,26 +9,26 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-BUD-001` | `KERNEL_CHECKED` | Every native radial-defect atlas energy is zero and the unique optimal full-tower budget is zero. |
 | `GZUAE-TIL-001` | `KERNEL_CHECKED` | The center left after boundary subtraction vanishes exactly at `Re(s) = 1/2`; at a presented off-equilibrium Genuine zero, the boundary still telescopes while every positive-cutoff center remains nonzero and total Green flux cannot close. |
 | `GZUAE-CAP-001` | `KERNEL_CHECKED` | The common zero inherits the already-existing unique structural budget. |
-| `GZUAE-COE-001` | `KERNEL_CHECKED` | For an abstract finite transverse jet, one discriminant controls Hessian determinant, eigenvalues, reoptimized envelope curvature, and local coercivity. A separately supplied positive global coercivity bound forces certified zeros onto `sigma = 1/2`; cutoff-uniform positivity is not claimed. |
-| `GZUAE-BRG-001` | `KERNEL_CHECKED` | The concrete odd-prime primitive finite camera is an entire Dirichlet characteristic; its time tangent is the real quarter-turn of its sigma tangent; its raw-energy Hessian is the concrete transverse jet; and an exact finite zero has isotropic Hessian, zero first-order clock slope, and a double algebraic eigenvalue. The result is componentwise and finite. |
-| `GZUAE-TAIL-001` | `KERNEL_CHECKED` | At a real spectral resonance, the finite odd-prime primitive-camera characteristic is exactly the negative unresolved bracket tail. Its critical-line amplitude is bounded by `(2/3) C_{p,t} M^(-3/2)` and its raw quadratic energy by the square of that quantity. The bound is not the sharp leading asymptotic coefficient or a transverse coercivity lower bound. |
-| `GZUAE-ECG-001` | `KERNEL_CHECKED` | Exact C2--C7 labels, periods, retained radii, C4/C6 antipodal channels, second moments, and collective rational geometry weight. |
-| `GZUAE-EOP-001` | `KERNEL_CHECKED` | Absolute summability, exact prefix--tail identities, complete stack/energy packaging, and displayed fixed-time resonant upper bounds for the six empirical cameras. |
-| `GZUAE-ASY-001` | `KERNEL_CHECKED` | Third derivative and explicit local `(k+1)^(-7/2)` Taylor remainder after the quadratic bracket model is removed. |
-| `GZUAE-ASY-002` | `KERNEL_CHECKED` | Exact leading-model splits, logarithmic phase, empirical-tail identification, and collective coefficient geometry; the quantitative global remainder is recorded separately. |
-| `GZUAE-PHA-001` | `KERNEL_CHECKED` | Phase-uniform symbolic algebraic floor and conditional transfer to a supplied coefficient sequence, including four only under `4 < phaseFloor` and a supplied `C/M` error. |
-| `GZUAE-LIM-001` | `KERNEL_CHECKED` | A supplied eventual cutoff-uniform global coercivity inequality passes to a supplied pointwise energy limit. |
-| `GZUAE-PRJ-001` | `KERNEL_CHECKED` | The finite-residue model is the negative of the tail model with the same exact collective norm; C4/C2 factor separation gives non-collinearity from the complex-derivative model direction and strictly positive projected `rho` and algebraic phase floor under criticality and a nonzero Genuine derivative. |
-| `GZUAE-EVN-001` | `KERNEL_CHECKED` | Explicit C4/C6 antipodal continuation, one faithful factor table for C2--C7, and a six-camera resonant tail/energy capstone with displayed fixed-time upper bound from one presented Genuine resonance. |
-| `GZUAE-REG-001` | `KERNEL_CHECKED` | Regional residual/coercivity equivalence, regional zero exclusion, restriction of global bounds, and conditional regional limit passage. |
-| `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder after cutoff `M` is explicitly `O(M^(-5/2))`, hence `O(1/M)` after critical `M^(3/2)` scaling. |
-| `GZUAE-ASY-004` | `KERNEL_CHECKED` | The complete named critical tail remainder is bounded by an explicit `K(b,h,t) M^(-5/2)`, and the scaled cutoff tail differs from its exact leading coefficient by at most `K(b,h,t)/M`. |
-| `GZUAE-ASY-005` | `KERNEL_CHECKED` | The collective scaled tail energy is exactly `M^3` times the raw tail energy; the raw six-camera energy has leading coefficient `||1/2+it||^2 * 132244271/1778112000` and an explicit `O_t(M^(-4))` remainder, including the finite raw energy at a common six-camera resonance. |
+| `GZUAE-COE-001` | `KERNEL_CHECKED` | One discriminant controls the abstract finite Hessian, envelope and local coercivity; cutoff-uniform positivity remains a separate hypothesis. |
+| `GZUAE-BRG-001` | `KERNEL_CHECKED` | The concrete odd-prime finite camera has the exact transverse tangent and Hessian bridge, with isotropic Hessian at an exact zero. |
+| `GZUAE-TAIL-001` | `KERNEL_CHECKED` | A resonant finite characteristic is the unresolved tail and obeys the explicit critical amplitude/energy upper rate. |
+| `GZUAE-ECG-001` | `KERNEL_CHECKED` | Exact C2--C7 labels, periods, radii, antipodal channels, moments and collective rational geometry weight. |
+| `GZUAE-EOP-001` | `KERNEL_CHECKED` | Absolute summability, exact prefix--tail identities and fixed-time resonant stack/energy bounds. |
+| `GZUAE-ASY-001` | `KERNEL_CHECKED` | Explicit local cubic Taylor remainder after removal of the quadratic bracket model. |
+| `GZUAE-ASY-002` | `KERNEL_CHECKED` | Exact leading-model splits, logarithmic phase and collective coefficient geometry. |
+| `GZUAE-PHA-001` | `KERNEL_CHECKED` | Symbolic phase floor and conditional transfer under a supplied `C/M` approximation error. |
+| `GZUAE-LIM-001` | `KERNEL_CHECKED` | A supplied eventual cutoff-uniform coercivity inequality passes to a supplied pointwise energy limit. |
+| `GZUAE-PRJ-001` | `KERNEL_CHECKED` | Non-collinearity and strict Cauchy--Schwarz produce positive projected `rho` and symbolic phase floor. |
+| `GZUAE-EVN-001` | `KERNEL_CHECKED` | Faithful C4/C6 antipodal continuation and six-camera resonant tail/energy package. |
+| `GZUAE-REG-001` | `KERNEL_CHECKED` | Regional coercivity/residual equivalence, zero exclusion and conditional limit passage. |
+| `GZUAE-ASY-003` | `KERNEL_CHECKED` | The accumulated local Taylor remainder is explicitly `O(M^(-5/2))`. |
+| `GZUAE-ASY-004` | `KERNEL_CHECKED` | The complete critical tail remainder is explicitly bounded and the scaled tail differs from its coefficient by `K/M`. |
+| `GZUAE-ASY-005` | `KERNEL_CHECKED` | The six-camera raw energy has its exact rational leading coefficient and explicit `O_t(M^(-4))` remainder. |
+| `GZUAE-JET-001` | `KERNEL_CHECKED` | The cutoff factor has exact first/second logarithmic jets, and any supplied approximation error tending to zero transports the symbolic phase floor, including target four under `4 < phaseFloor`. |
 
-Release `0.7.0` records 20 claims covering 138 ordered theorem reports. No
-claim introduces an auxiliary zero class, obtains the quadratic amplitude from
-a zero hypothesis, imports numerical minima as proof objects, proves a named
-decimal is a Genuine zero, or asserts an unconditional cutoff-uniform
-coercivity constant. The fixed-time energy expansion does not yet provide the
-derivative, Hessian, or time-reoptimization expansions needed for the global
-coercivity gate.
+Release `0.8.0` records 21 claims covering 141 ordered theorem reports. The
+cutoff-doubling and high-precision experiments are retained only as discovery
+and reproducibility provenance; no numerical witness is a kernel premise or a
+release gate. The three-term differentiated tail remainder, the concrete
+reoptimized microscopic coefficient, and a cutoff-uniform global coercivity
+constant remain outside this release.

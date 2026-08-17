@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Sharp cutoff tail and collective energy asymptotic" \
+            --title "$TAG — Logarithmic cutoff jets and vanishing-error coercivity" \
             --notes-file "$NOTES"
