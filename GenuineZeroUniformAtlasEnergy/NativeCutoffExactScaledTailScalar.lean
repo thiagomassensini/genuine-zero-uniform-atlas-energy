@@ -199,7 +199,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   have hcell_subset (k : ℕ) : cell k ⊆ Ioi (M : ℝ) := by
     intro x hx
     exact (hM_le_left k).trans_lt hx.1
-  have herr_bound (k : ℕ) : ‖err k‖ ≤ ∫ x in cell k, g x := by
+  have herr_bound (k : ℕ) : ‖err k‖ ≤ ∫ x in cell i, g x := by
     dsimp [err]
     exact MeasureTheory.norm_integral_le_of_norm_le
       (hg_integrable.mono_set (hcell_subset k))
@@ -256,7 +256,6 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     have hexp : -s.re - 3 + 1 = -(s.re + 2) := by ring
     rw [hexp, neg_div_neg_eq]
     field_simp
-    ring
   unfold nativeExplicitRadiusScalarTailDefect
   rw [htarget]
   calc
@@ -264,8 +263,6 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
       tsum_of_norm_bounded hg_cells herr_bound
     _ = (‖s + 2‖ / (s.re + 2)) *
         (M : ℝ) ^ (-(s.re + 2)) := hg_eval
-
-/-- Generic exact splitting of the named global remainder. -/
 
 end
 
