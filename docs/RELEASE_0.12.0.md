@@ -16,16 +16,15 @@ The foundational route remains independent of later classical identifications:
 ```
 
 The half-abscissa is the quadratic-amplitude law of the positional carry
-geometry and is camera-invariant. Prime-specific or classical analytic
-comparisons are not used as foundational premises of this release.
+geometry and is camera-invariant. Later comparison layers are not used as
+foundational premises of this release.
 
 ## Frontier audit
 
 The release includes `FinalConfinementProbe.lean`, which records the exact
-logical strength of several later confinement formulations. In particular, it
-prevents a Green-kernel, global-state, smoothing, or readout-domain condition
-from being silently reused as if it were a weaker independent hypothesis when
-it is already equivalent to the final strong nonvanishing statement.
+logical strength of several later confinement formulations and prevents an
+equivalent endpoint statement from being reused as if it were a weaker
+independent premise.
 
 The existing empirical-energy bridge remains a valid sufficient route:
 
@@ -44,9 +43,8 @@ zero-to-limit-energy implication remain kernel-checked.
 `ArithmeticReadoutBridge.lean` imports the already formalized canonical
 nonlocal readout and verifies its closedness, self-adjointness, maximal
 Green-isotropic graph, and exact logical comparison with scalar confinement.
-This module is deliberately a lateral audit surface. It does not replace the
-native carry-geometric route and does not promote readout-domain membership to
-an unconditional theorem.
+This module is deliberately a lateral audit surface and does not replace the
+native carry-geometric route.
 
 ## GitHub math rendering
 
@@ -57,9 +55,9 @@ notation
 \mathrm{X}_{p,M}(s)
 ```
 
-for the characteristic called `Chi` in the formal development. This removes
-the unsupported `\Chi` macro that GitHub displayed as raw red text while
-leaving the mathematics unchanged.
+for the characteristic called `Chi` in the formal development. This replaces
+the unsupported previous control sequence while leaving the mathematics
+unchanged.
 
 ## Reproducibility
 
