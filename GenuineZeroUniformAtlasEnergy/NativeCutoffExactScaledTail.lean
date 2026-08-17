@@ -133,7 +133,6 @@ theorem norm_nativeExplicitRadiusTailRemainder_of_re_pos_le
       unfold nativeExplicitRadiusScaledTailPointConstant
       simp only [norm_mul]
       field_simp [hden]
-      ring
     _ = nativeExplicitRadiusScaledTailPointConstant b h s *
         (M : ℝ) ^ (-(s.re + 2)) := by rfl
 
