@@ -15,6 +15,8 @@ open scoped BigOperators Topology
 
 namespace GenuineZeroUniformAtlasEnergy
 
+open CPFormal.Analytic.Cp
+
 noncomputable section
 
 /-- The infinite unnormalised quadratic energy of the faithful six-camera
@@ -60,7 +62,7 @@ private theorem tendsto_finiteEmpiricalCollectiveRawEnergy
       (nhds (empiricalCollectiveRawEnergy s)) := by
   classical
   unfold finiteEmpiricalCollectiveRawEnergy empiricalCollectiveRawEnergy
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro camera _hcamera
   exact (Complex.continuous_normSq.tendsto _).comp
     (tendsto_finiteEmpiricalCameraCharacteristic camera hs)
