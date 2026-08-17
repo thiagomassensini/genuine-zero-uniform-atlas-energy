@@ -95,13 +95,15 @@ def nativeCutoffModelSecondJet
 lemma hasDerivAt_nativeCutoffScale
     (M : ℕ) (hM : 0 < M) (s : ℂ) :
     HasDerivAt (nativeCutoffScale M)
-      (nativeCutoffScale M s * nativeCutoffLog M * (-1)) s := by
+      (-(nativeCutoffScale M s * nativeCutoffLog M)) s := by
   have hinner :
       HasDerivAt (fun z : ℂ => -z - 1) (-1) s := by
     simpa using (hasDerivAt_neg' s).sub_const 1
-  simpa [nativeCutoffScale, nativeCutoffLog] using
-    hinner.const_cpow
-      (Or.inl (Nat.cast_ne_zero.mpr (Nat.ne_of_gt hM)))
+  change HasDerivAt
+    (fun z : ℂ => (M : ℂ) ^ (-z - 1))
+    (-((M : ℂ) ^ (-s - 1) * Complex.log (M : ℂ))) s
+  exact hinner.const_cpow
+    (Or.inl (Nat.cast_ne_zero.mpr (Nat.ne_of_gt hM)))
 
 lemma hasDerivAt_nativeCutoffModel
     (M : ℕ) (hM : 0 < M)
@@ -111,8 +113,11 @@ lemma hasDerivAt_nativeCutoffModel
       (nativeCutoffModelFirstJet M amplitude amplitudeFirst s) s := by
   have hproduct :=
     (hasDerivAt_nativeCutoffScale M hM s).mul hAmplitude
-  simpa [nativeCutoffModel, nativeCutoffModelFirstJet,
-    nativeCutoffLog] using hproduct
+  change HasDerivAt
+    (fun z : ℂ => nativeCutoffScale M z * amplitude z)
+    (nativeCutoffScale M s *
+      (amplitudeFirst s - nativeCutoffLog M * amplitude s)) s
+  convert hproduct using 1 <;> ring
 
 lemma hasDerivAt_nativeCutoffModelFirstJet
     (M : ℕ) (hM : 0 < M)
@@ -131,8 +136,14 @@ lemma hasDerivAt_nativeCutoffModelFirstJet
     exact hAmplitudeFirst.sub (HasDerivAt.const_mul ell hAmplitude)
   have hproduct :=
     (hasDerivAt_nativeCutoffScale M hM s).mul hinner
-  simpa [nativeCutoffModelFirstJet, nativeCutoffModelSecondJet,
-    ell, nativeCutoffLog] using hproduct
+  change HasDerivAt
+    (fun z : ℂ => nativeCutoffScale M z *
+      (amplitudeFirst z - nativeCutoffLog M * amplitude z))
+    (nativeCutoffScale M s *
+      (amplitudeSecond s -
+        2 * nativeCutoffLog M * amplitudeFirst s +
+        nativeCutoffLog M ^ 2 * amplitude s)) s
+  convert hproduct using 1 <;> simp only [ell] <;> ring
 
 /-- Exact first- and second-jet bridge.  In particular, any scaled cutoff
 expansion transported through `M^(-s-1)` necessarily acquires one logarithm in
