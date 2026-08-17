@@ -47,20 +47,35 @@ jobs:
           use-github-cache: true
           use-mathlib-cache: true
 
-      - name: Ask Lean for unconditional final Genuine confinement
+      - name: Resolve pinned arithmetic-readout dependency graph
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake update
+
+      - name: Compile canonical arithmetic readout bridge
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build --wfail GenuineZeroUniformAtlasEnergy.ArithmeticReadoutBridge 2>&1 \
+            | tee /tmp/arithmetic-readout-bridge.txt
+
+      - name: Ask Lean for exact final Genuine frontier
         shell: bash
         run: |
           set -o pipefail
           lake build --wfail GenuineZeroUniformAtlasEnergy.FinalConfinementProbe 2>&1 \
             | tee /tmp/final-confinement-probe.txt
 
-      - name: Surface final confinement probe diagnostics
+      - name: Surface readout/frontier diagnostics
         if: failure()
         shell: bash
         run: |
           set -euo pipefail
-          test -s /tmp/final-confinement-probe.txt
-          tail -n 240 /tmp/final-confinement-probe.txt
+          test -s /tmp/arithmetic-readout-bridge.txt || true
+          test -s /tmp/final-confinement-probe.txt || true
+          tail -n 240 /tmp/arithmetic-readout-bridge.txt 2>/dev/null || true
+          tail -n 240 /tmp/final-confinement-probe.txt 2>/dev/null || true
           exit 1
 
       - name: Run static source and publication audit after probe
