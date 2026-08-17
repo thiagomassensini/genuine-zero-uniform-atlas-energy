@@ -8,4 +8,9 @@ name = "GenuineZeroUniformAtlasEnergy"
 [[require]]
 name = "CPFormal"
 git = "https://github.com/thiagomassensini/primos.git"
-rev = "v0.62.0"
+rev = "65d50f6db1208708e109982ba97e1d51d3039956"
+
+[[require]]
+name = "NativeCarryC3Crosswalk"
+git = "https://github.com/thiagomassensini/native-carry-c3-crosswalk.git"
+rev = "7bcaa7c434f7770aa6ee193ae32af25f67d76b34"
