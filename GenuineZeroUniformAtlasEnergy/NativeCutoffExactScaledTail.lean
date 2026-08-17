@@ -18,6 +18,7 @@ open Set MeasureTheory Metric
 noncomputable section
 
 attribute [local instance 10000] NormedSpace.complexToReal
+
 lemma nativeExplicitRadiusTailRemainder_of_re_pos_eq
     (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
     {s : ℂ} (hs : 0 < s.re) :
@@ -104,6 +105,7 @@ theorem norm_nativeExplicitRadiusTailRemainder_of_re_pos_le
       b h M hb hh hM hs
   have hblock :=
     norm_nativeExplicitRadiusBlockCoefficient_of_re_pos b h hb s
+  have hden : s.re + 2 ≠ 0 := by linarith
   rw [hsplit]
   calc
     ‖nativeExplicitRadiusBlockCoefficient b h s *
@@ -130,7 +132,7 @@ theorem norm_nativeExplicitRadiusTailRemainder_of_re_pos_le
       rw [hblock]
       unfold nativeExplicitRadiusScaledTailPointConstant
       simp only [norm_mul]
-      field_simp
+      field_simp [hden]
       ring
     _ = nativeExplicitRadiusScaledTailPointConstant b h s *
         (M : ℝ) ^ (-(s.re + 2)) := by rfl
@@ -201,7 +203,6 @@ theorem norm_nativeExplicitRadiusScaledTailError_of_re_pos_le
         (M : ℝ)⁻¹ := by rw [hpow]
     _ = nativeExplicitRadiusScaledTailPointConstant b h s / (M : ℝ) := by
       rw [div_eq_mul_inv]
-
 
 end
 
