@@ -55,6 +55,7 @@ python3 -m json.tool audit/theorem-registry-0.8.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.9.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.10.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.11.0.json >/dev/null
+python3 -m json.tool audit/theorem-registry-0.12.0.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
 python3 -m json.tool lake-manifest.json >/dev/null
 python3 scripts/check_registry.py
@@ -64,6 +65,7 @@ bash -n scripts/audit.sh scripts/static_audit.sh
 
 test -s docs/RELEASE_0.10.0.md
 test -s docs/RELEASE_0.11.0.md
+test -s docs/RELEASE_0.12.0.md
 test -s audit/THEOREM_REGISTRY.md
 test -s audit/CLAIM_LEDGER.md
 

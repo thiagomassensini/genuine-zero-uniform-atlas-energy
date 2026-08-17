@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Concrete empirical limit and confinement bridge" \
+            --title "$TAG — Native-first confinement frontier audit" \
             --notes-file "$NOTES"

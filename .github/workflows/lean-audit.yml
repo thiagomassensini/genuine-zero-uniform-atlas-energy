@@ -38,17 +38,55 @@ jobs:
           test "$(git rev-parse HEAD)" = "$AUDITED_SHA"
           test -z "$(git status --porcelain --untracked-files=all)"
 
-      - name: Run static source and publication audit
-        run: bash scripts/static_audit.sh
-
-      - name: Set up pinned Lean and Mathlib cache
+      - name: Set up pinned Lean
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
         with:
           build: false
           test: false
           lint: false
           use-github-cache: true
-          use-mathlib-cache: true
+          use-mathlib-cache: false
+
+      - name: Verify committed dependency lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake update
+          git diff --exit-code -- lake-manifest.json
+
+      - name: Restore Mathlib cache after dependency resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake exe cache get
+
+      - name: Compile canonical arithmetic readout bridge
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build --wfail GenuineZeroUniformAtlasEnergy.ArithmeticReadoutBridge 2>&1 \
+            | tee /tmp/arithmetic-readout-bridge.txt
+
+      - name: Ask Lean for exact final Genuine frontier
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build --wfail GenuineZeroUniformAtlasEnergy.FinalConfinementProbe 2>&1 \
+            | tee /tmp/final-confinement-probe.txt
+
+      - name: Surface readout/frontier diagnostics
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/arithmetic-readout-bridge.txt || true
+          test -s /tmp/final-confinement-probe.txt || true
+          tail -n 240 /tmp/arithmetic-readout-bridge.txt 2>/dev/null || true
+          tail -n 240 /tmp/final-confinement-probe.txt 2>/dev/null || true
+          exit 1
+
+      - name: Run static source and publication audit after probe
+        run: bash scripts/static_audit.sh
 
       - name: Build public library with warnings as errors
         run: lake build --wfail GenuineZeroUniformAtlasEnergy

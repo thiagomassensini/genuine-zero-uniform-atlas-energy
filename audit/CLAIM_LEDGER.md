@@ -27,15 +27,16 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-JET-001` | `KERNEL_CHECKED` | The cutoff factor has exact first/second logarithmic jets, and any supplied approximation error tending to zero transports the symbolic phase floor, including target four under `4 < phaseFloor`. |
 | `GZUAE-JET-002` | `KERNEL_CHECKED` | Supplied scaled value, first-derivative and second-derivative remainder bounds transport to exact cutoff-jet errors with factors `1 + ||log M||` and `(1 + ||log M||)^2`; the capstone also records both exact `HasDerivAt` jet pairs. |
 | `GZUAE-JET-003` | `KERNEL_CHECKED` | The exact scaled tail, its first complex derivative and its second complex derivative obey explicit critical-line `O(1/M)` bounds obtained from one uniform Cauchy circle; one capstone packages all three. |
-
 | `GZUAE-CON-001` | `KERNEL_CHECKED` | Concrete finite C2--C7 raw energy converges pointwise to the infinite empirical energy; Genuine vanishing annihilates that limit; supplied eventual positive finite regional or global coercivity therefore confines the zero to `sigma = 1/2`. The finite coercivity premise remains explicit. |
 
-Release `0.11.0` records 24 claims covering 156 ordered theorem reports. The
-cutoff-doubling and high-precision experiments are retained only as discovery
-and reproducibility provenance; no numerical witness is a kernel premise or a
-release gate. The exact-tail, differentiated-remainder, concrete pointwise-energy limit,
-and final conditional confinement bridges are now closed.
+Release `0.12.0` records the same 24 kernel-checked claims covering 156 ordered
+public theorem reports. No new claim is promoted merely because the lateral
+frontier/readout audit modules compile. The cutoff-doubling and high-precision
+experiments remain discovery and reproducibility provenance; no numerical
+witness is a kernel premise or a release gate.
 
-The concrete reoptimized microscopic coefficient, the moving finite minimizer,
-and an eventual cutoff-uniform finite coercivity certificate remain outside
-this release.
+The exact-tail, differentiated-remainder, concrete pointwise-energy limit, and
+conditional confinement bridges remain closed. Version `0.12.0` additionally
+locks the exact dependency graph used by CI and fixes GitHub math rendering.
+The eventual positive finite native transverse coercivity certificate remains
+an explicit quantitative frontier rather than a silently upgraded claim.
