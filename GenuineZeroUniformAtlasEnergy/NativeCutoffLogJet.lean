@@ -95,13 +95,13 @@ def nativeCutoffModelSecondJet
 lemma hasDerivAt_nativeCutoffScale
     (M : ℕ) (hM : 0 < M) (s : ℂ) :
     HasDerivAt (nativeCutoffScale M)
-      (-(nativeCutoffScale M s * nativeCutoffLog M)) s := by
+      (nativeCutoffScale M s * nativeCutoffLog M * (-1)) s := by
   have hinner :
       HasDerivAt (fun z : ℂ => -z - 1) (-1) s := by
     simpa using (hasDerivAt_neg' s).sub_const 1
   change HasDerivAt
     (fun z : ℂ => (M : ℂ) ^ (-z - 1))
-    (-((M : ℂ) ^ (-s - 1) * Complex.log (M : ℂ))) s
+    ((M : ℂ) ^ (-s - 1) * Complex.log (M : ℂ) * (-1)) s
   exact hinner.const_cpow
     (Or.inl (Nat.cast_ne_zero.mpr (Nat.ne_of_gt hM)))
 
@@ -113,11 +113,18 @@ lemma hasDerivAt_nativeCutoffModel
       (nativeCutoffModelFirstJet M amplitude amplitudeFirst s) s := by
   have hproduct :=
     (hasDerivAt_nativeCutoffScale M hM s).mul hAmplitude
+  have hderiv :
+      nativeCutoffScale M s * nativeCutoffLog M * (-1) * amplitude s +
+          nativeCutoffScale M s * amplitudeFirst s =
+        nativeCutoffScale M s *
+          (amplitudeFirst s - nativeCutoffLog M * amplitude s) := by
+    ring
   change HasDerivAt
-    (fun z : ℂ => nativeCutoffScale M z * amplitude z)
+    (nativeCutoffScale M * amplitude)
     (nativeCutoffScale M s *
       (amplitudeFirst s - nativeCutoffLog M * amplitude s)) s
-  convert hproduct using 1 <;> ring
+  rw [← hderiv]
+  exact hproduct
 
 lemma hasDerivAt_nativeCutoffModelFirstJet
     (M : ℕ) (hM : 0 < M)
@@ -128,22 +135,34 @@ lemma hasDerivAt_nativeCutoffModelFirstJet
       (nativeCutoffModelFirstJet M amplitude amplitudeFirst)
       (nativeCutoffModelSecondJet M amplitude amplitudeFirst
         amplitudeSecond s) s := by
-  let ell : ℂ := nativeCutoffLog M
   have hinner :
       HasDerivAt
-        (fun z : ℂ => amplitudeFirst z - ell * amplitude z)
-        (amplitudeSecond s - ell * amplitudeFirst s) s := by
-    exact hAmplitudeFirst.sub (HasDerivAt.const_mul ell hAmplitude)
+        (fun z : ℂ =>
+          amplitudeFirst z - nativeCutoffLog M * amplitude z)
+        (amplitudeSecond s - nativeCutoffLog M * amplitudeFirst s) s := by
+    exact hAmplitudeFirst.sub
+      (HasDerivAt.const_mul (nativeCutoffLog M) hAmplitude)
   have hproduct :=
     (hasDerivAt_nativeCutoffScale M hM s).mul hinner
+  have hderiv :
+      nativeCutoffScale M s * nativeCutoffLog M * (-1) *
+          (amplitudeFirst s - nativeCutoffLog M * amplitude s) +
+        nativeCutoffScale M s *
+          (amplitudeSecond s - nativeCutoffLog M * amplitudeFirst s) =
+      nativeCutoffScale M s *
+        (amplitudeSecond s -
+          2 * nativeCutoffLog M * amplitudeFirst s +
+          nativeCutoffLog M ^ 2 * amplitude s) := by
+    ring
   change HasDerivAt
-    (fun z : ℂ => nativeCutoffScale M z *
-      (amplitudeFirst z - nativeCutoffLog M * amplitude z))
+    (nativeCutoffScale M * fun z : ℂ =>
+      amplitudeFirst z - nativeCutoffLog M * amplitude z)
     (nativeCutoffScale M s *
       (amplitudeSecond s -
         2 * nativeCutoffLog M * amplitudeFirst s +
         nativeCutoffLog M ^ 2 * amplitude s)) s
-  convert hproduct using 1 <;> simp only [ell] <;> ring
+  rw [← hderiv]
+  exact hproduct
 
 /-- Exact first- and second-jet bridge.  In particular, any scaled cutoff
 expansion transported through `M^(-s-1)` necessarily acquires one logarithm in
