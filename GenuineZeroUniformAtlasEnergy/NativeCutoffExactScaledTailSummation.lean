@@ -140,8 +140,14 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_of_re_pos_le
           ((k : ℝ) + (M : ℝ) + 1) ^ (-s.re - 3) :=
     tsum_of_norm_bounded hmajorantHasSum hpointwise
   have hC : 0 ≤ C := by
+    have hmoment : 0 ≤ nativeRadiusThirdMoment h :=
+      nativeRadiusThirdMoment_nonneg h
     dsimp [C]
-    positivity
+    exact mul_nonneg
+      (mul_nonneg
+        (mul_nonneg (by norm_num) (norm_nonneg _))
+        (Real.rpow_nonneg (by positivity) _))
+      hmoment
   have hden : 0 < s.re + 2 := by linarith
   calc
     ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ =
@@ -155,7 +161,6 @@ theorem norm_nativeExplicitRadiusAccumulatedBracketRemainder_of_re_pos_le
     _ = (C / (s.re + 2)) *
         (M : ℝ) ^ (-(s.re + 2)) := by
       field_simp
-      ring
     _ = (2 * ‖s * (s + 1) * (s + 2)‖ *
         ((b - h : ℕ) : ℝ) ^ (-s.re - 3) *
         nativeRadiusThirdMoment h / (s.re + 2)) *
