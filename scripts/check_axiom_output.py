@@ -23,7 +23,7 @@ if len(sys.argv) != 2:
 output = Path(sys.argv[1]).read_text()
 base_registry = json.loads((ROOT / "audit/theorem-registry.json").read_text())
 extension = json.loads(
-    (ROOT / "audit/theorem-registry-0.8.0.json").read_text()
+    (ROOT / "audit/theorem-registry-0.9.0.json").read_text()
 )
 expected = [
     entry["qualified"]

@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Logarithmic cutoff jets and vanishing-error coercivity" \
+            --title "$TAG — Differentiated cutoff-remainder transport" \
             --notes-file "$NOTES"

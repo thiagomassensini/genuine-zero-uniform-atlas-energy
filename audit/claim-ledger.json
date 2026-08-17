@@ -1,10 +1,10 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
-  "release": "0.8.0",
-  "registry_count": 141,
-  "count": 21,
+  "release": "0.9.0",
+  "registry_count": 144,
+  "count": 22,
   "status_counts": {
-    "KERNEL_CHECKED": 21
+    "KERNEL_CHECKED": 22
   },
   "claims": [
     {"id":"GZUAE-GEO-001","claim":"The native parameter has radial coordinate one-half and arbitrary real phase time, lies in the Genuine strip, and its quadratic amplitude energy is exactly inverse carry mass","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-001","GZUAE-002","GZUAE-003","GZUAE-004","GZUAE-005"]},
@@ -27,6 +27,7 @@
     {"id":"GZUAE-ASY-003","claim":"On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate scalar defect and complete remainder are covered by GZUAE-ASY-004.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-133"]},
     {"id":"GZUAE-ASY-004","claim":"On the critical line, the scalar sum-versus-primitive defect and the accumulated local Taylor remainder combine into a complete explicit K(b,h,t) M^(-5/2) bound for the named cutoff-tail remainder. Consequently the cutoff tail scaled by M^(s+1) differs from its exact leading coefficient by at most K(b,h,t)/M. The constant is independent of M; no derivative or finite reoptimization expansion is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-134","GZUAE-135"]},
     {"id":"GZUAE-ASY-005","claim":"For the faithful empirical C2-C7 stack on the critical line, the naturally scaled collective tail energy equals M^3 times the raw tail energy and differs from the exact collective coefficient norm by an explicit sum of camerawise K/M quadratic errors. Consequently the unresolved tail energy, and at a common six-camera resonance the finite raw energy, equals ||1/2+it||^2 times 132244271/1778112000 times M^(-3), with an explicit O_t(M^(-4)) remainder. No derivative, Hessian, time-reoptimization lower bound, or cutoff-uniform coercivity constant is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-136","GZUAE-137","GZUAE-138"]},
-    {"id":"GZUAE-JET-001","claim":"The analytic cutoff factor M^(-s-1) has exact first and second logarithmic jets, forcing one log M in the first derivative and (log M)^2 in the second. Any supplied phase-coercivity approximation with an error sequence tending to zero inherits every strict lower target below the symbolic phase floor, including an eventual target four when 4 < phaseFloor. The empirical M-to-2M campaign is discovery provenance only; no exact differentiated three-term tail remainder or concrete reoptimized coefficient sequence is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-139","GZUAE-140","GZUAE-141"]}
+    {"id":"GZUAE-JET-001","claim":"The analytic cutoff factor M^(-s-1) has exact first and second logarithmic jets, forcing one log M in the first derivative and (log M)^2 in the second. Any supplied phase-coercivity approximation with an error sequence tending to zero inherits every strict lower target below the symbolic phase floor, including an eventual target four when 4 < phaseFloor. The empirical M-to-2M campaign is discovery provenance only; no exact differentiated three-term tail remainder or concrete reoptimized coefficient sequence is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-139","GZUAE-140","GZUAE-141"]},
+    {"id":"GZUAE-JET-002","claim":"For any two twice differentiated scaled amplitudes, supplied pointwise bounds on their value, first-derivative, and second-derivative discrepancies transport exactly through M^(-s-1). The first cutoff-jet error is bounded by ||M^(-s-1)||(1+||log M||)Kr and the second by ||M^(-s-1)||(1+||log M||)^2Kr when all three discrepancies share the bound Kr. The capstone also records the exact HasDerivAt jets for both amplitudes. This closes the algebraic differentiated-remainder interface but does not prove the three analytic discrepancy bounds for the exact cutoff tail.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-142","GZUAE-143","GZUAE-144"]}
   ]
 }
