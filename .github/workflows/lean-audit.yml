@@ -50,6 +50,22 @@ jobs:
           use-github-cache: true
           use-mathlib-cache: true
 
+      - name: Ask Lean for unconditional final Genuine confinement
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build --wfail GenuineZeroUniformAtlasEnergy.FinalConfinementProbe 2>&1 \
+            | tee /tmp/final-confinement-probe.txt
+
+      - name: Surface final confinement probe diagnostics
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/final-confinement-probe.txt
+          tail -n 240 /tmp/final-confinement-probe.txt
+          exit 1
+
       - name: Build public library with warnings as errors
         run: lake build --wfail GenuineZeroUniformAtlasEnergy
 
