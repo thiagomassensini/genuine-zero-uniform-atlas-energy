@@ -30,6 +30,7 @@ MODULES = [
     ROOT / "GenuineZeroUniformAtlasEnergy/EmpiricalCollectiveEnergyAsymptotic.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffLogJet.lean",
     ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffDifferentiatedRemainder.lean",
+    ROOT / "GenuineZeroUniformAtlasEnergy/NativeCutoffExactScaledTailCauchy.lean",
 ]
 EXPECTED_CPFORMAL_REV = "537028681ae6a775c083a1e2fb6e67db24697b82"
 EXPECTED_MATHLIB_REV = "81a5d257c8e410db227a6665ed08f64fea08e997"
@@ -102,7 +103,7 @@ base_entries = base_registry["theorems"]
 if base_registry["count"] != len(base_entries):
     fail("declared base theorem count differs from registry length")
 
-extension_path = ROOT / "audit/theorem-registry-0.9.0.json"
+extension_path = ROOT / "audit/theorem-registry-0.10.0.json"
 extension = json.loads(extension_path.read_text())
 extension_entries = extension["theorems"]
 if extension["count"] != len(extension_entries):

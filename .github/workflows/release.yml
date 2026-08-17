@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Differentiated cutoff-remainder transport" \
+            --title "$TAG — Exact scaled-tail analytic bounds" \
             --notes-file "$NOTES"

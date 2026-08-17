@@ -26,11 +26,13 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-ASY-005` | `KERNEL_CHECKED` | The six-camera raw energy has its exact rational leading coefficient and explicit `O_t(M^(-4))` remainder. |
 | `GZUAE-JET-001` | `KERNEL_CHECKED` | The cutoff factor has exact first/second logarithmic jets, and any supplied approximation error tending to zero transports the symbolic phase floor, including target four under `4 < phaseFloor`. |
 | `GZUAE-JET-002` | `KERNEL_CHECKED` | Supplied scaled value, first-derivative and second-derivative remainder bounds transport to exact cutoff-jet errors with factors `1 + ||log M||` and `(1 + ||log M||)^2`; the capstone also records both exact `HasDerivAt` jet pairs. |
+| `GZUAE-JET-003` | `KERNEL_CHECKED` | The exact scaled tail, its first complex derivative and its second complex derivative obey explicit critical-line `O(1/M)` bounds obtained from one uniform Cauchy circle; one capstone packages all three. |
 
-Release `0.9.0` records 22 claims covering 144 ordered theorem reports. The
+Release `0.10.0` records 23 claims covering 148 ordered theorem reports. The
 cutoff-doubling and high-precision experiments are retained only as discovery
 and reproducibility provenance; no numerical witness is a kernel premise or a
-release gate. The algebraic differentiated-remainder interface is now closed.
-The analytic proof of the three remainder estimates for the exact cutoff tail,
-the concrete reoptimized microscopic coefficient, and a cutoff-uniform global
-coercivity constant remain outside this release.
+release gate. Both the algebraic differentiated-remainder transport and the
+three analytic exact-tail inputs are now closed.
+
+The concrete reoptimized microscopic coefficient, the moving finite minimizer,
+and a cutoff-uniform global coercivity constant remain outside this release.
