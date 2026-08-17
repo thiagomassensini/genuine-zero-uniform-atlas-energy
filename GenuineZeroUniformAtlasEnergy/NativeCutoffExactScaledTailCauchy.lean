@@ -47,10 +47,9 @@ lemma differentiable_nativeExplicitRadiusTailCoefficient
     simpa using
       (hasDerivAt_id' s).mul_const (nativeRadiusSecondMoment h : ℂ)
   change DifferentiableAt ℂ
-    (fun z : ℂ ↦ z * (nativeRadiusSecondMoment h : ℂ) *
-      (b : ℂ) ^ (-z - 2)) s
-  simpa only [Pi.mul_apply] using
-    (hlinear.mul hpower).differentiableAt
+    ((fun z : ℂ ↦ z * (nativeRadiusSecondMoment h : ℂ)) *
+      (fun z : ℂ ↦ (b : ℂ) ^ (-z - 2))) s
+  exact (hlinear.mul hpower).differentiableAt
 
 lemma differentiableOn_nativeExplicitRadiusScaledTailError_criticalOuterBall
     (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
@@ -71,9 +70,11 @@ lemma differentiableOn_nativeExplicitRadiusScaledTailError_criticalOuterBall
   have hcoefficient : DifferentiableOn ℂ
       (nativeExplicitRadiusTailCoefficient b h) U :=
     (differentiable_nativeExplicitRadiusTailCoefficient b h hb).differentiableOn
-  simpa [U, nativeExplicitRadiusScaledTailError,
-    nativeExplicitRadiusScaledCutoffTail] using
-      (hscale.mul htail).sub hcoefficient
+  change DifferentiableOn ℂ
+    (((fun s : ℂ ↦ (M : ℂ) ^ (s + 1)) *
+        nativeExplicitRadiusCutoffTail b h M) -
+      nativeExplicitRadiusTailCoefficient b h) U
+  exact (hscale.mul htail).sub hcoefficient
 
 /-- Uniform norm bound used on the critical Cauchy circle. -/
 def nativeExplicitRadiusCriticalCauchyNormBound (time : ℝ) : ℝ :=
