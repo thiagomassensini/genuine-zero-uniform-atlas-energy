@@ -1,32 +1,11 @@
-import GenuineZeroUniformAtlasEnergy.NativeCutoffGlobalRemainder
-import GenuineZeroUniformAtlasEnergy.NativeCutoffDifferentiatedRemainder
-import CPFormal.Analytic.CpBracketHolomorphic
-import Mathlib.Analysis.Complex.Liouville
+import GenuineZeroUniformAtlasEnergy.NativeCutoffExactScaledTailScalar
 
 /-!
-# Exact scaled cutoff tail: value and derivative bounds
+# Exact scaled cutoff tail: pointwise analytic bound
 
-This module closes the analytic input left open by the differentiated-remainder
-transport interface.  The exact scaled tail is
-
-```math
-A_{b,h,M}(s)=M^{s+1} T_{b,h,M}(s),
-```
-
-where `T` is the unresolved explicit-radius cutoff tail.  The leading
-coefficient is `nativeExplicitRadiusTailCoefficient b h s`.
-
-The proof has two layers.
-
-* First, the scalar sum-versus-integral defect and the accumulated centered
-  Taylor remainder are bounded for arbitrary `s` with positive real part.  The
-  natural scaling cancels the real exponent exactly and gives a pointwise
-  `K(s)/M` estimate.
-* Second, this estimate is made uniform on a fixed complex disk around every
-  critical-line point.  Cauchy's estimates then bound the first two complex
-  derivatives by the same `O(1/M)` rate.
-
-No numerical cutoff campaign or selected resonance is used.
+Combines the scalar and Taylor defects and proves the exact pointwise `K(s)/M`
+bound for the scaled tail.  Disk-uniform and Cauchy derivative bounds are added
+in the next layer.
 -/
 
 open scoped BigOperators Function Topology
@@ -39,184 +18,191 @@ open Set MeasureTheory Metric
 noncomputable section
 
 attribute [local instance 10000] NormedSpace.complexToReal
-
-/-- Exact cutoff tail after removing the decay `M^(-s-1)`. -/
-def nativeExplicitRadiusScaledCutoffTail
-    (b h M : ℕ) (s : ℂ) : ℂ :=
-  (M : ℂ) ^ (s + 1) * nativeExplicitRadiusCutoffTail b h M s
-
-/-- Error of the exact scaled cutoff tail from its leading coefficient. -/
-def nativeExplicitRadiusScaledTailError
-    (b h M : ℕ) (s : ℂ) : ℂ :=
-  nativeExplicitRadiusScaledCutoffTail b h M s -
-    nativeExplicitRadiusTailCoefficient b h s
-
-/-- Generic local Taylor remainder for one centered radius pair. -/
-theorem norm_realCpPairBracket_sub_secondDerivative_of_re_pos_le
-    (b radius k : ℕ) (hb : 1 ≤ b) (hradius : radius ≤ b - 1)
+lemma nativeExplicitRadiusTailRemainder_of_re_pos_eq
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
     {s : ℂ} (hs : 0 < s.re) :
-    ‖realCpPairBracket b radius k s -
-        ((radius : ℝ) ^ 2) •
-          realDirichletPowerDeriv2 s
-            ((b : ℝ) * ((k + 1 : ℕ) : ℝ))‖ ≤
-      2 * ‖s * (s + 1) * (s + 2)‖ *
-        ((b : ℝ) * ((k + 1 : ℕ) : ℝ) - (radius : ℝ)) ^
-          (-s.re - 3) *
-        (radius : ℝ) ^ 3 := by
-  let center : ℝ := (b : ℝ) * ((k + 1 : ℕ) : ℝ)
-  let r : ℝ := radius
-  have hs0 : s ≠ 0 := by
+    nativeExplicitRadiusTailRemainder b h M s =
+      nativeExplicitRadiusBlockCoefficient b h s *
+        nativeExplicitRadiusScalarTailDefect M s +
+      nativeExplicitRadiusAccumulatedBracketRemainder b h M s := by
+  have hs1 : s + 1 ≠ 0 := by
     intro hzero
     have hre := congrArg Complex.re hzero
     simp at hre
     linarith
-  have hs1 : -1 < s.re := by linarith
-  have hs2 : -2 < s.re := by linarith
-  have hj : (1 : ℝ) ≤ ((k + 1 : ℕ) : ℝ) := by
-    exact_mod_cast Nat.succ_le_succ (Nat.zero_le k)
-  have hbrNat : radius + 1 ≤ b := by omega
-  have hbr : (radius : ℝ) + 1 ≤ (b : ℝ) := by
-    exact_mod_cast hbrNat
-  have hbnonneg : 0 ≤ (b : ℝ) := by positivity
-  have hbCenter : (b : ℝ) ≤ center := by
-    dsimp [center]
-    nlinarith [mul_nonneg hbnonneg (sub_nonneg.mpr hj)]
-  have hleft : 0 < center - r := by
-    dsimp [r]
-    linarith
-  have hthirdBound :
-      ∀ x ∈ Set.Icc (center - r) (center + r),
-        ‖realDirichletPowerDeriv3 s x‖ ≤
-          ‖s * (s + 1) * (s + 2)‖ *
-            (center - r) ^ (-s.re - 3) := by
-    intro x hx
-    have hxpos : 0 < x := hleft.trans_le hx.1
-    rw [norm_realDirichletPowerDeriv3 s hxpos]
-    exact mul_le_mul_of_nonneg_left
-      (Real.rpow_le_rpow_of_nonpos hleft hx.1 (by linarith))
-      (norm_nonneg _)
-  have hraw :=
-    norm_centeredSecondDifference_sub_secondDerivative_le
-      (f := realDirichletPower s)
-      (f' := realDirichletPowerDeriv s)
-      (f'' := realDirichletPowerDeriv2 s)
-      (f''' := realDirichletPowerDeriv3 s)
-      (center := center) (radius := r)
-      (C := ‖s * (s + 1) * (s + 2)‖ *
-        (center - r) ^ (-s.re - 3))
-      (by positivity)
-      (fun x hx ↦ hasDerivAt_realDirichletPower hs0
-        (hleft.trans_le hx.1))
-      (fun x hx ↦ hasDerivAt_realDirichletPowerDeriv hs1
-        (hleft.trans_le hx.1))
-      (fun x hx ↦ hasDerivAt_realDirichletPowerDeriv2 hs2
-        (hleft.trans_le hx.1))
-      hthirdBound
-  simpa [realCpPairBracket, center, r, mul_assoc] using hraw
+  have hscalar := summable_nativeExplicitRadiusLeadingPower_of_re_pos M hs
+  have hleading : Summable (fun k : ℕ ↦
+      nativeExplicitRadiusBracketLeading b h (k + M) s) := by
+    simpa [nativeExplicitRadiusBracketLeading, Nat.add_assoc] using
+      hscalar.mul_left (nativeExplicitRadiusBlockCoefficient b h s)
+  have hlocal :=
+    summable_nativeExplicitRadiusBracketRemainder_of_re_pos
+      b h M hb hh hs
+  have hsplit :
+      (∑' k : ℕ, nativeExplicitRadiusBracket b h (k + M) s) =
+        (∑' k : ℕ, nativeExplicitRadiusBracketLeading b h (k + M) s) +
+          ∑' k : ℕ,
+            nativeExplicitRadiusBracketRemainder b h (k + M) s := by
+    rw [← hleading.tsum_add hlocal]
+    exact tsum_congr (fun k ↦
+      nativeExplicitRadiusBracket_eq_leading_add_remainder
+        b h (k + M) s)
+  have hleadingTsum :
+      (∑' k : ℕ, nativeExplicitRadiusBracketLeading b h (k + M) s) =
+        nativeExplicitRadiusBlockCoefficient b h s *
+          ∑' k : ℕ, (((k + M + 1 : ℕ) : ℂ) ^ (-s - 2)) := by
+    simp only [nativeExplicitRadiusBracketLeading, Nat.add_assoc]
+    rw [tsum_mul_left]
+  unfold nativeExplicitRadiusTailRemainder nativeExplicitRadiusCutoffTail
+    nativeExplicitRadiusScalarTailDefect
+    nativeExplicitRadiusAccumulatedBracketRemainder
+  rw [hsplit, hleadingTsum,
+    ← nativeExplicitRadiusBlockCoefficient_div b h hs1]
+  ring
 
-/-- Generic local explicit-radius remainder bound. -/
-theorem norm_nativeExplicitRadiusBracketRemainder_of_re_pos_le
-    (b h k : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
-    {s : ℂ} (hs : 0 < s.re) :
-    ‖nativeExplicitRadiusBracketRemainder b h k s‖ ≤
-      2 * ‖s * (s + 1) * (s + 2)‖ *
-        ((b - h : ℕ) : ℝ) ^ (-s.re - 3) *
-        ((k + 1 : ℕ) : ℝ) ^ (-s.re - 3) *
-        nativeRadiusThirdMoment h := by
-  classical
-  have hhB : h ≤ b := by omega
-  have hgapNat : 1 ≤ b - h := by omega
-  have hgapPos : 0 < ((b - h : ℕ) : ℝ) := by
-    exact_mod_cast (lt_of_lt_of_le Nat.zero_lt_one hgapNat)
-  have hj : (1 : ℝ) ≤ ((k + 1 : ℕ) : ℝ) := by
-    exact_mod_cast Nat.succ_le_succ (Nat.zero_le k)
-  have hjPos : 0 < ((k + 1 : ℕ) : ℝ) := lt_of_lt_of_le zero_lt_one hj
-  unfold nativeExplicitRadiusBracketRemainder
-  rw [nativeExplicitRadiusBracketLeading_eq_sum_secondDerivative]
-  unfold nativeExplicitRadiusBracket
+lemma norm_nativeExplicitRadiusBlockCoefficient_of_re_pos
+    (b h : ℕ) (hb : 1 ≤ b) (s : ℂ) :
+    ‖nativeExplicitRadiusBlockCoefficient b h s‖ =
+      ‖s * (s + 1)‖ * nativeRadiusSecondMoment h *
+        (b : ℝ) ^ (-s.re - 2) := by
+  have hbNat : 0 < b := lt_of_lt_of_le Nat.zero_lt_one hb
+  have hbReal : 0 < (b : ℝ) := by exact_mod_cast hbNat
+  have hbCast : (b : ℂ) = ((b : ℝ) : ℂ) := by norm_cast
+  have hmoment : 0 ≤ nativeRadiusSecondMoment h := by
+    unfold nativeRadiusSecondMoment
+    positivity
+  unfold nativeExplicitRadiusBlockCoefficient
+  rw [norm_mul, norm_mul, hbCast,
+    Complex.norm_cpow_eq_rpow_re_of_pos hbReal]
+  have hexponent : (-s - 2).re = -s.re - 2 := by simp
+  rw [hexponent, Complex.norm_real, Real.norm_eq_abs,
+    abs_of_nonneg hmoment]
+
+/-- Pointwise `O(1/M)` bound for the exact scaled cutoff tail. -/
+def nativeExplicitRadiusScaledTailPointConstant
+    (b h : ℕ) (s : ℂ) : ℝ :=
+  ‖s * (s + 1) * (s + 2)‖ *
+    (nativeRadiusSecondMoment h * (b : ℝ) ^ (-s.re - 2) +
+      2 * nativeRadiusThirdMoment h *
+        ((b - h : ℕ) : ℝ) ^ (-s.re - 3)) / (s.re + 2)
+
+/-- Generic unscaled tail remainder bound. -/
+theorem norm_nativeExplicitRadiusTailRemainder_of_re_pos_le
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
+    (hM : 1 ≤ M) {s : ℂ} (hs : 0 < s.re) :
+    ‖nativeExplicitRadiusTailRemainder b h M s‖ ≤
+      nativeExplicitRadiusScaledTailPointConstant b h s *
+        (M : ℝ) ^ (-(s.re + 2)) := by
+  let q : ℝ := (M : ℝ) ^ (-(s.re + 2))
+  have hsplit :=
+    nativeExplicitRadiusTailRemainder_of_re_pos_eq
+      b h M hb hh hs
+  have hscalar :=
+    norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le M hM hs
+  have hacc :=
+    norm_nativeExplicitRadiusAccumulatedBracketRemainder_of_re_pos_le
+      b h M hb hh hM hs
+  have hblock :=
+    norm_nativeExplicitRadiusBlockCoefficient_of_re_pos b h hb s
+  rw [hsplit]
   calc
-    ‖(∑ radius ∈ Finset.Icc 1 h, realCpPairBracket b radius k s) -
-        ∑ radius ∈ Finset.Icc 1 h,
-          ((radius : ℝ) ^ 2) •
-            realDirichletPowerDeriv2 s
-              ((b : ℝ) * ((k + 1 : ℕ) : ℝ))‖ =
-      ‖∑ radius ∈ Finset.Icc 1 h,
-        (realCpPairBracket b radius k s -
-          ((radius : ℝ) ^ 2) •
-            realDirichletPowerDeriv2 s
-              ((b : ℝ) * ((k + 1 : ℕ) : ℝ)))‖ := by
-        congr 1
-        rw [Finset.sum_sub_distrib]
-    _ ≤ ∑ radius ∈ Finset.Icc 1 h,
-        ‖realCpPairBracket b radius k s -
-          ((radius : ℝ) ^ 2) •
-            realDirichletPowerDeriv2 s
-              ((b : ℝ) * ((k + 1 : ℕ) : ℝ))‖ := norm_sum_le _ _
-    _ ≤ ∑ radius ∈ Finset.Icc 1 h,
-        2 * ‖s * (s + 1) * (s + 2)‖ *
-          ((b : ℝ) * ((k + 1 : ℕ) : ℝ) - (radius : ℝ)) ^
-            (-s.re - 3) *
-          (radius : ℝ) ^ 3 := by
-      exact Finset.sum_le_sum fun radius hradius ↦
-        norm_realCpPairBracket_sub_secondDerivative_of_re_pos_le
-          b radius k hb
-          (le_trans (Finset.mem_Icc.mp hradius).2 hh) hs
-    _ ≤ ∑ radius ∈ Finset.Icc 1 h,
+    ‖nativeExplicitRadiusBlockCoefficient b h s *
+          nativeExplicitRadiusScalarTailDefect M s +
+        nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ ≤
+      ‖nativeExplicitRadiusBlockCoefficient b h s‖ *
+          ‖nativeExplicitRadiusScalarTailDefect M s‖ +
+        ‖nativeExplicitRadiusAccumulatedBracketRemainder b h M s‖ := by
+      simpa only [norm_mul] using
+        norm_add_le
+          (nativeExplicitRadiusBlockCoefficient b h s *
+            nativeExplicitRadiusScalarTailDefect M s)
+          (nativeExplicitRadiusAccumulatedBracketRemainder b h M s)
+    _ ≤ ‖nativeExplicitRadiusBlockCoefficient b h s‖ *
+          ((‖s + 2‖ / (s.re + 2)) * q) +
         (2 * ‖s * (s + 1) * (s + 2)‖ *
           ((b - h : ℕ) : ℝ) ^ (-s.re - 3) *
-          ((k + 1 : ℕ) : ℝ) ^ (-s.re - 3)) *
-          (radius : ℝ) ^ 3 := by
-      apply Finset.sum_le_sum
-      intro radius hradius
-      have hrh : radius ≤ h := (Finset.mem_Icc.mp hradius).2
-      have hrhReal : (radius : ℝ) ≤ (h : ℝ) := by exact_mod_cast hrh
-      have hhNonneg : 0 ≤ (h : ℝ) := by positivity
-      have hleftLower :
-          ((b - h : ℕ) : ℝ) * ((k + 1 : ℕ) : ℝ) ≤
-            (b : ℝ) * ((k + 1 : ℕ) : ℝ) - (radius : ℝ) := by
-        rw [Nat.cast_sub hhB]
-        nlinarith [mul_nonneg hhNonneg (sub_nonneg.mpr hj)]
-      have hlowerPos :
-          0 < ((b - h : ℕ) : ℝ) * ((k + 1 : ℕ) : ℝ) :=
-        mul_pos hgapPos hjPos
-      have hpower :
-          ((b : ℝ) * ((k + 1 : ℕ) : ℝ) - (radius : ℝ)) ^
-              (-s.re - 3) ≤
-            (((b - h : ℕ) : ℝ) * ((k + 1 : ℕ) : ℝ)) ^
-              (-s.re - 3) :=
-        Real.rpow_le_rpow_of_nonpos hlowerPos hleftLower (by linarith)
-      calc
-        2 * ‖s * (s + 1) * (s + 2)‖ *
-            ((b : ℝ) * ((k + 1 : ℕ) : ℝ) - (radius : ℝ)) ^
-               (-s.re - 3) *
-            (radius : ℝ) ^ 3 ≤
-          2 * ‖s * (s + 1) * (s + 2)‖ *
-            (((b - h : ℕ) : ℝ) * ((k + 1 : ℕ) : ℝ)) ^
-              (-s.re - 3) *
-            (radius : ℝ) ^ 3 := by
-          exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_left hpower (by positivity))
-            (by positivity)
-      _ = (2 * ‖s * (s + 1) * (s + 2)‖ *
-            ((b - h : ℕ) : ℝ) ^ (-s.re - 3) *
-            ((k + 1 : ℕ) : ℝ) ^ (-s.re - 3)) *
-            (radius : ℝ) ^ 3 := by
-          rw [Real.mul_rpow hgapPos.le hjPos.le]
-          ring
-    _ = 2 * ‖s * (s + 1) * (s + 2)‖ *
-        ((b - h : ℕ) : ℝ) ^ (-s.re - 3) *
-        ((k + 1 : ℕ) : ℝ) ^ (-s.re - 3) *
-        nativeRadiusThirdMoment h := by
-      unfold nativeRadiusThirdMoment
-      rw [Finset.mul_sum]
+          nativeRadiusThirdMoment h / (s.re + 2)) * q := by
+      exact add_le_add
+        (mul_le_mul_of_nonneg_left hscalar
+          (norm_nonneg (nativeExplicitRadiusBlockCoefficient b h s)))
+        (by simpa [q] using hacc)
+    _ = nativeExplicitRadiusScaledTailPointConstant b h s * q := by
+      rw [hblock]
+      unfold nativeExplicitRadiusScaledTailPointConstant
+      simp only [norm_mul]
+      field_simp
+      ring
+    _ = nativeExplicitRadiusScaledTailPointConstant b h s *
+        (M : ℝ) ^ (-(s.re + 2)) := by rfl
 
-lemma summable_shifted_rpow_neg_re_sub_three
-    (M : ℕ) {s : ℂ} (hs : 0 < s.re) :
-    Summable (fun k : ℕ ↦
-      (((k : ℝ) + (M : ℝ) + 1) ^ (-s.re - 3)) := by
-  have hraw : Summable (fun n : ℕ ↦ (n : ℝ) ^ (-s.re - 3)) :=
-    Real.summable_nat_rpow.mpr (by linarith)
-  have hbase : Summable (fun k : ℕ ↦
-      ((k : ℝ) + 1) ^ (-s.re - 3)) := by
-    have hshift := hraw.comp_injective
-      (show Function.Injective (fun n : ℕ → ;
+lemma nativeExplicitRadiusScaledTailError_eq_scaled_remainder
+    (b h M : ℕ) (hM : 0 < M) (s : ℂ) :
+    nativeExplicitRadiusScaledTailError b h M s =
+      (M : ℂ) ^ (s + 1) *
+        nativeExplicitRadiusTailRemainder b h M s := by
+  have hMC : (M : ℂ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hM)
+  have hcancel :
+      (M : ℂ) ^ (s + 1) * (M : ℂ) ^ (-s - 1) = 1 := by
+    rw [← Complex.cpow_add _ _ hMC]
+    have hexponent : s + 1 + (-s - 1) = 0 := by ring
+    rw [hexponent, Complex.cpow_zero]
+  unfold nativeExplicitRadiusScaledTailError
+    nativeExplicitRadiusScaledCutoffTail
+    nativeExplicitRadiusTailRemainder
+  calc
+    (M : ℂ) ^ (s + 1) * nativeExplicitRadiusCutoffTail b h M s -
+        nativeExplicitRadiusTailCoefficient b h s =
+      (M : ℂ) ^ (s + 1) * nativeExplicitRadiusCutoffTail b h M s -
+        nativeExplicitRadiusTailCoefficient b h s *
+          ((M : ℂ) ^ (s + 1) * (M : ℂ) ^ (-s - 1)) := by
+        rw [hcancel, mul_one]
+    _ = (M : ℂ) ^ (s + 1) *
+        (nativeExplicitRadiusCutoffTail b h M s -
+          nativeExplicitRadiusTailCoefficient b h s *
+            (M : ℂ) ^ (-s - 1)) := by ring
+
+/-- Exact pointwise scaled value bound. -/
+theorem norm_nativeExplicitRadiusScaledTailError_of_re_pos_le
+    (b h M : ℕ) (hb : 1 ≤ b) (hh : h ≤ b - 1)
+    (hM : 1 ≤ M) {s : ℂ} (hs : 0 < s.re) :
+    ‖nativeExplicitRadiusScaledTailError b h M s‖ ≤
+      nativeExplicitRadiusScaledTailPointConstant b h s / (M : ℝ) := by
+  have hMpos : 0 < (M : ℝ) := by exact_mod_cast (by omega : 0 < M)
+  have hrem :=
+    norm_nativeExplicitRadiusTailRemainder_of_re_pos_le
+      b h M hb hh hM hs
+  have hscale :
+      ‖(M : ℂ) ^ (s + 1)‖ = (M : ℝ) ^ (s.re + 1) := by
+    have hnorm :=
+      Complex.norm_cpow_eq_rpow_re_of_pos hMpos (s + 1)
+    have hre : (s + 1).re = s.re + 1 := by simp
+    simpa [hre] using hnorm
+  have hpow :
+      (M : ℝ) ^ (s.re + 1) *
+          (M : ℝ) ^ (-(s.re + 2)) =
+        (M : ℝ)⁻¹ := by
+    rw [← Real.rpow_add hMpos]
+    have hexp : s.re + 1 + -(s.re + 2) = (-1 : ℝ) := by ring
+    rw [hexp, Real.rpow_neg_one]
+  rw [nativeExplicitRadiusScaledTailError_eq_scaled_remainder
+    b h M (by omega) s, norm_mul, hscale]
+  calc
+    (M : ℝ) ^ (s.re + 1) *
+        ‖nativeExplicitRadiusTailRemainder b h M s‖ ≤
+      (M : ℝ) ^ (s.re + 1) *
+        (nativeExplicitRadiusScaledTailPointConstant b h s *
+          (M : ℝ) ^ (-(s.re + 2))) :=
+      mul_le_mul_of_nonneg_left hrem (Real.rpow_nonneg hMpos.le _)
+    _ = nativeExplicitRadiusScaledTailPointConstant b h s *
+        ((M : ℝ) ^ (s.re + 1) *
+          (M : ℝ) ^ (-(s.re + 2))) := by ring
+    _ = nativeExplicitRadiusScaledTailPointConstant b h s *
+        (M : ℝ)⁻¹ := by rw [hpow]
+    _ = nativeExplicitRadiusScaledTailPointConstant b h s / (M : ℝ) := by
+      rw [div_eq_mul_inv]
+
+
+end
+
+end GenuineZeroUniformAtlasEnergy
