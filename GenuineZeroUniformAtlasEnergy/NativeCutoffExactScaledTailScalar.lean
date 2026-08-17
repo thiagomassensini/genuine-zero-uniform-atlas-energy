@@ -64,7 +64,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   have hq_re : q.re = -s.re - 2 := by
     simp [q]
   have hq_sub_one_re : (q - 1).re = -s.re - 3 := by
-    rw [Complex.sub_re, hq_re]
+    rw [Complex.sub_re, hq_re, Complex.one_re]
     ring
   have hq_lt : q.re < -1 := by rw [hq_re]; linarith
   have hq_ne : q ≠ 0 := by
@@ -80,8 +80,9 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     exact_mod_cast (lt_of_lt_of_le Nat.zero_lt_one hM)
   have hleft_mono : Monotone left := by
     intro i j hij
+    have hijReal : (i : ℝ) ≤ (j : ℝ) := by exact_mod_cast hij
     dsimp [left]
-    exact add_le_add_left (by exact_mod_cast hij) (M : ℝ)
+    exact add_le_add_left hijReal (M : ℝ)
   have hleft_succ (k : ℕ) : left (Nat.succ k) = left k + 1 := by
     dsimp [left]
     push_cast
