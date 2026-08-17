@@ -194,8 +194,8 @@ characteristic
 \mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
 ```
 
-Here `\mathrm{X}` is the GitHub-renderable display symbol for the characteristic
-called `Chi` in the surrounding formal development.
+The displayed `X` is the GitHub-renderable symbol for the characteristic called
+`Chi` in the surrounding formal development.
 
 At `s = sigma + i*time`, this is literally the complex packaging of the
 primitive real camera. Its two real tangent directions obey
