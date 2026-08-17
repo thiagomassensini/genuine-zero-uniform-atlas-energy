@@ -1,6 +1,6 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
-  "release": "0.11.0",
+  "release": "0.12.0",
   "registry_count": 156,
   "count": 24,
   "status_counts": {
