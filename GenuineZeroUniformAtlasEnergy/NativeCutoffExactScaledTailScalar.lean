@@ -82,7 +82,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     intro i j hij
     have hijReal : (i : ℝ) ≤ (j : ℝ) := by exact_mod_cast hij
     dsimp [left]
-    exact add_le_add_left hijReal (M : ℝ)
+    simpa [add_comm] using (add_le_add_left hijReal (M : ℝ))
   have hleft_succ (k : ℕ) : left (Nat.succ k) = left k + 1 := by
     dsimp [left]
     push_cast
@@ -111,7 +111,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   have hF_integrable : IntegrableOn F (Ioi (M : ℝ)) := by
     simpa [F] using integrableOn_Ioi_cpow_of_lt
       (a := q) hq_lt hMpos
-  have hg_integrable : IntegrableOn g (Ioi (M : ℝ)) := by
+  have ho_integrable : IntegrableOn g (Ioi (M : ℝ)) := by
     change Integrable
       (fun x : ℝ ↦ ‖s + 2‖ * x ^ (-s.re - 3))
       (volume.restrict (Ioi (M : ℝ)))
