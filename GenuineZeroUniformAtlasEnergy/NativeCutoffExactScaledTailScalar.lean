@@ -82,8 +82,8 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     intro i j hij
     have hijReal : (i : ℝ) ≤ (j : ℝ) := by exact_mod_cast hij
     dsimp [left]
-    simpa [add_comm] using (add_le_add_left (hleft_mono hijReal) (M : ℝ))
-  have hleft_suc (k : ℕ) : left (Nat.succ k) = left k + 1 := by
+    simpa [add_comm] using (add_le_add_left hijReal (M : ℝ))
+  have hleft_succ (k : ℕ) : left (Nat.succ k) = left k + 1 := by
     dsimp [left]
     push_cast
     ring
@@ -247,7 +247,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     exact hseq_apply
   have htarget := hdiff
   rw [hF_eval, hseq_tsum] at htarget
-  have ho_eval :
+  have hg_eval :
       (∫ x in Ioi (M : ℝ), g x) =
         (‖s + 2‖ / (s.re + 2)) *
           (M : ℝ) ^ (-(s.re + 2)) := by
@@ -264,7 +264,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
     ‖∑' k : ℕ, err k‖ ≤ ∫ x in Ioi (M : ℝ), g x :=
       tsum_of_norm_bounded hg_cells herr_bound
     _ = (‖s + 2‖ / (s.re + 2)) *
-        (M : ℝ) ^ (-(s.re + 2)) := ho_eval
+        (M : ℝ) ^ (-(s.re + 2)) := hg_eval
 
 end
 
