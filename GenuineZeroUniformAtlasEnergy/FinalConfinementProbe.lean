@@ -7,7 +7,7 @@ import CPFormal.Analytic.CpGenuineGprePrimeVerticalTraceWeightedBessel
 # Final Genuine-confinement frontier audit
 
 This module records the exact logical frontier exposed by the unconditional
-confinement probe.  It does not add a numerical premise, an axiom, or a zero
+confinement probe. It adds no numerical premise, local trust escape, or zero
 predicate containing the desired conclusion.
 
 The scalar confinement statement is compared with three independently built
@@ -90,7 +90,7 @@ theorem finalGenuineZeroConfinement_of_eventualPositiveEmpiricalStripCoercivity
     (by simpa [empiricalPlaneParameter] using hzero)
 
 /-- Consequently the empirical positive-certificate route is a sufficient
-construction of the strong nonvanishing property.  No converse is asserted:
+construction of the strong nonvanishing property. No converse is asserted:
 the uniform quadratic certificate is intentionally kept stronger than the
 bare zero-location statement. -/
 theorem strongNonvanishing_of_eventualPositiveEmpiricalStripCoercivity
