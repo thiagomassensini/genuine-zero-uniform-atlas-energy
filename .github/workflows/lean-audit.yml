@@ -51,7 +51,29 @@ jobs:
           use-mathlib-cache: true
 
       - name: Build public library with warnings as errors
-        run: lake build --wfail GenuineZeroUniformAtlasEnergy
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build --wfail GenuineZeroUniformAtlasEnergy 2>&1 \
+            | tee /tmp/genuine-zero-uniform-atlas-energy-build.txt
+
+      - name: Surface public build diagnostics
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/genuine-zero-uniform-atlas-energy-build.txt
+          tail -n 240 /tmp/genuine-zero-uniform-atlas-energy-build.txt
+          grep -E 'error:|warning:|failed to synthesize|unknown identifier|invalid field|type mismatch' \
+            /tmp/genuine-zero-uniform-atlas-energy-build.txt \
+            | tail -n 40 \
+            | while IFS= read -r line; do
+                line="${line//'%'/'%25'}"
+                line="${line//$'\r'/'%0D'}"
+                line="${line//$'\n'/'%0A'}"
+                printf '::error::%s\n' "$line"
+              done
+          exit 1
 
       - name: Build ordered kernel dependency audit
         run: lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
