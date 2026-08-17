@@ -104,7 +104,7 @@ base_entries = base_registry["theorems"]
 if base_registry["count"] != len(base_entries):
     fail("declared base theorem count differs from registry length")
 
-extension_path = ROOT / "audit/theorem-registry-0.11.0.json"
+extension_path = ROOT / "audit/theorem-registry-0.12.0.json"
 extension = json.loads(extension_path.read_text())
 extension_entries = extension["theorems"]
 if extension["count"] != len(extension_entries):
