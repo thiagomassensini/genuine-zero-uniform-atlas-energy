@@ -47,11 +47,12 @@ jobs:
           use-github-cache: true
           use-mathlib-cache: false
 
-      - name: Resolve pinned arithmetic-readout dependency graph
+      - name: Verify committed dependency lock
         shell: bash
         run: |
           set -euo pipefail
           lake update
+          git diff --exit-code -- lake-manifest.json
 
       - name: Restore Mathlib cache after dependency resolution
         shell: bash
