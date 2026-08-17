@@ -64,6 +64,7 @@ bash -n scripts/audit.sh scripts/static_audit.sh
 
 test -s docs/RELEASE_0.10.0.md
 test -s docs/RELEASE_0.11.0.md
+test -s docs/RELEASE_0.12.0.md
 test -s audit/THEOREM_REGISTRY.md
 test -s audit/CLAIM_LEDGER.md
 
