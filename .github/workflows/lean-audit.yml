@@ -38,9 +38,6 @@ jobs:
           test "$(git rev-parse HEAD)" = "$AUDITED_SHA"
           test -z "$(git status --porcelain --untracked-files=all)"
 
-      - name: Run static source and publication audit
-        run: bash scripts/static_audit.sh
-
       - name: Set up pinned Lean and Mathlib cache
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
         with:
@@ -65,6 +62,9 @@ jobs:
           test -s /tmp/final-confinement-probe.txt
           tail -n 240 /tmp/final-confinement-probe.txt
           exit 1
+
+      - name: Run static source and publication audit after probe
+        run: bash scripts/static_audit.sh
 
       - name: Build public library with warnings as errors
         run: lake build --wfail GenuineZeroUniformAtlasEnergy
