@@ -2,6 +2,7 @@ import GenuineZeroUniformAtlasEnergy.EmpiricalLimitConfinement
 import CPFormal.Analytic.CpGenuineGreenKernelInclusion
 import CPFormal.Analytic.CpGenuinePrimeCarryDefectUniformBound
 import CPFormal.Analytic.CpGenuineGprePrimeVerticalTraceWeightedBessel
+import CPFormal.Analytic.CpFiniteGenuineOneSidedGreenBudget
 
 /-!
 # Final Genuine-confinement frontier audit
@@ -10,12 +11,11 @@ This module records the exact logical frontier exposed by the unconditional
 confinement probe. It adds no numerical premise, local trust escape, or zero
 predicate containing the desired conclusion.
 
-The scalar confinement statement is compared with three independently built
+The scalar confinement statement is compared with independently built
 CPFormal formulations: Green-kernel inclusion, existence of one global
-centered-carry readout state, and the prime half-amplitude smoothing property.
-The existing v0.11 empirical-energy bridge is also recorded as a sufficient
-route: an eventual positive strip coercivity certificate implies the scalar
-confinement statement.
+centered-carry readout state, prime half-amplitude smoothing, and the minimal
+one-sided angular Green bridge. The existing v0.11 empirical-energy bridge is
+also recorded as a sufficient route.
 -/
 
 open Filter Set
@@ -68,6 +68,80 @@ theorem finalGenuineZeroConfinement_iff_primeHalfAmplitudeSmoothing :
       GenuineZeroProvidesPrimeHalfAmplitudeSmoothing := by
   exact finalGenuineZeroConfinement_iff_strongNonvanishing.trans
     genuineZeroProvidesPrimeHalfAmplitudeSmoothing_iff_strongNonvanishing.symm
+
+/-- At a Genuine zero, the full nonradial angular correction has an explicit
+limit: it tends to the negative infinite reflected Green pairing.  Thus scalar
+port decay does not make this provenance-sensitive term disappear. -/
+theorem angularGreenCorrection_tendsto_neg_infinitePairing_of_genuine_zero
+    {s : ℂ} (hs : s ∈ genuineCriticalStrip)
+    (hzero : genuineContinuation s = 0) :
+    Tendsto
+      (fun M : ℕ => finiteCanonicalAngularGreenCorrection M s)
+      atTop (nhds (-infiniteReflectedGradientPairing s)) := by
+  have hbudget :=
+    finiteCanonicalAngularGreenBudget_tendsto_zero_of_genuine_zero hs hzero
+  have hthree : Tendsto (fun M : ℕ => 3 * M) atTop atTop := by
+    apply tendsto_atTop.2
+    intro b
+    filter_upwards [eventually_ge_atTop b] with M hM
+    omega
+  have hgreen :=
+    (finiteReflectedGradientPairing_tendsto_infinite hs).comp hthree
+  have hsub := hbudget.sub hgreen
+  have hfun :
+      (fun M : ℕ => finiteCanonicalAngularGreenCorrection M s) =
+        (fun M : ℕ =>
+          (finiteReflectedGradientPairing (3 * M) s +
+              finiteCanonicalAngularGreenCorrection M s) -
+            finiteReflectedGradientPairing (3 * M) s) := by
+    funext M
+    ring
+  rw [hfun]
+  simpa using hsub
+
+/-- Pointwise exact frontier: after a Genuine zero has killed the scalar port,
+the radially weighted nonradial correction closes exactly on the half-line. -/
+theorem scaledAngularGreenCorrection_closes_iff_re_eq_half
+    {p : ℕ} (hp : Nat.Prime p)
+    {s : ℂ} (hs : s ∈ genuineCriticalStrip)
+    (hzero : genuineContinuation s = 0) :
+    Tendsto
+        (fun M : ℕ =>
+          ((cpRadialDifference p (criticalDisplacement s.re) : ℝ) : ℂ) *
+            finiteCanonicalAngularGreenCorrection M s)
+        atTop (nhds 0) ↔
+      s.re = (1 : ℝ) / 2 := by
+  constructor
+  · intro hclose
+    have hcritical :=
+      criticalDisplacement_eq_zero_of_genuine_zero_of_scaled_correction
+        hp hzero hs hclose
+    unfold criticalDisplacement at hcritical
+    linarith
+  · intro hre
+    have hradial :
+        cpRadialDifference p (criticalDisplacement s.re) = 0 := by
+      simp [criticalDisplacement, hre, cpRadialDifference]
+    simp [hradial]
+
+/-- The minimal one-sided Green bridge is not a weaker hidden gate: globally
+it is exactly scalar Genuine confinement. -/
+theorem finalGenuineZeroConfinement_iff_oneSidedAngularGreenBridge_three :
+    FinalGenuineZeroConfinement ↔ GenuineOneSidedAngularGreenBridge 3 := by
+  constructor
+  · intro hconf
+    refine ⟨?_⟩
+    intro s hzero hs
+    have hre : s.re = (1 : ℝ) / 2 := hconf hs hzero
+    have hradial :
+        cpRadialDifference 3 (criticalDisplacement s.re) = 0 := by
+      simp [criticalDisplacement, hre, cpRadialDifference]
+    simp [hradial]
+  · intro bridge s hs hzero
+    have hcritical :=
+      bridge.criticalDisplacement_eq_zero (by norm_num) hzero hs
+    unfold criticalDisplacement at hcritical
+    linarith
 
 /-- The single certificate shape consumed by the v0.11 concrete empirical
 limit bridge. -/
