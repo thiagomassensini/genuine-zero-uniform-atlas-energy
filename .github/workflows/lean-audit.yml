@@ -38,20 +38,26 @@ jobs:
           test "$(git rev-parse HEAD)" = "$AUDITED_SHA"
           test -z "$(git status --porcelain --untracked-files=all)"
 
-      - name: Set up pinned Lean and Mathlib cache
+      - name: Set up pinned Lean
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
         with:
           build: false
           test: false
           lint: false
           use-github-cache: true
-          use-mathlib-cache: true
+          use-mathlib-cache: false
 
       - name: Resolve pinned arithmetic-readout dependency graph
         shell: bash
         run: |
           set -euo pipefail
           lake update
+
+      - name: Restore Mathlib cache after dependency resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake exe cache get
 
       - name: Compile canonical arithmetic readout bridge
         shell: bash
