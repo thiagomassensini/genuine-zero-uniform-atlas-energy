@@ -25,7 +25,11 @@ jobs:
           fetch-depth: 0
 
       - name: Generate release files
-        run: python3 scripts/prepare_release_0_11.py
+        run: |
+          python3 scripts/prepare_release_0_11.py
+          git restore .github/workflows/lean-audit.yml
+          git restore .github/workflows/release.yml
+          git restore .github/workflows/prepare-release-0.11.yml
 
       - name: Commit generated release surface
         shell: bash
