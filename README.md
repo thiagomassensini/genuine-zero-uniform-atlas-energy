@@ -346,7 +346,7 @@ The faithful finite C2--C7 energy now has a concrete infinite counterpart
 
 ```math
 E_\infty(\sigma,t)
-=\sum_{b=2}^{7}\left|\Chi_b(\sigma+i t)ight|^2.
+=\sum_{b=2}^{7}\left|\Chi_b(\sigma+i t)\right|^2.
 ```
 
 Lean proves directly from absolute summability that
@@ -362,7 +362,7 @@ eventually on a region, the limiting energy inherits it and every Genuine zero
 inside that region satisfies
 
 ```math
-oxed{\operatorname{Re}(s)=rac12.}
+\boxed{\mathrm{Re}(s)=\frac12.}
 ```
 
 This closes the concrete limit and final logical implication. The eventual

@@ -8,7 +8,7 @@ pipeline for the faithful empirical C2--C7 operator.
 The release defines the infinite collective raw energy
 
 ```math
-E_\infty(s)=\sum_{b=2}^{7}\left|\Chi_b(s)ight|^2
+E_\infty(s)=\sum_{b=2}^{7}\left|\Chi_b(s)\right|^2
 ```
 
 and its real-plane form at `s=sigma+i*time`. Absolute summability of every
@@ -28,7 +28,7 @@ limiting camera factor times `genuineContinuation`. Therefore
 ```math
 \mathrm{Genuine}(s)=0
 \Longrightarrow
-orall b,\;\Chi_b(s)=0
+\forall b,\;\Chi_b(s)=0
 \Longrightarrow
 E_\infty(s)=0.
 ```
@@ -48,7 +48,7 @@ Each says that an eventual positive finite coercivity certificate implies
 that every Genuine zero in the certified region has
 
 ```math
-\operatorname{Re}(s)=rac12.
+\mathrm{Re}(s)=\frac12.
 ```
 
 The pointwise convergence and zero-to-energy bridge are discharged by Lean;
