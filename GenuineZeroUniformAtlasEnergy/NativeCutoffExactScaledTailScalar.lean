@@ -35,7 +35,9 @@ lemma summable_nativeExplicitRadiusLeadingPower_of_re_pos
       (fun k ↦ Real.rpow_nonneg (by positivity) _) ?_ hbase
     intro k
     have hleft : 0 < (k : ℝ) + 1 := by positivity
-    have hle : (k : ℝ) + 1 ≤ (k : ℝ) + (M : ℝ) + 1 := by positivity
+    have hMnonneg : 0 ≤ (M : ℝ) := by positivity
+    have hle : (k : ℝ) + 1 ≤ (k : ℝ) + (M : ℝ) + 1 := by
+      linarith
     exact Real.rpow_le_rpow_of_nonpos hleft hle (by linarith)
   exact hpower.of_norm_bounded (fun k ↦ by
     rw [Complex.norm_natCast_cpow_of_pos (by omega)]
@@ -60,11 +62,10 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   let err : ℕ → ℂ := fun k ↦ ∫ x in cell k, weighted k x
   let g : ℝ → ℝ := fun x ↦ ‖s + 2‖ * x ^ (-s.re - 3)
   have hq_re : q.re = -s.re - 2 := by
-    dsimp [q]
-    simp
+    simp [q]
   have hq_sub_one_re : (q - 1).re = -s.re - 3 := by
     rw [Complex.sub_re, hq_re]
-    norm_num
+    ring
   have hq_lt : q.re < -1 := by rw [hq_re]; linarith
   have hq_ne : q ≠ 0 := by
     intro hzero
@@ -80,7 +81,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   have hleft_mono : Monotone left := by
     intro i j hij
     dsimp [left]
-    exact add_le_add_left (by exact_mod_cast hij) _
+    exact add_le_add_left (by exact_mod_cast hij) (M : ℝ)
   have hleft_succ (k : ℕ) : left (Nat.succ k) = left k + 1 := by
     dsimp [left]
     push_cast
@@ -199,7 +200,7 @@ theorem norm_nativeExplicitRadiusScalarTailDefect_of_re_pos_le
   have hcell_subset (k : ℕ) : cell k ⊆ Ioi (M : ℝ) := by
     intro x hx
     exact (hM_le_left k).trans_lt hx.1
-  have herr_bound (k : ℕ) : ‖err k‖ ≤ ∫ x in cell i, g x := by
+  have herr_bound (k : ℕ) : ‖err k‖ ≤ ∫ x in cell k, g x := by
     dsimp [err]
     exact MeasureTheory.norm_integral_le_of_norm_le
       (hg_integrable.mono_set (hcell_subset k))
