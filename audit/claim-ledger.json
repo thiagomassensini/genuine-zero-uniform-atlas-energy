@@ -1,289 +1,32 @@
 {
   "schema": "org.genuine-zero-uniform-atlas-energy.claim-ledger/v1",
-  "release": "0.7.0",
-  "registry_count": 138,
-  "count": 20,
+  "release": "0.8.0",
+  "registry_count": 141,
+  "count": 21,
   "status_counts": {
-    "KERNEL_CHECKED": 20
+    "KERNEL_CHECKED": 21
   },
   "claims": [
-    {
-      "id": "GZUAE-GEO-001",
-      "claim": "The native parameter has radial coordinate one-half and arbitrary real phase time, lies in the Genuine strip, and its quadratic amplitude energy is exactly inverse carry mass",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-001",
-        "GZUAE-002",
-        "GZUAE-003",
-        "GZUAE-004",
-        "GZUAE-005"
-      ]
-    },
-    {
-      "id": "GZUAE-ZER-001",
-      "claim": "The packaged native real camera and Genuine finite chart are literally equal at every cutoff, and their limit vanishing predicates are exactly equivalent",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-006",
-        "GZUAE-007"
-      ]
-    },
-    {
-      "id": "GZUAE-BUD-001",
-      "claim": "Every native seeded TFVD radial-defect energy vanishes over every cutoff and finite prime atlas; uniform budgets are exactly the nonnegative reals and the unique optimal budget is zero",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-008",
-        "GZUAE-009",
-        "GZUAE-010",
-        "GZUAE-011",
-        "GZUAE-012",
-        "GZUAE-013",
-        "GZUAE-014"
-      ]
-    },
-    {
-      "id": "GZUAE-TIL-001",
-      "claim": "After subtracting the independently defined telescoping boundary, the surviving center factors through the radial carry difference and a positive pairing; it vanishes exactly at real coordinate one-half, while a presented off-equilibrium Genuine zero remains a zero whose boundary telescopes, whose positive-cutoff centers are nonzero, and whose total Green flux does not close",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-015",
-        "GZUAE-016",
-        "GZUAE-017",
-        "GZUAE-018",
-        "GZUAE-019",
-        "GZUAE-020",
-        "GZUAE-021",
-        "GZUAE-022"
-      ]
-    },
-    {
-      "id": "GZUAE-CAP-001",
-      "claim": "The common native and Genuine zero inherits the same already-existing unique optimal budget, and one capstone records zero identity and budget uniqueness together",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-023",
-        "GZUAE-024",
-        "GZUAE-025"
-      ]
-    },
-    {
-      "id": "GZUAE-COE-001",
-      "claim": "For an abstract finite transverse jet, the trace, determinant, algebraic Hessian eigenvalues, Schur-envelope curvature, exact-zero isotropy, and local coercivity certificate follow from the scalar discriminant; separately, any supplied positive global raw-energy coercivity bound forces every certified zero onto sigma equals one-half. This claim does not identify the numerical operator with the abstract jet and does not assert a cutoff-uniform lower bound.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-026",
-        "GZUAE-027",
-        "GZUAE-028",
-        "GZUAE-029",
-        "GZUAE-030",
-        "GZUAE-031",
-        "GZUAE-032"
-      ]
-    },
-    {
-      "id": "GZUAE-BRG-001",
-      "claim": "For every odd prime primitive finite camera, the packaged real resultant is the finite entire Dirichlet characteristic; its time tangent is the real quarter-turn of its sigma tangent; its raw unnormalized energy has Hessian entries supplied by the concrete transverse jet built from the first and second complex derivatives; and at an exact finite camera zero the Hessian is isotropic with zero first-order clock slope and a double algebraic eigenvalue. This is a finite componentwise bridge and does not assert a cutoff-uniform coercivity constant or an infinite-limit theorem.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-033",
-        "GZUAE-034",
-        "GZUAE-035"
-      ]
-    },
-    {
-      "id": "GZUAE-TAIL-001",
-      "claim": "At every positive cutoff of an odd prime primitive camera and every real spectral resonance, the finite characteristic equals the negative unresolved bracket tail. The tail amplitude is bounded explicitly by two-thirds times the camera majorant times M to the minus three-halves, and the raw quadratic energy by the square of that bound. This is an upper decay estimate, not the sharp leading coefficient, a collective all-camera theorem, or a cutoff-uniform transverse lower bound.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-036"
-      ]
-    },
-    {
-      "id": "GZUAE-ECG-001",
-      "claim": "The empirical camera index is exactly the labelled family 2 through 7 with periods 4,3,4,5,6,7, retained radii through floor(label/2), antipodal channels exactly at C4 and C6, second moments 1,1,5,5,14,14, and collective rational leading geometry weight 132244271/1778112000.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-037",
-        "GZUAE-038",
-        "GZUAE-039",
-        "GZUAE-040",
-        "GZUAE-041",
-        "GZUAE-042",
-        "GZUAE-043",
-        "GZUAE-044",
-        "GZUAE-045",
-        "GZUAE-046",
-        "GZUAE-047",
-        "GZUAE-048",
-        "GZUAE-049",
-        "GZUAE-050",
-        "GZUAE-051",
-        "GZUAE-052",
-        "GZUAE-053",
-        "GZUAE-054",
-        "GZUAE-055",
-        "GZUAE-056",
-        "GZUAE-057",
-        "GZUAE-058"
-      ]
-    },
-    {
-      "id": "GZUAE-EOP-001",
-      "claim": "Every empirical camera block is absolutely summable on re(s)>-1 and its infinite characteristic splits exactly into finite prefix plus cutoff tail. At a common critical-line zero the complete finite stack and collective raw energy equal their unresolved tails; for each fixed time they have displayed time-dependent M^(-3/2) amplitude and M^(-3) energy upper bounds. These are resonant upper bounds, not transverse lower bounds.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-059",
-        "GZUAE-060",
-        "GZUAE-061",
-        "GZUAE-062",
-        "GZUAE-063",
-        "GZUAE-064",
-        "GZUAE-065",
-        "GZUAE-066",
-        "GZUAE-067",
-        "GZUAE-068"
-      ]
-    },
-    {
-      "id": "GZUAE-ASY-001",
-      "claim": "The third derivative of the real Dirichlet power and an abstract centered-difference estimate give an explicit critical-line local bracket remainder bounded by a constant times (b-h)^(-7/2)(k+1)^(-7/2)S3(h).",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-069",
-        "GZUAE-070",
-        "GZUAE-071",
-        "GZUAE-072",
-        "GZUAE-073",
-        "GZUAE-074",
-        "GZUAE-075"
-      ]
-    },
-    {
-      "id": "GZUAE-ASY-002",
-      "claim": "The explicit-radius block and cutoff tail have exact named leading-model decompositions; the local coefficient cancels its s+1 primitive factor; the critical cutoff monomial has exact amplitude M^(-3/2) and logarithmic phase; the empirical tails use the faithful period/radius geometry; and the squared six-camera coefficient model has rational weight 132244271/1778112000. This claim supplies the exact leading geometry; the quantitative global remainder is covered separately by GZUAE-ASY-004.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-076",
-        "GZUAE-077",
-        "GZUAE-078",
-        "GZUAE-079",
-        "GZUAE-080",
-        "GZUAE-081",
-        "GZUAE-082",
-        "GZUAE-083",
-        "GZUAE-084",
-        "GZUAE-085",
-        "GZUAE-086",
-        "GZUAE-087",
-        "GZUAE-088",
-        "GZUAE-089"
-      ]
-    },
-    {
-      "id": "GZUAE-PHA-001",
-      "claim": "Admissible phase-projection data has a phase-uniform symbolic floor. An explicit approximation error transfers that floor to a supplied coefficient value; a supplied sequence with uniform C/M error and the separate hypothesis 4 < phaseFloor is eventually at least four. No concrete reoptimized operator sequence is identified here.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-090",
-        "GZUAE-091",
-        "GZUAE-092",
-        "GZUAE-093"
-      ]
-    },
-    {
-      "id": "GZUAE-LIM-001",
-      "claim": "A supplied global transverse coercivity inequality that is uniform in every cutoff, or eventually uniform, passes to a supplied pointwise limiting energy. The theorem does not itself prove convergence or the finite coercivity hypothesis for the empirical operator.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-094",
-        "GZUAE-095"
-      ]
-    },
-    {
-      "id": "GZUAE-PRJ-001",
-      "claim": "On the critical line the full-even C4 factor is separated from five aligned C2 factors. The proposed finite-residue model is coordinatewise the negative of the proposed tail model and has the exact collective rational squared norm. Under a nonzero Genuine derivative, that residue model and the limiting complex-derivative model direction are not collinear; strict Cauchy-Schwarz gives positive derivative-direction norm, residue amplitude, transverse Gram remainder rho, admissible phase data, and a strictly positive symbolic algebraic phase floor. No theorem identifies the model direction with the real time derivative, and no concrete finite reoptimization bridge, particular decimal zero, derivative bound, or numerical floor greater than four is asserted.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-096",
-        "GZUAE-097",
-        "GZUAE-098",
-        "GZUAE-099",
-        "GZUAE-100",
-        "GZUAE-101",
-        "GZUAE-102",
-        "GZUAE-103",
-        "GZUAE-104",
-        "GZUAE-105",
-        "GZUAE-106",
-        "GZUAE-107",
-        "GZUAE-108",
-        "GZUAE-109",
-        "GZUAE-110",
-        "GZUAE-111",
-        "GZUAE-112",
-        "GZUAE-113",
-        "GZUAE-114",
-        "GZUAE-115"
-      ]
-    },
-    {
-      "id": "GZUAE-EVN-001",
-      "claim": "The C4 and C6 antipodal channels are explicitly restored through the paired odd-even channel. Every empirical C2-C7 characteristic is its faithful limiting factor times the same Genuine continuation on the strip, so one presented real spectral resonance yields simultaneous six-camera zeros and the exact collective cutoff-tail package with its displayed fixed-time M^(-3) energy upper bound.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-116",
-        "GZUAE-117",
-        "GZUAE-118",
-        "GZUAE-119",
-        "GZUAE-120",
-        "GZUAE-121",
-        "GZUAE-122",
-        "GZUAE-123",
-        "GZUAE-124",
-        "GZUAE-125",
-        "GZUAE-126",
-        "GZUAE-127",
-        "GZUAE-128"
-      ]
-    },
-    {
-      "id": "GZUAE-REG-001",
-      "claim": "Regional transverse coercivity is equivalent to nonnegative certificate residual on the region, excludes off-critical zeros there when its coefficient is positive, and passes to a supplied pointwise limiting energy under eventual cutoff-uniform regional bounds. A global certificate restricts to every region.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-129",
-        "GZUAE-130",
-        "GZUAE-131",
-        "GZUAE-132"
-      ]
-    },
-    {
-      "id": "GZUAE-ASY-003",
-      "claim": "On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate scalar defect and complete remainder are covered by GZUAE-ASY-004.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-133"
-      ]
-    },
-    {
-      "id": "GZUAE-ASY-004",
-      "claim": "On the critical line, the scalar sum-versus-primitive defect and the accumulated local Taylor remainder combine into a complete explicit K(b,h,t) M^(-5/2) bound for the named cutoff-tail remainder. Consequently the cutoff tail scaled by M^(s+1) differs from its exact leading coefficient by at most K(b,h,t)/M. The constant is independent of M; no derivative or finite reoptimization expansion is asserted.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-134",
-        "GZUAE-135"
-      ]
-    },
-    {
-      "id": "GZUAE-ASY-005",
-      "claim": "For the faithful empirical C2-C7 stack on the critical line, the naturally scaled collective tail energy equals M^3 times the raw tail energy and differs from the exact collective coefficient norm by an explicit sum of camerawise K/M quadratic errors. Consequently the unresolved tail energy, and at a common six-camera resonance the finite raw energy, equals ||1/2+it||^2 times 132244271/1778112000 times M^(-3), with an explicit O_t(M^(-4)) remainder. No derivative, Hessian, time-reoptimization lower bound, or cutoff-uniform coercivity constant is asserted.",
-      "status": "KERNEL_CHECKED",
-      "theorem_ids": [
-        "GZUAE-136",
-        "GZUAE-137",
-        "GZUAE-138"
-      ]
-    }
+    {"id":"GZUAE-GEO-001","claim":"The native parameter has radial coordinate one-half and arbitrary real phase time, lies in the Genuine strip, and its quadratic amplitude energy is exactly inverse carry mass","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-001","GZUAE-002","GZUAE-003","GZUAE-004","GZUAE-005"]},
+    {"id":"GZUAE-ZER-001","claim":"The packaged native real camera and Genuine finite chart are literally equal at every cutoff, and their limit vanishing predicates are exactly equivalent","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-006","GZUAE-007"]},
+    {"id":"GZUAE-BUD-001","claim":"Every native seeded TFVD radial-defect energy vanishes over every cutoff and finite prime atlas; uniform budgets are exactly the nonnegative reals and the unique optimal budget is zero","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-008","GZUAE-009","GZUAE-010","GZUAE-011","GZUAE-012","GZUAE-013","GZUAE-014"]},
+    {"id":"GZUAE-TIL-001","claim":"After subtracting the independently defined telescoping boundary, the surviving center factors through the radial carry difference and a positive pairing; it vanishes exactly at real coordinate one-half, while a presented off-equilibrium Genuine zero remains a zero whose boundary telescopes, whose positive-cutoff centers are nonzero, and whose total Green flux does not close","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-015","GZUAE-016","GZUAE-017","GZUAE-018","GZUAE-019","GZUAE-020","GZUAE-021","GZUAE-022"]},
+    {"id":"GZUAE-CAP-001","claim":"The common native and Genuine zero inherits the same already-existing unique optimal budget, and one capstone records zero identity and budget uniqueness together","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-023","GZUAE-024","GZUAE-025"]},
+    {"id":"GZUAE-COE-001","claim":"For an abstract finite transverse jet, the trace, determinant, algebraic Hessian eigenvalues, Schur-envelope curvature, exact-zero isotropy, and local coercivity certificate follow from the scalar discriminant; separately, any supplied positive global raw-energy coercivity bound forces every certified zero onto sigma equals one-half. This claim does not identify the numerical operator with the abstract jet and does not assert a cutoff-uniform lower bound.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-026","GZUAE-027","GZUAE-028","GZUAE-029","GZUAE-030","GZUAE-031","GZUAE-032"]},
+    {"id":"GZUAE-BRG-001","claim":"For every odd prime primitive finite camera, the packaged real resultant is the finite entire Dirichlet characteristic; its time tangent is the real quarter-turn of its sigma tangent; its raw unnormalized energy has Hessian entries supplied by the concrete transverse jet built from the first and second complex derivatives; and at an exact finite camera zero the Hessian is isotropic with zero first-order clock slope and a double algebraic eigenvalue. This is a finite componentwise bridge and does not assert a cutoff-uniform coercivity constant or an infinite-limit theorem.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-033","GZUAE-034","GZUAE-035"]},
+    {"id":"GZUAE-TAIL-001","claim":"At every positive cutoff of an odd prime primitive camera and every real spectral resonance, the finite characteristic equals the negative unresolved bracket tail. The tail amplitude is bounded explicitly by two-thirds times the camera majorant times M to the minus three-halves, and the raw quadratic energy by the square of that bound. This is an upper decay estimate, not the sharp leading coefficient, a collective all-camera theorem, or a cutoff-uniform transverse lower bound.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-036"]},
+    {"id":"GZUAE-ECG-001","claim":"The empirical camera index is exactly the labelled family 2 through 7 with periods 4,3,4,5,6,7, retained radii through floor(label/2), antipodal channels exactly at C4 and C6, second moments 1,1,5,5,14,14, and collective rational leading geometry weight 132244271/1778112000.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-037","GZUAE-038","GZUAE-039","GZUAE-040","GZUAE-041","GZUAE-042","GZUAE-043","GZUAE-044","GZUAE-045","GZUAE-046","GZUAE-047","GZUAE-048","GZUAE-049","GZUAE-050","GZUAE-051","GZUAE-052","GZUAE-053","GZUAE-054","GZUAE-055","GZUAE-056","GZUAE-057","GZUAE-058"]},
+    {"id":"GZUAE-EOP-001","claim":"Every empirical camera block is absolutely summable on re(s)>-1 and its infinite characteristic splits exactly into finite prefix plus cutoff tail. At a common critical-line zero the complete finite stack and collective raw energy equal their unresolved tails; for each fixed time they have displayed time-dependent M^(-3/2) amplitude and M^(-3) energy upper bounds. These are resonant upper bounds, not transverse lower bounds.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-059","GZUAE-060","GZUAE-061","GZUAE-062","GZUAE-063","GZUAE-064","GZUAE-065","GZUAE-066","GZUAE-067","GZUAE-068"]},
+    {"id":"GZUAE-ASY-001","claim":"The third derivative of the real Dirichlet power and an abstract centered-difference estimate give an explicit critical-line local bracket remainder bounded by a constant times (b-h)^(-7/2)(k+1)^(-7/2)S3(h).","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-069","GZUAE-070","GZUAE-071","GZUAE-072","GZUAE-073","GZUAE-074","GZUAE-075"]},
+    {"id":"GZUAE-ASY-002","claim":"The explicit-radius block and cutoff tail have exact named leading-model decompositions; the local coefficient cancels its s+1 primitive factor; the critical cutoff monomial has exact amplitude M^(-3/2) and logarithmic phase; the empirical tails use the faithful period/radius geometry; and the squared six-camera coefficient model has rational weight 132244271/1778112000. This claim supplies the exact leading geometry; the quantitative global remainder is covered separately by GZUAE-ASY-004.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-076","GZUAE-077","GZUAE-078","GZUAE-079","GZUAE-080","GZUAE-081","GZUAE-082","GZUAE-083","GZUAE-084","GZUAE-085","GZUAE-086","GZUAE-087","GZUAE-088","GZUAE-089"]},
+    {"id":"GZUAE-PHA-001","claim":"Admissible phase-projection data has a phase-uniform symbolic floor. An explicit approximation error transfers that floor to a supplied coefficient value; a supplied sequence with uniform C/M error and the separate hypothesis 4 < phaseFloor is eventually at least four. No concrete reoptimized operator sequence is identified here.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-090","GZUAE-091","GZUAE-092","GZUAE-093"]},
+    {"id":"GZUAE-LIM-001","claim":"A supplied global transverse coercivity inequality that is uniform in every cutoff, or eventually uniform, passes to a supplied pointwise limiting energy. The theorem does not itself prove convergence or the finite coercivity hypothesis for the empirical operator.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-094","GZUAE-095"]},
+    {"id":"GZUAE-PRJ-001","claim":"On the critical line the full-even C4 factor is separated from five aligned C2 factors. The proposed finite-residue model is coordinatewise the negative of the proposed tail model and has the exact collective rational squared norm. Under a nonzero Genuine derivative, that residue model and the limiting complex-derivative model direction are not collinear; strict Cauchy-Schwarz gives positive derivative-direction norm, residue amplitude, transverse Gram remainder rho, admissible phase data, and a strictly positive symbolic algebraic phase floor. No theorem identifies the model direction with the real time derivative, and no concrete finite reoptimization bridge, particular decimal zero, derivative bound, or numerical floor greater than four is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-096","GZUAE-097","GZUAE-098","GZUAE-099","GZUAE-100","GZUAE-101","GZUAE-102","GZUAE-103","GZUAE-104","GZUAE-105","GZUAE-106","GZUAE-107","GZUAE-108","GZUAE-109","GZUAE-110","GZUAE-111","GZUAE-112","GZUAE-113","GZUAE-114","GZUAE-115"]},
+    {"id":"GZUAE-EVN-001","claim":"The C4 and C6 antipodal channels are explicitly restored through the paired odd-even channel. Every empirical C2-C7 characteristic is its faithful limiting factor times the same Genuine continuation on the strip, so one presented real spectral resonance yields simultaneous six-camera zeros and the exact collective cutoff-tail package with its displayed fixed-time M^(-3) energy upper bound.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-116","GZUAE-117","GZUAE-118","GZUAE-119","GZUAE-120","GZUAE-121","GZUAE-122","GZUAE-123","GZUAE-124","GZUAE-125","GZUAE-126","GZUAE-127","GZUAE-128"]},
+    {"id":"GZUAE-REG-001","claim":"Regional transverse coercivity is equivalent to nonnegative certificate residual on the region, excludes off-critical zeros there when its coefficient is positive, and passes to a supplied pointwise limiting energy under eventual cutoff-uniform regional bounds. A global certificate restricts to every region.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-129","GZUAE-130","GZUAE-131","GZUAE-132"]},
+    {"id":"GZUAE-ASY-003","claim":"On the critical line, the infinite accumulation after a positive cutoff of the already bounded local cubic Taylor remainders is bounded explicitly by four-fifths times the spectral third-derivative norm, the period-margin factor, the third radius moment, and M to the minus five-halves. Thus this Taylor contribution is O(1/M) after the natural M^(3/2) scaling. The separate scalar defect and complete remainder are covered by GZUAE-ASY-004.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-133"]},
+    {"id":"GZUAE-ASY-004","claim":"On the critical line, the scalar sum-versus-primitive defect and the accumulated local Taylor remainder combine into a complete explicit K(b,h,t) M^(-5/2) bound for the named cutoff-tail remainder. Consequently the cutoff tail scaled by M^(s+1) differs from its exact leading coefficient by at most K(b,h,t)/M. The constant is independent of M; no derivative or finite reoptimization expansion is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-134","GZUAE-135"]},
+    {"id":"GZUAE-ASY-005","claim":"For the faithful empirical C2-C7 stack on the critical line, the naturally scaled collective tail energy equals M^3 times the raw tail energy and differs from the exact collective coefficient norm by an explicit sum of camerawise K/M quadratic errors. Consequently the unresolved tail energy, and at a common six-camera resonance the finite raw energy, equals ||1/2+it||^2 times 132244271/1778112000 times M^(-3), with an explicit O_t(M^(-4)) remainder. No derivative, Hessian, time-reoptimization lower bound, or cutoff-uniform coercivity constant is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-136","GZUAE-137","GZUAE-138"]},
+    {"id":"GZUAE-JET-001","claim":"The analytic cutoff factor M^(-s-1) has exact first and second logarithmic jets, forcing one log M in the first derivative and (log M)^2 in the second. Any supplied phase-coercivity approximation with an error sequence tending to zero inherits every strict lower target below the symbolic phase floor, including an eventual target four when 4 < phaseFloor. The empirical M-to-2M campaign is discovery provenance only; no exact differentiated three-term tail remainder or concrete reoptimized coefficient sequence is asserted.","status":"KERNEL_CHECKED","theorem_ids":["GZUAE-139","GZUAE-140","GZUAE-141"]}
   ]
 }

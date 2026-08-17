@@ -6,18 +6,16 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.7.0
-date-released: 2026-08-16
+version: 0.8.0
+date-released: 2026-08-17
 abstract: >-
   A Lean 4 formalization of the exact identity between the native real-camera
-  and Genuine zero, the unique optimal seeded TFVD radial-defect energy budget,
-  the exact empirical C2--C7 camera geometry including the C4/C6 antipodal
-  channels, the sharp critical cutoff-tail expansion with an explicit
-  M^(-5/2) remainder, and the resulting collective raw-energy expansion with
-  rational six-camera leading coefficient and explicit O_t(M^(-4)) error.
-  The library also records transverse Hessian geometry, a positive symbolic
-  projection floor, and conditional transport of supplied uniform coercivity
-  to a supplied limiting energy.
+  and Genuine zero, the sharp critical cutoff-tail and collective raw-energy
+  expansions, and the exact logarithmic first and second cutoff jets generated
+  by the factor M^(-s-1). The library also proves a general vanishing-error
+  passage from phase coercivity to an eventual lower bound, while keeping
+  empirical cutoff-doubling campaigns as discovery provenance rather than
+  kernel assumptions.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -30,6 +28,7 @@ keywords:
   - primitive camera operator
   - six-camera cutoff operator
   - cutoff-tail asymptotic
+  - logarithmic cutoff jet
   - collective energy asymptotic
   - phase projection
   - uniform atlas

@@ -5,6 +5,10 @@ cd "$(dirname "$0")/.."
 
 lean_roots=(GenuineZeroUniformAtlasEnergy GenuineZeroUniformAtlasEnergy.lean)
 
+# Empirical campaign files are retained as reproducibility provenance only.
+# The kernel build, registry, release metadata, and publication audit do not
+# depend on a floating-point witness or on the 56-job campaign archive.
+
 if command -v rg >/dev/null 2>&1; then
   if rg -n --glob '*.lean' \
       '(^|[^A-Za-z])(sorry|admit|axiom|unsafe)([^A-Za-z]|$)' \
@@ -47,13 +51,16 @@ done < <(
 python3 -m json.tool .zenodo.json >/dev/null
 python3 -m json.tool audit/theorem-registry.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.7.0.json >/dev/null
+python3 -m json.tool audit/theorem-registry-0.8.0.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
-python3 -m json.tool audit/empirical-evidence.json >/dev/null
-python3 scripts/check_empirical_evidence.py
+python3 -m json.tool lake-manifest.json >/dev/null
 python3 scripts/check_registry.py
-
 python3 scripts/check_github_markdown.py
 
 bash -n scripts/audit.sh scripts/static_audit.sh
 
-echo "static audit passed: sources, registry, claims, evidence, metadata, and Markdown"
+test -s docs/RELEASE_0.8.0.md
+test -s audit/THEOREM_REGISTRY.md
+test -s audit/CLAIM_LEDGER.md
+
+echo "static audit passed: kernel sources, registry, claims, metadata, and Markdown"

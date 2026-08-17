@@ -1,0 +1,39 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry-extension/v1",
+  "release": "0.8.0",
+  "base_release": "0.6.0",
+  "start": 136,
+  "count": 6,
+  "theorems": [
+    {
+      "id": "GZUAE-136",
+      "name": "empiricalScaledCollectiveCutoffTailEnergy_eq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalScaledCollectiveCutoffTailEnergy_eq"
+    },
+    {
+      "id": "GZUAE-137",
+      "name": "abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le"
+    },
+    {
+      "id": "GZUAE-138",
+      "name": "empiricalSixCameraCriticalRawEnergy_explicit_remainder",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCameraCriticalRawEnergy_explicit_remainder"
+    },
+    {
+      "id": "GZUAE-139",
+      "name": "cutoffModel_first_second_logarithmic_jets",
+      "qualified": "GenuineZeroUniformAtlasEnergy.cutoffModel_first_second_logarithmic_jets"
+    },
+    {
+      "id": "GZUAE-140",
+      "name": "eventually_microscopicCoercivity_lower_bound_of_vanishing_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_lower_bound_of_vanishing_error"
+    },
+    {
+      "id": "GZUAE-141",
+      "name": "eventually_microscopicCoercivity_ge_four_of_vanishing_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_ge_four_of_vanishing_error"
+    }
+  ]
+}
