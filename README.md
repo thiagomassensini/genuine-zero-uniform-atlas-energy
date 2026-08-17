@@ -276,7 +276,7 @@ For period `b` and retained radius `h`, the scalar tail has the exact leading
 coefficient
 
 ```math
-A^{mathrm{tail}}_{b,h}(s)=sS_2(h)b^{-s-2}.
+A^{\mathrm{tail}}_{b,h}(s)=sS_2(h)b^{-s-2}.
 ```
 
 Lean proves an explicit local remainder of order `(k+1)^(-7/2)` and the exact
@@ -297,48 +297,47 @@ collective squared norm is
 \frac{132244271}{1778112000}.
 ```
 
-The post-`0.6.0` development now proves that the complete named global
-remainder is bounded by an explicit `K(b,h,t) M^(-5/2)`. Equivalently, after
-the natural critical scaling, the cutoff tail differs from this exact leading
-coefficient by at most `K(b,h,t)/M`. This completes the fixed-time scalar
-cutoff-tail asymptotic; derivative, Hessian, and finite-reoptimization
-expansions remain separate work.
+The post-`0.6.0` development proves that the complete named global remainder
+is bounded by an explicit `K(b,h,t) M^(-5/2)`. Equivalently, after the natural
+critical scaling, the cutoff tail differs from this exact leading coefficient
+by at most `K(b,h,t)/M`. The exact scaled tail and its first two complex
+derivatives additionally obey explicit critical `O(1/M)` Cauchy bounds.
 
 In the complex Euclidean six-camera space, the proposed finite-residue vector
 and limiting complex-derivative model direction are provably non-collinear
-when `Re(s)=1/2` and the Genuine derivative is nonzero. This release does not
-identify that model direction with the real time derivative of the empirical
-stack. Strict Cauchy--Schwarz gives
+when `Re(s)=1/2` and the Genuine derivative is nonzero. Strict Cauchy--Schwarz
+gives a positive symbolic projected remainder and phase floor. This symbolic
+floor is not yet a concrete finite cutoff-uniform coercivity certificate.
+
+## Concrete pointwise limit and confinement bridge
+
+The faithful finite C2--C7 energy now has a concrete infinite counterpart
 
 ```math
-\rho
-=
-\lVert A^{\mathrm{res}}\rVert^2
--
-\frac{|\langle A^{\mathrm{res}},V\rangle|^2}{\lVert V\rVert^2}
->0,
+E_\infty(\sigma,t)
+=\sum_{b=2}^{7}\left|\Chi_b(\sigma+i t)\right|^2.
 ```
 
-and the algebraic phase-projection model has the phase-independent symbolic
-floor
+Lean proves directly from absolute summability that
 
 ```math
-c_{\mathrm{floor}}
-=
-\frac{\kappa\rho}{\lVert A^{\mathrm{res}}\rVert^2}>0.
+E_M(\sigma,t)\longrightarrow E_\infty(\sigma,t)
 ```
 
-Lean additionally proves two conditional closure steps: if a supplied
-coefficient sequence approximates this algebraic model with uniform `C/M`
-error and `c_floor > 4`, then that sequence is eventually at least four; and
-an eventual cutoff-uniform coercivity inequality passes to a supplied
-pointwise energy limit, globally or on a fixed region. No theorem identifies
-that supplied sequence with the concrete reoptimized finite operator. The
-numerical hypotheses are not silently imported from the float64 campaign.
-The complete 56-job result bundle and its exact nine-file source/aggregation
-closure are included under `audit/`; their SHA-256 values, import closure,
-archive grid, result counts, and explicitly non-kernel status are enforced by
-the static audit.
+for every `sigma > -1`. On the Genuine critical strip, a Genuine zero makes
+every faithful limiting camera vanish and hence gives `E_infinity = 0`.
+Consequently, if a positive finite transverse coercivity certificate holds
+eventually on a region, the limiting energy inherits it and every Genuine zero
+inside that region satisfies
+
+```math
+\boxed{\mathrm{Re}(s)=\frac12.}
+```
+
+This closes the concrete pointwise-limit and zero-to-limit-energy parts of the
+pipeline. It does **not** prove the eventual finite coercivity certificate;
+the moving minimizer and compact-complement lower bound remain the final
+quantitative frontier.
 
 ## Consolidation theorem
 
@@ -356,15 +355,15 @@ packages both results:
 \exists!C,\ C\text{ is the optimal full-atlas budget}.
 ```
 
-No functional equation, famous-function symmetry, primality hypothesis on the
-positional base, or alternative number system selects `1/2`. Its provenance is
-the quadratic carry amplitude itself.
+The v0.11.0 confinement capstones are conditional on an eventual positive
+finite empirical coercivity certificate; they do not silently promote the
+float64 campaign to a theorem.
 
 See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
 map](docs/THEOREM_MAP.md), [the lower-bound status](docs/LOWER_BOUND_STATUS.md),
 [the conceptual audit](docs/CONCEPTUAL_AUDIT.md), [the exact source
-lock](docs/SOURCE_PROVENANCE.md), and [the v0.6.0 release
-notes](docs/RELEASE_0.6.0.md).
+lock](docs/SOURCE_PROVENANCE.md), and [the v0.11.0 release
+notes](docs/RELEASE_0.11.0.md).
 
 ## Reproducible dependency lock
 
@@ -415,11 +414,16 @@ reports.
   logarithmic phase, and exact collective geometry;
 - `NativeCutoffGlobalRemainder.lean`: summation of the local Taylor remainder
   with an explicit critical `M^(-5/2)` bound;
+- `NativeCutoffExactScaledTailCauchy.lean`: exact scaled value and first/second
+  complex-derivative bounds from a uniform critical Cauchy circle;
 - `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
-  strict projected positivity under simplicity, and the conditional
-  coefficient-four implication;
-- `UniformCoercivityOn.lean`: region-restricted implication and limit-passage
-  interfaces, applicable in particular to a compact region;
+  strict projected positivity under simplicity, and conditional floor
+  transport;
+- `UniformCoercivityOn.lean`: region-restricted implication and abstract
+  limit-passage interfaces;
+- `EmpiricalLimitConfinement.lean`: concrete pointwise C2--C7 energy limit,
+  Genuine-zero limit-energy identity, and conditional regional/global
+  confinement capstones;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry, claim ledger, and locked empirical provenance;

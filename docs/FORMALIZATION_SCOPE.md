@@ -460,3 +460,19 @@ the proposed monomial, connected residue-model geometry, positive symbolic
 projection floor, and conditional global/region-restricted limit interfaces
 are closed. The unconditional numerical coefficient four and its concrete
 infinite-limit lower bound are not.
+
+
+## Concrete limit/confinement closure in v0.11.0
+
+Lean now defines the actual infinite raw energy of the faithful C2--C7 stack
+and proves pointwise convergence of the finite raw energies throughout
+`sigma > -1`. It also proves that Genuine vanishing in the strip annihilates
+that limiting energy. Those facts are combined with the regional limit theorem
+in concrete capstones: any supplied eventual positive finite coercivity
+certificate confines every Genuine zero in the certified region to real part
+one-half.
+
+The release does not promote a float64 certificate to a theorem. Proving the
+eventual finite coercivity premise, including the moving minimizer and compact
+complement, remains the quantitative frontier.
+

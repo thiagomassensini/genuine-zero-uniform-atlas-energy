@@ -51,6 +51,12 @@ Lean proves the following facts for the faithful empirical stack C2--C7:
   approximation to the algebraic phase model;
 - passage of an eventual cutoff-uniform coercivity inequality to a pointwise
   limiting energy, globally or on a fixed region.
+- the faithful finite C2--C7 collective raw energy converges pointwise to
+  the concrete infinite empirical energy throughout `sigma > -1`;
+- a Genuine zero in the strip annihilates that concrete limiting energy;
+- regional, strip-wide, and global capstones now combine those concrete
+  facts with a supplied eventual positive finite coercivity certificate to
+  force `sigma = 1/2`.
 
 The last two bullets are implication theorems. They do not discharge their
 quantitative hypotheses for the concrete operator.
@@ -82,17 +88,16 @@ The remaining analytic bridge must provide:
 
 1. a proof object locating a Genuine zero in an exact interval;
 2. a certified nonzero derivative and quantitative derivative lower bound;
-3. uniform cutoff expansions for the characteristic derivatives and Hessian
-   used by the reoptimized clock; the scalar characteristic and fixed-time
-   collective-energy expansions now have explicit `K/M` and `O_t(M^(-4))`
-   forms;
-4. an explicit `C/M` bridge from the concrete reoptimized coefficient to the
-   algebraic phase model;
+3. an explicit bridge from the concrete moving minimizer/reoptimized
+   coefficient to the algebraic phase model, using the now-proved value and
+   first/second derivative tail bounds;
+4. an eventual positive finite coercivity certificate on the desired region;
 5. a certified compact-complement argument covering transitions between zero
    valleys.
 
 Until those objects exist, the honest machine-checked conclusion is a strictly
 positive symbolic model floor when `Re(s)=1/2` and the Genuine derivative is
-nonzero, plus fixed-time tail/energy asymptotics and conditional
-coefficient-sequence and limit theorems. It is not the unconditional numerical
+nonzero, plus fixed-time tail/energy asymptotics, the concrete pointwise energy
+limit, and conditional confinement theorems whose finite coercivity premise is
+still explicit. It is not the unconditional numerical
 statement `c >= 4` for the full concrete operator.

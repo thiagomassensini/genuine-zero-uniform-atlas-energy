@@ -61,5 +61,5 @@ jobs:
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Exact scaled-tail analytic bounds" \
+            --title "$TAG — Concrete empirical limit and confinement bridge" \
             --notes-file "$NOTES"
