@@ -28,11 +28,14 @@ The machine-readable ledger is [`claim-ledger.json`](claim-ledger.json).
 | `GZUAE-JET-002` | `KERNEL_CHECKED` | Supplied scaled value, first-derivative and second-derivative remainder bounds transport to exact cutoff-jet errors with factors `1 + ||log M||` and `(1 + ||log M||)^2`; the capstone also records both exact `HasDerivAt` jet pairs. |
 | `GZUAE-JET-003` | `KERNEL_CHECKED` | The exact scaled tail, its first complex derivative and its second complex derivative obey explicit critical-line `O(1/M)` bounds obtained from one uniform Cauchy circle; one capstone packages all three. |
 
-Release `0.10.0` records 23 claims covering 148 ordered theorem reports. The
+| `GZUAE-CON-001` | `KERNEL_CHECKED` | Concrete finite C2--C7 raw energy converges pointwise to the infinite empirical energy; Genuine vanishing annihilates that limit; supplied eventual positive finite regional or global coercivity therefore confines the zero to `sigma = 1/2`. The finite coercivity premise remains explicit. |
+
+Release `0.11.0` records 24 claims covering 156 ordered theorem reports. The
 cutoff-doubling and high-precision experiments are retained only as discovery
 and reproducibility provenance; no numerical witness is a kernel premise or a
-release gate. Both the algebraic differentiated-remainder transport and the
-three analytic exact-tail inputs are now closed.
+release gate. The exact-tail, differentiated-remainder, concrete pointwise-energy limit,
+and final conditional confinement bridges are now closed.
 
 The concrete reoptimized microscopic coefficient, the moving finite minimizer,
-and a cutoff-uniform global coercivity constant remain outside this release.
+and an eventual cutoff-uniform finite coercivity certificate remain outside
+this release.

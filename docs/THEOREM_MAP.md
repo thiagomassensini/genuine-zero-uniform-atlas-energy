@@ -217,5 +217,22 @@ the supplied sequence with the concrete reoptimized finite operator.
 These are conditional passage theorems; they do not manufacture the finite
 lower bound or the convergence hypothesis.
 
+
+## Concrete empirical limit and conditional confinement
+
+| Lean declaration | Mathematical content |
+| --- | --- |
+| `empiricalPlaneParameter_re` | The real coordinate of the empirical real-plane parameter is exactly `sigma`. |
+| `empiricalPlaneParameter_im` | The imaginary coordinate is exactly the phase time. |
+| `finiteEmpiricalCollectiveRawEnergyPlane_tendsto` | For every fixed `sigma > -1` and time, the faithful finite C2--C7 raw energy converges pointwise to the concrete infinite empirical energy. |
+| `empiricalCollectiveRawEnergy_eq_zero_of_genuine_zero` | A Genuine zero in the strip annihilates every faithful limiting camera and hence the infinite collective raw energy. |
+| `empiricalCollectiveRawEnergyPlane_eq_zero_of_genuine_zero` | Real-plane form of the same limit-energy zero identity. |
+| `genuineZero_in_region_forces_re_eq_half_of_eventual_empiricalCoercivity` | On any region contained in the Genuine strip, eventual positive finite empirical coercivity passes through the now-concrete pointwise limit and confines every Genuine zero to `sigma = 1/2`. |
+| `genuineZero_forces_re_eq_half_of_eventual_empiricalStripCoercivity` | Strip-wide specialization of the concrete confinement bridge. |
+| `genuineZero_forces_re_eq_half_of_eventual_globalEmpiricalCoercivity` | A supplied eventual global finite empirical coercivity certificate implies strip-wide Genuine-zero confinement. |
+
+These theorems close the concrete convergence and final logical implication.
+They do not prove the eventual finite coercivity premise.
+
 The authoritative machine-readable order is
 [`audit/theorem-registry.json`](../audit/theorem-registry.json).

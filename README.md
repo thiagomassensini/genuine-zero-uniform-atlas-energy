@@ -340,6 +340,35 @@ closure are included under `audit/`; their SHA-256 values, import closure,
 archive grid, result counts, and explicitly non-kernel status are enforced by
 the static audit.
 
+## Concrete pointwise limit and confinement bridge
+
+The faithful finite C2--C7 energy now has a concrete infinite counterpart
+
+```math
+E_\infty(\sigma,t)
+=\sum_{b=2}^{7}\left|\Chi_b(\sigma+i t)ight|^2.
+```
+
+Lean proves directly from absolute summability that
+
+```math
+E_M(\sigma,t)\longrightarrow E_\infty(\sigma,t)
+```
+
+for every `sigma > -1`. On the Genuine critical strip, a Genuine zero makes
+every faithful limiting camera vanish and hence gives `E_infinity = 0`.
+Consequently, if a positive finite transverse coercivity certificate holds
+eventually on a region, the limiting energy inherits it and every Genuine zero
+inside that region satisfies
+
+```math
+oxed{\operatorname{Re}(s)=rac12.}
+```
+
+This closes the concrete limit and final logical implication. The eventual
+finite coercivity certificate itself remains the quantitative frontier; it is
+not inferred from the float64 campaign.
+
 ## Consolidation theorem
 
 The public capstone is
@@ -363,8 +392,8 @@ the quadratic carry amplitude itself.
 See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
 map](docs/THEOREM_MAP.md), [the lower-bound status](docs/LOWER_BOUND_STATUS.md),
 [the conceptual audit](docs/CONCEPTUAL_AUDIT.md), [the exact source
-lock](docs/SOURCE_PROVENANCE.md), and [the v0.6.0 release
-notes](docs/RELEASE_0.6.0.md).
+lock](docs/SOURCE_PROVENANCE.md), and [the v0.11.0 release
+notes](docs/RELEASE_0.11.0.md).
 
 ## Reproducible dependency lock
 
@@ -418,8 +447,11 @@ reports.
 - `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
   strict projected positivity under simplicity, and the conditional
   coefficient-four implication;
-- `UniformCoercivityOn.lean`: region-restricted implication and limit-passage
-  interfaces, applicable in particular to a compact region;
+- `UniformCoercivityOn.lean`: region-restricted implication and abstract
+  limit-passage interfaces;
+- `EmpiricalLimitConfinement.lean`: concrete pointwise C2--C7 energy limit,
+  Genuine-zero limit-energy identity, and conditional regional/global
+  confinement capstones;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry, claim ledger, and locked empirical provenance;

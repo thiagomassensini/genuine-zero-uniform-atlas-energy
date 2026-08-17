@@ -6,19 +6,18 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.10.0
+version: 0.11.0
 date-released: 2026-08-17
 abstract: >-
-  A Lean 4 formalization of the exact identity between the native real-camera
-  and Genuine zero, the sharp critical cutoff-tail and collective raw-energy
-  expansions, and exact logarithmic first and second cutoff jets. Version
-  0.10.0 proves holomorphy of the exact scaled explicit-radius tail on a
-  critical neighborhood, a uniform Cauchy-circle majorant, and explicit
-  O(1/M) bounds for its value, first complex derivative, and second complex
-  derivative. Together with the 0.9.0 transport theorem, these estimates close
-  the analytic differentiated-remainder input without numerical premises.
-  Empirical cutoff-doubling campaigns remain discovery provenance rather than
-  kernel assumptions.
+  A Lean 4 formalization of the native real-camera/Genuine zero identity, the
+  faithful C2--C7 cutoff operator, sharp critical cutoff-tail and raw-energy
+  asymptotics, and exact logarithmic cutoff jets. Version 0.11.0 proves that
+  the concrete finite six-camera raw energy converges pointwise to its infinite
+  empirical energy, proves that a Genuine zero annihilates that limit energy,
+  and packages regional, strip-wide, and global confinement consequences from
+  an eventual positive finite coercivity certificate. The certificate itself
+  remains a separate quantitative hypothesis; floating-point evidence is not
+  imported into the kernel.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -35,6 +34,8 @@ keywords:
   - Cauchy derivative estimate
   - logarithmic cutoff jet
   - collective energy asymptotic
+  - pointwise energy limit
+  - conditional confinement capstone
   - phase projection
   - uniform atlas
   - critical half-abscissa
