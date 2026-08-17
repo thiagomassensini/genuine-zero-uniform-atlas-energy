@@ -189,18 +189,21 @@ For every odd prime camera `p` and finite cutoff `M`, Lean defines the entire
 characteristic
 
 ```math
-\Chi_{p,M}(s)
+\mathrm{X}_{p,M}(s)
 =
 \mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
 ```
+
+Here `\mathrm{X}` is the GitHub-renderable display symbol for the characteristic
+called `Chi` in the surrounding formal development.
 
 At `s = sigma + i*time`, this is literally the complex packaging of the
 primitive real camera. Its two real tangent directions obey
 
 ```math
-\partial_t\Chi_{p,M}
+\partial_t\mathrm{X}_{p,M}
 =
-i\,\partial_\sigma\Chi_{p,M}.
+i\,\partial_\sigma\mathrm{X}_{p,M}.
 ```
 
 Multiplication by `i` is the real quarter-turn `J(x,y)=(-y,x)`. Therefore the
@@ -211,7 +214,7 @@ The associated raw visibility is
 ```math
 E_{p,M}(\sigma,t)
 =
-\lVert\Chi_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2.
+\lVert\mathrm{X}_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2.
 ```
 
 It is exactly the primitive camera's Euclidean resultant energy. No division
@@ -219,11 +222,11 @@ by cutoff, coordinate count, state norm, or bracket-coordinate energy is used.
 Writing
 
 ```math
-\kappa=\lVert\Chi'\rVert^2,
+\kappa=\lVert\mathrm{X}'\rVert^2,
 \qquad
-a=\langle\Chi,\Chi''\rangle,
+a=\langle\mathrm{X},\mathrm{X}''\rangle,
 \qquad
-b=\langle\Chi,J\Chi''\rangle,
+b=\langle\mathrm{X},J\mathrm{X}''\rangle,
 ```
 
 Lean proves
@@ -315,7 +318,7 @@ The faithful finite C2--C7 energy now has a concrete infinite counterpart
 
 ```math
 E_\infty(\sigma,t)
-=\sum_{b=2}^{7}\left|\Chi_b(\sigma+i t)\right|^2.
+=\sum_{b=2}^{7}\left|\mathrm{X}_b(\sigma+i t)\right|^2.
 ```
 
 Lean proves directly from absolute summability that
@@ -355,15 +358,23 @@ packages both results:
 \exists!C,\ C\text{ is the optimal full-atlas budget}.
 ```
 
-The v0.11.0 confinement capstones are conditional on an eventual positive
-finite empirical coercivity certificate; they do not silently promote the
-float64 campaign to a theorem.
+The confinement capstones remain conditional on an eventual positive finite
+empirical coercivity certificate; they do not silently promote the float64
+campaign to a theorem.
+
+## Confinement frontier audit
+
+The `FinalConfinementProbe.lean` and `ArithmeticReadoutBridge.lean` modules are
+audited comparison surfaces. They record equivalences among several later
+Green/readout formulations and verify that those formulations do not provide a
+free substitute for the native carry-geometric confinement step. They are not
+used to replace the Genuine-first/native-first construction.
 
 See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
 map](docs/THEOREM_MAP.md), [the lower-bound status](docs/LOWER_BOUND_STATUS.md),
 [the conceptual audit](docs/CONCEPTUAL_AUDIT.md), [the exact source
-lock](docs/SOURCE_PROVENANCE.md), and [the v0.11.0 release
-notes](docs/RELEASE_0.11.0.md).
+lock](docs/SOURCE_PROVENANCE.md), and [the v0.12.0 release
+notes](docs/RELEASE_0.12.0.md).
 
 ## Reproducible dependency lock
 
@@ -372,8 +383,10 @@ The project pins:
 - Lean `v4.32.0`;
 - Mathlib `v4.32.0`, resolved to the exact commit in `lake-manifest.json`;
 - [`thiagomassensini/primos`](https://github.com/thiagomassensini/primos)
-  (`CPFormal`) at tag `v0.62.0`, resolved to commit
-  [`537028681ae6a775c083a1e2fb6e67db24697b82`](https://github.com/thiagomassensini/primos/commit/537028681ae6a775c083a1e2fb6e67db24697b82).
+  (`CPFormal`) at the exact commit recorded in `lakefile.toml` and
+  `lake-manifest.json`;
+- [`thiagomassensini/native-carry-c3-crosswalk`](https://github.com/thiagomassensini/native-carry-c3-crosswalk)
+  at the exact commit recorded in `lakefile.toml` and `lake-manifest.json`.
 
 ## Build and audit
 
@@ -424,6 +437,10 @@ reports.
 - `EmpiricalLimitConfinement.lean`: concrete pointwise C2--C7 energy limit,
   Genuine-zero limit-energy identity, and conditional regional/global
   confinement capstones;
+- `FinalConfinementProbe.lean`: logical frontier audit for final confinement
+  formulations;
+- `ArithmeticReadoutBridge.lean`: lateral comparison with the canonical
+  arithmetic readout surface;
 - `Capstone.lean`: common-zero corollaries and consolidation theorem;
 - `Audit.lean`: ordered kernel dependency reports;
 - `audit/`: theorem registry, claim ledger, and locked empirical provenance;
