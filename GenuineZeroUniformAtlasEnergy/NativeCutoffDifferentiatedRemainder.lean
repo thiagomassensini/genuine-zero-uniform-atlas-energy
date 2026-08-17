@@ -6,10 +6,10 @@ import GenuineZeroUniformAtlasEnergy.NativeCutoffLogJet
 This module closes the algebraic stitching between a supplied twice
 controlled scaled remainder and the exact logarithmic cutoff jets.
 
-Suppose two scaled amplitudes `exact` and `model` have value, first-derivative,
-and second-derivative discrepancies bounded by one common rate `K * r`.  After
-multiplication by the exact cutoff factor `M^(-s-1)`, their first jets differ by
-at most
+Suppose two scaled amplitudes `actual` and `model` have value,
+first-derivative, and second-derivative discrepancies bounded by one common
+rate `K * r`.  After multiplication by the exact cutoff factor `M^(-s-1)`,
+their first jets differ by at most
 
 ```math
 \|M^{-s-1}\|\,(1+\|\log M\|) K r,
@@ -36,97 +36,97 @@ noncomputable section
 bound the scaled amplitude discrepancy and its first two derivatives. -/
 theorem cutoffModel_first_second_jet_error_bounds
     (M : ℕ)
-    (exact exactFirst exactSecond model modelFirst modelSecond : ℂ → ℂ)
+    (actual actualFirst actualSecond model modelFirst modelSecond : ℂ → ℂ)
     (s : ℂ) (errorZero errorFirst errorSecond : ℝ)
-    (hzero : ‖exact s - model s‖ ≤ errorZero)
-    (hfirst : ‖exactFirst s - modelFirst s‖ ≤ errorFirst)
-    (hsecond : ‖exactSecond s - modelSecond s‖ ≤ errorSecond) :
-    ‖nativeCutoffModelFirstJet M exact exactFirst s -
+    (hzero : ‖actual s - model s‖ ≤ errorZero)
+    (hfirst : ‖actualFirst s - modelFirst s‖ ≤ errorFirst)
+    (hsecond : ‖actualSecond s - modelSecond s‖ ≤ errorSecond) :
+    ‖nativeCutoffModelFirstJet M actual actualFirst s -
         nativeCutoffModelFirstJet M model modelFirst s‖ ≤
         ‖nativeCutoffScale M s‖ *
           (errorFirst + ‖nativeCutoffLog M‖ * errorZero) ∧
-      ‖nativeCutoffModelSecondJet M exact exactFirst exactSecond s -
+      ‖nativeCutoffModelSecondJet M actual actualFirst actualSecond s -
         nativeCutoffModelSecondJet M model modelFirst modelSecond s‖ ≤
         ‖nativeCutoffScale M s‖ *
           (errorSecond +
             2 * ‖nativeCutoffLog M‖ * errorFirst +
             ‖nativeCutoffLog M‖ ^ 2 * errorZero) := by
   have hfirstRewrite :
-      nativeCutoffModelFirstJet M exact exactFirst s -
+      nativeCutoffModelFirstJet M actual actualFirst s -
           nativeCutoffModelFirstJet M model modelFirst s =
         nativeCutoffScale M s *
-          ((exactFirst s - modelFirst s) -
-            nativeCutoffLog M * (exact s - model s)) := by
+          ((actualFirst s - modelFirst s) -
+            nativeCutoffLog M * (actual s - model s)) := by
     unfold nativeCutoffModelFirstJet
     ring
   have hfirstCore :
-      ‖(exactFirst s - modelFirst s) -
-          nativeCutoffLog M * (exact s - model s)‖ ≤
+      ‖(actualFirst s - modelFirst s) -
+          nativeCutoffLog M * (actual s - model s)‖ ≤
         errorFirst + ‖nativeCutoffLog M‖ * errorZero := by
     calc
-      ‖(exactFirst s - modelFirst s) -
-          nativeCutoffLog M * (exact s - model s)‖ ≤
-        ‖exactFirst s - modelFirst s‖ +
-          ‖nativeCutoffLog M * (exact s - model s)‖ :=
+      ‖(actualFirst s - modelFirst s) -
+          nativeCutoffLog M * (actual s - model s)‖ ≤
+        ‖actualFirst s - modelFirst s‖ +
+          ‖nativeCutoffLog M * (actual s - model s)‖ :=
         norm_sub_le _ _
-      _ = ‖exactFirst s - modelFirst s‖ +
-          ‖nativeCutoffLog M‖ * ‖exact s - model s‖ := by
+      _ = ‖actualFirst s - modelFirst s‖ +
+          ‖nativeCutoffLog M‖ * ‖actual s - model s‖ := by
         rw [norm_mul]
       _ ≤ errorFirst + ‖nativeCutoffLog M‖ * errorZero := by
         exact add_le_add hfirst
           (mul_le_mul_of_nonneg_left hzero
             (norm_nonneg (nativeCutoffLog M)))
   have hsecondRewrite :
-      nativeCutoffModelSecondJet M exact exactFirst exactSecond s -
+      nativeCutoffModelSecondJet M actual actualFirst actualSecond s -
           nativeCutoffModelSecondJet M model modelFirst modelSecond s =
         nativeCutoffScale M s *
-          ((exactSecond s - modelSecond s) -
-            2 * nativeCutoffLog M * (exactFirst s - modelFirst s) +
-            nativeCutoffLog M ^ 2 * (exact s - model s)) := by
+          ((actualSecond s - modelSecond s) -
+            2 * nativeCutoffLog M * (actualFirst s - modelFirst s) +
+            nativeCutoffLog M ^ 2 * (actual s - model s)) := by
     unfold nativeCutoffModelSecondJet
     ring
   have hmiddle :
       ‖(2 : ℂ) * nativeCutoffLog M *
-          (exactFirst s - modelFirst s)‖ ≤
+          (actualFirst s - modelFirst s)‖ ≤
         2 * ‖nativeCutoffLog M‖ * errorFirst := by
     calc
       ‖(2 : ℂ) * nativeCutoffLog M *
-          (exactFirst s - modelFirst s)‖ =
+          (actualFirst s - modelFirst s)‖ =
         2 * ‖nativeCutoffLog M‖ *
-          ‖exactFirst s - modelFirst s‖ := by
+          ‖actualFirst s - modelFirst s‖ := by
         simp only [norm_mul]
         norm_num
       _ ≤ 2 * ‖nativeCutoffLog M‖ * errorFirst := by
         exact mul_le_mul_of_nonneg_left hfirst (by positivity)
   have hlast :
-      ‖nativeCutoffLog M ^ 2 * (exact s - model s)‖ ≤
+      ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖ ≤
         ‖nativeCutoffLog M‖ ^ 2 * errorZero := by
     calc
-      ‖nativeCutoffLog M ^ 2 * (exact s - model s)‖ =
-        ‖nativeCutoffLog M‖ ^ 2 * ‖exact s - model s‖ := by
+      ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖ =
+        ‖nativeCutoffLog M‖ ^ 2 * ‖actual s - model s‖ := by
         rw [norm_mul, norm_pow]
       _ ≤ ‖nativeCutoffLog M‖ ^ 2 * errorZero := by
         exact mul_le_mul_of_nonneg_left hzero (sq_nonneg _)
   have hsecondCore :
-      ‖(exactSecond s - modelSecond s) -
-          2 * nativeCutoffLog M * (exactFirst s - modelFirst s) +
-          nativeCutoffLog M ^ 2 * (exact s - model s)‖ ≤
+      ‖(actualSecond s - modelSecond s) -
+          2 * nativeCutoffLog M * (actualFirst s - modelFirst s) +
+          nativeCutoffLog M ^ 2 * (actual s - model s)‖ ≤
         errorSecond +
           2 * ‖nativeCutoffLog M‖ * errorFirst +
           ‖nativeCutoffLog M‖ ^ 2 * errorZero := by
     calc
-      ‖(exactSecond s - modelSecond s) -
-          2 * nativeCutoffLog M * (exactFirst s - modelFirst s) +
-          nativeCutoffLog M ^ 2 * (exact s - model s)‖ ≤
-        ‖(exactSecond s - modelSecond s) -
-          2 * nativeCutoffLog M * (exactFirst s - modelFirst s)‖ +
-          ‖nativeCutoffLog M ^ 2 * (exact s - model s)‖ :=
+      ‖(actualSecond s - modelSecond s) -
+          2 * nativeCutoffLog M * (actualFirst s - modelFirst s) +
+          nativeCutoffLog M ^ 2 * (actual s - model s)‖ ≤
+        ‖(actualSecond s - modelSecond s) -
+          2 * nativeCutoffLog M * (actualFirst s - modelFirst s)‖ +
+          ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖ :=
         norm_add_le _ _
       _ ≤
-        (‖exactSecond s - modelSecond s‖ +
+        (‖actualSecond s - modelSecond s‖ +
           ‖(2 : ℂ) * nativeCutoffLog M *
-            (exactFirst s - modelFirst s)‖) +
-          ‖nativeCutoffLog M ^ 2 * (exact s - model s)‖ := by
+            (actualFirst s - modelFirst s)‖) +
+          ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖ := by
         exact add_le_add_right (norm_sub_le _ _) _
       _ ≤ (errorSecond +
           2 * ‖nativeCutoffLog M‖ * errorFirst) +
@@ -148,34 +148,34 @@ the first transported jet acquires one logarithm and the second transported
 jet acquires exactly the square `(1 + ‖log M‖)^2`. -/
 theorem cutoffModel_first_second_jet_error_bounds_of_common_rate
     (M : ℕ)
-    (exact exactFirst exactSecond model modelFirst modelSecond : ℂ → ℂ)
+    (actual actualFirst actualSecond model modelFirst modelSecond : ℂ → ℂ)
     (s : ℂ) (K rate : ℝ)
-    (hzero : ‖exact s - model s‖ ≤ K * rate)
-    (hfirst : ‖exactFirst s - modelFirst s‖ ≤ K * rate)
-    (hsecond : ‖exactSecond s - modelSecond s‖ ≤ K * rate) :
-    ‖nativeCutoffModelFirstJet M exact exactFirst s -
+    (hzero : ‖actual s - model s‖ ≤ K * rate)
+    (hfirst : ‖actualFirst s - modelFirst s‖ ≤ K * rate)
+    (hsecond : ‖actualSecond s - modelSecond s‖ ≤ K * rate) :
+    ‖nativeCutoffModelFirstJet M actual actualFirst s -
         nativeCutoffModelFirstJet M model modelFirst s‖ ≤
         ‖nativeCutoffScale M s‖ *
           ((1 + ‖nativeCutoffLog M‖) * (K * rate)) ∧
-      ‖nativeCutoffModelSecondJet M exact exactFirst exactSecond s -
+      ‖nativeCutoffModelSecondJet M actual actualFirst actualSecond s -
         nativeCutoffModelSecondJet M model modelFirst modelSecond s‖ ≤
         ‖nativeCutoffScale M s‖ *
           ((1 + ‖nativeCutoffLog M‖) ^ 2 * (K * rate)) := by
   have hbounds :=
     cutoffModel_first_second_jet_error_bounds
-      M exact exactFirst exactSecond model modelFirst modelSecond s
+      M actual actualFirst actualSecond model modelFirst modelSecond s
       (K * rate) (K * rate) (K * rate)
       hzero hfirst hsecond
   constructor
   · calc
-      ‖nativeCutoffModelFirstJet M exact exactFirst s -
+      ‖nativeCutoffModelFirstJet M actual actualFirst s -
           nativeCutoffModelFirstJet M model modelFirst s‖ ≤
         ‖nativeCutoffScale M s‖ *
           (K * rate + ‖nativeCutoffLog M‖ * (K * rate)) := hbounds.1
       _ = ‖nativeCutoffScale M s‖ *
           ((1 + ‖nativeCutoffLog M‖) * (K * rate)) := by ring
   · calc
-      ‖nativeCutoffModelSecondJet M exact exactFirst exactSecond s -
+      ‖nativeCutoffModelSecondJet M actual actualFirst actualSecond s -
           nativeCutoffModelSecondJet M model modelFirst modelSecond s‖ ≤
         ‖nativeCutoffScale M s‖ *
           (K * rate +
@@ -190,44 +190,44 @@ logarithmic error bounds.  The only remaining analytic input is the supplied
 value/first/second remainder estimate itself. -/
 theorem cutoffModel_differentiated_remainder_gate
     (M : ℕ) (hM : 0 < M)
-    {exact exactFirst exactSecond model modelFirst modelSecond : ℂ → ℂ}
+    {actual actualFirst actualSecond model modelFirst modelSecond : ℂ → ℂ}
     {s : ℂ} {K rate : ℝ}
-    (hExact : HasDerivAt exact (exactFirst s) s)
-    (hExactFirst : HasDerivAt exactFirst (exactSecond s) s)
+    (hActual : HasDerivAt actual (actualFirst s) s)
+    (hActualFirst : HasDerivAt actualFirst (actualSecond s) s)
     (hModel : HasDerivAt model (modelFirst s) s)
     (hModelFirst : HasDerivAt modelFirst (modelSecond s) s)
-    (hzero : ‖exact s - model s‖ ≤ K * rate)
-    (hfirst : ‖exactFirst s - modelFirst s‖ ≤ K * rate)
-    (hsecond : ‖exactSecond s - modelSecond s‖ ≤ K * rate) :
-    HasDerivAt (nativeCutoffModel M exact)
-        (nativeCutoffModelFirstJet M exact exactFirst s) s ∧
-      HasDerivAt (nativeCutoffModelFirstJet M exact exactFirst)
-        (nativeCutoffModelSecondJet M exact exactFirst exactSecond s) s ∧
+    (hzero : ‖actual s - model s‖ ≤ K * rate)
+    (hfirst : ‖actualFirst s - modelFirst s‖ ≤ K * rate)
+    (hsecond : ‖actualSecond s - modelSecond s‖ ≤ K * rate) :
+    HasDerivAt (nativeCutoffModel M actual)
+        (nativeCutoffModelFirstJet M actual actualFirst s) s ∧
+      HasDerivAt (nativeCutoffModelFirstJet M actual actualFirst)
+        (nativeCutoffModelSecondJet M actual actualFirst actualSecond s) s ∧
       HasDerivAt (nativeCutoffModel M model)
         (nativeCutoffModelFirstJet M model modelFirst s) s ∧
       HasDerivAt (nativeCutoffModelFirstJet M model modelFirst)
         (nativeCutoffModelSecondJet M model modelFirst modelSecond s) s ∧
-      (‖nativeCutoffModelFirstJet M exact exactFirst s -
+      (‖nativeCutoffModelFirstJet M actual actualFirst s -
           nativeCutoffModelFirstJet M model modelFirst s‖ ≤
           ‖nativeCutoffScale M s‖ *
             ((1 + ‖nativeCutoffLog M‖) * (K * rate)) ∧
-        ‖nativeCutoffModelSecondJet M exact exactFirst exactSecond s -
+        ‖nativeCutoffModelSecondJet M actual actualFirst actualSecond s -
           nativeCutoffModelSecondJet M model modelFirst modelSecond s‖ ≤
           ‖nativeCutoffScale M s‖ *
             ((1 + ‖nativeCutoffLog M‖) ^ 2 * (K * rate))) := by
-  have hExactJets :=
+  have hActualJets :=
     cutoffModel_first_second_logarithmic_jets
-      M hM hExact hExactFirst
+      M hM hActual hActualFirst
   have hModelJets :=
     cutoffModel_first_second_logarithmic_jets
       M hM hModel hModelFirst
   have hbounds :=
     cutoffModel_first_second_jet_error_bounds_of_common_rate
-      M exact exactFirst exactSecond model modelFirst modelSecond s K rate
+      M actual actualFirst actualSecond model modelFirst modelSecond s K rate
       hzero hfirst hsecond
   exact ⟨
-    hExactJets.1,
-    hExactJets.2,
+    hActualJets.1,
+    hActualJets.2,
     hModelJets.1,
     hModelJets.2,
     hbounds⟩
