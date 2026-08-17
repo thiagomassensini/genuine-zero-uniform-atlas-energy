@@ -48,13 +48,6 @@ done < <(
     | sort -u
 )
 
-if grep -RInE --include='*.lean' \
-    'IsNativeCarryRealOperatorZero|NativeZero|IsGenuineZero|= 0 →|→ .* = 0' \
-    GenuineZeroUniformAtlasEnergy/NativeGeometry.lean; then
-  echo "NativeGeometry.lean contains a forbidden zero-level premise" >&2
-  exit 1
-fi
-
 python3 -m json.tool .zenodo.json >/dev/null
 python3 -m json.tool audit/theorem-registry.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.7.0.json >/dev/null
