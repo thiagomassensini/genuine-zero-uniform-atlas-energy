@@ -2,12 +2,12 @@
 
 ## Purpose
 
-The fixed-time critical tail theorem controls the scaled cutoff value. The next
-coercivity step needs the scaled first and second derivatives as well. This
-document separates the part now proved in Lean from the analytic estimates
-still required.
+The fixed-time critical tail theorem controls the scaled cutoff value. The
+coercivity step also needs the scaled first and second complex derivatives.
+Version `0.10.0` closes both parts of this gate: the analytic exact-tail bounds
+and their exact logarithmic transport through the cutoff factor.
 
-## Exact transport now closed
+## Exact transport
 
 Write the unscaled cutoff model as
 
@@ -40,8 +40,8 @@ A_M''(s)-2\log(M)A_M'(s)+\log(M)^2A_M(s)
 \right).
 ```
 
-Subtracting the corresponding model jets and applying the norm inequality now
-yields kernel-checked bounds
+Subtracting the corresponding model jets and applying the norm inequality
+yields the kernel-checked bounds
 
 ```math
 \|T_M'-S_M'\|
@@ -59,7 +59,7 @@ e_2+2\|\log M\|e_1+\|\log M\|^2e_0
 \right).
 ```
 
-For one common estimate `e_0,e_1,e_2 <= K r_M`, these become
+For a common estimate `e_0,e_1,e_2 <= K r_M`, these become
 
 ```math
 \|T_M'-S_M'\|
@@ -75,55 +75,69 @@ and
 \|M^{-s-1}\|(1+\|\log M\|)^2K r_M.
 ```
 
-The public Lean capstone is
+The public transport capstone is
 `cutoffModel_differentiated_remainder_gate`.
 
-## Analytic input still required
+## Exact-tail analytic input
 
-The exact cutoff tail must now be supplied with functions representing its
-scaled first and second complex derivatives. The remaining proof must establish
-explicit estimates for all three discrepancies against the chosen comparison
-model:
+For the exact scaled explicit-radius tail error
 
 ```math
-\|A_M-B_M\|,
-\qquad
-\|A_M'-B_M'\|,
-\qquad
-\|A_M''-B_M''\|.
+\mathcal E_M(s)=M^{s+1}T_M(s)-A(s),
 ```
 
-A sufficient target is a common rate
+Lean proves holomorphy on the radius-`1/2` ball around every critical-line
+point `s_0=1/2+it`. Each shifted block is dominated there by one summable
+quadratic p-series.
+
+On the radius-`1/4` Cauchy circle around `s_0`, the real part is at least
+`1/4`, so the exact pointwise remainder estimate admits one uniform explicit
+constant `C_h(t)`. Cauchy's estimate then gives
 
 ```math
-r_M=M^{-q}
+\|\mathcal E_M(s_0)\|\le \frac{C_h(t)}{M},
 ```
 
-with `q > 0`, or the sharper rate produced by a complete differentiated
-three-term expansion. The new transport theorem then supplies the full
-logarithmic loss automatically.
+```math
+\|\mathcal E_M'(s_0)\|\le \frac{4C_h(t)}{M},
+```
 
-## Intended analytic route
+and
 
-The proof should stay independent of numerical tables.
+```math
+\|\mathcal E_M''(s_0)\|\le \frac{32C_h(t)}{M}.
+```
 
-1. Differentiate each explicit-radius block with respect to `s` before taking
-   the infinite tail.
-2. Bound the differentiated local Taylor remainders. Each derivative introduces
-   at most one additional logarithmic factor in the integer variable.
-3. Prove summability uniformly on the required critical compact set, permitting
-   termwise differentiation of the tail.
-4. Sum the first- and second-derivative remainders by an integral comparison.
-5. Differentiate the scalar sum-versus-primitive defect and bound its two jets.
-6. Combine the scalar and local contributions into explicit constants
-   `K_0`, `K_1`, and `K_2` independent of `M`.
-7. Feed those estimates into
-   `cutoffModel_differentiated_remainder_gate` and then into the existing
-   vanishing-error phase-floor theorem.
+The public analytic reports are:
 
-## Non-claims
+- `norm_nativeExplicitRadiusScaledTailError_critical_value_le`;
+- `norm_nativeExplicitRadiusScaledTailError_critical_first_le`;
+- `norm_nativeExplicitRadiusScaledTailError_critical_second_le`;
+- `nativeExplicitRadiusScaledTailError_critical_three_bounds`.
 
-The current interface does not identify a moving finite minimizer, prove a
-cutoff-uniform global coercivity constant, or import the `M -> 2M` float64
-campaign as a theorem premise. The numerical campaign remains evidence for
-which analytic model to prove, not evidence substituted for the proof.
+The final theorem packages the three estimates. It does not add another
+analytic premise.
+
+## Completed chain
+
+The formal chain is now
+
+```math
+\text{exact block holomorphy}
+\Longrightarrow
+\text{uniform critical Cauchy bound}
+\Longrightarrow
+(e_0,e_1,e_2)=O(1/M)
+\Longrightarrow
+\text{first/second logarithmic cutoff-jet control}.
+```
+
+No numerical table, fitted coefficient, selected height, or floating-point
+minimum enters any implication.
+
+## Remaining geometric frontier
+
+The current theorems do not identify a moving finite minimizer, prove a
+concrete reoptimized microscopic coefficient, or establish a cutoff-uniform
+global coercivity constant. The empirical `M -> 2M` campaign remains discovery
+provenance for those later geometric questions, not a theorem premise.

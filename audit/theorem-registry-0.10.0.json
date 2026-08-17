@@ -1,0 +1,74 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.theorem-registry-extension/v1",
+  "release": "0.10.0",
+  "base_release": "0.6.0",
+  "start": 136,
+  "count": 13,
+  "theorems": [
+    {
+      "id": "GZUAE-136",
+      "name": "empiricalScaledCollectiveCutoffTailEnergy_eq",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalScaledCollectiveCutoffTailEnergy_eq"
+    },
+    {
+      "id": "GZUAE-137",
+      "name": "abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.abs_empiricalCollectiveCutoffTailEnergy_sub_leading_div_cube_le"
+    },
+    {
+      "id": "GZUAE-138",
+      "name": "empiricalSixCameraCriticalRawEnergy_explicit_remainder",
+      "qualified": "GenuineZeroUniformAtlasEnergy.empiricalSixCameraCriticalRawEnergy_explicit_remainder"
+    },
+    {
+      "id": "GZUAE-139",
+      "name": "cutoffModel_first_second_logarithmic_jets",
+      "qualified": "GenuineZeroUniformAtlasEnergy.cutoffModel_first_second_logarithmic_jets"
+    },
+    {
+      "id": "GZUAE-140",
+      "name": "eventually_microscopicCoercivity_lower_bound_of_vanishing_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_lower_bound_of_vanishing_error"
+    },
+    {
+      "id": "GZUAE-141",
+      "name": "eventually_microscopicCoercivity_ge_four_of_vanishing_error",
+      "qualified": "GenuineZeroUniformAtlasEnergy.PhaseProjectionData.eventually_microscopicCoercivity_ge_four_of_vanishing_error"
+    },
+    {
+      "id": "GZUAE-142",
+      "name": "cutoffModel_first_second_jet_error_bounds",
+      "qualified": "GenuineZeroUniformAtlasEnergy.cutoffModel_first_second_jet_error_bounds"
+    },
+    {
+      "id": "GZUAE-143",
+      "name": "cutoffModel_first_second_jet_error_bounds_of_common_rate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.cutoffModel_first_second_jet_error_bounds_of_common_rate"
+    },
+    {
+      "id": "GZUAE-144",
+      "name": "cutoffModel_differentiated_remainder_gate",
+      "qualified": "GenuineZeroUniformAtlasEnergy.cutoffModel_differentiated_remainder_gate"
+    },
+    {
+      "id": "GZUAE-145",
+      "name": "norm_nativeExplicitRadiusScaledTailError_critical_value_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusScaledTailError_critical_value_le"
+    },
+    {
+      "id": "GZUAE-146",
+      "name": "norm_nativeExplicitRadiusScaledTailError_critical_first_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusScaledTailError_critical_first_le"
+    },
+    {
+      "id": "GZUAE-147",
+      "name": "norm_nativeExplicitRadiusScaledTailError_critical_second_le",
+      "qualified": "GenuineZeroUniformAtlasEnergy.norm_nativeExplicitRadiusScaledTailError_critical_second_le"
+    },
+    {
+      "id": "GZUAE-148",
+      "name": "nativeExplicitRadiusScaledTailError_critical_three_bounds",
+      "qualified": "GenuineZeroUniformAtlasEnergy.nativeExplicitRadiusScaledTailError_critical_three_bounds"
+    }
+  ]
+}
