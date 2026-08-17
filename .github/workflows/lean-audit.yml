@@ -50,29 +50,17 @@ jobs:
           use-github-cache: true
           use-mathlib-cache: true
 
-      - name: Build new limit module with warnings as errors
-        shell: bash
-        run: |
-          set -o pipefail
-          lake build --wfail \
-            GenuineZeroUniformAtlasEnergy.EmpiricalLimitConfinement 2>&1 \
-            | tee /tmp/genuine-zero-uniform-atlas-energy-build.txt
+      - name: Build public library with warnings as errors
+        run: lake build --wfail GenuineZeroUniformAtlasEnergy
 
-      - name: Surface public build diagnostics
-        if: failure()
+      - name: Build ordered kernel dependency audit
+        run: lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
+
+      - name: Check foundational dependency allowlist
         shell: bash
         run: |
           set -euo pipefail
-          test -s /tmp/genuine-zero-uniform-atlas-energy-build.txt
-          tail -n 240 /tmp/genuine-zero-uniform-atlas-energy-build.txt
-          tail -n 120 /tmp/genuine-zero-uniform-atlas-energy-build.txt \
-            | while IFS= read -r line; do
-                line="${line//'%'/'%25'}"
-                line="${line//$'\r'/'%0D'}"
-                line="${line//$'\n'/'%0A'}"
-                printf '::error::%s\n' "$line"
-              done
-          exit 1
-
-      - name: Development placeholder after focused elaboration
-        run: echo "focused module elaboration passed; full audit restored before merge"
+          lake env lean GenuineZeroUniformAtlasEnergy/Audit.lean 2>&1 \
+            | tee /tmp/genuine-zero-uniform-atlas-energy-axioms.txt
+          python3 scripts/check_axiom_output.py \
+            /tmp/genuine-zero-uniform-atlas-energy-axioms.txt
