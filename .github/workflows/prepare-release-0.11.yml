@@ -1,0 +1,42 @@
+name: Prepare v0.11.0 release metadata
+
+on:
+  push:
+    branches:
+      - agent/concrete-limit-confinement-capstone
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prepare-v0-11-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    if: ${{ !contains(github.event.head_commit.message, '[release-generated]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out release branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Generate release files
+        run: python3 scripts/prepare_release_0_11.py
+
+      - name: Commit generated release surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git commit -m "Prepare v0.11.0 concrete limit release [release-generated]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
