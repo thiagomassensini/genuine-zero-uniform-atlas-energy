@@ -127,7 +127,12 @@ theorem cutoffModel_first_second_jet_error_bounds
           ‖(2 : ℂ) * nativeCutoffLog M *
             (actualFirst s - modelFirst s)‖) +
           ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖ := by
-        exact add_le_add_right (norm_sub_le _ _) _
+        exact add_le_add_right
+          (norm_sub_le
+            (actualSecond s - modelSecond s)
+            ((2 : ℂ) * nativeCutoffLog M *
+              (actualFirst s - modelFirst s)))
+          ‖nativeCutoffLog M ^ 2 * (actual s - model s)‖
       _ ≤ (errorSecond +
           2 * ‖nativeCutoffLog M‖ * errorFirst) +
           ‖nativeCutoffLog M‖ ^ 2 * errorZero := by
