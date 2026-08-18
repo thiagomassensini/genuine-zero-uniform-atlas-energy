@@ -126,11 +126,14 @@ theorem abs_quadraticMicroscopicCoercivity_sub_le_of_perturbation_bounds
         ‖curvatureTerm - gradientTerm‖ + ‖energyTerm‖ :=
     norm_sub_le (curvatureTerm - gradientTerm) energyTerm
   have hcurvature' : ‖curvatureTerm‖ ≤ curvatureError := by
-    simpa [curvatureTerm, Real.norm_eq_abs] using hcurvature
+    rw [Real.norm_eq_abs]
+    exact hcurvature
   have hgradient' : ‖gradientTerm‖ ≤ gradientError := by
-    simpa [gradientTerm, Real.norm_eq_abs] using hgradient
+    rw [Real.norm_eq_abs]
+    exact hgradient
   have henergyError' : ‖energyTerm‖ ≤ energyError := by
-    simpa [energyTerm, Real.norm_eq_abs] using henergyError
+    rw [Real.norm_eq_abs]
+    exact henergyError
   have htotal :
       ‖(curvatureTerm - gradientTerm) - energyTerm‖ ≤
         curvatureError + gradientError + energyError := by
@@ -141,7 +144,8 @@ theorem abs_quadraticMicroscopicCoercivity_sub_le_of_perturbation_bounds
         gcongr
       _ ≤ curvatureError + gradientError + energyError := by
         gcongr
-  simpa [curvatureTerm, gradientTerm, energyTerm, Real.norm_eq_abs] using htotal
+  simpa only [curvatureTerm, gradientTerm, energyTerm, Real.norm_eq_abs]
+    using htotal
 
 /-- The empirical phase formula is not a separate ansatz: it is exactly the
 quadratic microscopic coefficient with leading residual energy
