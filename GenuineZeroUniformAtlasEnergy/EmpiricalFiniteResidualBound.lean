@@ -63,8 +63,12 @@ theorem norm_empiricalScaledFiniteResidualStack_sub_leading_critical_le
     (time : ℝ) (M : ℕ) :
     ‖empiricalCutoffBackPhase time M‖ = 1 := by
   unfold empiricalCutoffBackPhase
-  simpa only [neg_mul] using
-    Complex.norm_exp_ofReal_mul_I (-empiricalCutoffPhase time M)
+  have harg :
+      -((empiricalCutoffPhase time M : ℂ) * Complex.I) =
+        ((-empiricalCutoffPhase time M : ℝ) : ℂ) * Complex.I := by
+    simp
+  rw [harg]
+  exact Complex.norm_exp_ofReal_mul_I (-empiricalCutoffPhase time M)
 
 /-- Phase-rotated leading residual used by the finite clock model. -/
 def empiricalPhaseNormalizedLeadingResidualStack
