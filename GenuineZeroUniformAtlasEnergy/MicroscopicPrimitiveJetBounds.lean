@@ -197,7 +197,8 @@ theorem abs_transverseLocalCoercivity_sub_le_of_primitive_bounds
   have hfrac' :
       ‖j.b ^ 2 / (j.kappa - j.a)‖ ≤
         bBound ^ 2 / denominatorFloor := by
-    simpa [Real.norm_eq_abs] using hfrac
+    rw [Real.norm_eq_abs]
+    exact hfrac
   have hsum :
       ‖(j.kappa - modelKappa) + j.a‖ ≤
         kappaError + aBound := by
