@@ -117,7 +117,8 @@ theorem deriv_finiteEmpiricalCameraCharacteristic_eq_clockTangent_sub_cutoffTail
           (criticalLineParameter time) := by
   let s : ℂ := criticalLineParameter time
   have hsStrip : s ∈ genuineCriticalStrip := by
-    simpa [s] using criticalLineParameter_mem_genuineCriticalStrip time
+    dsimp [s]
+    exact criticalLineParameter_mem_genuineCriticalStrip time
   have hsHalf : -1 < s.re := by
     dsimp [s]
     norm_num [criticalLineParameter_re]
