@@ -25,6 +25,8 @@ open scoped ComplexConjugate InnerProductSpace
 
 namespace GenuineZeroUniformAtlasEnergy
 
+open CPFormal.Analytic.Cp
+
 noncomputable section
 
 /-- Imaginary coordinate of the same phase-rotated pairing whose real
