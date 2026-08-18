@@ -90,6 +90,59 @@ theorem quadraticMicroscopicCoercivity_sub_eq_perturbationLedger
   field_simp [henergy, henergy₀]
   ring
 
+/-- Once the three perturbation-ledger terms are bounded separately, their
+sum bounds the error of the reoptimized microscopic coefficient.  This lemma
+is deliberately agnostic about where the three estimates come from; the
+cutoff value/first/second-jet theorems can feed them without changing the
+algebraic quotient again. -/
+theorem abs_quadraticMicroscopicCoercivity_sub_le_of_perturbation_bounds
+    (energy energy₀ gradient gradient₀
+      localCoercivity localCoercivity₀
+      curvatureError gradientError energyError : ℝ)
+    (henergy : energy ≠ 0) (henergy₀ : energy₀ ≠ 0)
+    (hcurvature :
+      |localCoercivity - localCoercivity₀| ≤ curvatureError)
+    (hgradient :
+      |(gradient ^ 2 - gradient₀ ^ 2) / (4 * energy)| ≤ gradientError)
+    (henergyError :
+      |gradient₀ ^ 2 * (energy₀ - energy) /
+          (4 * energy * energy₀)| ≤ energyError) :
+    |quadraticMicroscopicCoercivity energy gradient localCoercivity -
+        quadraticMicroscopicCoercivity energy₀ gradient₀ localCoercivity₀| ≤
+      curvatureError + gradientError + energyError := by
+  rw [quadraticMicroscopicCoercivity_sub_eq_perturbationLedger
+    energy energy₀ gradient gradient₀ localCoercivity localCoercivity₀
+    henergy henergy₀]
+  let curvatureTerm := localCoercivity - localCoercivity₀
+  let gradientTerm := (gradient ^ 2 - gradient₀ ^ 2) / (4 * energy)
+  let energyTerm :=
+    gradient₀ ^ 2 * (energy₀ - energy) / (4 * energy * energy₀)
+  have hfirst :
+      ‖curvatureTerm - gradientTerm‖ ≤
+        ‖curvatureTerm‖ + ‖gradientTerm‖ :=
+    norm_sub_le curvatureTerm gradientTerm
+  have hsecond :
+      ‖(curvatureTerm - gradientTerm) - energyTerm‖ ≤
+        ‖curvatureTerm - gradientTerm‖ + ‖energyTerm‖ :=
+    norm_sub_le (curvatureTerm - gradientTerm) energyTerm
+  have hcurvature' : ‖curvatureTerm‖ ≤ curvatureError := by
+    simpa [curvatureTerm, Real.norm_eq_abs] using hcurvature
+  have hgradient' : ‖gradientTerm‖ ≤ gradientError := by
+    simpa [gradientTerm, Real.norm_eq_abs] using hgradient
+  have henergyError' : ‖energyTerm‖ ≤ energyError := by
+    simpa [energyTerm, Real.norm_eq_abs] using henergyError
+  have htotal :
+      ‖(curvatureTerm - gradientTerm) - energyTerm‖ ≤
+        curvatureError + gradientError + energyError := by
+    calc
+      ‖(curvatureTerm - gradientTerm) - energyTerm‖ ≤
+          ‖curvatureTerm - gradientTerm‖ + ‖energyTerm‖ := hsecond
+      _ ≤ (‖curvatureTerm‖ + ‖gradientTerm‖) + ‖energyTerm‖ := by
+        gcongr
+      _ ≤ curvatureError + gradientError + energyError := by
+        gcongr
+  simpa [curvatureTerm, gradientTerm, energyTerm, Real.norm_eq_abs] using htotal
+
 /-- The empirical phase formula is not a separate ansatz: it is exactly the
 quadratic microscopic coefficient with leading residual energy
 `rho + x^2/kappa`, leading radial gradient `2x`, and limiting local curvature
