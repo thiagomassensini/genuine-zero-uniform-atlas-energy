@@ -81,7 +81,7 @@ theorem norm_empiricalScaledCameraTailError_critical_value_le
   rw [empiricalScaledCameraTailError_eq_nativeExplicitRadiusScaledTailError]
   exact norm_nativeExplicitRadiusScaledTailError_critical_value_le
     camera.period (camera.label / 2) M
-    (by omega)
+    (Nat.succ_le_iff.mpr (empiricalCamera_period_pos camera))
     (empiricalCamera_retainedRadius_le_period_sub_one camera)
     hM time
 
@@ -95,7 +95,7 @@ theorem norm_iteratedDeriv_one_empiricalScaledCameraTailError_critical_le
   rw [empiricalScaledCameraTailError_fun_eq_native]
   exact norm_nativeExplicitRadiusScaledTailError_critical_first_le
     camera.period (camera.label / 2) M
-    (by omega)
+    (Nat.succ_le_iff.mpr (empiricalCamera_period_pos camera))
     (empiricalCamera_retainedRadius_le_period_sub_one camera)
     hM time
 
@@ -109,7 +109,7 @@ theorem norm_iteratedDeriv_two_empiricalScaledCameraTailError_critical_le
   rw [empiricalScaledCameraTailError_fun_eq_native]
   exact norm_nativeExplicitRadiusScaledTailError_critical_second_le
     camera.period (camera.label / 2) M
-    (by omega)
+    (Nat.succ_le_iff.mpr (empiricalCamera_period_pos camera))
     (empiricalCamera_retainedRadius_le_period_sub_one camera)
     hM time
 
@@ -150,10 +150,11 @@ theorem empiricalScaledFiniteCameraResidual_sub_leading_eq_neg_tailError
     empiricalScaledFiniteCameraResidual camera M s -
         empiricalLeadingCutoffVector s camera =
       -empiricalScaledCameraTailError camera M s := by
+  unfold empiricalScaledFiniteCameraResidual
   rw [finiteEmpiricalCameraCharacteristic_eq_neg_cutoffTail_of_zero
     camera M hs hzero]
   rw [empiricalLeadingCutoffVector_apply_eq_neg_tailCoefficient]
-  unfold empiricalScaledFiniteCameraResidual empiricalScaledCameraTailError
+  unfold empiricalScaledCameraTailError
   ring
 
 /-- Explicit value-channel approximation of the scaled finite residual at a
