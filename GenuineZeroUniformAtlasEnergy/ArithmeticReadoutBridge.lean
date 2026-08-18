@@ -1,5 +1,5 @@
 import GenuineZeroUniformAtlasEnergy.FinalConfinementProbe
-import GenuineZeroUniformAtlasEnergy.EmpiricalTransverseDataCrosswalk
+import GenuineZeroUniformAtlasEnergy.EmpiricalFiniteTransverseData
 import NativeCarryC3Crosswalk.ArithmeticNonlocalTrace
 
 /-!
