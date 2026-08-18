@@ -139,6 +139,85 @@ theorem abs_energyDenominatorChannel_le_of_primitive_bounds
         (4 * energyFloor * modelEnergyFloor) :=
       div_le_div_of_nonneg_left hnumNonneg hfloorDenPos hdenComparison
 
+/-- The Schur coefficient is the primitive radial curvature plus the residual
+`a` channel, minus the clock-mixing correction. -/
+theorem TransverseJet.localCoercivity_eq_kappa_add_a_sub_b_sq_div
+    (j : TransverseJet) (hden : j.kappa - j.a ≠ 0) :
+    j.localCoercivity =
+      j.kappa + j.a - j.b ^ 2 / (j.kappa - j.a) := by
+  unfold TransverseJet.localCoercivity TransverseJet.discriminant
+  field_simp [hden]
+  ring
+
+/-- Primitive bounds for `kappa`, `a`, `b`, and the temporal denominator
+control the finite Schur coefficient directly. -/
+theorem abs_transverseLocalCoercivity_sub_le_of_primitive_bounds
+    (j : TransverseJet)
+    (modelKappa kappaError aBound bBound denominatorFloor : ℝ)
+    (hdenominatorFloorPos : 0 < denominatorFloor)
+    (hdenominatorFloor : denominatorFloor ≤ |j.kappa - j.a|)
+    (hkappa : |j.kappa - modelKappa| ≤ kappaError)
+    (ha : |j.a| ≤ aBound)
+    (hb : |j.b| ≤ bBound) :
+    |j.localCoercivity - modelKappa| ≤
+      kappaError + aBound + bBound ^ 2 / denominatorFloor := by
+  have hdenAbsPos : 0 < |j.kappa - j.a| :=
+    lt_of_lt_of_le hdenominatorFloorPos hdenominatorFloor
+  have hden : j.kappa - j.a ≠ 0 := abs_pos.mp hdenAbsPos
+  have hbBoundNonneg : 0 ≤ bBound :=
+    le_trans (abs_nonneg _) hb
+  have hbSq : |j.b| ^ 2 ≤ bBound ^ 2 := by
+    have hmul := mul_le_mul hb hb (abs_nonneg _) hbBoundNonneg
+    simpa [pow_two] using hmul
+  have hbSqAbs : |j.b ^ 2| ≤ bBound ^ 2 := by
+    rw [abs_pow]
+    exact hbSq
+  have hfrac :
+      |j.b ^ 2 / (j.kappa - j.a)| ≤
+        bBound ^ 2 / denominatorFloor := by
+    rw [abs_div]
+    calc
+      |j.b ^ 2| / |j.kappa - j.a| ≤
+          bBound ^ 2 / |j.kappa - j.a| :=
+        div_le_div_of_nonneg_right hbSqAbs (le_of_lt hdenAbsPos)
+      _ ≤ bBound ^ 2 / denominatorFloor :=
+        div_le_div_of_nonneg_left (sq_nonneg bBound)
+          hdenominatorFloorPos hdenominatorFloor
+  rw [j.localCoercivity_eq_kappa_add_a_sub_b_sq_div hden]
+  have hrewrite :
+      j.kappa + j.a - j.b ^ 2 / (j.kappa - j.a) - modelKappa =
+        ((j.kappa - modelKappa) + j.a) -
+          j.b ^ 2 / (j.kappa - j.a) := by
+    ring
+  rw [hrewrite]
+  have hkappa' : ‖j.kappa - modelKappa‖ ≤ kappaError := by
+    simpa [Real.norm_eq_abs] using hkappa
+  have ha' : ‖j.a‖ ≤ aBound := by
+    simpa [Real.norm_eq_abs] using ha
+  have hfrac' :
+      ‖j.b ^ 2 / (j.kappa - j.a)‖ ≤
+        bBound ^ 2 / denominatorFloor := by
+    simpa [Real.norm_eq_abs] using hfrac
+  have hsum :
+      ‖(j.kappa - modelKappa) + j.a‖ ≤
+        kappaError + aBound := by
+    calc
+      ‖(j.kappa - modelKappa) + j.a‖ ≤
+          ‖j.kappa - modelKappa‖ + ‖j.a‖ := norm_add_le _ _
+      _ ≤ kappaError + aBound := add_le_add hkappa' ha'
+  have htotal :
+      ‖((j.kappa - modelKappa) + j.a) -
+          j.b ^ 2 / (j.kappa - j.a)‖ ≤
+        kappaError + aBound + bBound ^ 2 / denominatorFloor := by
+    calc
+      ‖((j.kappa - modelKappa) + j.a) -
+          j.b ^ 2 / (j.kappa - j.a)‖ ≤
+        ‖(j.kappa - modelKappa) + j.a‖ +
+          ‖j.b ^ 2 / (j.kappa - j.a)‖ := norm_sub_le _ _
+      _ ≤ kappaError + aBound + bBound ^ 2 / denominatorFloor :=
+        add_le_add hsum hfrac'
+  simpa [Real.norm_eq_abs] using htotal
+
 namespace PhaseProjectionData
 
 /-- Primitive `O(1/M)` jet estimates and fixed positive denominator floors
