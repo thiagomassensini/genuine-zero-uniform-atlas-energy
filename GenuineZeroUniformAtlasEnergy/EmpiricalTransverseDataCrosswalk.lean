@@ -55,7 +55,7 @@ namespace PhaseProjectionData
 
 /-- Quadratic clock envelope before the temporal direction is reoptimized. -/
 def clockEnvelope
-    (d : PhaseProjectionData) (x y tau : ℝ) : ℝ :=
+    (d : PhaseProjectionData) (_x y tau : ℝ) : ℝ :=
   d.amplitudeSq - 2 * y * tau + d.kappa * tau ^ 2
 
 /-- Exact minimizing temporal displacement of the quadratic clock envelope. -/
