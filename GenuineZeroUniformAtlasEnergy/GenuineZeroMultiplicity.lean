@@ -13,7 +13,7 @@ A Genuine zero of multiplicity `m` is represented by the usual finite jet:
 all iterated derivatives below `m` vanish and the `m`th derivative is nonzero.
 Mathlib's `analyticOrderAt` then identifies this jet datum with analytic order
 `m`.  The empirical six-camera root jet is obtained by multiplying the common
-Genuine jet by the already formalized nonvanishing camera factors.
+Genuine jet by the already formalized camera factors.
 
 For `m = 1` the root-jet vector is exactly the existing
 `empiricalClockTangentVector`, so the current quadratic PR remains a literal
@@ -129,6 +129,107 @@ theorem empiricalRootJetVector_ne_zero_of_multiplicity
     (hs : s.re = (1 : ℝ) / 2) :
     empiricalRootJetVector order s ≠ 0 :=
   empiricalRootJetVector_ne_zero hs hroot.leading_iteratedDeriv_ne_zero
+
+/-- At a Genuine zero of order `m`, the `m`th derivative of every faithful
+empirical camera is exactly its limiting factor times the common leading
+Genuine jet.  This is the public finite-Leibniz replacement for the private
+near-axis helper: every term containing a lower Genuine derivative vanishes. -/
+theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
+    (camera : EmpiricalCamera) {order : ℕ} {s : ℂ}
+    (hroot : IsGenuineZeroOfMultiplicity order s) :
+    iteratedDeriv order (empiricalCameraCharacteristic camera) s =
+      empiricalRootJetVector order s camera := by
+  have heq :=
+    empiricalCameraCharacteristic_eventuallyEq_limitingFactor_mul_genuine
+      camera hroot.mem_strip
+  have hfactor :
+      ContDiffAt ℂ order (empiricalLimitingFactor camera) s :=
+    ((differentiable_empiricalLimitingFactor camera).analyticAt s).contDiffAt
+  have hgenuine : ContDiffAt ℂ order genuineContinuation s :=
+    hroot.analyticAt.contDiffAt
+  have hleibniz :
+      iteratedDeriv order
+          (fun z : ℂ =>
+            empiricalLimitingFactor camera z * genuineContinuation z) s =
+        ∑ j ∈ Finset.range (order + 1),
+          (Nat.choose order j : ℂ) *
+            iteratedDeriv j (empiricalLimitingFactor camera) s *
+              iteratedDeriv (order - j) genuineContinuation s := by
+    simpa only [Pi.mul_apply] using
+      (iteratedDeriv_mul (n := order) (x := s) hfactor hgenuine)
+  have hsum :
+      (∑ j ∈ Finset.range (order + 1),
+          (Nat.choose order j : ℂ) *
+            iteratedDeriv j (empiricalLimitingFactor camera) s *
+              iteratedDeriv (order - j) genuineContinuation s) =
+        empiricalLimitingFactor camera s *
+          iteratedDeriv order genuineContinuation s := by
+    rw [Finset.sum_eq_single 0]
+    · simp
+    · intro j hjmem hjne
+      have hjlt : j < order + 1 := Finset.mem_range.mp hjmem
+      have hjle : j ≤ order := Nat.lt_succ_iff.mp hjlt
+      have hjpos : 0 < j := Nat.pos_of_ne_zero hjne
+      have hsub : order - j < order :=
+        Nat.sub_lt hroot.order_pos hjpos
+      have hzero := hroot.lower_iteratedDeriv_eq_zero (order - j) hsub
+      simp [hzero]
+    · simp
+  calc
+    iteratedDeriv order (empiricalCameraCharacteristic camera) s =
+        iteratedDeriv order
+          (fun z : ℂ =>
+            empiricalLimitingFactor camera z * genuineContinuation z) s := by
+      simpa using heq.iteratedDeriv_eq order
+    _ = ∑ j ∈ Finset.range (order + 1),
+          (Nat.choose order j : ℂ) *
+            iteratedDeriv j (empiricalLimitingFactor camera) s *
+              iteratedDeriv (order - j) genuineContinuation s := hleibniz
+    _ = empiricalLimitingFactor camera s *
+          iteratedDeriv order genuineContinuation s := hsum
+    _ = empiricalRootJetVector order s camera := rfl
+
+/-- Concrete order-`m` derivative stack of all six infinite empirical
+characteristics. -/
+def empiricalCameraIteratedDerivativeStack
+    (order : ℕ) (s : ℂ) : EmpiricalCameraStack :=
+  WithLp.toLp 2 fun camera =>
+    iteratedDeriv order (empiricalCameraCharacteristic camera) s
+
+@[simp] theorem empiricalCameraIteratedDerivativeStack_apply
+    (order : ℕ) (s : ℂ) (camera : EmpiricalCamera) :
+    empiricalCameraIteratedDerivativeStack order s camera =
+      iteratedDeriv order (empiricalCameraCharacteristic camera) s := by
+  rfl
+
+/-- The already existing derivative stack is the first member of the general
+iterated-derivative stack. -/
+@[simp] theorem empiricalCameraIteratedDerivativeStack_one (s : ℂ) :
+    empiricalCameraIteratedDerivativeStack 1 s =
+      empiricalCameraDerivativeStack s := by
+  ext camera
+  simp [empiricalCameraIteratedDerivativeStack,
+    empiricalCameraDerivativeStack, iteratedDeriv_one]
+
+/-- Stack form of the order-`m` empirical root-jet crosswalk. -/
+theorem empiricalCameraIteratedDerivativeStack_eq_rootJet_of_multiplicity
+    {order : ℕ} {s : ℂ}
+    (hroot : IsGenuineZeroOfMultiplicity order s) :
+    empiricalCameraIteratedDerivativeStack order s =
+      empiricalRootJetVector order s := by
+  ext camera
+  exact
+    iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet camera hroot
+
+/-- On the critical line, the concrete order-`m` camera derivative stack is
+nonzero for every finite Genuine multiplicity datum. -/
+theorem empiricalCameraIteratedDerivativeStack_ne_zero_of_multiplicity
+    {order : ℕ} {s : ℂ}
+    (hroot : IsGenuineZeroOfMultiplicity order s)
+    (hs : s.re = (1 : ℝ) / 2) :
+    empiricalCameraIteratedDerivativeStack order s ≠ 0 := by
+  rw [empiricalCameraIteratedDerivativeStack_eq_rootJet_of_multiplicity hroot]
+  exact empiricalRootJetVector_ne_zero_of_multiplicity hroot hs
 
 end
 
