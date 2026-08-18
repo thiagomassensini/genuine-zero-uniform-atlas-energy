@@ -71,6 +71,25 @@ theorem quadraticMicroscopicCoercivity_mul_sq_le_envelope
     energy gradient localCoercivity delta (ne_of_gt henergy)] at hnonneg
   linarith
 
+/-- Exact perturbation ledger for the reoptimized coefficient.  It separates
+an error in local curvature, an error in the squared gradient, and an error in
+the residual-energy denominator.  This is the algebraic interface needed to
+feed value/first/second cutoff-jet bounds into an `O(1/M)` estimate for the
+microscopic coefficient. -/
+theorem quadraticMicroscopicCoercivity_sub_eq_perturbationLedger
+    (energy energy₀ gradient gradient₀
+      localCoercivity localCoercivity₀ : ℝ)
+    (henergy : energy ≠ 0) (henergy₀ : energy₀ ≠ 0) :
+    quadraticMicroscopicCoercivity energy gradient localCoercivity -
+        quadraticMicroscopicCoercivity energy₀ gradient₀ localCoercivity₀ =
+      (localCoercivity - localCoercivity₀) -
+        (gradient ^ 2 - gradient₀ ^ 2) / (4 * energy) -
+        gradient₀ ^ 2 * (energy₀ - energy) /
+          (4 * energy * energy₀) := by
+  unfold quadraticMicroscopicCoercivity
+  field_simp [henergy, henergy₀]
+  ring
+
 /-- The empirical phase formula is not a separate ansatz: it is exactly the
 quadratic microscopic coefficient with leading residual energy
 `rho + x^2/kappa`, leading radial gradient `2x`, and limiting local curvature
