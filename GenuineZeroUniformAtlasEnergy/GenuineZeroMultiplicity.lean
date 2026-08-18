@@ -142,6 +142,11 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
   have heq :=
     empiricalCameraCharacteristic_eventuallyEq_limitingFactor_mul_genuine
       camera hroot.mem_strip
+  have heqPi :
+      empiricalCameraCharacteristic camera =ᶠ[𝓝 s]
+        empiricalLimitingFactor camera * genuineContinuation := by
+    filter_upwards [heq] with z hz
+    simpa only [Pi.mul_apply] using hz
   have hfactor :
       ContDiffAt ℂ order (empiricalLimitingFactor camera) s :=
     ((differentiable_empiricalLimitingFactor camera).analyticAt s).contDiffAt
@@ -149,14 +154,12 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
     hroot.analyticAt.contDiffAt
   have hleibniz :
       iteratedDeriv order
-          (fun z : ℂ =>
-            empiricalLimitingFactor camera z * genuineContinuation z) s =
+          (empiricalLimitingFactor camera * genuineContinuation) s =
         ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
-              iteratedDeriv (order - j) genuineContinuation s := by
-    simpa only [Pi.mul_apply] using
-      (iteratedDeriv_mul hfactor hgenuine)
+              iteratedDeriv (order - j) genuineContinuation s :=
+    iteratedDeriv_mul hfactor hgenuine
   have hsum :
       (∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
@@ -173,17 +176,11 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
       have hzero := hroot.lower_iteratedDeriv_eq_zero (order - j) hsub
       simp [hzero]
     · simp
-  change
-    iteratedDeriv order
-        (fun z : ℂ => empiricalCameraCharacteristic camera z) s =
-      empiricalRootJetVector order s camera
   calc
-    iteratedDeriv order
-        (fun z : ℂ => empiricalCameraCharacteristic camera z) s =
+    iteratedDeriv order (empiricalCameraCharacteristic camera) s =
       iteratedDeriv order
-        (fun z : ℂ =>
-          empiricalLimitingFactor camera z * genuineContinuation z) s :=
-      heq.iteratedDeriv_eq order
+        (empiricalLimitingFactor camera * genuineContinuation) s :=
+      heqPi.iteratedDeriv_eq order
     _ = ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
