@@ -95,7 +95,9 @@ theorem abs_energyDenominatorChannel_le_of_primitive_bounds
   have henergyDifferenceBoundNonneg : 0 ≤ energyDifferenceBound :=
     le_trans (abs_nonneg _) henergyDifference
   have hgradientSq : |modelGradient| ^ 2 ≤ gradientBound ^ 2 := by
-    nlinarith [sq_nonneg (gradientBound - |modelGradient|)]
+    have hmul :=
+      mul_le_mul hgradient hgradient (abs_nonneg _) hgradientBoundNonneg
+    simpa [pow_two] using hmul
   have hgradientSqAbs : |modelGradient ^ 2| ≤ gradientBound ^ 2 := by
     rw [abs_pow]
     exact hgradientSq
