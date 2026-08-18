@@ -172,11 +172,7 @@ theorem norm_empiricalCameraCutoffTail_logCorrectedDerivative_critical_le
           (criticalLineParameter time)‖ ≤
         (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
           nativeExplicitRadiusCriticalCauchyRadius := by
-    change
-      ‖iteratedDeriv 1 (empiricalScaledCameraTailError camera M)
-          (criticalLineParameter time)‖ ≤
-        (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
-          nativeExplicitRadiusCriticalCauchyRadius
+    rw [← iteratedDeriv_one]
     exact
       norm_iteratedDeriv_one_empiricalScaledCameraTailError_critical_le
         camera M hM time
@@ -192,8 +188,8 @@ theorem norm_empiricalCameraCutoffTail_logCorrectedDerivative_critical_le
     _ ≤ ‖deriv (empiricalNativeTailCoefficient camera)
           (criticalLineParameter time)‖ +
         (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
-          nativeExplicitRadiusCriticalCauchyRadius :=
-      add_le_add_left herror _
+          nativeExplicitRadiusCriticalCauchyRadius := by
+      exact add_le_add (le_refl _) herror
 
 /-- Main first-jet estimate: at a Genuine zero, the phase-corrected finite
 camera derivative differs from the concrete infinite clock tangent by the
