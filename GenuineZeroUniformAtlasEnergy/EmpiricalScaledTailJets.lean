@@ -1,5 +1,6 @@
 import GenuineZeroUniformAtlasEnergy.EmpiricalStackDifferential
 import GenuineZeroUniformAtlasEnergy.NativeCutoffExactScaledTailCauchy
+import GenuineZeroUniformAtlasEnergy.NativeCutoffDifferentiatedRemainder
 
 /-!
 # Scaled cutoff-tail jets for the empirical six-camera stack
@@ -15,9 +16,11 @@ channel is therefore controlled componentwise by an explicit `C_camera(t)/M`
 bound.
 
 The derivative bounds recorded here concern the scaled tail as a holomorphic
-function of the spectral parameter.  Converting them into bounds for the
-finite reoptimized gradient and local curvature remains a separate algebraic
-step; no such identification is inserted into the definitions below.
+function of the spectral parameter.  They are also transported through the
+exact factor `M^(-s-1)`, exposing the unavoidable logarithmic first- and
+second-jet losses.  Converting these analytic jets into the finite reoptimized
+gradient and local curvature remains a separate algebraic step; no such
+identification is inserted into the definitions below.
 -/
 
 namespace GenuineZeroUniformAtlasEnergy
@@ -134,6 +137,73 @@ theorem empiricalScaledCameraTailError_critical_three_bounds
       camera M hM time,
     norm_iteratedDeriv_two_empiricalScaledCameraTailError_critical_le
       camera M hM time⟩
+
+/-- First logarithmic jet obtained by transporting the scaled empirical tail
+error through the exact unscaled factor `M^(-s-1)`. -/
+def empiricalTransportedCameraTailFirstJetError
+    (camera : EmpiricalCamera) (M : ℕ) (s : ℂ) : ℂ :=
+  nativeCutoffModelFirstJet M
+    (empiricalScaledCameraTailError camera M)
+    (iteratedDeriv 1 (empiricalScaledCameraTailError camera M)) s
+
+/-- Second logarithmic jet obtained from the same exact transport. -/
+def empiricalTransportedCameraTailSecondJetError
+    (camera : EmpiricalCamera) (M : ℕ) (s : ℂ) : ℂ :=
+  nativeCutoffModelSecondJet M
+    (empiricalScaledCameraTailError camera M)
+    (iteratedDeriv 1 (empiricalScaledCameraTailError camera M))
+    (iteratedDeriv 2 (empiricalScaledCameraTailError camera M)) s
+
+/-- Camera-specialized differentiated-remainder bound.  The input Cauchy
+errors are all explicit multiples of `1/M`; exact transport contributes one
+power of `log M` to the first jet and two powers to the second jet. -/
+theorem norm_empiricalTransportedCameraTail_first_second_critical_le
+    (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
+    ‖empiricalTransportedCameraTailFirstJetError camera M
+        (criticalLineParameter time)‖ ≤
+      ‖nativeCutoffScale M (criticalLineParameter time)‖ *
+        (((empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
+            nativeExplicitRadiusCriticalCauchyRadius) +
+          ‖nativeCutoffLog M‖ *
+            (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ))) ∧
+      ‖empiricalTransportedCameraTailSecondJetError camera M
+          (criticalLineParameter time)‖ ≤
+        ‖nativeCutoffScale M (criticalLineParameter time)‖ *
+          ((2 *
+              (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
+                nativeExplicitRadiusCriticalCauchyRadius ^ 2) +
+            2 * ‖nativeCutoffLog M‖ *
+              ((empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
+                nativeExplicitRadiusCriticalCauchyRadius) +
+            ‖nativeCutoffLog M‖ ^ 2 *
+              (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ))) := by
+  have hthree :=
+    empiricalScaledCameraTailError_critical_three_bounds
+      camera M hM time
+  have hbounds :=
+    cutoffModel_first_second_jet_error_bounds
+      M
+      (empiricalScaledCameraTailError camera M)
+      (iteratedDeriv 1 (empiricalScaledCameraTailError camera M))
+      (iteratedDeriv 2 (empiricalScaledCameraTailError camera M))
+      (fun _ : ℂ => 0)
+      (fun _ : ℂ => 0)
+      (fun _ : ℂ => 0)
+      (criticalLineParameter time)
+      (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ))
+      ((empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
+        nativeExplicitRadiusCriticalCauchyRadius)
+      (2 *
+        (empiricalScaledCameraTailCauchyConstant camera time / (M : ℝ)) /
+          nativeExplicitRadiusCriticalCauchyRadius ^ 2)
+      (by simpa using hthree.1)
+      (by simpa using hthree.2.1)
+      (by simpa using hthree.2.2)
+  constructor
+  · simpa [empiricalTransportedCameraTailFirstJetError,
+      nativeCutoffModelFirstJet] using hbounds.1
+  · simpa [empiricalTransportedCameraTailSecondJetError,
+      nativeCutoffModelSecondJet] using hbounds.2
 
 /-- Naturally scaled finite empirical residual. -/
 def empiricalScaledFiniteCameraResidual
