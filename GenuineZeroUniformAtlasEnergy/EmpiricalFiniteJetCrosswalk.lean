@@ -154,6 +154,38 @@ theorem deriv_finiteEmpiricalCameraCharacteristic_eq_clockTangent_sub_cutoffTail
       rw [deriv_empiricalCameraCharacteristic_eq_clockTangent
         camera hsStrip (by simpa [s] using hzero)]
 
+/-- Exact logarithmically corrected first-jet identity.  Adding
+`log(M) * chi_{b,M}` cancels the derivative of the critical cutoff phase on
+the value channel and leaves the clock tangent minus the correspondingly
+corrected unresolved-tail jet. -/
+theorem finiteEmpiricalCamera_logCorrectedDerivative_eq_clockTangent_sub_tailLogJet
+    (camera : EmpiricalCamera) (M : ℕ) (time : ℝ)
+    (hzero : genuineContinuation (criticalLineParameter time) = 0) :
+    deriv (finiteEmpiricalCameraCharacteristic camera M)
+          (criticalLineParameter time) +
+        nativeCutoffLog M *
+          finiteEmpiricalCameraCharacteristic camera M
+            (criticalLineParameter time) =
+      empiricalClockTangentVector (criticalLineParameter time) camera -
+        (deriv (empiricalCameraCutoffTail camera M)
+            (criticalLineParameter time) +
+          nativeCutoffLog M *
+            empiricalCameraCutoffTail camera M
+              (criticalLineParameter time)) := by
+  have hsHalf : -1 < (criticalLineParameter time).re := by
+    norm_num [criticalLineParameter_re]
+  have hcameraZero :
+      empiricalCameraCharacteristic camera
+        (criticalLineParameter time) = 0 :=
+    empiricalCameraCharacteristic_zero_of_genuineContinuation_zero
+      camera (criticalLineParameter_mem_genuineCriticalStrip time) hzero
+  have hvalue :=
+    finiteEmpiricalCameraCharacteristic_eq_neg_cutoffTail_of_zero
+      camera M hsHalf hcameraZero
+  rw [deriv_finiteEmpiricalCameraCharacteristic_eq_clockTangent_sub_cutoffTail
+    camera M time hzero, hvalue]
+  ring
+
 /-- Finite derivative stack of the faithful six empirical cameras. -/
 def finiteEmpiricalCameraDerivativeStack
     (M : ℕ) (s : ℂ) : EmpiricalCameraStack :=
