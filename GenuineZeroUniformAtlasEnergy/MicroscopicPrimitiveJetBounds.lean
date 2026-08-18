@@ -181,7 +181,7 @@ theorem eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds
   · intro M hM
     have hpositive : 0 < |energy M| :=
       lt_of_lt_of_le henergyFloorPos (henergyFloor M hM)
-    exact (abs_pos.mp hpositive)
+    exact abs_pos.mp hpositive
   · intro M hM
     have hbound :=
       abs_gradientSquareChannel_le_of_primitive_bounds
@@ -191,11 +191,9 @@ theorem eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds
         henergyFloorPos (henergyFloor M hM)
         (hgradientDifference M hM) (hgradientSum M hM)
     calc
-      |gradient M ^ 2 - (2 * phaseProjection M) ^ 2 /
-          (4 * energy M)| =
-        |(gradient M ^ 2 - (2 * phaseProjection M) ^ 2) /
-          (4 * energy M)| := by ring_nf
-      _ ≤ (gradientDifferenceConstant / (M : ℝ)) *
+      |(gradient M ^ 2 - (2 * phaseProjection M) ^ 2) /
+          (4 * energy M)| ≤
+        (gradientDifferenceConstant / (M : ℝ)) *
           gradientSumBound / (4 * energyFloor) := hbound
       _ = (gradientDifferenceConstant * gradientSumBound /
           (4 * energyFloor)) / (M : ℝ) := by ring
@@ -213,8 +211,17 @@ theorem eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds
         (by simpa [modelEnergy] using hmodelEnergyFloor M)
         (hmodelGradient M)
         (by simpa [modelEnergy] using henergyDifference M hM)
-    simpa [modelEnergy] using
-      (hbound.trans_eq (by ring))
+    calc
+      |(2 * phaseProjection M) ^ 2 *
+          ((d.rho + (phaseProjection M) ^ 2 / d.kappa) - energy M) /
+            (4 * energy M *
+              (d.rho + (phaseProjection M) ^ 2 / d.kappa))| ≤
+        modelGradientBound ^ 2 *
+          (energyDifferenceConstant / (M : ℝ)) /
+            (4 * energyFloor * modelEnergyFloor) := by
+              simpa [modelEnergy] using hbound
+      _ = (modelGradientBound ^ 2 * energyDifferenceConstant /
+          (4 * energyFloor * modelEnergyFloor)) / (M : ℝ) := by ring
 
 end PhaseProjectionData
 
