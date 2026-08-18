@@ -108,6 +108,7 @@ theorem empiricalStackPhaseProjectionData_isAdmissible_iff_multiplicity_one
   constructor
   · intro hadmissible
     by_contra hne
+    have horderPos : 0 < order := hroot.order_pos
     have horder : 1 < order := by omega
     exact
       (empiricalStackPhaseProjectionData_not_admissible_of_multiplicity_gt_one
@@ -128,6 +129,7 @@ theorem empiricalStackKappa_pos_iff_multiplicity_one
   constructor
   · intro hkappa
     by_contra hne
+    have horderPos : 0 < order := hroot.order_pos
     have horder : 1 < order := by omega
     rw [empiricalStackKappa_eq_zero_of_multiplicity_gt_one
       hroot horder] at hkappa
