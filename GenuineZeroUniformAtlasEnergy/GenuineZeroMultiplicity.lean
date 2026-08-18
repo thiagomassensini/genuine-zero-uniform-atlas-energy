@@ -142,6 +142,10 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
   have heq :=
     empiricalCameraCharacteristic_eventuallyEq_limitingFactor_mul_genuine
       camera hroot.mem_strip
+  have heq' :
+      empiricalCameraCharacteristic camera =ᶠ[𝓝 s]
+        (empiricalLimitingFactor camera * genuineContinuation) := by
+    simpa only [Pi.mul_apply] using heq
   have hfactor :
       ContDiffAt ℂ order (empiricalLimitingFactor camera) s :=
     ((differentiable_empiricalLimitingFactor camera).analyticAt s).contDiffAt
@@ -166,7 +170,6 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
     · simp
     · intro j hjmem hjne
       have hjlt : j < order + 1 := Finset.mem_range.mp hjmem
-      have hjle : j ≤ order := Nat.lt_succ_iff.mp hjlt
       have hjpos : 0 < j := Nat.pos_of_ne_zero hjne
       have hsub : order - j < order :=
         Nat.sub_lt hroot.order_pos hjpos
@@ -176,8 +179,8 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
   calc
     iteratedDeriv order (empiricalCameraCharacteristic camera) s =
         iteratedDeriv order
-          (empiricalLimitingFactor camera * genuineContinuation) s := by
-      simpa only [Pi.mul_apply] using heq.iteratedDeriv_eq order
+          (empiricalLimitingFactor camera * genuineContinuation) s :=
+      heq'.iteratedDeriv_eq order
     _ = ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
