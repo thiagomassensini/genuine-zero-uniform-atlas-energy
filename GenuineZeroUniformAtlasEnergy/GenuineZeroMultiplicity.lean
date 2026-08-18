@@ -142,10 +142,6 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
   have heq :=
     empiricalCameraCharacteristic_eventuallyEq_limitingFactor_mul_genuine
       camera hroot.mem_strip
-  have heq' :
-      empiricalCameraCharacteristic camera =ᶠ[𝓝 s]
-        (empiricalLimitingFactor camera * genuineContinuation) := by
-    simpa only [Pi.mul_apply] using heq
   have hfactor :
       ContDiffAt ℂ order (empiricalLimitingFactor camera) s :=
     ((differentiable_empiricalLimitingFactor camera).analyticAt s).contDiffAt
@@ -153,12 +149,14 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
     hroot.analyticAt.contDiffAt
   have hleibniz :
       iteratedDeriv order
-          (empiricalLimitingFactor camera * genuineContinuation) s =
+          (fun z : ℂ =>
+            empiricalLimitingFactor camera z * genuineContinuation z) s =
         ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
-              iteratedDeriv (order - j) genuineContinuation s :=
-    iteratedDeriv_mul hfactor hgenuine
+              iteratedDeriv (order - j) genuineContinuation s := by
+    simpa only [Pi.mul_apply] using
+      (iteratedDeriv_mul hfactor hgenuine)
   have hsum :
       (∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
@@ -168,19 +166,24 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
           iteratedDeriv order genuineContinuation s := by
     rw [Finset.sum_eq_single 0]
     · simp
-    · intro j hjmem hjne
-      have hjlt : j < order + 1 := Finset.mem_range.mp hjmem
+    · intro j _hjmem hjne
       have hjpos : 0 < j := Nat.pos_of_ne_zero hjne
       have hsub : order - j < order :=
         Nat.sub_lt hroot.order_pos hjpos
       have hzero := hroot.lower_iteratedDeriv_eq_zero (order - j) hsub
       simp [hzero]
     · simp
+  change
+    iteratedDeriv order
+        (fun z : ℂ => empiricalCameraCharacteristic camera z) s =
+      empiricalRootJetVector order s camera
   calc
-    iteratedDeriv order (empiricalCameraCharacteristic camera) s =
-        iteratedDeriv order
-          (empiricalLimitingFactor camera * genuineContinuation) s :=
-      heq'.iteratedDeriv_eq order
+    iteratedDeriv order
+        (fun z : ℂ => empiricalCameraCharacteristic camera z) s =
+      iteratedDeriv order
+        (fun z : ℂ =>
+          empiricalLimitingFactor camera z * genuineContinuation z) s :=
+      heq.iteratedDeriv_eq order
     _ = ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
