@@ -84,9 +84,13 @@ theorem PhaseProjectionData.phaseCoercivity_eq_quadraticMicroscopicCoercivity
   have hdenPos : 0 < d.rho + x ^ 2 / d.kappa :=
     d.phaseDenominator_pos h x
   have hden : d.rho + x ^ 2 / d.kappa ≠ 0 := ne_of_gt hdenPos
+  have hscaledDenPos : 0 < d.kappa * d.rho + x ^ 2 :=
+    add_pos_of_pos_of_nonneg (mul_pos h.1 h.2.1) (sq_nonneg x)
+  have hscaledDen : d.kappa * d.rho + x ^ 2 ≠ 0 :=
+    ne_of_gt hscaledDenPos
   unfold PhaseProjectionData.phaseCoercivity quadraticMicroscopicCoercivity
-  field_simp [hkappa, hden]
-  ring_nf
+  field_simp [hkappa, hden, hscaledDen]
+  ring
 
 /-- Consequently the phase coercivity is an exact quadratic lower bound,
 uniformly in the transverse displacement, before any cutoff approximation is
