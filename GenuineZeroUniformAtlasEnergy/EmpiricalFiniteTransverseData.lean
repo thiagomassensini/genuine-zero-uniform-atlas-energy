@@ -198,9 +198,8 @@ theorem eventually_positive_finiteEmpiricalMicroscopicCoercivity_of_primitive_bo
       0 < empiricalStackRho (criticalLineParameter time) :=
     empiricalStackRho_pos hs hsimple
   have hmain :=
-    (empiricalStackPhaseProjectionData
-      (criticalLineParameter time)).
-        eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds
+    PhaseProjectionData.eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds
+      (empiricalStackPhaseProjectionData (criticalLineParameter time))
       hadmissible
       (fun M => finiteEmpiricalReoptimizedEnergy M time)
       (fun M => finiteEmpiricalRadialGradient M time)
