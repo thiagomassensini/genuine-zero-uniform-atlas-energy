@@ -38,10 +38,28 @@ parameter. -/
 theorem differentiable_empiricalLimitingFactor
     (camera : EmpiricalCamera) :
     Differentiable ℂ (empiricalLimitingFactor camera) := by
-  cases camera <;>
-    simp only [empiricalLimitingFactor, empiricalFullEvenCameraFactor,
-      naturalOddCameraFactor, cpChartFactor, naturalEvenCameraFactor] <;>
-    fun_prop (disch := norm_num)
+  cases camera with
+  | c2 =>
+      change Differentiable ℂ (naturalEvenCameraFactor 4)
+      unfold naturalEvenCameraFactor
+      fun_prop (disch := norm_num)
+  | c3 =>
+      change Differentiable ℂ (naturalOddCameraFactor 3)
+      exact differentiable_cpChartFactor 3 (by norm_num)
+  | c4 =>
+      change Differentiable ℂ (empiricalFullEvenCameraFactor 4)
+      unfold empiricalFullEvenCameraFactor
+      fun_prop (disch := norm_num)
+  | c5 =>
+      change Differentiable ℂ (naturalOddCameraFactor 5)
+      exact differentiable_cpChartFactor 5 (by norm_num)
+  | c6 =>
+      change Differentiable ℂ (empiricalFullEvenCameraFactor 6)
+      unfold empiricalFullEvenCameraFactor
+      fun_prop (disch := norm_num)
+  | c7 =>
+      change Differentiable ℂ (naturalOddCameraFactor 7)
+      exact differentiable_cpChartFactor 7 (by norm_num)
 
 /-- The open Genuine strip is a neighbourhood of each of its points. -/
 lemma genuineCriticalStrip_mem_nhds {s : ℂ}
@@ -114,7 +132,7 @@ theorem empiricalCameraDerivativeStack_eq_clockTangent_of_genuine_zero
     {s : ℂ} (hs : s ∈ genuineCriticalStrip)
     (hzero : genuineContinuation s = 0) :
     empiricalCameraDerivativeStack s = empiricalClockTangentVector s := by
-  funext camera
+  ext camera
   exact deriv_empiricalCameraCharacteristic_eq_clockTangent camera hs hzero
 
 /-- Consequently the `kappa` stored by the empirical phase data is exactly the
