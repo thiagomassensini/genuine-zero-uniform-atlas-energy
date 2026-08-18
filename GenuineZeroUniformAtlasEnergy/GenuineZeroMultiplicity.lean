@@ -149,14 +149,12 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
     hroot.analyticAt.contDiffAt
   have hleibniz :
       iteratedDeriv order
-          (fun z : ℂ =>
-            empiricalLimitingFactor camera z * genuineContinuation z) s =
+          (empiricalLimitingFactor camera * genuineContinuation) s =
         ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
-              iteratedDeriv (order - j) genuineContinuation s := by
-    simpa only [Pi.mul_apply] using
-      (iteratedDeriv_mul (n := order) (x := s) hfactor hgenuine)
+              iteratedDeriv (order - j) genuineContinuation s :=
+    iteratedDeriv_mul hfactor hgenuine
   have hsum :
       (∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
@@ -178,9 +176,8 @@ theorem iteratedDeriv_empiricalCameraCharacteristic_eq_rootJet
   calc
     iteratedDeriv order (empiricalCameraCharacteristic camera) s =
         iteratedDeriv order
-          (fun z : ℂ =>
-            empiricalLimitingFactor camera z * genuineContinuation z) s := by
-      simpa using heq.iteratedDeriv_eq order
+          (empiricalLimitingFactor camera * genuineContinuation) s := by
+      simpa only [Pi.mul_apply] using heq.iteratedDeriv_eq order
     _ = ∑ j ∈ Finset.range (order + 1),
           (Nat.choose order j : ℂ) *
             iteratedDeriv j (empiricalLimitingFactor camera) s *
