@@ -102,7 +102,7 @@ theorem empiricalCameraBlock_eq_spectralCameraBlock
   · have hcamera : camera = EmpiricalCamera.c2 := by
       cases camera <;> simp_all
     subst camera
-    simp only [EmpiricalCamera.radii, Finset.sum_singleton, if_pos rfl]
+    simp only [EmpiricalCamera.radii, Finset.sum_singleton]
     exact realCpPairBracket_eq_spectralCenteredBracketTerm
       EmpiricalCamera.c2 (by simp) index s
   · rw [if_neg htwo]
