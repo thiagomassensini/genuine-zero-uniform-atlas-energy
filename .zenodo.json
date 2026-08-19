@@ -1,11 +1,11 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, sharp cutoff-tail and collective raw-energy asymptotics, logarithmic cutoff jets, exact scaled-tail value/derivative bounds, and the concrete pointwise finite-to-infinite energy bridge. Version 0.12.0 adds an audited final-confinement frontier probe and a lateral canonical arithmetic-readout comparison while preserving the Genuine-first/native-first architecture. Carry geometry, quadratic amplitude, all-camera invariance, exact cutoff control, and real native operators remain foundational; the release does not promote readout-domain equivalences or numerical evidence to an unconditional confinement theorem.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.13.0 adds a kernel-checked microscopic coercivity bridge: exact moving-clock reoptimization, primitive quotient estimates, and concrete six-camera residual, corrected first-jet, pairing, energy, and Schur-coefficient reductions. The abstract eventual-positivity step now requires only a strictly positive phase floor together with vanishing perturbation channels, rather than the historical threshold phaseFloor > 4. The release does not promote the remaining uniform finite-jet bounds, denominator floors, compact-region coverage, numerical evidence, or readout-domain equivalences to an unconditional confinement theorem.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.12.0",
-  "publication_date": "2026-08-17",
+  "version": "0.13.0",
+  "publication_date": "2026-08-18",
   "language": "eng",
   "creators": [
     {
@@ -20,8 +20,11 @@
     "TFVD",
     "Green identity",
     "transverse coercivity",
-    "Hessian",
-    "primitive camera operator",
+    "microscopic coercivity",
+    "moving clock",
+    "Schur complement",
+    "primitive jet bounds",
+    "corrected first jet",
     "six-camera cutoff operator",
     "cutoff-tail asymptotic",
     "differentiated cutoff remainder",
@@ -31,10 +34,7 @@
     "phase projection",
     "uniform atlas",
     "critical half-abscissa",
-    "reproducible proof audit",
-    "pointwise energy limit",
-    "confinement frontier audit",
-    "canonical readout comparison"
+    "reproducible proof audit"
   ],
   "related_identifiers": [
     {

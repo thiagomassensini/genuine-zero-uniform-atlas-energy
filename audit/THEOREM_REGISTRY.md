@@ -1,27 +1,20 @@
-# Theorem Registry
+# Theorem registry status
 
-Release `0.12.0` contains 156 ordered public theorem reports. The locked
-`0.6.0` base surface remains in
-[`theorem-registry.json`](theorem-registry.json). The current cumulative
-extension is
-[`theorem-registry-0.12.0.json`](theorem-registry-0.12.0.json); the historical
-`0.7.0` through `0.11.0` extensions are retained for provenance and are not
-renumbered.
+Release `0.13.0` keeps the promoted theorem registry frozen at the audited
+`0.12.0` snapshot.
 
-The combined registry is checked against declarations in every public module,
-including `NativeCutoffExactScaledTailCauchy.lean` and
-`EmpiricalLimitConfinement.lean`; against the ordered `#print axioms` commands
-in `Audit.lean`; and against complete claim-ledger coverage.
+- promoted theorem IDs: `GZUAE-001` through `GZUAE-156`;
+- promoted claims: `24`;
+- dependency lock: unchanged;
+- new `0.13.0` modules: compiled through the public library and trust audit,
+  but not promoted as a new unconditional confinement claim.
 
-The `0.12.0` cumulative extension preserves the same 21 post-`0.6.0` public
-reports already present in `0.11.0`. Version `0.12.0` adds no new theorem IDs:
-`FinalConfinementProbe.lean` and `ArithmeticReadoutBridge.lean` are deliberately
-lateral audit/comparison surfaces rather than promoted public claims. This
-keeps the registry from disguising an equivalent frontier formulation as a new
-confinement theorem.
+This separation is intentional. The microscopic coercivity bridge exposes
+concrete sufficient obligations and removes a historical abstract threshold,
+while the remaining uniform finite-jet bounds, denominator floors, and
+compact-region coverage are still visible gates.
 
-The empirical cutoff campaigns remain discovery and reproducibility
-provenance only. The concrete pointwise-limit gap is closed; the remaining
-native-first quantitative frontier is the eventual positive finite coercivity
-certificate. The `0.12.0` packaging additionally locks the exact dependency
-graph used by GitHub Actions and corrects GitHub math rendering in the README.
+The machine-readable mapping is recorded in
+`audit/release-manifest-0.13.0.json`. Historical registry files remain
+immutable so a release cannot silently rewrite the theorem and claim surface
+that earlier Zenodo records cited.

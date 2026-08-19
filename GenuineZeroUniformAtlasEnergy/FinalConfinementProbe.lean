@@ -1,4 +1,5 @@
 import GenuineZeroUniformAtlasEnergy.EmpiricalLimitConfinement
+import GenuineZeroUniformAtlasEnergy.EmpiricalStackProjection
 import CPFormal.Analytic.CpGenuineGreenKernelInclusion
 import CPFormal.Analytic.CpGenuinePrimeCarryDefectUniformBound
 import CPFormal.Analytic.CpGenuineGprePrimeVerticalTraceWeightedBessel
@@ -151,6 +152,75 @@ def HasEventualPositiveEmpiricalStripCoercivity : Prop :=
       IsTransverselyCoerciveOn empiricalCriticalStripPlane
         (finiteEmpiricalCollectiveRawEnergyPlane M) c
 
+/-- A strictly positive phase floor is already enough for the final frontier:
+there is no need to certify the historical target `4`.  Once the microscopic
+coefficient is within `C/M` of the phase model, half of the phase floor is an
+eventual positive lower bound. -/
+theorem eventually_positive_microscopicCoercivity_of_inv_error
+    (d : PhaseProjectionData) (h : d.IsAdmissible)
+    (phaseProjection cMicro : ℕ → ℝ) (C : ℝ)
+    (hx : ∀ M : ℕ, (phaseProjection M) ^ 2 ≤ d.alphaSq)
+    (happrox : ∀ M : ℕ, 1 ≤ M →
+      |cMicro M - d.phaseCoercivity (phaseProjection M)| ≤ C / (M : ℝ)) :
+    ∃ c : ℝ, 0 < c ∧ ∀ᶠ M : ℕ in atTop, c ≤ cMicro M := by
+  have hfloor : 0 < d.phaseFloor := d.phaseFloor_pos h
+  refine ⟨d.phaseFloor / 2, by linarith, ?_⟩
+  exact d.eventually_microscopicCoercivity_lower_bound_of_inv_error h
+    phaseProjection cMicro C (d.phaseFloor / 2) hx happrox (by linarith)
+
+/-- Concrete empirical specialization of the previous theorem.  At a critical
+simple point the symbolic six-camera phase floor is strictly positive, so an
+explicit `C/M` approximation of the reoptimized microscopic coefficient gives
+some eventual positive coefficient without importing a numerical zero height
+or the exploratory `> 4` threshold. -/
+theorem eventually_positive_empiricalStack_microscopicCoercivity_of_inv_error
+    {s : ℂ} (hs : s.re = (1 : ℝ) / 2)
+    (hsimple : deriv genuineContinuation s ≠ 0)
+    (theta cMicro : ℕ → ℝ) (C : ℝ)
+    (happrox : ∀ M : ℕ, 1 ≤ M →
+      |cMicro M -
+          (empiricalStackPhaseProjectionData s).phaseCoercivity
+            (empiricalStackPhaseProjection s (theta M))| ≤ C / (M : ℝ)) :
+    ∃ c : ℝ, 0 < c ∧ ∀ᶠ M : ℕ in atTop, c ≤ cMicro M := by
+  apply eventually_positive_microscopicCoercivity_of_inv_error
+    (d := empiricalStackPhaseProjectionData s)
+    (h := empiricalStackPhaseProjectionData_isAdmissible hs hsimple)
+    (phaseProjection := fun M => empiricalStackPhaseProjection s (theta M))
+    (cMicro := cMicro) (C := C)
+  · intro M
+    exact empiricalStackPhaseProjection_sq_le_alphaSq s (theta M)
+  · exact happrox
+
+/-- Exact regional stitching lemma.  If a microscopic region and its
+complementary region cover the critical strip and each has an eventual
+positive quadratic coercivity constant, their minimum is a single eventual
+positive strip-wide constant. -/
+theorem hasEventualPositiveEmpiricalStripCoercivity_of_cover
+    {microscopicRegion complementRegion : Set (ℝ × ℝ)}
+    {cMicroscopic cComplement : ℝ}
+    (hcMicroscopic : 0 < cMicroscopic)
+    (hcComplement : 0 < cComplement)
+    (hcover : empiricalCriticalStripPlane ⊆
+      microscopicRegion ∪ complementRegion)
+    (hmicroscopic : ∀ᶠ M : ℕ in atTop,
+      IsTransverselyCoerciveOn microscopicRegion
+        (finiteEmpiricalCollectiveRawEnergyPlane M) cMicroscopic)
+    (hcomplement : ∀ᶠ M : ℕ in atTop,
+      IsTransverselyCoerciveOn complementRegion
+        (finiteEmpiricalCollectiveRawEnergyPlane M) cComplement) :
+    HasEventualPositiveEmpiricalStripCoercivity := by
+  refine ⟨min cMicroscopic cComplement,
+    lt_min hcMicroscopic hcComplement, ?_⟩
+  filter_upwards [hmicroscopic, hcomplement] with M hMicro hComp
+  intro point hpoint
+  rcases hcover hpoint with hpointMicro | hpointComp
+  · have hbound := hMicro point hpointMicro
+    have hsq : 0 ≤ (point.1 - (1 : ℝ) / 2) ^ 2 := sq_nonneg _
+    exact (mul_le_mul_of_nonneg_right (min_le_left _ _) hsq).trans hbound
+  · have hbound := hComp point hpointComp
+    have hsq : 0 ≤ (point.1 - (1 : ℝ) / 2) ^ 2 := sq_nonneg _
+    exact (mul_le_mul_of_nonneg_right (min_le_right _ _) hsq).trans hbound
+
 /-- The already-proved v0.11 limit bridge turns the eventual positive finite
 certificate into unconditional scalar confinement. -/
 theorem finalGenuineZeroConfinement_of_eventualPositiveEmpiricalStripCoercivity
@@ -162,6 +232,28 @@ theorem finalGenuineZeroConfinement_of_eventualPositiveEmpiricalStripCoercivity
     (c := c) (sigma := s.re) (time := s.im) hc hcoercive
     (by simpa [empiricalPlaneParameter] using hs)
     (by simpa [empiricalPlaneParameter] using hzero)
+
+/-- Final two-region stitching capstone.  The microscopic lower bound and the
+compact-complement lower bound are the only quantitative inputs; once their
+regions cover the empirical critical strip, the existing limit bridge gives
+scalar Genuine confinement. -/
+theorem finalGenuineZeroConfinement_of_empiricalCoercivity_cover
+    {microscopicRegion complementRegion : Set (ℝ × ℝ)}
+    {cMicroscopic cComplement : ℝ}
+    (hcMicroscopic : 0 < cMicroscopic)
+    (hcComplement : 0 < cComplement)
+    (hcover : empiricalCriticalStripPlane ⊆
+      microscopicRegion ∪ complementRegion)
+    (hmicroscopic : ∀ᶠ M : ℕ in atTop,
+      IsTransverselyCoerciveOn microscopicRegion
+        (finiteEmpiricalCollectiveRawEnergyPlane M) cMicroscopic)
+    (hcomplement : ∀ᶠ M : ℕ in atTop,
+      IsTransverselyCoerciveOn complementRegion
+        (finiteEmpiricalCollectiveRawEnergyPlane M) cComplement) :
+    FinalGenuineZeroConfinement := by
+  apply finalGenuineZeroConfinement_of_eventualPositiveEmpiricalStripCoercivity
+  exact hasEventualPositiveEmpiricalStripCoercivity_of_cover
+    hcMicroscopic hcComplement hcover hmicroscopic hcomplement
 
 /-- Consequently the empirical positive-certificate route is a sufficient
 construction of the strong nonvanishing property. No converse is asserted:

@@ -7,7 +7,7 @@ lean_roots=(GenuineZeroUniformAtlasEnergy GenuineZeroUniformAtlasEnergy.lean)
 
 # Empirical campaign files are retained as reproducibility provenance only.
 # The kernel build, registry, release metadata, and publication audit do not
-# depend on a floating-point witness or on the 56-job campaign archive.
+# depend on a floating-point witness or on the campaign archive.
 
 if command -v rg >/dev/null 2>&1; then
   if rg -n --glob '*.lean' \
@@ -56,6 +56,7 @@ python3 -m json.tool audit/theorem-registry-0.9.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.10.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.11.0.json >/dev/null
 python3 -m json.tool audit/theorem-registry-0.12.0.json >/dev/null
+python3 -m json.tool audit/release-manifest-0.13.0.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
 python3 -m json.tool lake-manifest.json >/dev/null
 python3 scripts/check_registry.py
@@ -66,7 +67,10 @@ bash -n scripts/audit.sh scripts/static_audit.sh
 test -s docs/RELEASE_0.10.0.md
 test -s docs/RELEASE_0.11.0.md
 test -s docs/RELEASE_0.12.0.md
+test -s docs/RELEASE_0.13.0.md
+test -s docs/MICROSCOPIC_COERCIVITY_BRIDGE.md
 test -s audit/THEOREM_REGISTRY.md
 test -s audit/CLAIM_LEDGER.md
+test -s audit/RELEASE_MANIFEST_0.13.0.md
 
-echo "static audit passed: kernel sources, registry, claims, metadata, and Markdown"
+echo "static audit passed: kernel sources, registry, release manifest, claims, metadata, and Markdown"

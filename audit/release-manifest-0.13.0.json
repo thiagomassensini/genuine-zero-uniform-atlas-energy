@@ -1,0 +1,24 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.release-manifest/v1",
+  "release": "0.13.0",
+  "publication_date": "2026-08-18",
+  "theorem_registry_release": "0.12.0",
+  "claim_ledger_release": "0.12.0",
+  "promoted_theorem_count": 156,
+  "promoted_claim_count": 24,
+  "public_build_additions": [
+    "MicroscopicCoercivityFrontier",
+    "MicroscopicJetTransfer",
+    "MicroscopicPrimitiveJetBounds",
+    "EmpiricalTransverseDataCrosswalk",
+    "EmpiricalFiniteTransverseData",
+    "EmpiricalFiniteResidualBound",
+    "EmpiricalFiniteCorrectedData",
+    "EmpiricalFiniteFirstJetBound",
+    "EmpiricalFinitePairingBound",
+    "EmpiricalFiniteEnergyBound",
+    "EmpiricalFiniteCurvatureBound"
+  ],
+  "status": "PUBLIC_BUILD_CHECKED_NO_NEW_UNCONDITIONAL_CONFINEMENT_CLAIM",
+  "scope_note": "The 0.13.0 bridge exposes concrete sufficient obligations and removes a historical abstract threshold. It does not claim that all remaining uniform bounds, floors, or compact-region coverage have been discharged."
+}

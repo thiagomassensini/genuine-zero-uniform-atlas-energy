@@ -41,9 +41,14 @@ jobs:
           test -n "$version"
           notes="docs/RELEASE_${version}.md"
           test -f "$notes"
+          python3 scripts/check_registry.py
+          python3 scripts/check_github_markdown.py
+          title="$(sed -n '1s/^# //p' "$notes")"
+          test -n "$title"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
           echo "notes=$notes" >> "$GITHUB_OUTPUT"
+          echo "title=$title" >> "$GITHUB_OUTPUT"
 
       - name: Create the audited tag and GitHub release
         shell: bash
@@ -51,15 +56,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.metadata.outputs.tag }}
           NOTES: ${{ steps.metadata.outputs.notes }}
+          TITLE: ${{ steps.metadata.outputs.title }}
           TARGET_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release $TAG already exists; leaving it unchanged."
+            git fetch --force origin "refs/tags/$TAG:refs/tags/$TAG"
+            test "$(git rev-list -n 1 "$TAG")" = "$TARGET_SHA"
+            echo "Release $TAG already exists at the audited commit."
             exit 0
           fi
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$TARGET_SHA" \
-            --title "$TAG — Native-first confinement frontier audit" \
-            --notes-file "$NOTES"
+            --title "$TITLE" \
+            --notes-file "$NOTES" \
+            --latest

@@ -1,103 +1,64 @@
-# Operator Lower-Bound Status
+# Lower-bound and microscopic-coercivity status
 
-This page separates three different statements that must not be conflated:
-the kernel-checked structural lower bound, the finite numerical campaign, and
-the still-open numerical constant for the concrete operator.
+## Current statement
 
-## Kernel-checked closure
+The release contains an exact finite-to-model ledger for the microscopic
+coefficient
 
-Lean proves the following facts for the faithful empirical stack C2--C7:
+```math
+c_{\mathrm{micro},M}
+=
+c_{\mathrm{local},M}
+-
+\frac{g_M^2}{4E_M}.
+```
 
-- the exact periods and retained radii, including the C4/C6 antipodal
-  channels;
-- absolute convergence and exact finite-prefix plus cutoff-tail identities;
-- the complete stack and collective raw-energy tail identities at a common
-  zero;
-- for each fixed critical time, displayed time-dependent `M^(-3/2)` amplitude
-  and `M^(-3)` collective-energy upper bounds;
-- the exact phase `M^(-3/2) exp(-it log M)` of the leading tail monomial and
-  the rational collective model geometry coefficient
-  `132244271/1778112000`;
-- the complete named scalar tail remainder, combining the leading-series
-  defect with the accumulated local Taylor remainder, is bounded by an
-  explicit `K M^(-5/2)`; after critical rescaling the cutoff tail differs from
-  its exact leading coefficient by at most `K/M`;
-- the naturally scaled collective tail energy is exactly `M^3` times the raw
-  tail energy, and the scaled energy differs from the exact coefficient norm
-  by the displayed sum of camerawise terms
-  `2 ||A_b|| K_b/M + K_b^2/M^2`;
-- consequently the collective tail energy has the explicit expansion
+The moving-clock model is identified exactly with
 
-  ```math
-  E_M(t)=
-  \left\lVert\frac12+i t\right\rVert^2
-  \frac{132244271}{1778112000}M^{-3}
-  +O_t(M^{-4}),
-  ```
+```math
+E_{0,M}
+=
+\rho+\frac{x_M^2}{\kappa}.
+```
 
-  with a concrete inequality replacing the unnamed `O_t`; at a common
-  six-camera resonance the same expansion holds for the finite raw energy;
-- the coordinate identity between the tail coefficient `+A_tail` and finite
-  resonant-residue model `A_res = -A_tail`, together with their common squared
-  norm;
-- non-collinearity of the finite-residue model vector and limiting
-  complex-derivative model direction when `Re(s)=1/2` and the Genuine
-  derivative is nonzero, without identifying that model direction with the
-  real time derivative of the empirical stack;
-- strict positivity of the transverse projection remainder `rho` and of the
-  phase-independent symbolic floor;
-- an eventual supplied coefficient sequence at least four from two explicit
-  hypotheses: a phase floor strictly greater than four and a uniform `C/M`
-  approximation to the algebraic phase model;
-- passage of an eventual cutoff-uniform coercivity inequality to a pointwise
-  limiting energy, globally or on a fixed region.
-- the faithful finite C2--C7 collective raw energy converges pointwise to
-  the concrete infinite empirical energy throughout `sigma > -1`;
-- a Genuine zero in the strip annihilates that concrete limiting energy;
-- regional, strip-wide, and global capstones now combine those concrete
-  facts with a supplied eventual positive finite coercivity certificate to
-  force `sigma = 1/2`.
+The abstract transfer theorem proves eventual strict positivity from a
+strictly positive phase-model floor and perturbation channels that tend to
+zero.
 
-The last two bullets are implication theorems. They do not discharge their
-quantitative hypotheses for the concrete operator.
+## Closed in Lean
 
-## Locked numerical evidence
+- exact critical cutoff-tail value, first-jet, and second-jet formulas;
+- exact Cauchy bounds for the scaled tail and differentiated remainder;
+- exact phase rotation and moving-clock completed square;
+- concrete six-camera residual, corrected first jet, pairing, energy, and
+  transverse-jet definitions;
+- reduction of the gradient channel to difference and sum bounds;
+- reduction of the energy channel to residual, pairing, and clock-Gram bounds;
+- reduction of the local Schur channel to first-jet, second-jet, and temporal
+  denominator bounds;
+- abstract eventual positivity from any positive phase floor.
 
-The external campaign scanned the compact rectangle
-`[0.49,0.51] x [10,40]` on seven cutoffs and eight candidate coefficients.
-Among 56 jobs, the campaign classified 18 as
-`CERTIFIED_NONNEGATIVE_ON_COMPACT` under its float64 guard, two as
-counterexamples, and 36 as unresolved resource-limit results. The
-coefficient-four jobs received that guarded campaign status for cutoffs 8192,
-12288, and 16384.
+## Historical condition removed
 
-The campaign used float64 center jets with an explicit guard and independent
-long-double witness reevaluation. It was not interval arithmetic and is not a
-Lean proof object. The exact provenance is locked in
-[`audit/empirical-evidence.json`](../audit/empirical-evidence.json).
+The old sufficient condition `phaseFloor > 4` is no longer the gate. The
+current abstract theorem only needs `phaseFloor > 0`, together with vanishing
+finite perturbation channels.
 
-## Why `phaseFloor > 4` is not a theorem
+## Still open
 
-Exploratory calculations placed the model floor above four, but their inputs
-and method are not part of the locked 56-job evidence bundle. This repository
-therefore publishes no decimal floor. Proving `phaseFloor > 4` requires exact
-enclosures for a Genuine zero, its derivative, and the relevant projection,
-not another floating-point evaluation.
+- a uniform positive lower floor for the finite corrected clock Gram;
+- a uniform positive lower floor for the finite reoptimized energy;
+- a uniform positive lower floor for
+  `|kappa_M-a_M|`;
+- an explicit second-jet bound strong enough to give the required cutoff rate;
+- fixed constants converting the displayed stack errors to `C/M` bounds;
+- compact-complement and regional coverage for the final global statement.
 
-The remaining analytic bridge must provide:
+## Scope firewall
 
-1. a proof object locating a Genuine zero in an exact interval;
-2. a certified nonzero derivative and quantitative derivative lower bound;
-3. an explicit bridge from the concrete moving minimizer/reoptimized
-   coefficient to the algebraic phase model, using the now-proved value and
-   first/second derivative tail bounds;
-4. an eventual positive finite coercivity certificate on the desired region;
-5. a certified compact-complement argument covering transitions between zero
-   valleys.
+The current result is a concrete, kernel-checked sufficient route. It does not
+assert that every remaining uniform estimate has already been proved, and it
+does not identify numerical minima, external height lists, or readout-domain
+equivalences with an unconditional confinement theorem.
 
-Until those objects exist, the honest machine-checked conclusion is a strictly
-positive symbolic model floor when `Re(s)=1/2` and the Genuine derivative is
-nonzero, plus fixed-time tail/energy asymptotics, the concrete pointwise energy
-limit, and conditional confinement theorems whose finite coercivity premise is
-still explicit. It is not the unconditional numerical
-statement `c >= 4` for the full concrete operator.
+See `MICROSCOPIC_COERCIVITY_BRIDGE.md` for the detailed ledger.
