@@ -20,39 +20,45 @@ open CPFormal.Analytic.Cp
 
 noncomputable section
 
-namespace SpectralCamera := NativeCarrySpectralWeyl.Camera
-namespace FiniteCamera := FiniteNativeCarryOperator.Camera
-
 /-- The empirical finite seed is literally the spectral-Weyl camera seed. -/
 theorem empiricalCameraSeed_eq_spectralCameraSeed
     (camera : EmpiricalCamera) (s : ℂ) :
     empiricalCameraSeed camera s =
-      SpectralCamera.seedDirichletTerm camera.label s := by
+      NativeCarrySpectralWeyl.Camera.seedDirichletTerm camera.label s := by
   cases camera <;>
-    simp [empiricalCameraSeed, SpectralCamera.seedDirichletTerm,
-      SpectralCamera.dirichletValue, realDirichletPower,
-      FiniteCamera.radiusSet, FiniteCamera.halfRange]
+    simp [empiricalCameraSeed,
+      NativeCarrySpectralWeyl.Camera.seedDirichletTerm,
+      NativeCarrySpectralWeyl.Camera.dirichletValue,
+      realDirichletPower,
+      FiniteNativeCarryOperator.Camera.radiusSet,
+      FiniteNativeCarryOperator.Camera.halfRange]
 
 /-- Every empirical center block is literally the corresponding aligned
 spectral-Weyl center block. -/
 theorem empiricalCameraBlock_eq_spectralCameraBlock
     (camera : EmpiricalCamera) (index : ℕ) (s : ℂ) :
     empiricalCameraBlock camera index s =
-      SpectralCamera.centerBracketTerm camera.label s index := by
+      NativeCarrySpectralWeyl.Camera.centerBracketTerm
+        camera.label s index := by
   cases camera <;>
-    simp [empiricalCameraBlock, SpectralCamera.centerBracketTerm,
-      SpectralCamera.centeredBracketTerm, SpectralCamera.dirichletValue,
-      realCpPairBracket, realDirichletPower, FiniteCamera.alignedCenter,
-      FiniteCamera.radiusSet, FiniteCamera.halfRange, two_smul]
+    simp [empiricalCameraBlock,
+      NativeCarrySpectralWeyl.Camera.centerBracketTerm,
+      NativeCarrySpectralWeyl.Camera.centeredBracketTerm,
+      NativeCarrySpectralWeyl.Camera.dirichletValue,
+      realCpPairBracket, realDirichletPower,
+      FiniteNativeCarryOperator.Camera.alignedCenter,
+      FiniteNativeCarryOperator.Camera.radiusSet,
+      FiniteNativeCarryOperator.Camera.halfRange, two_smul]
 
 /-- Function-level equality of the infinite empirical and spectral-Weyl
 characteristics. -/
 theorem empiricalCameraCharacteristic_eq_spectralCameraCharacteristic
     (camera : EmpiricalCamera) :
     empiricalCameraCharacteristic camera =
-      SpectralCamera.bracketCharacteristic camera.label := by
+      NativeCarrySpectralWeyl.Camera.bracketCharacteristic camera.label := by
   funext s
-  unfold empiricalCameraCharacteristic SpectralCamera.bracketCharacteristic
+  unfold empiricalCameraCharacteristic
+    NativeCarrySpectralWeyl.Camera.bracketCharacteristic
   rw [empiricalCameraSeed_eq_spectralCameraSeed]
   congr 1
   exact tsum_congr fun index =>
@@ -62,10 +68,11 @@ theorem empiricalCameraCharacteristic_eq_spectralCameraCharacteristic
 theorem finiteEmpiricalCameraCharacteristic_eq_spectralCameraCharacteristic
     (camera : EmpiricalCamera) (M : ℕ) :
     finiteEmpiricalCameraCharacteristic camera M =
-      SpectralCamera.finiteBracketCharacteristic camera.label M := by
+      NativeCarrySpectralWeyl.Camera.finiteBracketCharacteristic
+        camera.label M := by
   funext s
   unfold finiteEmpiricalCameraCharacteristic
-    SpectralCamera.finiteBracketCharacteristic
+    NativeCarrySpectralWeyl.Camera.finiteBracketCharacteristic
   rw [empiricalCameraSeed_eq_spectralCameraSeed]
   congr 1
   apply Finset.sum_congr rfl
@@ -74,10 +81,13 @@ theorem finiteEmpiricalCameraCharacteristic_eq_spectralCameraCharacteristic
 
 /-- The two projects use the same critical-line parameter. -/
 theorem criticalLineParameter_eq_spectralCameraNativeLine (time : ℝ) :
-    criticalLineParameter time = SpectralCamera.nativeLine time := by
+    criticalLineParameter time =
+      NativeCarrySpectralWeyl.Camera.nativeLine time := by
   apply Complex.ext
-  · simp [criticalLineParameter_re, SpectralCamera.nativeLine_re]
-  · simp [criticalLineParameter_im, SpectralCamera.nativeLine_im]
+  · simp [criticalLineParameter_re,
+      NativeCarrySpectralWeyl.Camera.nativeLine_re]
+  · simp [criticalLineParameter_im,
+      NativeCarrySpectralWeyl.Camera.nativeLine_im]
 
 /-- All-order derivative tail bound for one empirical camera. -/
 theorem norm_iteratedDeriv_empiricalCameraCharacteristic_sub_finite_le
@@ -88,14 +98,15 @@ theorem norm_iteratedDeriv_empiricalCameraCharacteristic_sub_finite_le
         iteratedDeriv order (finiteEmpiricalCameraCharacteristic camera M)
           (criticalLineParameter time)‖ ≤
       (order.factorial *
-          SpectralCamera.higherDerivativeCircleConstant camera.label time) *
+          NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant
+            camera.label time) *
         (M : ℝ) ^ (-(3 : ℝ) / 2) *
           (Real.log (M : ℝ)) ^ order := by
   rw [empiricalCameraCharacteristic_eq_spectralCameraCharacteristic,
     finiteEmpiricalCameraCharacteristic_eq_spectralCameraCharacteristic,
     criticalLineParameter_eq_spectralCameraNativeLine]
   exact
-    SpectralCamera.iteratedDeriv_bracketCharacteristic_nativeLine_tail_le
+    NativeCarrySpectralWeyl.Camera.iteratedDeriv_bracketCharacteristic_nativeLine_tail_le
       (camera := camera.label) (cutoff := M) (order := order)
       (by cases camera <;> norm_num) hM time
 
