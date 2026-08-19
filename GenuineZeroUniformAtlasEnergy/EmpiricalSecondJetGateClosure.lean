@@ -55,8 +55,6 @@ theorem rpow_neg_three_halves_mul_log_sq_le_sixteen_div
   have hMnonneg : (0 : ℝ) ≤ (M : ℝ) := zero_le_one.trans hMreal
   have hMpos : (0 : ℝ) < (M : ℝ) := zero_lt_one.trans_le hMreal
   have hlogNonneg : 0 ≤ Real.log (M : ℝ) := Real.log_nonneg hMreal
-  have hquarterNonneg : 0 ≤ (M : ℝ) ^ (1 / 4 : ℝ) :=
-    Real.rpow_nonneg hMnonneg _
   have hlogQuarter :
       Real.log (M : ℝ) ≤ 4 * (M : ℝ) ^ (1 / 4 : ℝ) := by
     calc
@@ -64,7 +62,8 @@ theorem rpow_neg_three_halves_mul_log_sq_le_sixteen_div
           (M : ℝ) ^ (1 / 4 : ℝ) / (1 / 4 : ℝ) :=
         Real.log_natCast_le_rpow_div M (by norm_num)
       _ = 4 * (M : ℝ) ^ (1 / 4 : ℝ) := by ring
-  have hrightNonneg : 0 ≤ 4 * (M : ℝ) ^ (1 / 4 : ℝ) := by positivity
+  have hrightNonneg : 0 ≤ 4 * (M : ℝ) ^ (1 / 4 : ℝ) := by
+    exact mul_nonneg (by norm_num) (Real.rpow_nonneg hMnonneg _)
   have hlogSq :
       (Real.log (M : ℝ)) ^ 2 ≤
         (4 * (M : ℝ) ^ (1 / 4 : ℝ)) ^ 2 := by
@@ -86,9 +85,8 @@ theorem rpow_neg_three_halves_mul_log_sq_le_sixteen_div
     calc
       (Real.log (M : ℝ)) ^ 2 ≤
           (4 * (M : ℝ) ^ (1 / 4 : ℝ)) ^ 2 := hlogSq
-      _ = 16 * (M : ℝ) ^ (1 / 2 : ℝ) := by
-        rw [pow_two, hquarterSq]
-        ring
+      _ = 16 * ((M : ℝ) ^ (1 / 4 : ℝ)) ^ 2 := by ring
+      _ = 16 * (M : ℝ) ^ (1 / 2 : ℝ) := by rw [hquarterSq]
   calc
     (M : ℝ) ^ (-(3 : ℝ) / 2) * (Real.log (M : ℝ)) ^ 2 ≤
         (M : ℝ) ^ (-(3 : ℝ) / 2) *
@@ -122,7 +120,9 @@ theorem empiricalCameraSecondJetTailRateBound_le_inverseCutoff
       0 ≤
         2 * NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant
           camera.label time := by
-    positivity [NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant_nonneg]
+    exact mul_nonneg (by norm_num)
+      (NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant_nonneg
+        camera.label time)
   unfold empiricalCameraSecondJetTailRateBound
     empiricalCameraSecondJetInverseCutoffConstant
   calc
@@ -153,7 +153,9 @@ theorem norm_iteratedDeriv_two_empiricalCameraCutoffTail_le_inverseCutoff
   have hMOne : 1 ≤ M := by
     have hone : (1 : ℝ) < Real.exp 2 :=
       Real.one_lt_exp_iff.mpr (by norm_num)
-    exact_mod_cast hone.trans_le hM
+    have hMlt : 1 < M := by
+      exact_mod_cast hone.trans_le hM
+    exact Nat.le_of_lt hMlt
   exact
     (norm_iteratedDeriv_two_empiricalCameraCutoffTail_le
       camera M hM time).trans
@@ -178,12 +180,16 @@ theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le_uniform
   have hMOne : 1 ≤ M := by
     have hone : (1 : ℝ) < Real.exp 2 :=
       Real.one_lt_exp_iff.mpr (by norm_num)
-    exact_mod_cast hone.trans_le hM
+    have hMlt : 1 < M := by
+      exact_mod_cast hone.trans_le hM
+    exact Nat.le_of_lt hMlt
   have hMreal : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hMOne
   have hconstantNonneg :
       0 ≤ empiricalCameraSecondJetInverseCutoffConstant camera time := by
     unfold empiricalCameraSecondJetInverseCutoffConstant
-    positivity [NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant_nonneg]
+    exact mul_nonneg (by norm_num)
+      (NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant_nonneg
+        camera.label time)
   calc
     ‖iteratedDeriv 2 (finiteEmpiricalCameraCharacteristic camera M)
         (criticalLineParameter time)‖ ≤
@@ -196,15 +202,14 @@ theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le_uniform
       ‖iteratedDeriv 2 (empiricalCameraCharacteristic camera)
           (criticalLineParameter time)‖ +
         empiricalCameraSecondJetInverseCutoffConstant camera time / (M : ℝ) :=
-      add_le_add_left
+      add_le_add le_rfl
         (empiricalCameraSecondJetTailRateBound_le_inverseCutoff
-          camera M hMOne time) _
+          camera M hMOne time)
     _ ≤
       ‖iteratedDeriv 2 (empiricalCameraCharacteristic camera)
           (criticalLineParameter time)‖ +
         empiricalCameraSecondJetInverseCutoffConstant camera time :=
-      add_le_add_left
-        (div_le_self hconstantNonneg hMreal) _
+      add_le_add le_rfl (div_le_self hconstantNonneg hMreal)
     _ = empiricalCameraUniformSecondJetBound camera time := rfl
 
 /-- Cutoff-independent Euclidean bound for the complete six-camera second
@@ -284,6 +289,7 @@ theorem empiricalCameraCriticalTailBound_le_inverseCutoff
         empiricalCameraBracketMajorantConstant camera
           (criticalLineParameter time)) / (M : ℝ) := by
       rw [Real.rpow_neg_one, div_eq_mul_inv]
+      ring
 
 /-- A simple fixed all-camera residual constant.  The `l1` aggregation is
 chosen deliberately: it avoids hiding another square-root normalization in the
@@ -358,7 +364,9 @@ theorem abs_finiteEmpiricalTransverseJet_a_le_inverseCutoff
   have hMOne : 1 ≤ M := by
     have hone : (1 : ℝ) < Real.exp 2 :=
       Real.one_lt_exp_iff.mpr (by norm_num)
-    exact_mod_cast hone.trans_le hM
+    have hMlt : 1 < M := by
+      exact_mod_cast hone.trans_le hM
+    exact Nat.le_of_lt hMlt
   have hsecond :=
     norm_finiteEmpiricalCameraSecondDerivativeStack_le_uniform M hM time
   have ha :=
@@ -392,7 +400,9 @@ theorem abs_finiteEmpiricalTransverseJet_b_le_inverseCutoff
   have hMOne : 1 ≤ M := by
     have hone : (1 : ℝ) < Real.exp 2 :=
       Real.one_lt_exp_iff.mpr (by norm_num)
-    exact_mod_cast hone.trans_le hM
+    have hMlt : 1 < M := by
+      exact_mod_cast hone.trans_le hM
+    exact Nat.le_of_lt hMlt
   have hsecond :=
     norm_finiteEmpiricalCameraSecondDerivativeStack_le_uniform M hM time
   have hb :=
