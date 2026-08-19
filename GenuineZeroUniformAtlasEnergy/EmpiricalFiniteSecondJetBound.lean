@@ -228,7 +228,7 @@ theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le_explicit
   exact
     (norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le
       camera M time).trans
-        (add_le_add_left
+        (add_le_add_right
           (norm_iteratedDeriv_two_empiricalCameraCutoffTail_le
             camera M hM time) _)
 
