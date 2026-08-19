@@ -48,8 +48,8 @@ C u_t=0
 \langle u_t,Ku_t\rangle=0.
 ```
 
-The complex notation used in some bridge modules is only a lossless shorthand
-for the native real two-plane.
+The complex notation used in bridge modules is only a lossless shorthand for
+the native real two-plane.
 
 ## Exact cutoff route
 
@@ -62,62 +62,66 @@ antipodal channels of the even cameras. The library contains:
 - differentiated remainder and Cauchy estimates;
 - finite-to-limit collective-energy transport;
 - the concrete limit-confinement capstone;
-- an audited comparison with the canonical arithmetic nonlocal readout.
+- an audited comparison with the canonical arithmetic nonlocal readout;
+- an exact crosswalk to the spectral-Weyl camera geometry;
+- all-order camerawise derivative-tail estimates;
+- an explicit Euclidean bound for the finite six-camera second-jet stack.
 
-The comparison layer remains lateral. It does not replace the native
+The comparison layers remain lateral. They do not replace the native
 carry-geometric proof architecture.
 
-## Version 0.13.0: microscopic coercivity bridge
+## Version 0.14.0: exact six-camera second jet
 
-The new bridge identifies the moving-clock model exactly. If `x` and `y` are
-the rotated pairing coordinates and `kappa > 0`, then
+The empirical and spectral-Weyl camera APIs are now identified exactly. Their
+radius sets, aligned centers, seeds, centered blocks, finite characteristics,
+and infinite characteristics agree as functions.
 
-```math
-\mathcal E_{\mathrm{clock}}(x,y,\tau)
-=
-\left(\rho+\frac{x^2}{\kappa}\right)
-+
-\kappa\left(\tau-\frac{y}{\kappa}\right)^2.
-```
-
-At the minimizing displacement,
+The all-order derivative theorem therefore transports directly:
 
 ```math
-E_0=\rho+\frac{x^2}{\kappa}.
-```
-
-For each cutoff `M`, the finite microscopic coefficient is
-
-```math
-c_{\mathrm{micro},M}
-=
-c_{\mathrm{local},M}
+\left\|
+\chi_b^{(r)}\!\left(\frac12+it\right)
 -
-\frac{g_M^2}{4E_M}.
+\chi_{b,M}^{(r)}\!\left(\frac12+it\right)
+\right\|
+\le
+r!\,C_b(t)\,M^{-3/2}\log(M)^r,
 ```
 
-Lean splits the finite-to-model error into curvature, gradient, and energy
-channels, then reduces those quotient expressions to primitive bounds and
-strictly positive denominator floors.
+for `exp(2) <= M`.
 
-The corrected finite first jet is
+At order two, the exact prefix-tail ledger is
 
 ```math
-\chi'_M(s)+\log(M)\chi_M(s),
+\chi_{b,M}''
+=
+\chi_b''-T_{b,M}'',
 ```
 
-which removes the logarithmic cutoff phase before comparison with the
-infinite clock tangent.
+with
 
-The historical condition `phaseFloor > 4` is no longer required. The abstract
-eventual-positivity theorem needs only a strictly positive phase floor once
-the perturbation channels vanish.
+```math
+\left\|T_{b,M}''\!\left(\frac12+it\right)\right\|
+\le
+2C_b(t)M^{-3/2}\log(M)^2.
+```
+
+The six component bounds are aggregated into one explicit norm bound for
+`finiteEmpiricalCameraSecondDerivativeStack`.
+
+These identities do not require a supplied height or a simplicity hypothesis.
+Simplicity enters only in the later quadratic moving-clock route, where the
+first jet must be nonzero. Accordingly, `M` denotes the cutoff while `m`
+denotes analytic multiplicity. The present quadratic coercivity package is the
+`m=1` sector; a zero of multiplicity `m>1` requires a leading energy analysis
+of order `2m`.
 
 Detailed status:
 
-- [Microscopic coercivity bridge](docs/MICROSCOPIC_COERCIVITY_BRIDGE.md)
+- [Quantitative empirical jet gates](docs/QUANTITATIVE_EMPIRICAL_JET_GATES.md)
 - [Lower-bound status](docs/LOWER_BOUND_STATUS.md)
-- [Release notes 0.13.0](docs/RELEASE_0.13.0.md)
+- [Microscopic coercivity bridge](docs/MICROSCOPIC_COERCIVITY_BRIDGE.md)
+- [Release notes 0.14.0](docs/RELEASE_0.14.0.md)
 
 ## What is proved and what remains
 
@@ -128,18 +132,23 @@ Kernel-checked now:
 - stack-level pairing and energy perturbation inequalities;
 - reduction of the local Schur coefficient to primitive jet bounds;
 - abstract eventual positivity from any positive phase floor;
+- exact empirical-to-spectral camera equality;
+- all-order camerawise derivative-tail transport;
+- exact finite/infinite/tail second-jet identity;
+- explicit camerawise and six-camera finite second-jet bounds;
 - all previously released carry, Green, cutoff, and limit theorems.
 
 Still required for the final unconditional global statement:
 
-- uniform finite clock-Gram and energy floors;
+- uniform finite clock-Gram and corrected-energy floors;
 - a uniform temporal Schur-denominator floor;
-- the required second-jet cutoff bound;
-- fixed `C/M` constants for the concrete perturbation channels;
+- fixed cutoff-independent `C/M` constants for the concrete perturbation
+  channels;
+- the concrete local microscopic-positivity theorem;
 - compact-complement and regional coverage.
 
-This distinction is enforced in the publication metadata. Version `0.13.0`
-does not promote the bridge to an unconditional confinement theorem.
+This distinction is enforced in the publication metadata. Version `0.14.0`
+does not promote the second-jet gate to an unconditional confinement theorem.
 
 ## Audit surface
 
@@ -169,13 +178,13 @@ The promoted registry remains the immutable `0.12.0` snapshot:
 - `24` claims;
 - unchanged pinned dependencies.
 
-The `0.13.0` release manifest records the new public-build modules separately.
-This prevents a documentation update from silently rewriting an earlier
-published claim surface.
+The `0.14.0` release manifest records the new public-build modules separately.
+This prevents a software release from silently rewriting an earlier published
+claim surface.
 
 - [Theorem registry status](audit/THEOREM_REGISTRY.md)
 - [Claim ledger](audit/CLAIM_LEDGER.md)
-- [Release manifest](audit/RELEASE_MANIFEST_0.13.0.md)
+- [Release manifest](audit/RELEASE_MANIFEST_0.14.0.md)
 
 ## Repository layout
 
@@ -189,6 +198,7 @@ GenuineZeroUniformAtlasEnergy/
   NativeCutoffExactScaledTail*.lean
   EmpiricalCameraGeometry.lean
   EmpiricalCameraOperator.lean
+  EmpiricalCameraHigherDerivativeCrosswalk.lean
   EmpiricalStackProjection.lean
   EmpiricalTransverseDataCrosswalk.lean
   MicroscopicCoercivityFrontier.lean
@@ -201,6 +211,7 @@ GenuineZeroUniformAtlasEnergy/
   EmpiricalFinitePairingBound.lean
   EmpiricalFiniteEnergyBound.lean
   EmpiricalFiniteCurvatureBound.lean
+  EmpiricalFiniteSecondJetBound.lean
   EmpiricalLimitConfinement.lean
   FinalConfinementProbe.lean
   ArithmeticReadoutBridge.lean
