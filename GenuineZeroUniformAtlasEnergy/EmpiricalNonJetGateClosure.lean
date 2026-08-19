@@ -216,11 +216,17 @@ theorem abs_finiteEmpiricalCorrectedRadialGradient_add_model_le
   have hmodel :=
     abs_two_empiricalStackPhaseProjection_le
       (criticalLineParameter time) (empiricalCutoffPhase time M)
+  have hrewrite :
+      gradient + model = (gradient - model) + 2 * model := by
+    ring
   have htriangle :
       |gradient + model| ≤ |gradient - model| + 2 * |model| := by
+    rw [hrewrite]
     calc
-      |gradient + model| = |(gradient - model) + 2 * model| := by ring
-      _ ≤ |gradient - model| + |2 * model| := abs_add _ _
+      |(gradient - model) + 2 * model| ≤
+          |gradient - model| + |2 * model| := by
+        simpa [Real.norm_eq_abs] using
+          norm_add_le (gradient - model) (2 * model)
       _ = |gradient - model| + 2 * |model| := by
         rw [abs_mul]
         norm_num
