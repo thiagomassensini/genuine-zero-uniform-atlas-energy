@@ -119,9 +119,6 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
     exact empiricalStackKappa_pos
       (by norm_num [criticalLineParameter_re]) hsimple
   have hphaseFloor : 0 < d.phaseFloor := d.phaseFloor_pos hd
-  have htotalNonneg : 0 ≤ totalConstant := by
-    dsimp [totalConstant]
-    exact empiricalMicroscopicInverseCutoffConstant_nonneg time hsimple
   have hratio :
       Tendsto (fun M : ℕ => totalConstant / (M : ℝ)) atTop (nhds 0) :=
     tendsto_const_div_atTop_nhds_zero_nat totalConstant
@@ -141,7 +138,7 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
   let x := finiteEmpiricalPhaseProjection time M
   let energy := finiteEmpiricalCorrectedReoptimizedEnergy M time
   let gradient := finiteEmpiricalCorrectedRadialGradient M time
-  let local := finiteEmpiricalLocalCoercivity M time
+  let localCoeff := finiteEmpiricalLocalCoercivity M time
   let modelEnergy := rho + x ^ 2 / kappa
   let modelGradientBound := 2 * ‖empiricalStackPairing s‖
   have henergyPos : 0 < energy := by
@@ -221,10 +218,10 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
         ring
   have happrox :=
     d.abs_quadraticMicroscopicCoercivity_sub_phaseCoercivity_le_inv_of_perturbation_bounds
-      hd M energy gradient local x
+      hd M energy gradient localCoeff x
       curvatureConstant gradientChannelConstant energyChannelConstant
       (ne_of_gt henergyPos)
-      (by simpa [local, curvatureConstant, d, s] using hcurvature)
+      (by simpa [localCoeff, curvatureConstant, d, s] using hcurvature)
       hgradientChannel henergyChannel
   have hphase : d.phaseFloor ≤ d.phaseCoercivity x := by
     apply d.phaseCoercivity_uniform_lower_bound hd
@@ -239,7 +236,7 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
     rfl
   rw [htotal] at hlower
   change d.phaseFloor / 2 ≤
-    quadraticMicroscopicCoercivity energy gradient local
+    quadraticMicroscopicCoercivity energy gradient localCoeff
   linarith
 
 /-- Existential form of the concrete local gate. -/
