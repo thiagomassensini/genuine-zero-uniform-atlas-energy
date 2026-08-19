@@ -358,7 +358,6 @@ theorem abs_finiteEmpiricalCorrectedReoptimizedEnergy_sub_model_le
     unfold empiricalLeadingCorrectedReoptimizedEnergy
       empiricalQuadraticReoptimizedEnergy
     rw [empiricalQuadraticClockPairing_phaseNormalizedLeading_eq]
-    rfl
   rw [hfiniteEnergy, hleadingEnergy]
   have hrewrite :
       (‖residual‖ ^ 2 - pairing.im ^ 2 / kappa) -
