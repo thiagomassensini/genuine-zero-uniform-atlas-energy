@@ -2,14 +2,18 @@
 
 ## Status
 
-Gate 1 was closed and packaged in release `v0.14.0`.
+Gate 1 is fully closed on the current branch.
 
-The release proves the exact empirical-to-spectral camera crosswalk, transports
-the all-order derivative-tail estimate, and derives the explicit six-camera
-finite second-jet bound. Gates 2 through 5 are intentionally separated into a
-subsequent PR so this release does not pretend that denominator floors,
-cutoff-independent constants, local positivity, and the compact complement are
-the same theorem wearing different hats.
+Release `v0.14.0` supplied the exact empirical-to-spectral camera crosswalk,
+the all-order derivative-tail estimate, and the explicit six-camera finite
+second-jet bound. The current branch finishes the quantitative consumption of
+that result: it absorbs the logarithmic tail into a fixed inverse-cutoff
+constant, constructs a cutoff-independent stack bound, derives fixed `C/M`
+bounds for both curvature coordinates, and specializes the local Schur ledger
+so that it no longer accepts an external `secondJetBound` argument.
+
+Exactly four gates remain: denominator floors, the non-jet fixed constants,
+concrete local positivity, and the compact-complement stitch.
 
 ## Fixed setting
 
@@ -30,7 +34,7 @@ G'\left(\frac12+i\,\mathrm{time}\right)\ne0.
 This is the analytic multiplicity-one sector. The cutoff `M` and zero
 multiplicity `m` are unrelated parameters.
 
-## Gate 1: closed in `v0.14.0`
+## Gate 1: fully closed
 
 The empirical camera geometry is identified exactly with the
 `NativeCarrySpectralWeyl.Camera` geometry:
@@ -83,11 +87,49 @@ The camerawise bounds are aggregated into the explicit Euclidean quantity
 \texttt{empiricalFiniteSecondJetStackBound}\;M\;t.
 ```
 
-No individual cutoff, supplied height, or floating-point certificate is used.
+The current branch then proves the elementary absorption
+
+```math
+M^{-3/2}\log(M)^2\le\frac{16}{M},
+```
+
+and defines fixed camerawise constants `C_{b,2}(t)` such that
+
+```math
+\left\|T_{b,M}''\!\left(\frac12+it\right)\right\|
+\le
+\frac{C_{b,2}(t)}{M}.
+```
+
+It follows that one fixed quantity `B_2(t)`, independent of `M`, satisfies
+
+```math
+\left\|
+\texttt{finiteEmpiricalCameraSecondDerivativeStack}\;M\;
+  \left(\frac12+it\right)
+\right\|
+\le B_2(t).
+```
+
+Combining this with the existing raw residual rate gives a fixed curvature
+constant `C_curv(t)` with
+
+```math
+|a_M|\le\frac{C_{\mathrm{curv}}(t)}{M},
+\qquad
+|b_M|\le\frac{C_{\mathrm{curv}}(t)}{M}.
+```
+
+Finally, the concrete local Schur estimate is specialized to `B_2(t)`. Its
+statement now receives only the positive denominator floor scheduled for Gate
+2; no second-jet hypothesis survives downstream.
+
+No individual cutoff, supplied height, floating-point certificate, or
+simplicity assumption is used in the second-jet analysis itself.
 
 ## Gate 2: denominator floors
 
-The next PR must derive cutoff-independent eventual positive floors for:
+The next stage must derive cutoff-independent eventual positive floors for:
 
 ```math
 |\kappa_M|,
@@ -105,10 +147,16 @@ The limiting energy floor must come from
 
 not from a fitted finite-cutoff value.
 
-## Gate 3: fixed inverse-cutoff constants
+## Gate 3: remaining fixed inverse-cutoff constants
 
-The explicit residual, first-jet, pairing, energy, and curvature estimates must
-be converted into constants independent of `M`:
+The curvature contribution of the second jet is already closed:
+
+```math
+|a_M|,|b_M|\le\frac{C_{\mathrm{curv}}(t)}{M}.
+```
+
+The remaining residual, corrected first-jet, pairing, clock-Gram, gradient,
+and energy ledgers must be assembled into constants independent of `M` so that
 
 ```math
 |E_M-E_{0,M}|\le\frac{C_E}{M},
@@ -122,8 +170,9 @@ be converted into constants independent of `M`:
 |c_M-\kappa|\le\frac{C_c}{M}.
 ```
 
-Remaining logarithmic factors must be absorbed through proved eventual
-inequalities, not through numerical cutoff inspection.
+Any remaining logarithmic factors must be absorbed through proved inequalities,
+not through numerical cutoff inspection. The second jet is no longer among
+those obligations.
 
 ## Gate 4: concrete local positivity
 
@@ -141,7 +190,7 @@ All assumptions remain visible, including the presented critical simple zero.
 
 ## Gate 5: compact complement and strip stitching
 
-Only after the local theorem is closed should the next PR prove:
+Only after the local theorem is closed should the continuation prove:
 
 1. a cutoff-independent microscopic region;
 2. a cutoff-independent positive complementary region;

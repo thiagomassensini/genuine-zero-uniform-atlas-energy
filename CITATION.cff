@@ -6,20 +6,23 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.14.0
+version: 0.15.0
 date-released: 2026-08-19
 abstract: >-
   A Lean 4 formalization of the native real-camera/Genuine zero identity, the
   faithful C2--C7 cutoff operator, exact critical cutoff-tail jets, and the
-  finite-to-limit transverse-energy architecture. Version 0.14.0 proves an
-  exact crosswalk from the empirical cameras to the spectral-Weyl camera
-  library, transports its all-order derivative-tail estimate, and derives an
-  explicit six-camera finite second-jet bound with the M^(-3/2) log(M)^2
-  rate. The identities use no supplied height and do not require simplicity;
-  the existing quadratic coercivity route remains the multiplicity-one
-  sector. The release does not promote the remaining denominator floors,
-  fixed C/M constants, compact-region coverage, numerical evidence, or
-  readout-domain equivalences to an unconditional confinement theorem.
+  finite-to-limit transverse-energy architecture. Version 0.15.0 completes
+  the quantitative second-jet gate: the M^(-3/2) log(M)^2 derivative-tail
+  rate is absorbed into fixed camerawise C_b(t)/M constants, the complete
+  six-camera finite second jet receives a cutoff-independent bound, both
+  finite curvature coordinates receive fixed C_curv(t)/M estimates, and the
+  local Schur ledger no longer accepts an external secondJetBound hypothesis.
+  The derivative analysis uses no supplied height and does not require
+  simplicity; the later quadratic coercivity route remains the
+  multiplicity-one sector. The release does not promote the remaining
+  denominator floors, non-jet C/M constants, compact-region coverage,
+  numerical evidence, or readout-domain equivalences to an unconditional
+  confinement theorem.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -33,6 +36,8 @@ keywords:
   - Schur complement
   - second jet
   - higher derivative tail
+  - inverse cutoff bound
+  - curvature channel
   - camera crosswalk
   - six-camera cutoff operator
   - cutoff-tail asymptotic

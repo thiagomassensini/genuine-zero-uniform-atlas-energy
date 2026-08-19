@@ -42,7 +42,14 @@ zero.
 - all-order camerawise derivative-tail bounds;
 - exact finite/infinite/tail second-jet crosswalk;
 - explicit camerawise and six-camera finite second-jet bounds with the
-  `M^(-3/2) log(M)^2` rate at order two.
+  `M^(-3/2) log(M)^2` rate at order two;
+- absorption of the order-two logarithmic rate into a fixed camerawise
+  `C_b(t)/M` bound;
+- a cutoff-independent bound for the complete six-camera finite second jet;
+- fixed `C_curv(t)/M` bounds for both finite curvature coordinates `a_M` and
+  `b_M`;
+- specialization of the local Schur estimate to the canonical second-jet
+  bound, with no external `secondJetBound` hypothesis remaining.
 
 ## Historical condition removed
 
@@ -52,13 +59,17 @@ finite perturbation channels.
 
 ## Still open
 
-- a uniform positive lower floor for the finite corrected clock Gram;
-- a uniform positive lower floor for the finite reoptimized energy;
-- a uniform positive lower floor for
-  `|kappa_M-a_M|`;
-- fixed constants converting the displayed stack errors to `C/M` bounds;
-- the concrete local microscopic-positivity specialization;
-- compact-complement and regional coverage for the final global statement.
+Exactly four quantitative stages remain:
+
+1. uniform positive lower floors for the finite corrected clock Gram, the
+   finite reoptimized energy, and `|kappa_M-a_M|`;
+2. fixed constants for the remaining non-jet perturbation channels, including
+   the corrected first jet, pairing, clock-Gram, gradient, and energy ledgers;
+3. the concrete local microscopic-positivity specialization;
+4. compact-complement and regional coverage for the final global statement.
+
+The second-jet estimate and its curvature contribution are no longer among the
+open obligations.
 
 ## Multiplicity scope
 

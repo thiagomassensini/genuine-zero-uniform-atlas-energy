@@ -1,10 +1,10 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.14.0 closes the first quantitative continuation gate by proving an exact crosswalk between the empirical cameras and the spectral-Weyl camera library, transporting its all-order derivative-tail estimate, and deriving an explicit six-camera finite second-jet bound with the M^(-3/2) log(M)^2 rate. These identities use no supplied height and do not require simplicity; the existing quadratic coercivity route remains the multiplicity-one sector. The release does not promote the remaining denominator floors, fixed C/M constants, compact-region coverage, numerical evidence, or readout-domain equivalences to an unconditional confinement theorem.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.15.0 completes the quantitative second-jet gate: it absorbs the M^(-3/2) log(M)^2 tail into fixed camerawise C_b(t)/M constants, derives a cutoff-independent six-camera second-jet stack bound, proves fixed C_curv(t)/M estimates for both finite curvature coordinates, and specializes the local Schur ledger so no external secondJetBound hypothesis remains. The derivative analysis uses no supplied height and is multiplicity-independent; the subsequent quadratic coercivity route remains the multiplicity-one sector. The release does not promote the remaining denominator floors, non-jet C/M constants, compact-region coverage, numerical evidence, or readout-domain equivalences to an unconditional confinement theorem.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "publication_date": "2026-08-19",
   "language": "eng",
   "creators": [
@@ -25,6 +25,8 @@
     "Schur complement",
     "second jet",
     "higher derivative tail",
+    "inverse cutoff bound",
+    "curvature channel",
     "camera crosswalk",
     "six-camera cutoff operator",
     "cutoff-tail asymptotic",
