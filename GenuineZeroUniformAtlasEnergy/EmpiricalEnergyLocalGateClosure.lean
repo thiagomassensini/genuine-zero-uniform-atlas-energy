@@ -179,17 +179,6 @@ theorem empiricalFiniteCorrectedEnergyErrorBound_le_inverseCutoff
     empiricalCorrectedPairingInverseCutoffConstant_nonneg time
   have hkerrConstant : 0 ≤ kappaConstant :=
     empiricalCorrectedKappaInverseCutoffConstant_nonneg time
-  have hresNonneg : 0 ≤ residualError := by
-    dsimp [residualError]
-    exact Real.sqrt_nonneg _
-  have hpairNonneg : 0 ≤ pairingError := by
-    dsimp [pairingError]
-    unfold empiricalFiniteCorrectedPairingErrorBound
-    positivity
-  have hkerrNonneg : 0 ≤ kappaError := by
-    dsimp [kappaError]
-    unfold empiricalFiniteCorrectedKappaErrorBound
-    positivity
   have hresFixed : residualError ≤ residualConstant :=
     hres.trans (div_le_self hresConstant hMreal)
   have hpairFixed : pairingError ≤ pairingConstant :=
