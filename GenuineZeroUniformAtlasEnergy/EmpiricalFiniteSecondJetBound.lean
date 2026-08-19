@@ -45,7 +45,10 @@ theorem analyticAt_empiricalCameraCharacteristic
     (differentiable_empiricalLimitingFactor camera).analyticAt s
   have hgenuine : AnalyticAt ℂ genuineContinuation s :=
     analyticOnNhd_genuineContinuation_genuineCriticalStrip s hs
-  exact (hfactor.mul hgenuine).congr_of_eventuallyEq heq
+  rw [← analyticWithinAt_univ] at hfactor hgenuine ⊢
+  exact
+    (hfactor.mul hgenuine).congr_of_eventuallyEq_insert
+      (by simpa using heq)
 
 /-- The unresolved empirical cutoff tail is analytic at every critical-line
 point.  The proof uses the already established holomorphy ball. -/
