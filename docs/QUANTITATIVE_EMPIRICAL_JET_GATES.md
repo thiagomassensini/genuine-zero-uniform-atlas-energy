@@ -13,9 +13,7 @@ bounds for both curvature coordinates, and specializes the local Schur ledger
 so that it no longer accepts an external `secondJetBound` argument.
 
 Exactly four gates remain: denominator floors, the non-jet fixed constants,
-concrete local positivity, and the compact-complement stitch. Humanity has
-therefore been denied the opportunity to rename the same second-jet hypothesis
-four times and call it progress.
+concrete local positivity, and the compact-complement stitch.
 
 ## Fixed setting
 
