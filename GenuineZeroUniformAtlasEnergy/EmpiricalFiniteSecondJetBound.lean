@@ -1,5 +1,6 @@
 import GenuineZeroUniformAtlasEnergy.EmpiricalFiniteTransverseData
 import GenuineZeroUniformAtlasEnergy.GenuineZeroMultiplicity
+import GenuineZeroUniformAtlasEnergy.EmpiricalCameraHigherDerivativeCrosswalk
 
 /-!
 # Exact finite empirical second-jet crosswalk
@@ -21,9 +22,20 @@ This identity is valid for every positive cutoff and does not use a numerical
 height or a simplicity hypothesis.  At a critical Genuine zero, simplicity is
 needed later only to make the order-one clock direction nonzero.  The cutoff
 `M` and the zero multiplicity `m` are distinct parameters.
+
+The spectral-Weyl camera library already proves an all-order Cauchy tail bound.
+After the exact camera crosswalk, the order-two specialization gives
+
+```math
+\|\chi_b''-\chi_{b,M}''\|
+\le 2 C_b(t) M^{-3/2}\log(M)^2.
+```
+
+Thus the finite second jet is a fixed infinite second jet plus a decaying tail,
+and is uniformly bounded eventually.
 -/
 
-open scoped Topology
+open scoped BigOperators Topology
 
 namespace GenuineZeroUniformAtlasEnergy
 
@@ -31,6 +43,8 @@ open CPFormal.Analytic.Cp
 open Set Metric
 
 noncomputable section
+
+namespace SpectralCamera := NativeCarrySpectralWeyl.Camera
 
 /-- The faithful infinite empirical characteristic is analytic at every point
 of the open Genuine strip. -/
@@ -168,6 +182,92 @@ theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le
           (criticalLineParameter time)‖ := by
   rw [iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_eq_infinite_sub_cutoffTail]
   exact norm_sub_le _ _
+
+/-- Explicit order-two Cauchy tail rate for one empirical camera. -/
+def empiricalCameraSecondJetTailRateBound
+    (camera : EmpiricalCamera) (M : ℕ) (time : ℝ) : ℝ :=
+  (2 * SpectralCamera.higherDerivativeCircleConstant camera.label time) *
+    (M : ℝ) ^ (-(3 : ℝ) / 2) *
+      (Real.log (M : ℝ)) ^ 2
+
+/-- The second derivative tail itself obeys the inherited all-order Cauchy
+estimate. -/
+theorem norm_iteratedDeriv_two_empiricalCameraCutoffTail_le
+    (camera : EmpiricalCamera) (M : ℕ)
+    (hM : Real.exp 2 ≤ (M : ℝ)) (time : ℝ) :
+    ‖iteratedDeriv 2 (empiricalCameraCutoffTail camera M)
+        (criticalLineParameter time)‖ ≤
+      empiricalCameraSecondJetTailRateBound camera M time := by
+  have htail :=
+    norm_iteratedDeriv_empiricalCameraCharacteristic_sub_finite_le
+      camera M 2 hM time
+  have hidentity :=
+    iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_eq_infinite_sub_cutoffTail
+      camera M time
+  have hrearrange :
+      iteratedDeriv 2 (empiricalCameraCharacteristic camera)
+          (criticalLineParameter time) -
+        iteratedDeriv 2 (finiteEmpiricalCameraCharacteristic camera M)
+          (criticalLineParameter time) =
+      iteratedDeriv 2 (empiricalCameraCutoffTail camera M)
+        (criticalLineParameter time) := by
+    rw [hidentity]
+    ring
+  rw [hrearrange] at htail
+  simpa [empiricalCameraSecondJetTailRateBound] using htail
+
+/-- Explicit finite second-jet bound for one camera. -/
+theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le_explicit
+    (camera : EmpiricalCamera) (M : ℕ)
+    (hM : Real.exp 2 ≤ (M : ℝ)) (time : ℝ) :
+    ‖iteratedDeriv 2 (finiteEmpiricalCameraCharacteristic camera M)
+        (criticalLineParameter time)‖ ≤
+      ‖iteratedDeriv 2 (empiricalCameraCharacteristic camera)
+          (criticalLineParameter time)‖ +
+        empiricalCameraSecondJetTailRateBound camera M time := by
+  exact
+    (norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le
+      camera M time).trans
+        (add_le_add_left
+          (norm_iteratedDeriv_two_empiricalCameraCutoffTail_le
+            camera M hM time) _)
+
+/-- Euclidean aggregation of the six explicit finite second-jet bounds. -/
+def empiricalFiniteSecondJetStackBound
+    (M : ℕ) (time : ℝ) : ℝ :=
+  Real.sqrt
+    (∑ camera : EmpiricalCamera,
+      (‖iteratedDeriv 2 (empiricalCameraCharacteristic camera)
+          (criticalLineParameter time)‖ +
+        empiricalCameraSecondJetTailRateBound camera M time) ^ 2)
+
+/-- The complete finite six-camera second-derivative stack obeys the explicit
+Euclidean aggregation of the camerawise bounds. -/
+theorem norm_finiteEmpiricalCameraSecondDerivativeStack_le
+    (M : ℕ) (hM : Real.exp 2 ≤ (M : ℝ)) (time : ℝ) :
+    ‖finiteEmpiricalCameraSecondDerivativeStack M
+        (criticalLineParameter time)‖ ≤
+      empiricalFiniteSecondJetStackBound M time := by
+  rw [EuclideanSpace.norm_eq]
+  unfold empiricalFiniteSecondJetStackBound
+  apply Real.sqrt_le_sqrt
+  apply Finset.sum_le_sum
+  intro camera _hcamera
+  have hcomponent :=
+    norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le_explicit
+      camera M hM time
+  have hboundNonneg :
+      0 ≤ ‖iteratedDeriv 2 (empiricalCameraCharacteristic camera)
+          (criticalLineParameter time)‖ +
+        empiricalCameraSecondJetTailRateBound camera M time :=
+    le_trans (norm_nonneg _) hcomponent
+  have hmul :=
+    mul_le_mul hcomponent hcomponent
+      (norm_nonneg
+        (iteratedDeriv 2 (finiteEmpiricalCameraCharacteristic camera M)
+          (criticalLineParameter time)))
+      hboundNonneg
+  simpa [finiteEmpiricalCameraSecondDerivativeStack, pow_two] using hmul
 
 end
 
