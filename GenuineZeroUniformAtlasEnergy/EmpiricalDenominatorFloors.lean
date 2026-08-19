@@ -64,8 +64,9 @@ theorem norm_nativeCutoffLog_eq_realLog
     (M : ℕ) (hM : 1 ≤ M) :
     ‖nativeCutoffLog M‖ = Real.log (M : ℝ) := by
   have hMreal : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
-  simp [nativeCutoffLog, Real.norm_eq_abs,
-    abs_of_nonneg (Real.log_nonneg hMreal)]
+  unfold nativeCutoffLog
+  rw [← Complex.natCast_log]
+  exact Complex.norm_of_nonneg (Real.log_nonneg hMreal)
 
 /-- The logarithm carried by the raw first jet is absorbed by the stronger
 critical `M^(-3/2)` value decay. -/
