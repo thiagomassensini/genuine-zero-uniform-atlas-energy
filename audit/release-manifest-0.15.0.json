@@ -1,0 +1,15 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.release-manifest/v1",
+  "release": "0.15.0",
+  "publication_date": "2026-08-19",
+  "theorem_registry_release": "0.12.0",
+  "claim_ledger_release": "0.12.0",
+  "promoted_theorem_count": 156,
+  "promoted_claim_count": 24,
+  "public_build_additions": [
+    "EmpiricalSecondJetGateClosure",
+    "EmpiricalSecondJetDownstreamClosure"
+  ],
+  "status": "PUBLIC_BUILD_CHECKED_COMPLETE_SECOND_JET_CLOSURE_NO_NEW_UNCONDITIONAL_CONFINEMENT_CLAIM",
+  "scope_note": "The 0.15.0 release absorbs the order-two logarithmic tail into fixed inverse-cutoff constants, constructs a cutoff-independent six-camera second-jet bound, derives fixed curvature-channel bounds, and removes the external secondJetBound premise from the concrete Schur route. It does not claim that the remaining denominator floors, non-jet C/M constants, concrete local positivity, compact complement, or strip-wide stitching have been discharged."
+}
