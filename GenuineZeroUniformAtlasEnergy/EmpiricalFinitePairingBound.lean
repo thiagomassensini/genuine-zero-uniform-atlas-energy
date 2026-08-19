@@ -92,15 +92,9 @@ theorem empiricalQuadraticClockPairing_phaseNormalizedLeading_eq
             (-((empiricalCutoffPhase time M : ℂ) * Complex.I))) =
         Complex.exp
           ((empiricalCutoffPhase time M : ℂ) * Complex.I) := by
-    change Complex.conj
-        (Complex.exp
-          (-((empiricalCutoffPhase time M : ℂ) * Complex.I))) =
-      Complex.exp
-        ((empiricalCutoffPhase time M : ℂ) * Complex.I)
     rw [← Complex.exp_conj]
     simp
   rw [inner_smul_left, hphase]
-  ring
 
 /-- Explicit stack-level pairing error assembled from the residual and
 corrected first-jet errors. -/
