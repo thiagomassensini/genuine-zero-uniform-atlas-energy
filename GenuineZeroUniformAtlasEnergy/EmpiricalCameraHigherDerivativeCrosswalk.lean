@@ -20,18 +20,73 @@ open CPFormal.Analytic.Cp
 
 noncomputable section
 
+/-- The two camera APIs use exactly the same finite radius set. -/
+theorem spectralCameraRadiusSet_eq_empiricalRadii
+    (camera : EmpiricalCamera) :
+    FiniteNativeCarryOperator.Camera.radiusSet camera.label = camera.radii := by
+  simpa [FiniteNativeCarryOperator.Camera.radiusSet,
+    FiniteNativeCarryOperator.Camera.halfRange] using
+      (EmpiricalCamera.radii_eq_Icc camera).symm
+
+/-- The aligned natural center agrees with the empirical period convention,
+including the exceptional period-four camera labelled two. -/
+theorem spectralCameraAlignedCenter_eq_empiricalCenter
+    (camera : EmpiricalCamera) (index : ℕ) :
+    FiniteNativeCarryOperator.Camera.alignedCenter camera.label index =
+      camera.period * (index + 1) := by
+  cases camera <;>
+    simp [FiniteNativeCarryOperator.Camera.alignedCenter]
+
+/-- A natural-number Dirichlet sample has the same scalar interpretation in
+both camera APIs. -/
+theorem realDirichletPower_natCast_eq_spectralDirichletValue
+    (s : ℂ) (n : ℕ) :
+    realDirichletPower s (n : ℝ) =
+      NativeCarrySpectralWeyl.Camera.dirichletValue s n := by
+  simp [realDirichletPower,
+    NativeCarrySpectralWeyl.Camera.dirichletValue]
+
+/-- One empirical radius bracket is exactly the spectral-Weyl centered bracket
+at the same aligned center. -/
+theorem realCpPairBracket_eq_spectralCenteredBracketTerm
+    (camera : EmpiricalCamera) {radius : ℕ}
+    (hradius : radius ∈ camera.radii) (index : ℕ) (s : ℂ) :
+    realCpPairBracket camera.period radius index s =
+      NativeCarrySpectralWeyl.Camera.centeredBracketTerm s
+        (FiniteNativeCarryOperator.Camera.alignedCenter camera.label index)
+        radius := by
+  have hradiusLt : radius < camera.period :=
+    camera.radius_lt_period hradius
+  have hradiusCenter : radius ≤ camera.period * (index + 1) := by
+    have hperiodLe : camera.period ≤ camera.period * (index + 1) := by
+      nlinarith [Nat.succ_pos index]
+    omega
+  rw [spectralCameraAlignedCenter_eq_empiricalCenter]
+  unfold realCpPairBracket
+    NativeCarrySpectralWeyl.Camera.centeredBracketTerm
+    NativeCarrySpectralWeyl.Camera.dirichletValue
+    realDirichletPower
+  rw [Nat.cast_sub hradiusCenter]
+  push_cast
+  ring
+
 /-- The empirical finite seed is literally the spectral-Weyl camera seed. -/
 theorem empiricalCameraSeed_eq_spectralCameraSeed
     (camera : EmpiricalCamera) (s : ℂ) :
     empiricalCameraSeed camera s =
       NativeCarrySpectralWeyl.Camera.seedDirichletTerm camera.label s := by
-  cases camera <;>
-    simp [empiricalCameraSeed,
-      NativeCarrySpectralWeyl.Camera.seedDirichletTerm,
-      NativeCarrySpectralWeyl.Camera.dirichletValue,
-      realDirichletPower,
-      FiniteNativeCarryOperator.Camera.radiusSet,
-      FiniteNativeCarryOperator.Camera.halfRange]
+  unfold empiricalCameraSeed
+    NativeCarrySpectralWeyl.Camera.seedDirichletTerm
+  rw [spectralCameraRadiusSet_eq_empiricalRadii]
+  by_cases htwo : camera.label = 2
+  · have hcamera : camera = EmpiricalCamera.c2 := by
+      cases camera <;> simp_all
+    subst camera
+    simp [realDirichletPower_natCast_eq_spectralDirichletValue]
+  · rw [if_neg htwo]
+    apply Finset.sum_congr rfl
+    intro radius _hradius
+    exact realDirichletPower_natCast_eq_spectralDirichletValue s radius
 
 /-- Every empirical center block is literally the corresponding aligned
 spectral-Weyl center block. -/
@@ -40,15 +95,21 @@ theorem empiricalCameraBlock_eq_spectralCameraBlock
     empiricalCameraBlock camera index s =
       NativeCarrySpectralWeyl.Camera.centerBracketTerm
         camera.label s index := by
-  cases camera <;>
-    simp [empiricalCameraBlock,
-      NativeCarrySpectralWeyl.Camera.centerBracketTerm,
-      NativeCarrySpectralWeyl.Camera.centeredBracketTerm,
-      NativeCarrySpectralWeyl.Camera.dirichletValue,
-      realCpPairBracket, realDirichletPower,
-      FiniteNativeCarryOperator.Camera.alignedCenter,
-      FiniteNativeCarryOperator.Camera.radiusSet,
-      FiniteNativeCarryOperator.Camera.halfRange, two_smul]
+  unfold empiricalCameraBlock
+    NativeCarrySpectralWeyl.Camera.centerBracketTerm
+  rw [spectralCameraRadiusSet_eq_empiricalRadii]
+  by_cases htwo : camera.label = 2
+  · have hcamera : camera = EmpiricalCamera.c2 := by
+      cases camera <;> simp_all
+    subst camera
+    simp only [EmpiricalCamera.radii, Finset.sum_singleton, if_pos rfl]
+    exact realCpPairBracket_eq_spectralCenteredBracketTerm
+      EmpiricalCamera.c2 (by simp) index s
+  · rw [if_neg htwo]
+    apply Finset.sum_congr rfl
+    intro radius hradius
+    exact realCpPairBracket_eq_spectralCenteredBracketTerm
+      camera hradius index s
 
 /-- Function-level equality of the infinite empirical and spectral-Weyl
 characteristics. -/
