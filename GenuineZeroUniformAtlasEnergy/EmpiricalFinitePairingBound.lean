@@ -32,7 +32,7 @@ theorem norm_empiricalQuadraticClockPairing_sub_le_of_norm_sub_bounds
         rw [sub_add_cancel]
       _ ≤ ‖firstJet - modelFirstJet‖ + ‖modelFirstJet‖ := norm_add_le _ _
       _ ≤ firstJetError + ‖modelFirstJet‖ :=
-        add_le_add_right hfirstJet _
+        add_le_add hfirstJet le_rfl
   have hrewrite :
       empiricalQuadraticClockPairing residual firstJet -
           empiricalQuadraticClockPairing modelResidual modelFirstJet =
@@ -86,7 +86,21 @@ theorem empiricalQuadraticClockPairing_phaseNormalizedLeading_eq
     empiricalPhaseNormalizedLeadingResidualStack
     empiricalCutoffBackPhase empiricalLeadingPhasePairing
     empiricalStackPairing
-  simp [inner_smul_left, map_exp]
+  have hphase :
+      (starRingEnd ℂ)
+          (Complex.exp
+            (-((empiricalCutoffPhase time M : ℂ) * Complex.I))) =
+        Complex.exp
+          ((empiricalCutoffPhase time M : ℂ) * Complex.I) := by
+    change Complex.conj
+        (Complex.exp
+          (-((empiricalCutoffPhase time M : ℂ) * Complex.I))) =
+      Complex.exp
+        ((empiricalCutoffPhase time M : ℂ) * Complex.I)
+    rw [← Complex.exp_conj]
+    simp
+  rw [inner_smul_left, hphase]
+  ring
 
 /-- Explicit stack-level pairing error assembled from the residual and
 corrected first-jet errors. -/
@@ -141,21 +155,33 @@ theorem abs_finiteEmpiricalCorrectedRadialGradient_sub_model_le
           empiricalLeadingPhasePairing M time).re| ≤
         empiricalFiniteCorrectedPairingErrorBound M time :=
     le_trans hre hpair
+  have hleadingRe :
+      (empiricalLeadingPhasePairing M time).re =
+        finiteEmpiricalPhaseProjection time M := by
+    rfl
   have hrewrite :
       finiteEmpiricalCorrectedRadialGradient M time -
           2 * finiteEmpiricalPhaseProjection time M =
         2 * (finiteEmpiricalCorrectedPhasePairing M time -
           empiricalLeadingPhasePairing M time).re := by
-    unfold finiteEmpiricalCorrectedRadialGradient
-      empiricalQuadraticRadialGradient
-      finiteEmpiricalCorrectedPhasePairing
-      finiteEmpiricalPhaseProjection
-      empiricalStackPhaseProjection
-      empiricalLeadingPhasePairing
+    change
+      2 * (finiteEmpiricalCorrectedPhasePairing M time).re -
+          2 * finiteEmpiricalPhaseProjection time M =
+        2 * (finiteEmpiricalCorrectedPhasePairing M time -
+          empiricalLeadingPhasePairing M time).re
+    rw [← hleadingRe]
+    simp
     ring
-  rw [hrewrite, abs_mul]
-  norm_num
-  exact mul_le_mul_of_nonneg_left hreal (by norm_num)
+  rw [hrewrite]
+  calc
+    |2 * (finiteEmpiricalCorrectedPhasePairing M time -
+        empiricalLeadingPhasePairing M time).re| =
+      2 * |(finiteEmpiricalCorrectedPhasePairing M time -
+        empiricalLeadingPhasePairing M time).re| := by
+        rw [abs_mul]
+        norm_num
+    _ ≤ 2 * empiricalFiniteCorrectedPairingErrorBound M time :=
+      mul_le_mul_of_nonneg_left hreal (by norm_num)
 
 end
 
