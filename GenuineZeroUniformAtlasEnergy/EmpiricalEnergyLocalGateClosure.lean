@@ -179,10 +179,30 @@ theorem empiricalFiniteCorrectedEnergyErrorBound_le_inverseCutoff
     empiricalCorrectedPairingInverseCutoffConstant_nonneg time
   have hkerrConstant : 0 ≤ kappaConstant :=
     empiricalCorrectedKappaInverseCutoffConstant_nonneg time
+  have hresErrorNonneg : 0 ≤ residualError := by
+    dsimp [residualError]
+    exact Real.sqrt_nonneg _
+  have hpairErrorNonneg : 0 ≤ pairingError := by
+    dsimp [pairingError]
+    unfold empiricalFiniteCorrectedPairingErrorBound
+    exact add_nonneg
+      (mul_nonneg (Real.sqrt_nonneg _)
+        (add_nonneg (Real.sqrt_nonneg _) (norm_nonneg _)))
+      (mul_nonneg (norm_nonneg _) (Real.sqrt_nonneg _))
+  have hresDivNonneg : 0 ≤ residualConstant / (M : ℝ) :=
+    div_nonneg hresConstant (by positivity)
+  have hpairDivNonneg : 0 ≤ pairingConstant / (M : ℝ) :=
+    div_nonneg hpairConstant (by positivity)
   have hresFixed : residualError ≤ residualConstant :=
     hres.trans (div_le_self hresConstant hMreal)
   have hpairFixed : pairingError ≤ pairingConstant :=
     hpair.trans (div_le_self hpairConstant hMreal)
+  have hresSumNonneg : 0 ≤ residualError + 2 * leadingNorm :=
+    add_nonneg hresErrorNonneg
+      (mul_nonneg (by norm_num) (norm_nonneg _))
+  have hpairSumNonneg : 0 ≤ pairingError + 2 * pairingNorm :=
+    add_nonneg hpairErrorNonneg
+      (mul_nonneg (by norm_num) (norm_nonneg _))
   have hresTerm :
       residualError * (residualError + 2 * leadingNorm) ≤
         (residualConstant * (residualConstant + 2 * leadingNorm)) /
@@ -192,7 +212,7 @@ theorem empiricalFiniteCorrectedEnergyErrorBound_le_inverseCutoff
           (residualConstant / (M : ℝ)) *
             (residualConstant + 2 * leadingNorm) :=
         mul_le_mul hres (add_le_add hresFixed le_rfl)
-          (by positivity) (by positivity)
+          hresSumNonneg hresDivNonneg
       _ = (residualConstant *
           (residualConstant + 2 * leadingNorm)) / (M : ℝ) := by ring
   have hpairNumerator :
@@ -200,7 +220,7 @@ theorem empiricalFiniteCorrectedEnergyErrorBound_le_inverseCutoff
         (pairingConstant / (M : ℝ)) *
           (pairingConstant + 2 * pairingNorm) :=
     mul_le_mul hpair (add_le_add hpairFixed le_rfl)
-      (by positivity) (by positivity)
+      hpairSumNonneg hpairDivNonneg
   have hpairTerm :
       pairingError * (pairingError + 2 * pairingNorm) / (kappa / 2) ≤
         (pairingConstant * (pairingConstant + 2 * pairingNorm) /
