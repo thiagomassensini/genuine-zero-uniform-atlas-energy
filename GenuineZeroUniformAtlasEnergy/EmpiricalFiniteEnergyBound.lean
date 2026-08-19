@@ -40,7 +40,7 @@ theorem abs_norm_sq_sub_norm_sq_le_of_norm_sub_le
     calc
       ‖x‖ = ‖(x - y) + y‖ := by rw [sub_add_cancel]
       _ ≤ ‖x - y‖ + ‖y‖ := norm_add_le _ _
-      _ ≤ error + ‖y‖ := add_le_add_right hxy _
+      _ ≤ error + ‖y‖ := add_le_add hxy le_rfl
   have hsum : |‖x‖ + ‖y‖| ≤ error + 2 * ‖y‖ := by
     rw [abs_of_nonneg (add_nonneg (norm_nonneg _) (norm_nonneg _))]
     linarith
@@ -116,6 +116,10 @@ theorem abs_sq_div_sub_sq_div_le_of_primitive_bounds
     rw [abs_mul]
     exact mul_le_mul hmodelYSqAbs hkappaDifference
       (abs_nonneg _) (sq_nonneg _)
+  have hsecondNumerator' :
+      |modelY ^ 2| * |modelKappa - kappa| ≤
+        modelYBound ^ 2 * kappaDifference := by
+    simpa only [abs_mul] using hsecondNumerator
   have hdenFloorPos : 0 < kappaFloor * modelKappaFloor :=
     mul_pos hkappaFloorPos hmodelKappaFloorPos
   have hdenComparison :
@@ -127,13 +131,13 @@ theorem abs_sq_div_sub_sq_div_le_of_primitive_bounds
           (kappa * modelKappa)| ≤
         modelYBound ^ 2 * kappaDifference /
           (kappaFloor * modelKappaFloor) := by
-    rw [abs_div, abs_mul]
+    simp only [abs_div, abs_mul]
     calc
-      |modelY ^ 2 * (modelKappa - kappa)| /
+      |modelY ^ 2| * |modelKappa - kappa| /
           (|kappa| * |modelKappa|) ≤
         (modelYBound ^ 2 * kappaDifference) /
           (|kappa| * |modelKappa|) :=
-        div_le_div_of_nonneg_right hsecondNumerator
+        div_le_div_of_nonneg_right hsecondNumerator'
           (mul_nonneg (abs_nonneg _) (abs_nonneg _))
       _ ≤ (modelYBound ^ 2 * kappaDifference) /
           (kappaFloor * modelKappaFloor) :=
@@ -148,16 +152,18 @@ theorem abs_sq_div_sub_sq_div_le_of_primitive_bounds
     field_simp [hkappaNe, hmodelKappaNe]
     ring
   rw [hrewrite]
-  calc
-    |(y ^ 2 - modelY ^ 2) / kappa +
-        modelY ^ 2 * (modelKappa - kappa) /
-          (kappa * modelKappa)| ≤
-      |(y ^ 2 - modelY ^ 2) / kappa| +
-        |modelY ^ 2 * (modelKappa - kappa) /
-          (kappa * modelKappa)| := abs_add _ _
-    _ ≤ yDifference * ySum / kappaFloor +
-        modelYBound ^ 2 * kappaDifference /
-          (kappaFloor * modelKappaFloor) := add_le_add hfirst hsecond
+  have htriangle :
+      |(y ^ 2 - modelY ^ 2) / kappa +
+          modelY ^ 2 * (modelKappa - kappa) /
+            (kappa * modelKappa)| ≤
+        |(y ^ 2 - modelY ^ 2) / kappa| +
+          |modelY ^ 2 * (modelKappa - kappa) /
+            (kappa * modelKappa)| := by
+    simpa [Real.norm_eq_abs] using
+      norm_add_le ((y ^ 2 - modelY ^ 2) / kappa)
+        (modelY ^ 2 * (modelKappa - kappa) /
+          (kappa * modelKappa))
+  exact htriangle.trans (add_le_add hfirst hsecond)
 
 /-- Leading corrected reoptimized energy. -/
 def empiricalLeadingCorrectedReoptimizedEnergy
@@ -181,16 +187,46 @@ theorem empiricalLeadingCorrectedReoptimizedEnergy_eq_phaseDenominator
       (empiricalLeadingPhasePairing M time).re ^ 2 +
           (empiricalLeadingPhasePairing M time).im ^ 2 =
         empiricalStackAlphaSq (criticalLineParameter time) := by
-    simpa [empiricalLeadingPhasePairing,
-      finiteEmpiricalPhaseProjection] using hphase
+    change
+      empiricalStackPhaseProjection
+          (criticalLineParameter time) (empiricalCutoffPhase time M) ^ 2 +
+        empiricalStackPhaseImagProjection
+          (criticalLineParameter time) (empiricalCutoffPhase time M) ^ 2 =
+      empiricalStackAlphaSq (criticalLineParameter time)
+    exact hphase
+  have hreal :
+      (empiricalLeadingPhasePairing M time).re =
+        finiteEmpiricalPhaseProjection time M := by
+    rfl
   unfold empiricalLeadingCorrectedReoptimizedEnergy
     empiricalQuadraticReoptimizedEnergy empiricalQuadraticClockKappa
   rw [empiricalQuadraticClockPairing_phaseNormalizedLeading_eq,
     norm_empiricalPhaseNormalizedLeadingResidualStack]
-  unfold empiricalStackRho empiricalStackAmplitudeSq
-    empiricalStackKappa finiteEmpiricalPhaseProjection
-  rw [← hphase']
-  ring
+  change
+    empiricalStackAmplitudeSq (criticalLineParameter time) -
+        (empiricalLeadingPhasePairing M time).im ^ 2 /
+          empiricalStackKappa (criticalLineParameter time) =
+      (empiricalStackAmplitudeSq (criticalLineParameter time) -
+        empiricalStackAlphaSq (criticalLineParameter time) /
+          empiricalStackKappa (criticalLineParameter time)) +
+      finiteEmpiricalPhaseProjection time M ^ 2 /
+        empiricalStackKappa (criticalLineParameter time)
+  calc
+    empiricalStackAmplitudeSq (criticalLineParameter time) -
+        (empiricalLeadingPhasePairing M time).im ^ 2 /
+          empiricalStackKappa (criticalLineParameter time) =
+      (empiricalStackAmplitudeSq (criticalLineParameter time) -
+        ((empiricalLeadingPhasePairing M time).re ^ 2 +
+          (empiricalLeadingPhasePairing M time).im ^ 2) /
+          empiricalStackKappa (criticalLineParameter time)) +
+        (empiricalLeadingPhasePairing M time).re ^ 2 /
+          empiricalStackKappa (criticalLineParameter time) := by ring
+    _ = (empiricalStackAmplitudeSq (criticalLineParameter time) -
+        empiricalStackAlphaSq (criticalLineParameter time) /
+          empiricalStackKappa (criticalLineParameter time)) +
+      finiteEmpiricalPhaseProjection time M ^ 2 /
+        empiricalStackKappa (criticalLineParameter time) := by
+      rw [hphase', hreal]
 
 /-- Explicit first-jet Gram error used by the finite energy ledger. -/
 def empiricalFiniteCorrectedKappaErrorBound
@@ -270,6 +306,15 @@ theorem abs_finiteEmpiricalCorrectedReoptimizedEnergy_sub_model_le
       rfl
     rw [hre] at him
     exact le_trans him hpairing
+  have htwoModel :
+      |2 * modelPairing.im| ≤ 2 * ‖modelPairing‖ := by
+    calc
+      |2 * modelPairing.im| = 2 * |modelPairing.im| := by
+        rw [abs_mul]
+        norm_num
+      _ ≤ 2 * ‖modelPairing‖ :=
+        mul_le_mul_of_nonneg_left
+          (Complex.abs_im_le_norm modelPairing) (by norm_num)
   have hySum :
       |pairing.im + modelPairing.im| ≤
         empiricalFiniteCorrectedPairingErrorBound M time +
@@ -279,16 +324,12 @@ theorem abs_finiteEmpiricalCorrectedReoptimizedEnergy_sub_model_le
           (pairing.im - modelPairing.im) + 2 * modelPairing.im := by
       ring
     rw [hrewrite]
-    calc
-      |(pairing.im - modelPairing.im) + 2 * modelPairing.im| ≤
-        |pairing.im - modelPairing.im| + |2 * modelPairing.im| := abs_add _ _
-      _ ≤ empiricalFiniteCorrectedPairingErrorBound M time +
-          2 * ‖modelPairing‖ := by
-        apply add_le_add hyDifference
-        rw [abs_mul]
-        norm_num
-        exact mul_le_mul_of_nonneg_left
-          (Complex.abs_im_le_norm modelPairing) (by norm_num)
+    have htriangle :
+        |(pairing.im - modelPairing.im) + 2 * modelPairing.im| ≤
+          |pairing.im - modelPairing.im| + |2 * modelPairing.im| := by
+      simpa [Real.norm_eq_abs] using
+        norm_add_le (pairing.im - modelPairing.im) (2 * modelPairing.im)
+    exact htriangle.trans (add_le_add hyDifference htwoModel)
   have hquotient :=
     abs_sq_div_sub_sq_div_le_of_primitive_bounds
       kappa modelKappa pairing.im modelPairing.im
@@ -302,17 +343,29 @@ theorem abs_finiteEmpiricalCorrectedReoptimizedEnergy_sub_model_le
       (by simpa [kappa, firstJet] using hfiniteKappaFloor)
       (by rw [abs_of_pos hmodelKappaPos])
       hyDifference hySum (Complex.abs_im_le_norm modelPairing)
-      (by simpa [kappa, modelKappa, firstJet, modelFirstJet,
+      (by simpa [abs_sub_comm, kappa, modelKappa, firstJet, modelFirstJet,
         empiricalFiniteCorrectedKappaErrorBound] using hkappaDifference)
   have hmodelEnergy :=
     empiricalLeadingCorrectedReoptimizedEnergy_eq_phaseDenominator M time
   rw [← hmodelEnergy]
+  have hfiniteEnergy :
+      finiteEmpiricalCorrectedReoptimizedEnergy M time =
+        ‖residual‖ ^ 2 - pairing.im ^ 2 / kappa := by
+    rfl
+  have hleadingEnergy :
+      empiricalLeadingCorrectedReoptimizedEnergy M time =
+        ‖modelResidual‖ ^ 2 - modelPairing.im ^ 2 / modelKappa := by
+    unfold empiricalLeadingCorrectedReoptimizedEnergy
+      empiricalQuadraticReoptimizedEnergy
+    rw [empiricalQuadraticClockPairing_phaseNormalizedLeading_eq]
+    rfl
+  rw [hfiniteEnergy, hleadingEnergy]
   have hrewrite :
-      finiteEmpiricalCorrectedReoptimizedEnergy M time -
-          empiricalLeadingCorrectedReoptimizedEnergy M time =
+      (‖residual‖ ^ 2 - pairing.im ^ 2 / kappa) -
+          (‖modelResidual‖ ^ 2 - modelPairing.im ^ 2 / modelKappa) =
         (‖residual‖ ^ 2 - ‖modelResidual‖ ^ 2) -
           (pairing.im ^ 2 / kappa - modelPairing.im ^ 2 / modelKappa) := by
-    rfl
+    ring
   rw [hrewrite]
   calc
     |(‖residual‖ ^ 2 - ‖modelResidual‖ ^ 2) -
@@ -336,7 +389,9 @@ theorem abs_finiteEmpiricalCorrectedReoptimizedEnergy_sub_model_le
           norm_empiricalPhaseNormalizedLeadingResidualStack] using hvalue
       · simpa [pairing, modelPairing, kappa, modelKappa, modelFirstJet,
           empiricalQuadraticClockKappa, empiricalStackKappa] using hquotient
-    _ = empiricalFiniteCorrectedEnergyErrorBound M time finiteKappaFloor := rfl
+    _ = empiricalFiniteCorrectedEnergyErrorBound M time finiteKappaFloor := by
+      unfold empiricalFiniteCorrectedEnergyErrorBound
+      ring
 
 end
 
