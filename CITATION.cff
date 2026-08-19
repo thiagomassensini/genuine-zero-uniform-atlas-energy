@@ -6,18 +6,19 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.12.0
-date-released: 2026-08-17
+version: 0.13.0
+date-released: 2026-08-18
 abstract: >-
   A Lean 4 formalization of the native real-camera/Genuine zero identity, the
-  faithful C2--C7 cutoff operator, sharp critical cutoff-tail and raw-energy
-  asymptotics, exact logarithmic cutoff jets, and the concrete pointwise
-  finite-to-infinite energy bridge. Version 0.12.0 adds an audited final
-  confinement-frontier probe and a lateral canonical readout comparison while
-  preserving the Genuine-first/native-first proof architecture: carry geometry,
-  quadratic amplitude, all-camera invariance, exact cutoff control, and real
-  native operators remain the foundational route. The release does not promote
-  a readout-domain equivalence or floating-point certificate to an
+  faithful C2--C7 cutoff operator, exact critical cutoff-tail jets, and the
+  finite-to-limit transverse-energy architecture. Version 0.13.0 adds a
+  kernel-checked microscopic coercivity bridge: exact moving-clock
+  reoptimization, primitive quotient estimates, and concrete six-camera
+  residual, corrected first-jet, pairing, energy, and Schur-coefficient
+  reductions. The release removes the historical phase-floor-greater-than-four
+  threshold from the abstract eventual-positivity step. It does not promote
+  the remaining uniform finite-jet bounds, denominator floors, compact-region
+  coverage, numerical evidence, or readout-domain equivalences to an
   unconditional confinement theorem.
 keywords:
   - Lean 4
@@ -27,17 +28,17 @@ keywords:
   - TFVD
   - Green identity
   - transverse coercivity
-  - Hessian
-  - primitive camera operator
+  - microscopic coercivity
+  - moving clock
+  - Schur complement
+  - primitive jet bounds
+  - corrected first jet
   - six-camera cutoff operator
   - cutoff-tail asymptotic
   - differentiated cutoff remainder
   - Cauchy derivative estimate
   - logarithmic cutoff jet
   - collective energy asymptotic
-  - pointwise energy limit
-  - confinement frontier audit
-  - canonical readout comparison
   - phase projection
   - uniform atlas
   - critical half-abscissa

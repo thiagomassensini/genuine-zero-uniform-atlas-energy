@@ -1,11 +1,33 @@
 # Genuine Zero Uniform Atlas Energy
 
-Lean 4 formalization of one positional carry geometry, one native/Genuine zero,
-one optimal energy budget, and the faithful empirical six-camera cutoff
-operator with a structural projected coercivity floor.
+Lean 4 formalization of positional carry geometry, the native/Genuine zero
+identity, exact finite cutoff control, and the transverse-energy route toward
+uniform zero confinement.
 
-The construction starts before any zero is considered. At real phase time
-`t`, the native positional wave is
+The project is deliberately native-first. The half-abscissa comes from the
+quadratic amplitude law of carry depth:
+
+```math
+n=b^k m
+\quad\Longrightarrow\quad
+\text{mass}=b^{-k},
+\qquad
+\text{amplitude}=b^{-k/2}.
+```
+
+Thus the distinguished real coordinate is
+
+```math
+\sigma=\frac12.
+```
+
+No external zero list, floating-point witness, explicit formula, functional
+equation, or Euler product is used as a premise for the native geometric
+route.
+
+## Core architecture
+
+For a fixed camera family and cutoff, the real native state is
 
 ```math
 u_t(n)
@@ -14,440 +36,195 @@ n^{-1/2}
 \bigl(\cos(-t\log n),\sin(-t\log n)\bigr).
 ```
 
-Lean proves its quadratic energy directly:
+Each camera applies its positional seeds and centered carry brackets. Stacking
+the primitive resultants gives the collective observation map `C`, with
+positive visibility operator `K=C^*C`.
+
+The exact zero condition is
 
 ```math
-\lVert u_t(n)\rVert^2=n^{-1}.
-```
-
-More generally, for every positional base `b > 1`, positive depth `k`, and
-arbitrary real rotation angle, Lean checks the exact rigidity theorem
-
-```math
-\text{quadratic shell energy}=b^{-k}
+C u_t=0
 \quad\Longleftrightarrow\quad
-\sigma=\frac12.
+\langle u_t,Ku_t\rangle=0.
 ```
 
-Thus the amplitude `n^(-1/2)` is the square-root realization of inverse carry
-mass. The real coordinate pair and its complex notation represent the same
-quantity; complex packaging preserves every finite camera computation.
+The complex notation used in some bridge modules is only a lossless shorthand
+for the native real two-plane.
 
-## One computation and one zero
+## Exact cutoff route
 
-For every finite cutoff, Lean proves that packaging the real native resultant
-produces literally the Genuine finite Dirichlet chart:
+The faithful empirical package uses the cameras `2,3,4,5,6,7`, including the
+antipodal channels of the even cameras. The library contains:
+
+- exact finite characteristic and unresolved-tail identities;
+- critical-line amplitude and raw-energy bounds;
+- exact logarithmic cutoff jets;
+- differentiated remainder and Cauchy estimates;
+- finite-to-limit collective-energy transport;
+- the concrete limit-confinement capstone;
+- an audited comparison with the canonical arithmetic nonlocal readout.
+
+The comparison layer remains lateral. It does not replace the native
+carry-geometric proof architecture.
+
+## Version 0.13.0: microscopic coercivity bridge
+
+The new bridge identifies the moving-clock model exactly. If `x` and `y` are
+the rotated pairing coordinates and `kappa > 0`, then
 
 ```math
-\mathrm{pack}
-\bigl(\mathrm{NativeChart}_{3,M}(t)\bigr)
+\mathcal E_{\mathrm{clock}}(x,y,\tau)
 =
-\mathrm{GenuineChart}_{3,M}\left(\frac12+it\right).
+\left(\rho+\frac{x^2}{\kappa}\right)
++
+\kappa\left(\tau-\frac{y}{\kappa}\right)^2.
 ```
 
-Passing through the already-proved common limit gives
+At the minimizing displacement,
 
 ```math
-\boxed{
-\mathrm{NativeBoundaryCloses}_3(t)
-\iff
-\mathrm{Genuine}\left(\frac12+it\right)=0.
-}
+E_0=\rho+\frac{x^2}{\kappa}.
 ```
 
-This is the same vanishing computation written in real-pair and
-complex-coordinate notation.
-
-## One uniform atlas-energy budget
-
-For a cutoff `M` and finite prime atlas `S`, define the native seeded TFVD
-radial-defect energy
+For each cutoff `M`, the finite microscopic coefficient is
 
 ```math
-E_{M,S}(t)
+c_{\mathrm{micro},M}
 =
-\sum_{p\in S}
-\frac{\mathcal O_{p,M}(\frac12+it)^2}{p-1}.
+c_{\mathrm{local},M}
+-
+\frac{g_M^2}{4E_M}.
 ```
 
-The observable contains the transverse factor
+Lean splits the finite-to-model error into curvature, gradient, and energy
+channels, then reduces those quotient expressions to primitive bounds and
+strictly positive denominator floors.
+
+The corrected finite first jet is
 
 ```math
-p^{\delta}-p^{-\delta},
-\qquad
-\delta=\mathrm{Re}\left(\frac12+it\right)-\frac12=0.
+\chi'_M(s)+\log(M)\chi_M(s),
 ```
 
-Consequently Lean proves, at every time and before assuming a zero,
+which removes the logarithmic cutoff phase before comparison with the
+infinite clock tangent.
 
-```math
-\boxed{
-\forall M,\ \forall S,
-\qquad E_{M,S}(t)=0.
-}
-```
+The historical condition `phaseFloor > 4` is no longer required. The abstract
+eventual-positivity theorem needs only a strictly positive phase floor once
+the perturbation channels vanish.
 
-A real number `C` is a uniform budget when it bounds every positive cutoff and
-every finite atlas. Lean then proves
+Detailed status:
 
-```math
-C\text{ is a uniform budget}
-\iff
-C\ge0,
-```
+- [Microscopic coercivity bridge](docs/MICROSCOPIC_COERCIVITY_BRIDGE.md)
+- [Lower-bound status](docs/LOWER_BOUND_STATUS.md)
+- [Release notes 0.13.0](docs/RELEASE_0.13.0.md)
 
-and
+## What is proved and what remains
 
-```math
-C\text{ is the optimal budget}
-\iff
-C=0.
-```
+Kernel-checked now:
 
-Hence the optimal budget exists uniquely. A common native/Genuine zero
-inherits that structural budget; the zero does not create it or select the
-quadratic amplitude.
+- the exact moving-clock completed square;
+- the finite residual and corrected first-jet packages;
+- stack-level pairing and energy perturbation inequalities;
+- reduction of the local Schur coefficient to primitive jet bounds;
+- abstract eventual positivity from any positive phase floor;
+- all previously released carry, Green, cutoff, and limit theorems.
 
-The zero value here belongs to the **radial-defect ledger**. The underlying
-native wave has energy `n⁻¹`; it is the deviation from that native quadratic
-geometry that vanishes.
+Still required for the final unconditional global statement:
 
-## The tilted center left after boundary telescoping
+- uniform finite clock-Gram and energy floors;
+- a uniform temporal Schur-denominator floor;
+- the required second-jet cutoff bound;
+- fixed `C/M` constants for the concrete perturbation channels;
+- compact-complement and regional coverage.
 
-Let the finite tilted center be the difference between the independently
-defined total coupled Green flux and its coupled signed boundary:
+This distinction is enforced in the publication metadata. Version `0.13.0`
+does not promote the bridge to an unconditional confinement theorem.
 
-```math
-\mathcal C_{p,M}(s)
-=
-\mathcal F_{p,M}(s)-\mathcal B_M(s).
-```
+## Audit surface
 
-Lean proves the exact factorization
+The canonical workflow checks the exact commit and pinned dependency graph,
+then runs:
 
-```math
-\boxed{
-\mathcal C_{p,M}(s)
-=
-D_p\!\left(\mathrm{Re}(s)-\frac12\right)
-P_M(s),
-}
-```
-
-where `P_M(s) > 0` for every positive cutoff in the Genuine strip. Therefore,
-for an odd prime camera and an admissible tilt center,
-
-```math
-\boxed{
-\mathcal C_{p,M}(s)=0
-\iff
-\mathrm{Re}(s)=\frac12
-\iff
-\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0
-\iff
-\mathrm{BranchDefect}_{p}(\mathrm{Re}\,s)=0.
-}
-```
-
-In particular, a nonzero carry tilt produces a nonzero surviving center at
-every nonempty cutoff; the positive pairing rules out hidden cancellation.
-
-At the common native/Genuine zero, the boundary already telescopes. Lean then
-proves
-
-```math
-\mathcal F_{p,M}(s)\longrightarrow0
-\iff
-\mathrm{Tilt}_{p}(\mathrm{Re}\,s)=0.
-```
-
-The zero predicate is not changed when the radial coordinate is varied. Lean
-also records the complementary off-equilibrium statement. If a Genuine zero
-in the strip is presented with `Re(s) ≠ 1/2`, then
-
-```math
-\mathcal B_M(s)\longrightarrow0,
-\qquad
-\mathcal C_{p,M}(s)\ne0\quad(M>0),
-\qquad
-\mathcal F_{p,M}(s)\not\longrightarrow0.
-```
-
-Thus the same zero remains a zero. Boundary telescoping removes the legs, and
-the surviving Green center exposes the nonzero tilt; the diagnostic channel
-does not redefine or revoke the zero.
-
-On the native parameter `s = 1/2 + i t`, the quadratic carry geometry has
-already annihilated that tilt and its quadratic branch defect. Consequently
-the boundary tends to zero, the center vanishes at every cutoff, and the total
-flux tends to zero. This adds no new kind of zero: it identifies the center
-that detects departure from the same native/Genuine zero geometry.
-
-## Concrete transverse camera geometry
-
-For every odd prime camera `p` and finite cutoff `M`, Lean defines the entire
-characteristic
-
-```math
-\mathrm{X}_{p,M}(s)
-=
-\mathrm{FiniteChart}_{p,M}(n\mapsto n^{-s}).
-```
-
-The displayed `X` is the GitHub-renderable symbol for the characteristic called
-`Chi` in the surrounding formal development.
-
-At `s = sigma + i*time`, this is literally the complex packaging of the
-primitive real camera. Its two real tangent directions obey
-
-```math
-\partial_t\mathrm{X}_{p,M}
-=
-i\,\partial_\sigma\mathrm{X}_{p,M}.
-```
-
-Multiplication by `i` is the real quarter-turn `J(x,y)=(-y,x)`. Therefore the
-radial and angular tangents have equal Euclidean norm and zero pairing.
-
-The associated raw visibility is
-
-```math
-E_{p,M}(\sigma,t)
-=
-\lVert\mathrm{X}_{p,M}(\sigma+i t)\rVert_{\mathbb R^2}^2.
-```
-
-It is exactly the primitive camera's Euclidean resultant energy. No division
-by cutoff, coordinate count, state norm, or bracket-coordinate energy is used.
-Writing
-
-```math
-\kappa=\lVert\mathrm{X}'\rVert^2,
-\qquad
-a=\langle\mathrm{X},\mathrm{X}''\rangle,
-\qquad
-b=\langle\mathrm{X},J\mathrm{X}''\rangle,
-```
-
-Lean proves
-
-```math
-D^2E_{p,M}
-=
-2\begin{pmatrix}
-\kappa+a & b\\
-b & \kappa-a
-\end{pmatrix}.
-```
-
-The same jet has trace `4*kappa`, determinant
-`4*(kappa^2-a^2-b^2)`, explicit algebraic eigenvalues, and a Schur-envelope
-coercivity coefficient. At an exact finite primitive-camera zero, `a=b=0`:
-the Hessian is isotropic, the first-order minimizing-clock slope is zero, and
-both algebraic eigenvalues equal `2*kappa`.
-
-This closes the finite componentwise operator-to-jet bridge.
-
-## Faithful six-camera cutoff operator
-
-The empirical family is indexed by labels `2,3,4,5,6,7`, with periods
-`4,3,4,5,6,7` and second radius moments `1,1,5,5,14,14`. The cameras labelled
-four and six retain their antipodal radii two and three. Lean models those
-channels directly; it does not replace them by the natural even-camera
-geometry that omits the middle channel.
-
-For each camera Lean defines its seed, finite prefix, infinite characteristic,
-unresolved tail, and raw quadratic energy. At a common critical-line Genuine
-zero, the complete finite stack is exactly the negative tail stack and
-
-```math
-E_M
-=
-\sum_{b=2}^{7}\lVert\mathrm{Tail}_{b,M}\rVert^2.
-```
-
-For each fixed time, every component has a displayed time-dependent
-`M^(-3/2)` amplitude majorant and the collective energy has the corresponding
-`M^(-3)` upper bound. The restored full-even continuation proves that the
-C4/C6 characteristics use their faithful factors times the same
-`genuineContinuation`, so the common-zero hypothesis is not an independent
-numerical assumption.
-
-## Sharp scalar tail asymptotic and projected floor model
-
-For period `b` and retained radius `h`, the scalar tail has the exact leading
-coefficient
-
-```math
-A^{\mathrm{tail}}_{b,h}(s)=sS_2(h)b^{-s-2}.
-```
-
-Lean proves an explicit local remainder of order `(k+1)^(-7/2)` and the exact
-phase of the leading cutoff monomial
-
-```math
-M^{-s-1}=M^{-3/2}\exp(-it\log M).
-```
-
-The corresponding leading vector for the finite resonant residue is opposite:
-`A_res = -A_tail`. Lean proves this coordinatewise and proves that its
-collective squared norm is
-
-```math
-\lVert A^{\mathrm{res}}(t)\rVert^2
-=
-\left\lVert\frac12+it\right\rVert^2
-\frac{132244271}{1778112000}.
-```
-
-The post-`0.6.0` development proves that the complete named global remainder
-is bounded by an explicit `K(b,h,t) M^(-5/2)`. Equivalently, after the natural
-critical scaling, the cutoff tail differs from this exact leading coefficient
-by at most `K(b,h,t)/M`. The exact scaled tail and its first two complex
-derivatives additionally obey explicit critical `O(1/M)` Cauchy bounds.
-
-In the complex Euclidean six-camera space, the proposed finite-residue vector
-and limiting complex-derivative model direction are provably non-collinear
-when `Re(s)=1/2` and the Genuine derivative is nonzero. Strict Cauchy--Schwarz
-gives a positive symbolic projected remainder and phase floor. This symbolic
-floor is not yet a concrete finite cutoff-uniform coercivity certificate.
-
-## Concrete pointwise limit and confinement bridge
-
-The faithful finite C2--C7 energy now has a concrete infinite counterpart
-
-```math
-E_\infty(\sigma,t)
-=\sum_{b=2}^{7}\left|\mathrm{X}_b(\sigma+i t)\right|^2.
-```
-
-Lean proves directly from absolute summability that
-
-```math
-E_M(\sigma,t)\longrightarrow E_\infty(\sigma,t)
-```
-
-for every `sigma > -1`. On the Genuine critical strip, a Genuine zero makes
-every faithful limiting camera vanish and hence gives `E_infinity = 0`.
-Consequently, if a positive finite transverse coercivity certificate holds
-eventually on a region, the limiting energy inherits it and every Genuine zero
-inside that region satisfies
-
-```math
-\boxed{\mathrm{Re}(s)=\frac12.}
-```
-
-This closes the concrete pointwise-limit and zero-to-limit-energy parts of the
-pipeline. It does **not** prove the eventual finite coercivity certificate;
-the moving minimizer and compact-complement lower bound remain the final
-quantitative frontier.
-
-## Consolidation theorem
-
-The public capstone is
-`zeroIdentity_with_uniqueUniformAtlasEnergyBudget`. For every real time, it
-packages both results:
-
-```math
-\left(
-\mathrm{NativeZero}(t)
-\iff
-\mathrm{Genuine}\left(\frac12+it\right)=0
-\right)
-\quad\land\quad
-\exists!C,\ C\text{ is the optimal full-atlas budget}.
-```
-
-The confinement capstones remain conditional on an eventual positive finite
-empirical coercivity certificate; they do not silently promote the float64
-campaign to a theorem.
-
-## Confinement frontier audit
-
-The `FinalConfinementProbe.lean` and `ArithmeticReadoutBridge.lean` modules are
-audited comparison surfaces. They record equivalences among several later
-Green/readout formulations and verify that those formulations do not provide a
-free substitute for the native carry-geometric confinement step. They are not
-used to replace the Genuine-first/native-first construction.
-
-See [the formalization scope](docs/FORMALIZATION_SCOPE.md), [the theorem
-map](docs/THEOREM_MAP.md), [the lower-bound status](docs/LOWER_BOUND_STATUS.md),
-[the conceptual audit](docs/CONCEPTUAL_AUDIT.md), [the exact source
-lock](docs/SOURCE_PROVENANCE.md), and [the v0.12.0 release
-notes](docs/RELEASE_0.12.0.md).
-
-## Reproducible dependency lock
-
-The project pins:
-
-- Lean `v4.32.0`;
-- Mathlib `v4.32.0`, resolved to the exact commit in `lake-manifest.json`;
-- [`thiagomassensini/primos`](https://github.com/thiagomassensini/primos)
-  (`CPFormal`) at the exact commit recorded in `lakefile.toml` and
-  `lake-manifest.json`;
-- [`thiagomassensini/native-carry-c3-crosswalk`](https://github.com/thiagomassensini/native-carry-c3-crosswalk)
-  at the exact commit recorded in `lakefile.toml` and `lake-manifest.json`.
-
-## Build and audit
-
-```bash
-lake exe cache get
+```text
+lake build --wfail GenuineZeroUniformAtlasEnergy.ArithmeticReadoutBridge
+lake build --wfail GenuineZeroUniformAtlasEnergy.FinalConfinementProbe
+bash scripts/static_audit.sh
 lake build --wfail GenuineZeroUniformAtlasEnergy
 lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
-./scripts/audit.sh
 ```
 
-The audit rejects local `sorry`, `admit`, `axiom`, and `unsafe` declarations,
-cross-checks every theorem and claim, validates GitHub Markdown and publication
-metadata, locks the separately labelled float64 evidence record, and accepts
-only `propext`, `Classical.choice`, and `Quot.sound` in the kernel dependency
-reports.
+The final step checks the foundational axiom allowlist. The static audit rejects
+local `sorry`, `admit`, `axiom`, and `unsafe`, validates metadata, registries,
+claims, local imports, and GitHub Markdown.
+
+A successful audit on `main` triggers `.github/workflows/release.yml`, which
+creates the versioned GitHub tag and release used by the Zenodo integration.
+
+## Promoted registry and release manifest
+
+The promoted registry remains the immutable `0.12.0` snapshot:
+
+- `156` ordered theorem IDs;
+- `24` claims;
+- unchanged pinned dependencies.
+
+The `0.13.0` release manifest records the new public-build modules separately.
+This prevents a documentation update from silently rewriting an earlier
+published claim surface.
+
+- [Theorem registry status](audit/THEOREM_REGISTRY.md)
+- [Claim ledger](audit/CLAIM_LEDGER.md)
+- [Release manifest](audit/RELEASE_MANIFEST_0.13.0.md)
 
 ## Repository layout
 
-- `NativeGeometry.lean`: native parameter, quadratic energy, finite-chart
-  identity, and exact zero identity;
-- `Budget.lean`: full cutoff-atlas energy and unique optimal budget;
-- `TiltedCenter.lean`: exact boundary-center factorization, tilt detection,
-  common-zero telescoping, and off-equilibrium channel separation;
-- `TransverseCoercivity.lean`, `TransverseSpectrum.lean`, and
-  `TransverseCapstone.lean`: abstract Hessian, spectrum, Schur-envelope, and
-  global supplied-coercivity interface;
-- `NativeTransverseBridge.lean`: concrete finite characteristic and exact
-  radial/angular tangent geometry;
-- `NativeTransverseHessian.lean`: concrete raw-energy Hessian and exact-zero
-  isotropy;
-- `NativeCutoffTail.lean`: exact primitive-camera resonant tail and explicit
-  critical decay;
-- `EmpiricalCameraGeometry.lean` and `EmpiricalCameraOperator.lean`: faithful
-  C2--C7 radii, exact stack/tail identities, and collective critical decay;
-- `EmpiricalFullEvenContinuation.lean`: explicit restoration of the C4/C6
-  antipodal channels and their common Genuine continuation;
-- `NativeCutoffAsymptotic.lean`: local Taylor remainder, leading model,
-  logarithmic phase, and exact collective geometry;
-- `NativeCutoffGlobalRemainder.lean`: summation of the local Taylor remainder
-  with an explicit critical `M^(-5/2)` bound;
-- `NativeCutoffExactScaledTailCauchy.lean`: exact scaled value and first/second
-  complex-derivative bounds from a uniform critical Cauchy circle;
-- `AsymptoticCoercivity.lean` and `EmpiricalStackProjection.lean`: phase floor,
-  strict projected positivity under simplicity, and conditional floor
-  transport;
-- `UniformCoercivityOn.lean`: region-restricted implication and abstract
-  limit-passage interfaces;
-- `EmpiricalLimitConfinement.lean`: concrete pointwise C2--C7 energy limit,
-  Genuine-zero limit-energy identity, and conditional regional/global
-  confinement capstones;
-- `FinalConfinementProbe.lean`: logical frontier audit for final confinement
-  formulations;
-- `ArithmeticReadoutBridge.lean`: lateral comparison with the canonical
-  arithmetic readout surface;
-- `Capstone.lean`: common-zero corollaries and consolidation theorem;
-- `Audit.lean`: ordered kernel dependency reports;
-- `audit/`: theorem registry, claim ledger, and locked empirical provenance;
-- `docs/`: mathematical scope, theorem map, provenance, and conceptual audit.
+```text
+GenuineZeroUniformAtlasEnergy/
+  NativeGeometry.lean
+  NativeCutoffTail.lean
+  NativeCutoffAsymptotic.lean
+  NativeCutoffLogJet.lean
+  NativeCutoffDifferentiatedRemainder.lean
+  NativeCutoffExactScaledTail*.lean
+  EmpiricalCameraGeometry.lean
+  EmpiricalCameraOperator.lean
+  EmpiricalStackProjection.lean
+  EmpiricalTransverseDataCrosswalk.lean
+  MicroscopicCoercivityFrontier.lean
+  MicroscopicJetTransfer.lean
+  MicroscopicPrimitiveJetBounds.lean
+  EmpiricalFiniteTransverseData.lean
+  EmpiricalFiniteResidualBound.lean
+  EmpiricalFiniteCorrectedData.lean
+  EmpiricalFiniteFirstJetBound.lean
+  EmpiricalFinitePairingBound.lean
+  EmpiricalFiniteEnergyBound.lean
+  EmpiricalFiniteCurvatureBound.lean
+  EmpiricalLimitConfinement.lean
+  FinalConfinementProbe.lean
+  ArithmeticReadoutBridge.lean
+audit/
+docs/
+scripts/
+```
 
-## License and citation
+## Build
 
-The local consolidation is released under the MIT License. Citation and planned
-Zenodo metadata are provided in [`CITATION.cff`](CITATION.cff) and
-[`.zenodo.json`](.zenodo.json).
+The repository pins Lean and every external dependency. The authoritative
+validation is GitHub Actions:
+
+```bash
+lake update
+lake exe cache get
+lake build --wfail GenuineZeroUniformAtlasEnergy
+lake build --wfail GenuineZeroUniformAtlasEnergy.Audit
+```
+
+Local builds are useful for development, but a release is created only from an
+exact audited `main` commit.
+
+## Citation and license
+
+Release metadata is stored in `CITATION.cff` and `.zenodo.json`. The software is
+released under the MIT License.

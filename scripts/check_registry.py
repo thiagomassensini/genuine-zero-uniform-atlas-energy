@@ -42,13 +42,7 @@ def fail(message: str) -> None:
 
 
 def qualified_theorems(path: Path) -> list[str]:
-    """Collect theorem names while respecting Lean namespace nesting.
-
-    The registry includes declarations from nested namespaces such as
-    `EmpiricalCamera` and `PhaseProjectionData`. Anonymous and named
-    `section` blocks affect scoping but do not contribute name components, so
-    both kinds of scope are tracked explicitly until their matching `end`.
-    """
+    """Collect theorem names while respecting Lean namespace nesting."""
 
     scopes: list[tuple[str, str | None]] = []
     names: list[str] = []
@@ -167,8 +161,21 @@ version_match = re.search(r'^version\s*=\s*"([^"]+)"', lakefile, re.MULTILINE)
 if version_match is None:
     fail("lakefile version is missing")
 version = version_match.group(1)
-if extension["release"] != version or ledger["release"] != version:
-    fail("audit release versions differ from lakefile.toml")
+
+release_manifest_path = ROOT / f"audit/release-manifest-{version}.json"
+if not release_manifest_path.is_file():
+    fail(f"release manifest is missing: {release_manifest_path.relative_to(ROOT)}")
+release_manifest = json.loads(release_manifest_path.read_text())
+if release_manifest["release"] != version:
+    fail("release manifest version differs from lakefile.toml")
+if release_manifest["theorem_registry_release"] != extension["release"]:
+    fail("release manifest theorem registry snapshot is stale")
+if release_manifest["claim_ledger_release"] != ledger["release"]:
+    fail("release manifest claim ledger snapshot is stale")
+if release_manifest["promoted_theorem_count"] != len(entries):
+    fail("release manifest promoted theorem count is stale")
+if release_manifest["promoted_claim_count"] != len(claims):
+    fail("release manifest promoted claim count is stale")
 
 zenodo = json.loads((ROOT / ".zenodo.json").read_text())
 if zenodo["version"] != version:
@@ -178,6 +185,6 @@ if not re.search(rf"^version:\s*{re.escape(version)}\s*$", citation, re.MULTILIN
     fail("CITATION.cff version differs from lakefile.toml")
 
 print(
-    f"registry check passed: {len(entries)} theorems, "
-    f"{len(claims)} claims, exact dependency lock"
+    f"registry check passed: release {version}, "
+    f"{len(entries)} promoted theorems, {len(claims)} claims, exact dependency lock"
 )
