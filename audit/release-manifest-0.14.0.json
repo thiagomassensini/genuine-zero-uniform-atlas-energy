@@ -1,0 +1,15 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.release-manifest/v1",
+  "release": "0.14.0",
+  "publication_date": "2026-08-19",
+  "theorem_registry_release": "0.12.0",
+  "claim_ledger_release": "0.12.0",
+  "promoted_theorem_count": 156,
+  "promoted_claim_count": 24,
+  "public_build_additions": [
+    "EmpiricalCameraHigherDerivativeCrosswalk",
+    "EmpiricalFiniteSecondJetBound"
+  ],
+  "status": "PUBLIC_BUILD_CHECKED_EXACT_SECOND_JET_GATE_NO_NEW_UNCONDITIONAL_CONFINEMENT_CLAIM",
+  "scope_note": "The 0.14.0 release proves the exact empirical-to-spectral camera crosswalk, transports the all-order derivative-tail estimate, and closes the explicit six-camera second-jet bound. It does not claim that the remaining denominator floors, fixed C/M constants, compact complement, or strip-wide stitching have been discharged."
+}

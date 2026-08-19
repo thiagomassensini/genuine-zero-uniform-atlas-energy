@@ -2,143 +2,113 @@
 
 ## Status
 
-This document is the working contract for the quantitative continuation after
-`v0.13.0`.
+Gate 1 was closed and packaged in release `v0.14.0`.
 
-The preceding release closes the exact moving-clock algebra, the concrete
-finite residual/first-jet/pairing/energy data, the primitive Schur ledger, and
-the abstract implication
+The release proves the exact empirical-to-spectral camera crosswalk, transports
+the all-order derivative-tail estimate, and derives the explicit six-camera
+finite second-jet bound. Gates 2 through 5 are intentionally separated into a
+subsequent PR so this release does not pretend that denominator floors,
+cutoff-independent constants, local positivity, and the compact complement are
+the same theorem wearing different hats.
 
-```math
-\text{three explicit } C_i/M \text{ channels}
-\Longrightarrow
-\text{eventual positive microscopic coercivity}.
-```
+## Fixed setting
 
-The present branch must discharge those quantitative hypotheses for the actual
-six-camera finite operator. It must not replace them with a new certificate,
-a numerical premise, or an equivalent restatement of the final confinement
-claim.
-
-## Fixed hypotheses and target
-
-Work at a fixed real `time` such that
+Work at a fixed real `time` with
 
 ```math
-G\left(\frac12+i\,\mathrm{time}\right)=0
+G\left(\frac12+i\,\mathrm{time}\right)=0.
 ```
 
-and retain the explicit simplicity/nondegeneracy hypothesis
+The exact camera and tail identities below do not require simplicity. The
+existing quadratic moving-clock route later retains the explicit
+nondegeneracy hypothesis
 
 ```math
 G'\left(\frac12+i\,\mathrm{time}\right)\ne0.
 ```
 
-For the finite corrected empirical data, write
+This is the analytic multiplicity-one sector. The cutoff `M` and zero
+multiplicity `m` are unrelated parameters.
+
+## Gate 1: closed in `v0.14.0`
+
+The empirical camera geometry is identified exactly with the
+`NativeCarrySpectralWeyl.Camera` geometry:
+
+- radius sets;
+- aligned centers;
+- seeds;
+- centered bracket blocks;
+- finite characteristics;
+- infinite characteristics.
+
+Consequently, for every derivative order `r` and every cutoff satisfying
+`Real.exp 2 <= M`, Lean proves
 
 ```math
-E_M
-=
-\text{finite corrected reoptimized energy},
-```
-
-```math
-g_M
-=
-\text{finite corrected radial gradient},
-```
-
-```math
-c_M
-=
-\text{finite local Schur coefficient}.
-```
-
-Let `x_M` be the finite phase projection, and let the limiting admissible data
-be `(kappa,rho,alphaSq)`. The local target is a theorem of the form
-
-```math
-\exists c>0,\quad
-\forall^{\infty} M,\quad
-c\le
-c_M-\frac{g_M^2}{4E_M}.
-```
-
-The existing `MicroscopicJetTransfer` and `MicroscopicPrimitiveJetBounds`
-modules already reduce this to explicit primitive estimates. This branch must
-supply those estimates rather than duplicate the quotient algebra.
-
-## Gate 1: explicit finite second-jet bound
-
-Construct a camerawise bound for
-
-```math
-\left\|\chi''_{b,M}\left(\frac12+i t\right)\right\|.
-```
-
-The proof must use the already formalized exact cutoff-tail identity and the
-value/first/second Cauchy bounds for the scaled tail. Transport through
-`M^{-s-1}` must keep the exact logarithmic losses visible. The expected shape
-is
-
-```math
-M^{-3/2}
-\left(A_{b,2}(t)
-+2\log(M)A_{b,1}(t)
-+\log(M)^2A_{b,0}(t)
-+\frac{R_{b,2}(M,t)}{M}
-\right).
-```
-
-The six camerawise estimates must then be aggregated into one Euclidean stack
-bound for `finiteEmpiricalCameraSecondDerivativeStack`.
-
-No individual cutoff is to be formalized. The statement must be uniform in
-`M` once `1 <= M` is supplied.
-
-## Gate 2: finite denominator floors
-
-Derive eventual positive floors from the limiting positive model quantities
-and the explicit perturbation bounds.
-
-The required floors are:
-
-1. a finite clock-Gram floor
-
-```math
-0<\kappa_{\mathrm{floor}}
+\left\|
+\chi_b^{(r)}\!\left(\frac12+it\right)
+-
+\chi_{b,M}^{(r)}\!\left(\frac12+it\right)
+\right\|
 \le
-\left|\kappa_M\right|;
+r!\,C_b(t)\,M^{-3/2}\log(M)^r.
 ```
 
-2. a temporal Schur-denominator floor
+At order two, the exact prefix-tail identity gives
 
 ```math
-0<d_{\mathrm{floor}}
-\le
-\left|\kappa_M-a_M\right|;
+\chi_{b,M}''
+=
+\chi_b''-T_{b,M}'',
 ```
 
-3. a corrected finite-energy floor
+and hence
 
 ```math
-0<E_{\mathrm{floor}}
+\left\|T_{b,M}''\!\left(\frac12+it\right)\right\|
 \le
+2C_b(t)M^{-3/2}\log(M)^2.
+```
+
+The camerawise bounds are aggregated into the explicit Euclidean quantity
+`empiricalFiniteSecondJetStackBound`, with
+
+```math
+\left\|
+\texttt{finiteEmpiricalCameraSecondDerivativeStack}\;M\;
+  \left(\frac12+it\right)
+\right\|
+\le
+\texttt{empiricalFiniteSecondJetStackBound}\;M\;t.
+```
+
+No individual cutoff, supplied height, or floating-point certificate is used.
+
+## Gate 2: denominator floors
+
+The next PR must derive cutoff-independent eventual positive floors for:
+
+```math
+|\kappa_M|,
+\qquad
+|\kappa_M-a_M|,
+\qquad
 |E_M|.
 ```
 
-The limiting model-energy floor should come directly from
+The limiting energy floor must come from
 
 ```math
 \rho+\frac{x_M^2}{\kappa}\ge\rho>0,
 ```
 
-not from a fitted cutoff value.
+not from a fitted finite-cutoff value.
 
 ## Gate 3: fixed inverse-cutoff constants
 
-Convert the explicit residual, first-jet, pairing, energy, and curvature
-bounds into fixed constants independent of `M`:
+The explicit residual, first-jet, pairing, energy, and curvature estimates must
+be converted into constants independent of `M`:
 
 ```math
 |E_M-E_{0,M}|\le\frac{C_E}{M},
@@ -152,87 +122,53 @@ bounds into fixed constants independent of `M`:
 |c_M-\kappa|\le\frac{C_c}{M}.
 ```
 
-Logarithmic remnants must be absorbed by proved elementary inequalities, for
-example eventual bounds for expressions of the form
-
-```math
-\frac{\log(M)^j}{M^q}.
-```
-
-The constants may depend on the fixed `time` and the six-camera geometry, but
-not on the cutoff.
+Remaining logarithmic factors must be absorbed through proved eventual
+inequalities, not through numerical cutoff inspection.
 
 ## Gate 4: concrete local positivity
 
-Feed the three fixed bounds and the denominator floors into
-`PhaseProjectionData.eventually_positive_quadraticMicroscopicCoercivity_of_primitive_bounds`.
-
-The resulting theorem should specialize the abstract sequence statement to
-
-```math
-finiteEmpiricalCorrectedMicroscopicCoercivity M time.
-```
-
-The expected public endpoint is:
+The fixed bounds and floors must be supplied to the existing primitive
+microscopic transfer theorem to obtain
 
 ```math
 \exists c>0,\quad
 \forall^{\infty}M,\quad
 c\le
-finiteEmpiricalCorrectedMicroscopicCoercivity\;M\;time.
+\texttt{finiteEmpiricalCorrectedMicroscopicCoercivity}\;M\;\mathrm{time}.
 ```
 
-All assumptions must remain visible. In particular, this theorem is local at a
-presented critical simple zero until the regional argument is supplied.
+All assumptions remain visible, including the presented critical simple zero.
 
 ## Gate 5: compact complement and strip stitching
 
-Only after the local theorem is kernel-checked should the branch attack the
-complementary region.
+Only after the local theorem is closed should the next PR prove:
 
-The final quantitative stitch requires:
+1. a cutoff-independent microscopic region;
+2. a cutoff-independent positive complementary region;
+3. exact coverage of the empirical critical strip;
+4. the final application of the existing stitching and confinement capstones.
 
-1. one microscopic region controlled by the local jet theorem;
-2. one complementary region with an eventual positive coercivity certificate;
-3. an exact coverage theorem for the empirical critical strip;
-4. application of the existing strip-stitching and confinement capstones.
-
-The region and constants must be cutoff-independent. A changing controlling
-valley or a cutoff-dependent cover does not discharge this gate.
-
-## Proposed module order
-
-1. `EmpiricalFiniteSecondJetBound.lean`
-2. `EmpiricalFiniteDenominatorFloors.lean`
-3. `EmpiricalQuantitativeJetConstants.lean`
-4. `EmpiricalMicroscopicPositiveGate.lean`
-5. `EmpiricalStripQuantitativeStitch.lean`
-
-Each module should compile before the next is introduced. The public root
-library should import a module only after its claims are stable.
+A changing controlling valley or a cutoff-dependent cover does not discharge
+this gate.
 
 ## Scope firewall
 
-This branch does not:
+The quantitative continuation does not:
 
 - redefine the Genuine or native zero predicate;
 - import numerical zero locations into Lean;
 - use a floating-point certificate as a proof premise;
 - replace the carry-geometric route by the lateral arithmetic readout;
 - claim a Hermite-Biehler, de Branges, or self-adjoint height realization;
-- promote the local simple-zero theorem to global confinement before the
-  compact-complement certificate is proved;
-- alter the immutable `v0.13.0` theorem registry or claim ledger retroactively.
-
-The separate height-operator laboratories remain research probes. Their own
-documented gate is global one-sided factorization and self-adjoint-limit
-realization, not the finite empirical coercivity calculation performed here.
+- promote the multiplicity-one quadratic theorem to arbitrary multiplicity;
+- promote local positivity to global confinement before the compact complement
+  is proved;
+- alter the immutable `v0.12.0` theorem registry or claim ledger.
 
 ## Validation discipline
 
-GitHub Actions on the exact branch commit is the validation authority.
-
-Every promoted commit must preserve:
+GitHub Actions on the exact commit is the validation authority. Every promoted
+commit must preserve:
 
 - the pinned dependency lock;
 - the no-`sorry`/no-`axiom` source audit;
@@ -240,6 +176,3 @@ Every promoted commit must preserve:
 - the ordered kernel audit;
 - the foundational dependency allowlist;
 - the Markdown and publication checks.
-
-The branch remains a draft until all five gates above are either closed or
-explicitly separated into a subsequent PR without overstating the result.

@@ -36,7 +36,13 @@ zero.
 - reduction of the energy channel to residual, pairing, and clock-Gram bounds;
 - reduction of the local Schur channel to first-jet, second-jet, and temporal
   denominator bounds;
-- abstract eventual positivity from any positive phase floor.
+- abstract eventual positivity from any positive phase floor;
+- exact identification of the empirical camera stencils with the
+  spectral-Weyl camera stencils;
+- all-order camerawise derivative-tail bounds;
+- exact finite/infinite/tail second-jet crosswalk;
+- explicit camerawise and six-camera finite second-jet bounds with the
+  `M^(-3/2) log(M)^2` rate at order two.
 
 ## Historical condition removed
 
@@ -50,9 +56,17 @@ finite perturbation channels.
 - a uniform positive lower floor for the finite reoptimized energy;
 - a uniform positive lower floor for
   `|kappa_M-a_M|`;
-- an explicit second-jet bound strong enough to give the required cutoff rate;
 - fixed constants converting the displayed stack errors to `C/M` bounds;
+- the concrete local microscopic-positivity specialization;
 - compact-complement and regional coverage for the final global statement.
+
+## Multiplicity scope
+
+The second-jet identities and tail estimates do not require simplicity. The
+present quadratic moving-clock coercivity route does: its clock Gram is built
+from the first derivative, so it is the analytic multiplicity-one sector. A
+zero of multiplicity `m>1` requires a leading energy analysis of order `2m`.
+The cutoff `M` and the multiplicity `m` are unrelated parameters.
 
 ## Scope firewall
 
@@ -61,4 +75,5 @@ assert that every remaining uniform estimate has already been proved, and it
 does not identify numerical minima, external height lists, or readout-domain
 equivalences with an unconditional confinement theorem.
 
-See `MICROSCOPIC_COERCIVITY_BRIDGE.md` for the detailed ledger.
+See `MICROSCOPIC_COERCIVITY_BRIDGE.md` for the detailed ledger and
+`QUANTITATIVE_EMPIRICAL_JET_GATES.md` for the ordered continuation plan.

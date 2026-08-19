@@ -1,20 +1,20 @@
 # Theorem registry status
 
-Release `0.13.0` keeps the promoted theorem registry frozen at the audited
+Release `0.14.0` keeps the promoted theorem registry frozen at the audited
 `0.12.0` snapshot.
 
 - promoted theorem IDs: `GZUAE-001` through `GZUAE-156`;
 - promoted claims: `24`;
 - dependency lock: unchanged;
-- new `0.13.0` modules: compiled through the public library and trust audit,
+- new `0.14.0` modules: compiled through the public library and trust audit,
   but not promoted as a new unconditional confinement claim.
 
-This separation is intentional. The microscopic coercivity bridge exposes
-concrete sufficient obligations and removes a historical abstract threshold,
-while the remaining uniform finite-jet bounds, denominator floors, and
-compact-region coverage are still visible gates.
+This separation is intentional. Version `0.14.0` closes the exact empirical
+camera crosswalk and explicit second-jet gate. The remaining denominator
+floors, fixed `C/M` constants, concrete local positivity, and compact-region
+coverage stay visible obligations for subsequent work.
 
 The machine-readable mapping is recorded in
-`audit/release-manifest-0.13.0.json`. Historical registry files remain
-immutable so a release cannot silently rewrite the theorem and claim surface
-that earlier Zenodo records cited.
+`audit/release-manifest-0.14.0.json`. Historical registry files remain
+immutable so a software release cannot silently rewrite the theorem and claim
+surface cited by earlier Zenodo records.
