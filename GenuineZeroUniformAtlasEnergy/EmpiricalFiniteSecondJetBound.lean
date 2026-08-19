@@ -44,8 +44,6 @@ open Set Metric
 
 noncomputable section
 
-namespace SpectralCamera := NativeCarrySpectralWeyl.Camera
-
 /-- The faithful infinite empirical characteristic is analytic at every point
 of the open Genuine strip. -/
 theorem analyticAt_empiricalCameraCharacteristic
@@ -186,7 +184,9 @@ theorem norm_iteratedDeriv_two_finiteEmpiricalCameraCharacteristic_le
 /-- Explicit order-two Cauchy tail rate for one empirical camera. -/
 def empiricalCameraSecondJetTailRateBound
     (camera : EmpiricalCamera) (M : ℕ) (time : ℝ) : ℝ :=
-  (2 * SpectralCamera.higherDerivativeCircleConstant camera.label time) *
+  (2 *
+      NativeCarrySpectralWeyl.Camera.higherDerivativeCircleConstant
+        camera.label time) *
     (M : ℝ) ^ (-(3 : ℝ) / 2) *
       (Real.log (M : ℝ)) ^ 2
 
