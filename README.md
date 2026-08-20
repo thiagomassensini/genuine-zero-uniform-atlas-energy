@@ -72,30 +72,27 @@ antipodal channels of the even cameras. The library contains:
 The comparison layers remain lateral. They do not replace the native
 carry-geometric proof architecture.
 
-## Version 0.16.0: concrete finite microscopic positivity closure
+## Version 0.17.0: arbitrary-multiplicity near-axis certificate
 
-Version `0.16.0` closes the local finite gate at every presented critical
-simple zero. The corrected and raw first-jet stacks have fixed inverse-cutoff
-errors, the finite clock Grams and temporal Schur denominator receive eventual
-positive floors, and the corrected reoptimized energy is eventually bounded
-below by half of the exact positive residual.
+Version `0.17.0` closes the qualitative local near-axis gate for every
+critical Genuine zero carrying arbitrary positive finite analytic
+multiplicity. Analyticity and the nonzero leading jet isolate each zero and
+supply a positive punctured horizontal window on which the Genuine
+continuation does not vanish.
 
-The remaining residual, pairing, radial-gradient, gradient-square, and
-energy-denominator channels also receive fixed `C(t)/M` bounds. Their
-combination proves that the finite corrected microscopic coefficient is
-eventually bounded below by half of the exact phase floor.
-
-The theorem is intentionally local and belongs to the analytic
-multiplicity-one sector. It does not assert arbitrary-multiplicity quadratic
-coercivity, compact-complement nonvanishing, exact regional coverage, or a
-global strip-wide certificate.
+The selected radius may depend on the zero. No numerical zero list, height
+bound, simplicity hypothesis, or unjustified global radius floor is imported.
+The final capstone now has one explicit residual input: nonvanishing at
+off-critical strip points outside the union of the certified near-axis
+windows. This release does not provide that complement certificate and does
+not claim unconditional global confinement.
 
 Detailed status:
 
 - [Quantitative empirical jet gates](docs/QUANTITATIVE_EMPIRICAL_JET_GATES.md)
 - [Lower-bound status](docs/LOWER_BOUND_STATUS.md)
 - [Microscopic coercivity bridge](docs/MICROSCOPIC_COERCIVITY_BRIDGE.md)
-- [Release notes 0.16.0](docs/RELEASE_0.16.0.md)
+- [Release notes 0.17.0](docs/RELEASE_0.17.0.md)
 
 ## What is proved and what remains
 
@@ -123,13 +120,14 @@ Kernel-checked now:
 
 Still required for the final unconditional global statement:
 
-- arbitrary-multiplicity near-axis transport or an order-`2m` local model;
-- compact-complement nonvanishing and exact regional coverage;
-- one global cutoff and lower bound across all local windows;
+- compact-complement nonvanishing outside the certified near-axis region;
+- exact near-axis/complement coverage for the chosen global route;
+- one global cutoff and lower bound across all local windows if the energy
+  route is retained;
 - the final unconditional strip-wide stitching theorem.
 
-This distinction is enforced in the publication metadata. Version `0.15.0`
-does not promote the second-jet closure to an unconditional confinement
+This distinction is enforced in the publication metadata. Version `0.17.0`
+does not promote the complement certificate or an unconditional confinement
 theorem.
 
 ## Audit surface
@@ -160,13 +158,13 @@ The promoted registry remains the immutable `0.12.0` snapshot:
 - `24` claims;
 - unchanged pinned dependencies.
 
-The `0.16.0` release manifest records the new public-build modules separately.
+The `0.17.0` release manifest records the new public-build modules separately.
 This prevents a software release from silently rewriting an earlier published
 claim surface.
 
 - [Theorem registry status](audit/THEOREM_REGISTRY.md)
 - [Claim ledger](audit/CLAIM_LEDGER.md)
-- [Release manifest](audit/RELEASE_MANIFEST_0.16.0.md)
+- [Release manifest](audit/RELEASE_MANIFEST_0.17.0.md)
 
 ## Repository layout
 
