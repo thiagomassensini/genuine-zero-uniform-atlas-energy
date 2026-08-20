@@ -1,10 +1,10 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.16.0 closes the concrete finite microscopic-positivity gate at every presented critical simple zero: fixed inverse-cutoff corrected and raw first-jet bounds, eventual positive floors for the corrected and raw clock Gram scalars and the temporal Schur denominator, a corrected finite-energy floor, fixed non-jet residual, pairing, and radial-gradient channels, and an eventual lower bound by half of the exact phase floor. The quadratic theorem remains the analytic multiplicity-one sector. Arbitrary-multiplicity near-axis transport, compact-complement nonvanishing, exact regional coverage, and a global strip-wide certificate are not promoted by this release.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.17.0 adds an analytic near-axis certificate for every critical Genuine zero of arbitrary positive finite multiplicity: each zero is isolated and admits a positive punctured horizontal nonvanishing radius. The certificate combines with nonvanishing on the complementary strip region to yield final confinement. The complement certificate and unconditional global strip-wide theorem remain open and are not promoted.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "publication_date": "2026-08-20",
   "language": "eng",
   "creators": [
@@ -38,7 +38,11 @@
     "reproducible proof audit",
     "denominator floor",
     "non-jet perturbation",
-    "finite microscopic positivity"
+    "finite microscopic positivity",
+    "analytic multiplicity",
+    "near-axis nonvanishing",
+    "isolated zero",
+    "complement certificate"
   ],
   "related_identifiers": [
     {
