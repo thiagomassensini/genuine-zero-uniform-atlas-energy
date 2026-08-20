@@ -1,5 +1,6 @@
 import GenuineZeroUniformAtlasEnergy.EmpiricalLimitConfinement
 import GenuineZeroUniformAtlasEnergy.EmpiricalStackProjection
+import GenuineZeroUniformAtlasEnergy.GenuineNearAxisMultiplicity
 import CPFormal.Analytic.CpGenuineGreenKernelInclusion
 import CPFormal.Analytic.CpGenuinePrimeCarryDefectUniformBound
 import CPFormal.Analytic.CpGenuineGprePrimeVerticalTraceWeightedBessel
@@ -44,6 +45,49 @@ theorem finalGenuineZeroConfinement_iff_strongNonvanishing :
   · intro hstrong s hs hzero
     by_contra hoff
     exact (hstrong hs hoff) hzero
+
+/-- The exact residual gate after analytic isolation has closed every
+finite-multiplicity near-axis window.  It asks only for nonvanishing at
+off-critical strip points lying outside the induced union of windows. -/
+structure GenuineNearAxisComplementCertificate
+    (nearAxis : GenuineNearAxisMultiplicityCertificate) : Prop where
+  nonvanishing :
+    ∀ {s : ℂ},
+      s ∈ genuineCriticalStrip →
+        s.re ≠ (1 : ℝ) / 2 →
+          s ∉ genuineNearAxisRegion nearAxis.radius →
+            genuineContinuation s ≠ 0
+
+/-- Analytic near-axis isolation plus nonvanishing on its complement gives the
+full scalar confinement statement. -/
+theorem finalGenuineZeroConfinement_of_nearAxisComplement
+    (nearAxis : GenuineNearAxisMultiplicityCertificate)
+    (complement : GenuineNearAxisComplementCertificate nearAxis) :
+    FinalGenuineZeroConfinement := by
+  intro s hs hzero
+  by_contra hoff
+  by_cases hnear : s ∈ genuineNearAxisRegion nearAxis.radius
+  · exact (nearAxis.nonvanishing_of_mem hnear) hzero
+  · exact (complement.nonvanishing hs hoff hnear) hzero
+
+/-- The same two-region certificate directly constructs CPFormal's strong
+off-critical nonvanishing formulation. -/
+theorem strongNonvanishing_of_nearAxisComplement
+    (nearAxis : GenuineNearAxisMultiplicityCertificate)
+    (complement : GenuineNearAxisComplementCertificate nearAxis) :
+    GenuineStrongNonvanishingInStrip :=
+  finalGenuineZeroConfinement_iff_strongNonvanishing.mp
+    (finalGenuineZeroConfinement_of_nearAxisComplement nearAxis complement)
+
+/-- With the canonical analytic certificate, the complement object is the
+single remaining gate for final Genuine confinement. -/
+theorem finalGenuineZeroConfinement_of_finiteMultiplicityNearAxisComplement
+    (complement :
+      GenuineNearAxisComplementCertificate
+        GenuineNearAxisMultiplicityCertificate.of_finiteMultiplicity) :
+    FinalGenuineZeroConfinement :=
+  finalGenuineZeroConfinement_of_nearAxisComplement
+    GenuineNearAxisMultiplicityCertificate.of_finiteMultiplicity complement
 
 /-- The Green-kernel route has exactly the strength of scalar confinement. -/
 theorem finalGenuineZeroConfinement_iff_greenKernelInclusion :
