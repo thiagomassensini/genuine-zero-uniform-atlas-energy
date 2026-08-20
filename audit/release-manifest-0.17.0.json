@@ -1,0 +1,15 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.release-manifest/v1",
+  "release": "0.17.0",
+  "publication_date": "2026-08-20",
+  "theorem_registry_release": "0.12.0",
+  "claim_ledger_release": "0.12.0",
+  "promoted_theorem_count": 156,
+  "promoted_claim_count": 24,
+  "public_build_additions": [
+    "GenuineNearAxisMultiplicity",
+    "FinalConfinementProbe"
+  ],
+  "status": "PUBLIC_BUILD_CHECKED_ARBITRARY_MULTIPLICITY_NEAR_AXIS_CERTIFICATE_NO_GLOBAL_CONFINEMENT_CLAIM",
+  "scope_note": "The 0.17.0 release proves analytic isolation and a positive punctured horizontal nonvanishing radius at every critical Genuine zero of arbitrary positive finite multiplicity. It packages the canonical near-axis certificate and shows that this certificate plus nonvanishing on the complementary strip region implies final confinement. It does not supply the complement certificate or claim unconditional global strip-wide confinement."
+}
