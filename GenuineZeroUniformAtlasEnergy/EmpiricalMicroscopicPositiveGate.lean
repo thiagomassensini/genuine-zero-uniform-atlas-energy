@@ -184,9 +184,9 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
           (gradientDifferenceConstant / (M : ℝ)) *
             gradientSumBound / (4 * (rho / 2)) := hgradientChannelRaw
       _ = gradientChannelConstant / (M : ℝ) := by
-        unfold empiricalGradientSquareChannelInverseCutoffConstant
         dsimp [gradientDifferenceConstant, gradientSumBound,
-          gradientChannelConstant, rho, s]
+          gradientChannelConstant, rho, s,
+          empiricalGradientSquareChannelInverseCutoffConstant]
         ring
   have henergyDifference' :
       |modelEnergy - energy| ≤ energyDifferenceConstant / (M : ℝ) := by
@@ -212,21 +212,24 @@ theorem eventually_finiteEmpiricalCorrectedMicroscopicCoercivity_ge_half_phaseFl
           (energyDifferenceConstant / (M : ℝ)) /
             (4 * (rho / 2) * rho) := henergyChannelRaw
       _ = energyChannelConstant / (M : ℝ) := by
-        unfold empiricalEnergyDenominatorChannelInverseCutoffConstant
         dsimp [modelGradientBound, energyDifferenceConstant,
-          energyChannelConstant, rho, s]
+          energyChannelConstant, rho, s,
+          empiricalEnergyDenominatorChannelInverseCutoffConstant]
         ring
   have happrox :=
     d.abs_quadraticMicroscopicCoercivity_sub_phaseCoercivity_le_inv_of_perturbation_bounds
       hd M energy gradient localCoeff x
       curvatureConstant gradientChannelConstant energyChannelConstant
       (ne_of_gt henergyPos)
-      (by simpa [localCoeff, curvatureConstant, d, s] using hcurvature)
+      (by
+        simpa [localCoeff, curvatureConstant, d, s,
+          empiricalStackPhaseProjectionData] using hcurvature)
       hgradientChannel henergyChannel
   have hphase : d.phaseFloor ≤ d.phaseCoercivity x := by
     apply d.phaseCoercivity_uniform_lower_bound hd
     dsimp [d, x, s]
-    simpa [finiteEmpiricalPhaseProjection] using
+    simpa [finiteEmpiricalPhaseProjection,
+      empiricalStackPhaseProjectionData] using
       empiricalStackPhaseProjection_sq_le_alphaSq
         (criticalLineParameter time) (empiricalCutoffPhase time M)
   have hlower := (abs_le.mp happrox).1
