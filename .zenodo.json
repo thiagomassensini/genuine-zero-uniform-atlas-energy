@@ -1,11 +1,11 @@
 {
   "title": "Genuine Zero Uniform Atlas Energy",
-  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.15.0 completes the quantitative second-jet gate: it absorbs the M^(-3/2) log(M)^2 tail into fixed camerawise C_b(t)/M constants, derives a cutoff-independent six-camera second-jet stack bound, proves fixed C_curv(t)/M estimates for both finite curvature coordinates, and specializes the local Schur ledger so no external secondJetBound hypothesis remains. The derivative analysis uses no supplied height and is multiplicity-independent; the subsequent quadratic coercivity route remains the multiplicity-one sector. The release does not promote the remaining denominator floors, non-jet C/M constants, compact-region coverage, numerical evidence, or readout-domain equivalences to an unconditional confinement theorem.",
+  "description": "Lean 4 formalization of the native real-camera/Genuine zero identity, faithful empirical C2--C7 camera geometry, exact cutoff-tail jets, and the finite-to-limit transverse-energy architecture. Version 0.16.0 closes the concrete finite microscopic-positivity gate at every presented critical simple zero: fixed inverse-cutoff corrected and raw first-jet bounds, eventual positive floors for the corrected and raw clock Gram scalars and the temporal Schur denominator, a corrected finite-energy floor, fixed non-jet residual, pairing, and radial-gradient channels, and an eventual lower bound by half of the exact phase floor. The quadratic theorem remains the analytic multiplicity-one sector. Arbitrary-multiplicity near-axis transport, compact-complement nonvanishing, exact regional coverage, and a global strip-wide certificate are not promoted by this release.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.15.0",
-  "publication_date": "2026-08-19",
+  "version": "0.16.0",
+  "publication_date": "2026-08-20",
   "language": "eng",
   "creators": [
     {
@@ -35,7 +35,10 @@
     "phase projection",
     "uniform atlas",
     "critical half-abscissa",
-    "reproducible proof audit"
+    "reproducible proof audit",
+    "denominator floor",
+    "non-jet perturbation",
+    "finite microscopic positivity"
   ],
   "related_identifiers": [
     {

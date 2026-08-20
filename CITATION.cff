@@ -6,23 +6,22 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.15.0
-date-released: 2026-08-19
+version: 0.16.0
+date-released: 2026-08-20
 abstract: >-
   A Lean 4 formalization of the native real-camera/Genuine zero identity, the
   faithful C2--C7 cutoff operator, exact critical cutoff-tail jets, and the
-  finite-to-limit transverse-energy architecture. Version 0.15.0 completes
-  the quantitative second-jet gate: the M^(-3/2) log(M)^2 derivative-tail
-  rate is absorbed into fixed camerawise C_b(t)/M constants, the complete
-  six-camera finite second jet receives a cutoff-independent bound, both
-  finite curvature coordinates receive fixed C_curv(t)/M estimates, and the
-  local Schur ledger no longer accepts an external secondJetBound hypothesis.
-  The derivative analysis uses no supplied height and does not require
-  simplicity; the later quadratic coercivity route remains the
-  multiplicity-one sector. The release does not promote the remaining
-  denominator floors, non-jet C/M constants, compact-region coverage,
-  numerical evidence, or readout-domain equivalences to an unconditional
-  confinement theorem.
+  finite-to-limit transverse-energy architecture. Version 0.16.0 closes the
+  concrete finite microscopic-positivity gate at every presented critical
+  simple zero. It derives fixed inverse-cutoff corrected and raw first-jet
+  bounds, eventual positive floors for both clock Gram scalars and the temporal
+  Schur denominator, a corrected finite-energy floor, fixed non-jet residual,
+  pairing, and radial-gradient channels, and an eventual lower bound by half
+  of the exact phase floor. The release preserves the distinction between
+  cutoff M and analytic multiplicity m: the quadratic theorem is the m=1
+  sector. Arbitrary-multiplicity near-axis transport, compact-complement
+  nonvanishing, exact regional coverage, and a global strip-wide certificate
+  remain outside the promoted claim.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -35,6 +34,9 @@ keywords:
   - moving clock
   - Schur complement
   - second jet
+  - denominator floor
+  - non-jet perturbation
+  - finite microscopic positivity
   - higher derivative tail
   - inverse cutoff bound
   - curvature channel

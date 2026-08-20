@@ -1,0 +1,17 @@
+{
+  "schema": "org.genuine-zero-uniform-atlas-energy.release-manifest/v1",
+  "release": "0.16.0",
+  "publication_date": "2026-08-20",
+  "theorem_registry_release": "0.12.0",
+  "claim_ledger_release": "0.12.0",
+  "promoted_theorem_count": 156,
+  "promoted_claim_count": 24,
+  "public_build_additions": [
+    "EmpiricalDenominatorFloors",
+    "EmpiricalEnergyLocalGateClosure",
+    "EmpiricalNonJetGateClosure",
+    "EmpiricalMicroscopicPositiveGate"
+  ],
+  "status": "PUBLIC_BUILD_CHECKED_LOCAL_SIMPLE_ZERO_MICROSCOPIC_POSITIVITY_NO_GLOBAL_CONFINEMENT_CLAIM",
+  "scope_note": "The 0.16.0 release derives fixed inverse-cutoff corrected and raw first-jet estimates, eventual clock-Gram and temporal-denominator floors, a corrected finite-energy floor, fixed non-jet perturbation channels, and eventual positivity of the corrected finite microscopic coefficient at each presented critical simple zero. It does not claim arbitrary-multiplicity near-axis transport, compact-complement nonvanishing, exact regional coverage, or a global strip-wide confinement certificate."
+}
