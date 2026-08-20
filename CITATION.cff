@@ -6,22 +6,18 @@ authors:
   - family-names: Massensini
     given-names: Thiago
 license: MIT
-version: 0.16.0
+version: 0.17.0
 date-released: 2026-08-20
 abstract: >-
   A Lean 4 formalization of the native real-camera/Genuine zero identity, the
   faithful C2--C7 cutoff operator, exact critical cutoff-tail jets, and the
-  finite-to-limit transverse-energy architecture. Version 0.16.0 closes the
-  concrete finite microscopic-positivity gate at every presented critical
-  simple zero. It derives fixed inverse-cutoff corrected and raw first-jet
-  bounds, eventual positive floors for both clock Gram scalars and the temporal
-  Schur denominator, a corrected finite-energy floor, fixed non-jet residual,
-  pairing, and radial-gradient channels, and an eventual lower bound by half
-  of the exact phase floor. The release preserves the distinction between
-  cutoff M and analytic multiplicity m: the quadratic theorem is the m=1
-  sector. Arbitrary-multiplicity near-axis transport, compact-complement
-  nonvanishing, exact regional coverage, and a global strip-wide certificate
-  remain outside the promoted claim.
+  finite-to-limit transverse-energy architecture. Version 0.17.0 adds an
+  analytic near-axis certificate for every critical Genuine zero of arbitrary
+  positive finite multiplicity: each zero is isolated and admits a positive
+  punctured horizontal nonvanishing radius. Combined with nonvanishing on the
+  complementary strip region, the certificate yields final confinement. The
+  complement certificate and unconditional global strip-wide theorem remain
+  open and are not promoted by this release.
 keywords:
   - Lean 4
   - formalized mathematics
@@ -49,3 +45,7 @@ keywords:
   - uniform atlas
   - critical half-abscissa
   - reproducible proof audit
+  - analytic multiplicity
+  - near-axis nonvanishing
+  - isolated zero
+  - complement certificate
