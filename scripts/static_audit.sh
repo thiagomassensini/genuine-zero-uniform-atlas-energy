@@ -59,6 +59,7 @@ python3 -m json.tool audit/theorem-registry-0.12.0.json >/dev/null
 python3 -m json.tool audit/release-manifest-0.13.0.json >/dev/null
 python3 -m json.tool audit/release-manifest-0.14.0.json >/dev/null
 python3 -m json.tool audit/release-manifest-0.15.0.json >/dev/null
+python3 -m json.tool audit/release-manifest-0.16.0.json >/dev/null
 python3 -m json.tool audit/claim-ledger.json >/dev/null
 python3 -m json.tool lake-manifest.json >/dev/null
 python3 scripts/check_registry.py
@@ -72,6 +73,7 @@ test -s docs/RELEASE_0.12.0.md
 test -s docs/RELEASE_0.13.0.md
 test -s docs/RELEASE_0.14.0.md
 test -s docs/RELEASE_0.15.0.md
+test -s docs/RELEASE_0.16.0.md
 test -s docs/MICROSCOPIC_COERCIVITY_BRIDGE.md
 test -s docs/QUANTITATIVE_EMPIRICAL_JET_GATES.md
 test -s audit/THEOREM_REGISTRY.md
@@ -79,5 +81,6 @@ test -s audit/CLAIM_LEDGER.md
 test -s audit/RELEASE_MANIFEST_0.13.0.md
 test -s audit/RELEASE_MANIFEST_0.14.0.md
 test -s audit/RELEASE_MANIFEST_0.15.0.md
+test -s audit/RELEASE_MANIFEST_0.16.0.md
 
 echo "static audit passed: kernel sources, registry, release manifest, claims, metadata, and Markdown"
