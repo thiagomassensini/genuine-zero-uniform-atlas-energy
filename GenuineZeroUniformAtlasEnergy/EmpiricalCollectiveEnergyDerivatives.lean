@@ -53,7 +53,7 @@ lemma hasDerivAt_criticalLineParameter (time : ℝ) :
     funext u
     rfl
   rw [hfun]
-  simpa using hsum
+  simpa [Pi.add_apply] using hsum
 
 /-- First real jet of a complex analytic function along the critical line. -/
 def criticalLineFirstJet (F : ℂ → ℂ) (time : ℝ) : ℂ :=
@@ -437,13 +437,20 @@ lemma hasDerivAt_complexNormSq
   have him :=
     hasDerivAt_complex_im hF
   have hsum := (hre.mul hre).add (him.mul him)
-  convert hsum using 1
-  · funext u
-    simp [Complex.normSq_apply]
-  · unfold complexEnergyPair
+  have hfun : (fun u : ℝ => Complex.normSq (F u)) =
+      ((fun y : ℝ => (F y).re) * (fun y : ℝ => (F y).re) +
+        (fun y : ℝ => (F y).im) * (fun y : ℝ => (F y).im)) := by
+    funext u
+    simp [Complex.normSq_apply, Pi.add_apply, Pi.mul_apply]
+  have hderiv : complexEnergyPair (F time) F' =
+      F'.re * (F time).re + (F time).re * F'.re +
+        (F'.im * (F time).im + (F time).im * F'.im) := by
+    unfold complexEnergyPair
     rw [RCLike.inner_apply']
     simp [Complex.mul_re, Complex.conj_re, Complex.conj_im]
     ring
+  rw [hfun, hderiv]
+  exact hsum
 
 lemma hasDerivAt_complexEnergyPair
     {F G : ℝ → ℂ} {F' G' : ℂ} (time : ℝ)
@@ -461,16 +468,25 @@ lemma hasDerivAt_complexEnergyPair
     hasDerivAt_complex_im hG
   have hsum := (hFRe.mul hGRe).add (hFIm.mul hGIm)
   have hscaled := hsum.mul_const 2
-  convert hscaled using 1
-  · funext u
+  have hfun : (fun u : ℝ => complexEnergyPair (F u) (G u)) =
+      (((fun y : ℝ => (F y).re) * (fun y : ℝ => (G y).re) +
+        (fun y : ℝ => (F y).im) * (fun y : ℝ => (G y).im)) * 2) := by
+    funext u
+    unfold complexEnergyPair
+    rw [RCLike.inner_apply']
+    simp [Complex.mul_re, Complex.conj_re, Complex.conj_im,
+      Pi.add_apply, Pi.mul_apply]
+    ring
+  have hderiv :
+      complexEnergyPair F' (G time) + complexEnergyPair (F time) G' =
+        (F'.re * (G time).re + (F time).re * G'.re +
+          (F'.im * (G time).im + (F time).im * G'.im)) * 2 := by
     unfold complexEnergyPair
     rw [RCLike.inner_apply']
     simp [Complex.mul_re, Complex.conj_re, Complex.conj_im]
     ring
-  · unfold complexEnergyPair
-    rw [RCLike.inner_apply']
-    simp [Complex.mul_re, Complex.conj_re, Complex.conj_im]
-    ring
+  rw [hfun, hderiv]
+  exact hscaled
 
 lemma hasDerivAt_complexEnergyHessian
     {F F' : ℝ → ℂ} {F'' : ℂ} (time : ℝ)
@@ -500,11 +516,17 @@ lemma complexEnergyHessianPair_phase_cancel (a : ℂ) (L : ℝ) :
     complexEnergyHessianPair a
         (-((L : ℂ) * Complex.I) * a)
         (-((L : ℂ) ^ 2) * a) = 0 := by
+  have hnorm : ‖a‖ ^ 2 = a.re ^ 2 + a.im ^ 2 := by
+    rw [Complex.sq_norm, Complex.normSq_apply]
+    ring
+  have hL : ((L : ℂ) ^ 2).re = L ^ 2 := by
+    norm_num [Complex.mul_re]
+  have hLn : (((|L| : ℂ) ^ 2).re) = L ^ 2 := by
+    simpa [Complex.mul_re, pow_two] using (sq_abs L)
   unfold complexEnergyHessianPair complexEnergyPair
   rw [RCLike.inner_apply']
   simp [Complex.mul_re, Complex.mul_im, Complex.conj_re,
-    Complex.conj_im, Complex.sq_norm, Complex.normSq_apply,
-    Real.norm_eq_abs, sq_abs] <;> ring_nf
+    Complex.conj_im, hnorm, hL, hLn] <;> ring
 
 /-! ## Concrete leading coefficient and tail paths -/
 
