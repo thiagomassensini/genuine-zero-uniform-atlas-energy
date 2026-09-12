@@ -47,7 +47,10 @@ lemma hasDerivAt_criticalLineParameter (time : ℝ) :
       (1 * Complex.I) time := hlinear.mul_const Complex.I
   have hsum :=
     (hasDerivAt_const time ((1 / 2 : ℝ) : ℂ)).add hrot
-  simpa [criticalLineParameter, zero_add, one_mul] using hsum
+  change HasDerivAt
+    (fun u : ℝ => ((1 / 2 : ℝ) : ℂ) + (u : ℂ) * Complex.I)
+    Complex.I time
+  simpa using hsum
 
 /-- First real jet of a complex analytic function along the critical line. -/
 def criticalLineFirstJet (F : ℂ → ℂ) (time : ℝ) : ℂ :=
@@ -90,7 +93,14 @@ lemma hasDerivAt_criticalLine_firstJet_comp
         (0 : ℂ) * iteratedDeriv 1 F (criticalLineParameter time) +
           Complex.I * (Complex.I *
             iteratedDeriv 2 F (criticalLineParameter time)) := by
-    simp [criticalLineSecondJet, Complex.I_mul_I]
+    calc
+      criticalLineSecondJet F time =
+          -iteratedDeriv 2 F (criticalLineParameter time) := rfl
+      _ = (0 : ℂ) * iteratedDeriv 1 F (criticalLineParameter time) +
+          Complex.I * (Complex.I *
+            iteratedDeriv 2 F (criticalLineParameter time)) := by
+        simp only [zero_mul, zero_add, ← mul_assoc, Complex.I_mul_I,
+          neg_one_mul]
   rw [hfun, hderiv]
   exact hmul
 
@@ -208,12 +218,9 @@ lemma analyticAt_empiricalNativeTailCoefficient_critical
     (camera : EmpiricalCamera) (time : ℝ) :
     AnalyticAt ℂ (empiricalNativeTailCoefficient camera)
       (criticalLineParameter time) := by
-  have hb : 1 ≤ camera.period :=
-    Nat.succ_le_iff.mpr (empiricalCamera_period_pos camera)
-  simpa [empiricalNativeTailCoefficient] using
-    (differentiable_nativeExplicitRadiusTailCoefficient
-      camera.period (camera.label / 2) hb).analyticAt
-      (criticalLineParameter time)
+  cases camera <;>
+    unfold empiricalNativeTailCoefficient nativeExplicitRadiusTailCoefficient
+    fun_prop (disch := norm_num)
 
 lemma analyticAt_empiricalScaledCameraCutoffTail_critical
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
@@ -302,7 +309,6 @@ lemma complexEnergyPair_self (z : ℂ) :
   rw [RCLike.inner_apply']
   simp [Complex.mul_re, Complex.conj_re, Complex.conj_im,
     Complex.sq_norm, Complex.normSq_apply]
-  ring
 
 lemma abs_complexEnergyPair_le (z w : ℂ) :
     |complexEnergyPair z w| ≤ 2 * ‖z‖ * ‖w‖ := by
@@ -314,8 +320,9 @@ lemma abs_complexEnergyPair_le (z w : ℂ) :
     _ ≤ 2 * ‖inner ℂ z w‖ :=
       mul_le_mul_of_nonneg_left (Complex.abs_re_le_norm _) (by norm_num)
     _ ≤ 2 * (‖z‖ * ‖w‖) := by
-      exact mul_le_mul_of_nonneg_left (norm_inner_le_norm _ _)
-        (by norm_num)
+      simpa [mul_assoc] using
+        (mul_le_mul_of_nonneg_left (norm_inner_le_norm z w)
+          (by norm_num))
 
 lemma complexEnergyPair_sub_expansion (z w a b : ℂ) :
     complexEnergyPair z w - complexEnergyPair a b =
@@ -323,8 +330,7 @@ lemma complexEnergyPair_sub_expansion (z w a b : ℂ) :
         complexEnergyPair a (w - b) +
         complexEnergyPair (z - a) (w - b) := by
   unfold complexEnergyPair
-  simp only [inner_sub_left, inner_sub_right, Complex.sub_re,
-    Complex.add_re, mul_add, add_mul]
+  simp only [inner_sub_left, inner_sub_right, Complex.sub_re]
   ring
 
 /-- Bilinear perturbation estimate for the first real energy jet. -/
@@ -357,10 +363,11 @@ lemma abs_complexEnergyPair_sub_le_of_norm_sub_le
     _ ≤ 2 * ‖z - a‖ * ‖b‖ +
           2 * ‖a‖ * ‖w - b‖ +
           2 * ‖z - a‖ * ‖w - b‖ := by
-      gcongr
-      · exact abs_complexEnergyPair_le _ _
-      · exact abs_complexEnergyPair_le _ _
-      · exact abs_complexEnergyPair_le _ _
+      exact add_le_add
+        (add_le_add
+          (abs_complexEnergyPair_le (z - a) b)
+          (abs_complexEnergyPair_le a (w - b)))
+        (abs_complexEnergyPair_le (z - a) (w - b))
     _ ≤ 2 * (‖a‖ * e₁ + ‖b‖ * e₀ + e₀ * e₁) := by
       have hzb : 0 ≤ ‖b‖ := norm_nonneg _
       have hza : 0 ≤ ‖a‖ := norm_nonneg _
@@ -406,15 +413,8 @@ lemma abs_complexEnergyHessianPair_sub_le_of_norm_sub_le
 
 /-! ## Differentiating the complex norm square -/
 
-lemma hasDerivAt_complex_re
-    {F : ℝ → ℂ} {F' : ℂ} (time : ℝ)
-    (hF : HasDerivAt F F' time) :
-    HasDerivAt (fun u : ℝ => (F u).re) F'.re time := by
-  change HasDerivAt (Complex.reCLM ∘ F) (Complex.reCLM F') time
-  exact Complex.reCLM.hasFDerivAt.comp_hasDerivAt time hF
-
 lemma hasDerivAt_complex_im
-    {F : ℝ → ℂ} {F' : ℂ} (time : ℝ)
+    {F : ℝ → ℂ} {F' : ℂ} {time : ℝ}
     (hF : HasDerivAt F F' time) :
     HasDerivAt (fun u : ℝ => (F u).im) F'.im time := by
   change HasDerivAt (Complex.imCLM ∘ F) (Complex.imCLM F') time
@@ -426,9 +426,9 @@ lemma hasDerivAt_complexNormSq
     HasDerivAt (fun u : ℝ => Complex.normSq (F u))
       (complexEnergyPair (F time) F') time := by
   have hre :=
-    hasDerivAt_complex_re time hF
+    hasDerivAt_complex_re hF
   have him :=
-    hasDerivAt_complex_im time hF
+    hasDerivAt_complex_im hF
   have hsum := (hre.mul hre).add (him.mul him)
   simpa [Complex.normSq_apply, complexEnergyPair,
     RCLike.inner_apply', Complex.mul_re, Complex.conj_re,
@@ -441,13 +441,13 @@ lemma hasDerivAt_complexEnergyPair
       (complexEnergyPair F' (G time) +
         complexEnergyPair (F time) G') time := by
   have hFRe :=
-    hasDerivAt_complex_re time hF
+    hasDerivAt_complex_re hF
   have hFIm :=
-    hasDerivAt_complex_im time hF
+    hasDerivAt_complex_im hF
   have hGRe :=
-    hasDerivAt_complex_re time hG
+    hasDerivAt_complex_re hG
   have hGIm :=
-    hasDerivAt_complex_im time hG
+    hasDerivAt_complex_im hG
   have hsum := (hFRe.mul hGRe).add (hFIm.mul hGIm)
   simpa [complexEnergyPair, RCLike.inner_apply', Complex.mul_re,
     Complex.conj_re, Complex.conj_im] using hsum
@@ -480,15 +480,10 @@ lemma complexEnergyHessianPair_phase_cancel (a : ℂ) (L : ℝ) :
     complexEnergyHessianPair a
         (-((L : ℂ) * Complex.I) * a)
         (-((L : ℂ) ^ 2) * a) = 0 := by
-  have hsecond :
-      complexEnergyPair (-((L : ℂ) * Complex.I) * a)
-        (-((L : ℂ) ^ 2) * a) = 0 := by
-    have h := complexEnergyPair_phase_cancel
-      (-((L : ℂ) * Complex.I) * a) L
-    simpa [Complex.I_mul_I, mul_assoc, mul_left_comm, mul_comm] using h
-  unfold complexEnergyHessianPair
-  rw [complexEnergyPair_phase_cancel a L, hsecond]
-  norm_num
+  unfold complexEnergyHessianPair complexEnergyPair
+  rw [RCLike.inner_apply']
+  simp [Complex.mul_re, Complex.mul_im, Complex.conj_re,
+    Complex.conj_im, Complex.I_mul_I] <;> ring
 
 /-! ## Concrete leading coefficient and tail paths -/
 
@@ -592,7 +587,10 @@ lemma empiricalLeadingCollectiveCoefficientEnergyFirst_eq (time : ℝ) :
     have hsum' := hconst.add hsq
     have hscaled := hsum'.mul_const
       ((132244271 : ℝ) / 1778112000)
-    convert hscaled using 1 <;> ring
+    convert hscaled using 1
+    · funext u
+      ring
+    · ring
   have hEq : empiricalLeadingCollectiveCoefficientEnergy =
       (fun u : ℝ =>
         (1 / 4 + u ^ 2) * ((132244271 : ℝ) / 1778112000)) := by
@@ -710,7 +708,7 @@ lemma empiricalScaledCameraTailFirstJetConstant_nonneg
   unfold empiricalScaledCameraTailFirstJetConstant
   exact div_nonneg
     (empiricalScaledCameraTailCauchyConstant_nonneg camera time)
-    (by positivity)
+    (by norm_num [nativeExplicitRadiusCriticalCauchyRadius])
 
 lemma empiricalScaledCameraTailSecondJetConstant_nonneg
     (camera : EmpiricalCamera) (time : ℝ) :
@@ -719,7 +717,7 @@ lemma empiricalScaledCameraTailSecondJetConstant_nonneg
   exact div_nonneg
     (mul_nonneg (by norm_num)
       (empiricalScaledCameraTailCauchyConstant_nonneg camera time))
-    (by positivity)
+    (by norm_num [nativeExplicitRadiusCriticalCauchyRadius])
 
 /-- Linear part of the first derivative remainder. -/
 def empiricalCollectiveEnergyFirstDerivativeLinearConstant
@@ -772,7 +770,8 @@ lemma norm_empiricalScaledCameraTailErrorCritical_value_le_constant_div
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
     ‖empiricalScaledCameraTailErrorCritical camera M time‖ ≤
       empiricalScaledCameraTailValueJetConstant camera time / (M : ℝ) := by
-  simpa [empiricalScaledCameraTailValueJetConstant] using
+  simpa [empiricalScaledCameraTailErrorCritical,
+    empiricalScaledCameraTailValueJetConstant] using
     norm_empiricalScaledCameraTailError_critical_value_le camera M hM time
 
 lemma norm_empiricalScaledCameraTailErrorCritical_first_le_constant_div
@@ -781,8 +780,10 @@ lemma norm_empiricalScaledCameraTailErrorCritical_first_le_constant_div
       empiricalScaledCameraTailFirstJetConstant camera time / (M : ℝ) := by
   have h := norm_empiricalScaledCameraTailErrorCriticalFirst_le camera M hM time
   unfold empiricalScaledCameraTailFirstJetConstant
-  convert h using 1 <;> field_simp [show (M : ℝ) ≠ 0 by
-    exact_mod_cast (Nat.ne_of_gt (lt_of_lt_of_le Nat.zero_lt_one hM))]
+  convert h using 1
+  · field_simp [nativeExplicitRadiusCriticalCauchyRadius,
+      show (M : ℝ) ≠ 0 by
+        exact_mod_cast (Nat.ne_of_gt (lt_of_lt_of_le Nat.zero_lt_one hM))]
 
 lemma norm_empiricalScaledCameraTailErrorCritical_second_le_constant_div
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
@@ -790,8 +791,10 @@ lemma norm_empiricalScaledCameraTailErrorCritical_second_le_constant_div
       empiricalScaledCameraTailSecondJetConstant camera time / (M : ℝ) := by
   have h := norm_empiricalScaledCameraTailErrorCriticalSecond_le camera M hM time
   unfold empiricalScaledCameraTailSecondJetConstant
-  convert h using 1 <;> field_simp [show (M : ℝ) ≠ 0 by
-    exact_mod_cast (Nat.ne_of_gt (lt_of_lt_of_le Nat.zero_lt_one hM))]
+  convert h using 1
+  · field_simp [nativeExplicitRadiusCriticalCauchyRadius,
+      show (M : ℝ) ≠ 0 by
+        exact_mod_cast (Nat.ne_of_gt (lt_of_lt_of_le Nat.zero_lt_one hM))]
 
 lemma empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
@@ -816,6 +819,7 @@ lemma empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error
     empiricalScaledCameraTailErrorCriticalFirst criticalLineFirstJet
   rw [heq]
   rw [iteratedDeriv_add hcoef.contDiffAt herror.contDiffAt]
+  ring
 
 lemma empiricalScaledCameraCutoffTailCriticalSecond_eq_add_error
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
@@ -840,6 +844,7 @@ lemma empiricalScaledCameraCutoffTailCriticalSecond_eq_add_error
     empiricalScaledCameraTailErrorCriticalSecond criticalLineSecondJet
   rw [heq]
   rw [iteratedDeriv_add hcoef.contDiffAt herror.contDiffAt]
+  ring
 
 lemma empiricalScaledCameraTailEnergyFirst_remainder_le
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
@@ -858,13 +863,14 @@ lemma empiricalScaledCameraTailEnergyFirst_remainder_le
   have h0 : ‖empiricalScaledCameraCutoffTail camera M time -
       empiricalNativeTailCoefficientCritical camera time‖ ≤
       empiricalScaledCameraTailValueJetConstant camera time / (M : ℝ) := by
-    change ‖empiricalScaledCameraTailErrorCritical camera M time‖ ≤ _
-    exact norm_empiricalScaledCameraTailErrorCritical_value_le_constant_div
-      camera M hM time
+    simpa [empiricalScaledCameraTailErrorCritical] using
+      norm_empiricalScaledCameraTailErrorCritical_value_le_constant_div
+        camera M hM time
   have h1 : ‖empiricalScaledCameraCutoffTailCriticalFirst camera M time -
       empiricalNativeTailCoefficientCriticalFirst camera time‖ ≤
       empiricalScaledCameraTailFirstJetConstant camera time / (M : ℝ) := by
-    rw [empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error]
+    rw [empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error
+      camera M hM time]
     simp only [add_sub_cancel_left]
     exact norm_empiricalScaledCameraTailErrorCritical_first_le_constant_div
       camera M hM time
@@ -909,20 +915,22 @@ lemma empiricalScaledCameraTailEnergySecond_remainder_le
   have h0 : ‖empiricalScaledCameraCutoffTail camera M time -
       empiricalNativeTailCoefficientCritical camera time‖ ≤
       empiricalScaledCameraTailValueJetConstant camera time / (M : ℝ) := by
-    change ‖empiricalScaledCameraTailErrorCritical camera M time‖ ≤ _
-    exact norm_empiricalScaledCameraTailErrorCritical_value_le_constant_div
-      camera M hM time
+    simpa [empiricalScaledCameraTailErrorCritical] using
+      norm_empiricalScaledCameraTailErrorCritical_value_le_constant_div
+        camera M hM time
   have h1 : ‖empiricalScaledCameraCutoffTailCriticalFirst camera M time -
       empiricalNativeTailCoefficientCriticalFirst camera time‖ ≤
       empiricalScaledCameraTailFirstJetConstant camera time / (M : ℝ) := by
-    rw [empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error]
+    rw [empiricalScaledCameraCutoffTailCriticalFirst_eq_add_error
+      camera M hM time]
     simp only [add_sub_cancel_left]
     exact norm_empiricalScaledCameraTailErrorCritical_first_le_constant_div
       camera M hM time
   have h2 : ‖empiricalScaledCameraCutoffTailCriticalSecond camera M time -
       empiricalNativeTailCoefficientCriticalSecond camera time‖ ≤
       empiricalScaledCameraTailSecondJetConstant camera time / (M : ℝ) := by
-    rw [empiricalScaledCameraCutoffTailCriticalSecond_eq_add_error]
+    rw [empiricalScaledCameraCutoffTailCriticalSecond_eq_add_error
+      camera M hM time]
     simp only [add_sub_cancel_left]
     exact norm_empiricalScaledCameraTailErrorCritical_second_le_constant_div
       camera M hM time
@@ -1031,6 +1039,10 @@ theorem abs_empiricalScaledCollectiveCutoffTailEnergyFirst_sub_le
         simp only [empiricalCollectiveEnergyFirstDerivativeLinearConstant,
           empiricalCollectiveEnergyFirstDerivativeQuadraticConstant,
           Finset.sum_add_distrib, div_eq_mul_inv]
+        rw [Finset.sum_mul, Finset.sum_mul]
+        rw [← Finset.sum_add_distrib]
+        apply Finset.sum_congr rfl
+        intro camera _hcamera
         ring
 
 theorem abs_empiricalScaledCollectiveCutoffTailEnergySecond_sub_le
@@ -1113,6 +1125,10 @@ theorem abs_empiricalScaledCollectiveCutoffTailEnergySecond_sub_le
         simp only [empiricalCollectiveEnergySecondDerivativeLinearConstant,
           empiricalCollectiveEnergySecondDerivativeQuadraticConstant,
           Finset.sum_add_distrib, div_eq_mul_inv]
+        rw [Finset.sum_mul, Finset.sum_mul]
+        rw [← Finset.sum_add_distrib]
+        apply Finset.sum_congr rfl
+        intro camera _hcamera
         ring
 
 lemma empiricalCollectiveEnergyFirstDerivativeQuadraticConstant_nonneg
