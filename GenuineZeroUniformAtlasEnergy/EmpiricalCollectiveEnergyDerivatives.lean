@@ -29,11 +29,9 @@ open scoped BigOperators Topology ComplexConjugate InnerProductSpace
 namespace GenuineZeroUniformAtlasEnergy
 
 open CPFormal.Analytic.Cp
-open Set Filter
+open Set Filter Metric
 
 noncomputable section
-
-attribute [local instance 10000] NormedSpace.complexToReal
 
 /-! ## Real critical-line parameter and generic analytic jets -/
 
@@ -41,13 +39,15 @@ attribute [local instance 10000] NormedSpace.complexToReal
 lemma hasDerivAt_criticalLineParameter (time : ℝ) :
     HasDerivAt criticalLineParameter Complex.I time := by
   have hlinear : HasDerivAt (fun u : ℝ => (u : ℂ)) 1 time := by
-    simpa only [Complex.ofRealCLM_apply, Complex.ofReal_one, mul_one] using
-      (Complex.ofRealCLM.hasDerivAt (x := time))
+    simpa using (HasDerivAt.ofReal_comp (hasDerivAt_id time))
   have hrot : HasDerivAt (fun u : ℝ => (u : ℂ) * Complex.I)
       (1 * Complex.I) time := hlinear.mul_const Complex.I
   have hsum :=
     (hasDerivAt_const time ((1 / 2 : ℝ) : ℂ)).add hrot
-  simpa [criticalLineParameter] using hsum
+  convert hsum using 1
+  · funext u
+    simp [criticalLineParameter]
+  · simp
 
 /-- First real jet of a complex analytic function along the critical line. -/
 def criticalLineFirstJet (F : ℂ → ℂ) (time : ℝ) : ℂ :=
@@ -79,9 +79,9 @@ lemma hasDerivAt_criticalLine_firstJet_comp
   have hcomp := hasDerivAt_criticalLine_comp
     (iteratedDeriv 1 F) time hF'
   have hmul := (hasDerivAt_const time Complex.I).mul hcomp
-  convert hmul using 1 <;>
-    simp [criticalLineFirstJet, criticalLineSecondJet, Function.comp_def,
-      smul_eq_mul, Complex.I_mul_I, mul_assoc]
+  convert hmul using 1
+  · simp [criticalLineFirstJet, Function.comp_def]
+  · simp [criticalLineSecondJet, Complex.I_mul_I]
 
 /-- Analyticity supplies both complex derivatives needed by the real first jet. -/
 lemma hasDerivAt_criticalLine_of_analytic
@@ -204,57 +204,45 @@ lemma analyticAt_empiricalNativeTailCoefficient_critical
       camera.period (camera.label / 2) hb).analyticAt
       (criticalLineParameter time)
 
+lemma analyticAt_empiricalScaledCameraCutoffTail_critical
+    (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
+    AnalyticAt ℂ
+      (fun s : ℂ => (M : ℂ) ^ (s + 1) *
+        empiricalCameraCutoffTail camera M s)
+      (criticalLineParameter time) := by
+  have herror := analyticAt_empiricalScaledCameraTailError_critical
+    camera M hM time
+  have hcoef := analyticAt_empiricalNativeTailCoefficient_critical camera time
+  have hsum := hcoef.add herror
+  have heq : (fun s : ℂ => (M : ℂ) ^ (s + 1) *
+      empiricalCameraCutoffTail camera M s) =
+      (empiricalNativeTailCoefficient camera +
+        empiricalScaledCameraTailError camera M) := by
+    funext s
+    unfold empiricalScaledCameraTailError
+    ring
+  rw [heq]
+  exact hsum
+
 lemma hasDerivAt_empiricalScaledCameraCutoffTail_critical
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
     HasDerivAt (fun u : ℝ =>
       empiricalScaledCameraCutoffTail camera M u)
       (empiricalScaledCameraCutoffTailCriticalFirst camera M time) time := by
-  have herror := hasDerivAt_criticalLine_of_analytic
-    (empiricalScaledCameraTailError camera M) time
-    (analyticAt_empiricalScaledCameraTailError_critical camera M hM time)
-  have hcoef := hasDerivAt_criticalLine_of_analytic
-    (empiricalNativeTailCoefficient camera) time
-    (analyticAt_empiricalNativeTailCoefficient_critical camera time)
-  have hsum := hcoef.add herror
-  have heq : ∀ u : ℝ,
-      empiricalScaledCameraCutoffTail camera M u =
-        empiricalNativeTailCoefficientCritical camera u +
-          empiricalScaledCameraTailErrorCritical camera M u := by
-    intro u
-    unfold empiricalScaledCameraCutoffTail
-      empiricalNativeTailCoefficientCritical
-      empiricalScaledCameraTailErrorCritical
-      empiricalScaledCameraTailError
-    ring
-  have heq' : (fun u : ℝ => empiricalScaledCameraCutoffTail camera M u) =ᶠ[𝓝 time]
-      (fun u : ℝ => empiricalNativeTailCoefficientCritical camera u +
-        empiricalScaledCameraTailErrorCritical camera M u) :=
-    Filter.Eventually.of_forall heq
-  have hresult := hsum.congr_of_eventuallyEq heq'.symm
-  simpa [empiricalScaledCameraCutoffTailCriticalFirst,
-    empiricalNativeTailCoefficientCriticalFirst,
-    empiricalScaledCameraTailErrorCriticalFirst,
-    criticalLineFirstJet] using hresult
+  exact hasDerivAt_criticalLine_of_analytic
+    (fun s : ℂ => (M : ℂ) ^ (s + 1) *
+      empiricalCameraCutoffTail camera M s) time
+    (analyticAt_empiricalScaledCameraCutoffTail_critical camera M hM time)
 
 lemma hasDerivAt_empiricalScaledCameraCutoffTail_critical_firstJet
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
     HasDerivAt (fun u : ℝ =>
       empiricalScaledCameraCutoffTailCriticalFirst camera M u)
       (empiricalScaledCameraCutoffTailCriticalSecond camera M time) time := by
-  have herror := hasDerivAt_criticalLine_firstJet_of_analytic
-    (empiricalScaledCameraTailError camera M) time
-    (analyticAt_empiricalScaledCameraTailError_critical camera M hM time)
-  have hcoef := hasDerivAt_criticalLine_firstJet_of_analytic
-    (empiricalNativeTailCoefficient camera) time
-    (analyticAt_empiricalNativeTailCoefficient_critical camera time)
-  have hsum := hcoef.add herror
-  simpa [empiricalScaledCameraCutoffTailCriticalFirst,
-    empiricalScaledCameraCutoffTailCriticalSecond,
-    empiricalNativeTailCoefficientCriticalFirst,
-    empiricalScaledCameraTailErrorCriticalFirst,
-    empiricalNativeTailCoefficientCriticalSecond,
-    empiricalScaledCameraTailErrorCriticalSecond,
-    criticalLineFirstJet, criticalLineSecondJet] using hsum
+  exact hasDerivAt_criticalLine_firstJet_of_analytic
+    (fun s : ℂ => (M : ℂ) ^ (s + 1) *
+      empiricalCameraCutoffTail camera M s) time
+    (analyticAt_empiricalScaledCameraCutoffTail_critical camera M hM time)
 
 lemma norm_empiricalScaledCameraTailErrorCriticalFirst_le
     (camera : EmpiricalCamera) (M : ℕ) (hM : 1 ≤ M) (time : ℝ) :
